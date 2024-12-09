@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://nekoboxnode.github.io/news/article-22869.htm" />
+    <meta charset="utf-8">
+    <title>JAVA程序进阶——LocalDate、LocalTime、LocalDateTime</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <meta name="description" content="LocalDate LocalTIme LocalDateTime是java8 对日期、时间提供的接口。 这几个类相对于Date更像是一个工具类，里面包含了操作时间的很多方法 由于是final修饰的类" />
+    
+    <!-- Favicon -->
+    <link href="__ADDON__/img/nekoboxnode/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Ubuntu:wght@500;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcdn.net/ajax/libs/bootstrap-icons/1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="__ADDON__/js/frontend/nekoboxnode/lib/animate/animate.min.css" rel="stylesheet">
+    <link href="__ADDON__/js/frontend/nekoboxnode/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="/assets/website/css/nekoboxnode/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="/assets/website/css/nekoboxnode/style.css" rel="stylesheet">
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-93Z2TV5VL1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-93Z2TV5VL1');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body data-page="detail">
+    <!-- Spinner Start -->
+    <div id="spinner"
+        class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-grow text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <!-- Spinner End -->
+
+
+        <!-- Navbar Start -->
+    <div class="container-fluid sticky-top">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-dark p-0">
+                                <a href="/" class="navbar-brand text-white">NekoBox Node</a>
+                                <button type="button" class="navbar-toggler ms-auto me-0" data-bs-toggle="collapse"
+                    data-bs-target="#navbarCollapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <div class="navbar-nav ms-auto">
+                                                <a href="/" class="nav-item nav-link">首页</a>
+                                                <a href="/free-nodes/" class="nav-item nav-link">免费节点</a>
+                                                <a href="/paid-subscribe/" class="nav-item nav-link">推荐机场</a>
+                                                <a href="/news/" class="nav-item nav-link">新闻资讯</a>
+                                                <a href="#" class="nav-item nav-link">关于</a>
+                        <a href="#" class="nav-item nav-link">联系</a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <!-- Navbar End -->
+
+
+    <!-- Hero Start -->
+    <div class="container-fluid pt-5 bg-primary hero-header">
+        <div class="container pt-5">
+            <div class="row g-5 pt-5">
+                <div class="col-lg-6 align-self-center text-center text-lg-start mb-lg-5">
+                    <h1 class="text-white mb-4 animated slideInRight">JAVA程序进阶——LocalDate、LocalTime、LocalDateTime</h1>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb justify-content-center justify-content-lg-start mb-0">
+                            <li class="breadcrumb-item"><a class="text-white" href="/" title="首页">首页</a></li>
+                            <li class="breadcrumb-item"><a class="text-white" href="/news/" title="新闻资讯">新闻资讯</a></li>
+                            <li class="breadcrumb-item text-white active" aria-current="page">正文</li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="col-lg-6 align-self-end text-center text-lg-end">
+                    <img class="img-fluid" href="/assets/website/img/nekoboxnode/hero-img.png" alt="" style="max-height: 300px;">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Hero End -->
+
+
+    <!-- Full Screen Search Start -->
+    <div class="modal fade" id="searchModal" tabindex="-1">
+        <div class="modal-dialog modal-fullscreen">
+            <div class="modal-content" style="background: rgba(20, 24, 62, 0.7);">
+                <div class="modal-header border-0">
+                    <button type="button" class="btn btn-square bg-white btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body d-flex align-items-center justify-content-center">
+                    <div class="input-group" style="max-width: 600px;">
+                        <input type="text" class="form-control bg-transparent border-light p-3"
+                            placeholder="Type search keyword">
+                        <button class="btn btn-light px-4"><i class="bi bi-search"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Full Screen Search End -->
+
+
+    <!-- About Start -->
+    <div class="container-fluid py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                                      				  				  				<div id="content_views" class="markdown_views prism-atom-one-dark"> </h1> <blockquote> <p><strong>LocalDate LocalTIme LocalDateTime是java8 对日期、时间提供的接口。</strong></p> <p>这几个类相对于Date更像是一个工具类，里面包含了操作时间的很多方法</p> <p>由于是<strong>final</strong>修饰的类，所以不能继承，没有子类 并且<strong>构造方法是私有的</strong>，不可以通过<strong>new</strong>来生成对象</p> <p>LocalDateTime相对于Date类<strong>线程更安全</strong></p> </blockquote> <h2><a id="LocalDate_10" rel="nofollow"></a>LocalDate</h2> <blockquote> <p>获取当前日期的对象</p> </blockquote> <pre><code class="prism language-java"><span class="token class-name">LocalDate</span> localDate<span class="token operator">=</span><span class="token class-name">LocalDate</span><span class="token punctuation">.</span><span class="token function">now</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>localDate<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//返回值是 LocalDate  由于 改类重写了toString方法 所以可以直接输出</span></code></pre> <p><img decoding="async" src="http://img.555519.xyz/uploads/20221113/5d72641552bb710a9e28b1d7b9461bd5.jpg" alt="JAVA程序进阶——LocalDate、LocalTime、LocalDateTime"></p> <blockquote> <p>设置某个日期</p> </blockquote> <pre><code class="prism language-java"><span class="token class-name">LocalDate</span> localDate1<span class="token operator">=</span><span class="token class-name">LocalDate</span><span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span><span class="token number">1999</span><span class="token punctuation">,</span><span class="token number">10</span><span class="token punctuation">,</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>localDate1<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//获得 LocalDate实例从一年、月、日。 返回值是LocalDate</span><span class="token comment">//由于 of是静态类只能通过类名调用，不可以通过对象调用</span></code></pre> <p><img decoding="async" src="http://img.555519.xyz/uploads/20221113/e370c4ac2953d36968fe5c9aa3d3b518.jpg" alt="JAVA程序进阶——LocalDate、LocalTime、LocalDateTime"></p> <blockquote> <p>添加日期</p> </blockquote> <pre><code class="prism language-java"> localDate1<span class="token operator">=</span> localDate1<span class="token punctuation">.</span><span class="token function">plusDays</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//添加天数，返回LocalDate类</span>  localDate1<span class="token operator">=</span>  localDate1<span class="token punctuation">.</span><span class="token function">plusMonths</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//添加月份，返回LocalDate类</span>  localDate1<span class="token operator">=</span>  localDate1<span class="token punctuation">.</span><span class="token function">plusYears</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//添加年份，返回LocalDate类</span>  localDate1<span class="token operator">=</span>  localDate1<span class="token punctuation">.</span><span class="token function">plusWeeks</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//添加天数，每次添加1星期，返回LocalDate类</span><span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>localDate1<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre> <p><img decoding="async" src="http://img.555519.xyz/uploads/20221113/17c5f62d8d397f270e5ee69bc8cccae6.jpg" alt="JAVA程序进阶——LocalDate、LocalTime、LocalDateTime"></p> <blockquote> <p>检测是否闰年</p> </blockquote> <pre><code class="prism language-java">       localDate1<span class="token punctuation">.</span><span class="token function">isLeapYear</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//检测改年是否是闰年</span></code></pre> <blockquote> <p>获取日期长度</p> </blockquote> <pre><code class="prism language-java">   localDate1<span class="token punctuation">.</span><span class="token function">lengthOfMonth</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//获取该月的长度（天）</span>     localDate1<span class="token punctuation">.</span><span class="token function">lengthOfYear</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token comment">//获取改年的长度（天）</span><span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"本月共:"</span><span class="token operator">+</span>localDate1<span class="token punctuation">.</span><span class="token function">lengthOfMonth</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">+</span><span class="token string">"天，本年共："</span><span class="token operator">+</span>localDate1<span class="token punctuation">.</span><span class="token function">lengthOfYear</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">+</span><span class="token string">"天"</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre> <p><img decoding="async" src="http://img.555519.xyz/uploads/20221113/b133aa93541d4e4b8a420c4eb2908aa4.jpg" alt="JAVA程序进阶——LocalDate、LocalTime、LocalDateTime"></p> <blockquote> <p>结合这个日期与时间创建一个<code>LocalDateTime</code>。</p> </blockquote> <pre><code class="prism language-java"><span class="token class-name">LocalDateTime</span> localDateTime<span class="token operator">=</span> localDate1<span class="token punctuation">.</span><span class="token function">atTime</span><span class="token punctuation">(</span><span class="token number">23</span><span class="token punctuation">,</span><span class="token number">59</span><span class="token punctuation">,</span><span class="token number">59</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//返回值是LocalDateTime</span><span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>localDateTime<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//LocalDateTime类重写了toString方法</span></code></pre> <p><img decoding="async" src="http://img.555519.xyz/uploads/20221113/d32ddc7fc4761ee3f714a5f681778771.jpg" alt="JAVA程序进阶——LocalDate、LocalTime、LocalDateTime"></p> <blockquote> <p>通过字符串转化为日期</p> </blockquote> <pre><code class="prism language-java"><span class="token class-name">String</span> str<span class="token operator">=</span><span class="token string">"2022-02-02"</span><span class="token punctuation">;</span><span class="token class-name">DateTimeFormatter</span> dt<span class="token operator">=</span><span class="token class-name">DateTimeFormatter</span><span class="token punctuation">.</span><span class="token function">ofPattern</span><span class="token punctuation">(</span><span class="token string">"yyyy-MM-dd"</span><span class="token punctuation">)</span><span class="token class-name">LocalDate</span>  localDate<span class="token operator">=</span><span class="token class-name">LocalDate</span><span class="token punctuation">.</span><span class="token function">parse</span><span class="token punctuation">(</span>str<span class="token punctuation">,</span>dt<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>localDate<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre> <p><img decoding="async" src="http://img.555519.xyz/uploads/20221113/838db8113a5b84022c780dac483fed17.jpg" alt="JAVA程序进阶——LocalDate、LocalTime、LocalDateTime"></p> </div> 			                <div class="clearfix"></div>
+                <div class="col-md-12 mt-5">
+                                        <p>上一个：<a href="/news/article-22413.htm">动物医院大众点评文案 动物医院大众点评文案怎么写</a></p>
+                                        <p>下一个：<a href="/news/article-22871.htm">【重庆免费领养宠物】（2021重庆免费领养狗狗贴吧）</a></p>
+                                    </div>
+                                </div>
+                <div class="col-md-3">
+                    <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/free-nodes/2024-9-28-clash-node.htm" title="「9月28日」最高速度19.5M/S，2024年NekoBox每天更新免费节点订阅链接">「9月28日」最高速度19.5M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-11-14-shadowrocket-node.htm" title="「11月14日」最高速度20.3M/S，2024年NekoBox每天更新免费节点订阅链接">「11月14日」最高速度20.3M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-8-2-node-share.htm" title="「8月2日」最高速度18.4M/S，2024年NekoBox每天更新免费节点订阅链接">「8月2日」最高速度18.4M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-9-5-free-clash-subscribe.htm" title="「9月5日」最高速度20.9M/S，2024年NekoBox每天更新免费节点订阅链接">「9月5日」最高速度20.9M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-7-8-clash-windows.htm" title="「7月8日」最高速度22.8M/S，2024年NekoBox每天更新免费节点订阅链接">「7月8日」最高速度22.8M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-6-4-free-v2ray-subscribe.htm" title="「6月4日」最高速度18.1M/S，2024年Shadowrocket/SSR/V2ray/Clash每天更新免费节点订阅链接">「6月4日」最高速度18.1M/S，2024年Shadowrocket/SSR/V2ray/Clash每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-8-21-free-clash-subscribe.htm" title="「8月21日」最高速度18.7M/S，2024年NekoBox每天更新免费节点订阅链接">「8月21日」最高速度18.7M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-5-2-shadowrocket-node.htm" title="「5月2日」最高速度19.6M/S，2024年Clash/Shadowrocket/V2ray/SSR每天更新免费节点订阅链接">「5月2日」最高速度19.6M/S，2024年Clash/Shadowrocket/V2ray/SSR每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-12-8-node-share-links.htm" title="「12月8日」最高速度19M/S，2024年NekoBox每天更新免费节点订阅链接">「12月8日」最高速度19M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-10-5-node-share-links.htm" title="「10月5日」最高速度21M/S，2024年NekoBox每天更新免费节点订阅链接">「10月5日」最高速度21M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">27</span> <a href="/date/2024-12/" title="2024-12 归档">2024-12</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">34</span> <a href="/date/2024-11/" title="2024-11 归档">2024-11</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">31</span> <a href="/date/2024-10/" title="2024-10 归档">2024-10</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">30</span> <a href="/date/2024-09/" title="2024-09 归档">2024-09</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">31</span> <a href="/date/2024-08/" title="2024-08 归档">2024-08</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">27</span> <a href="/date/2024-07/" title="2024-07 归档">2024-07</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">26</span> <a href="/date/2024-06/" title="2024-06 归档">2024-06</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">31</span> <a href="/date/2024-05/" title="2024-05 归档">2024-05</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">4</span> <a href="/date/2024-04/" title="2024-04 归档">2024-04</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- About End -->
+
+
+
+        <!-- Footer Start -->
+    <div class="container-fluid bg-dark text-white-50 footer pt-5">
+        <div class="container wow fadeIn" data-wow-delay="0.1s">
+            <div class="copyright">
+                <div class="row">
+                    <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                        NekoBoxNode官网节点站 版权所有
+                        <br />
+                        Powered by WordPress
+                    </div>
+                    <div class="col-md-6 text-center text-md-end">
+                        <div class="footer-menu">
+                            <a href="/">Home</a>
+                            <a href="#">Cookies</a>
+                            <a href="#">Help</a>
+                            <a href="#">FAQs</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer End -->
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top pt-2"><i class="bi bi-arrow-up"></i></a>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.0.0/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/wow/wow.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/easing/easing.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/waypoints/waypoints.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/counterup/counterup.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/owlcarousel/owl.carousel.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="/assets/website/js/frontend/nekoboxnode/main.js"></script>
+    <script src="https://www.freeclashnode.com/assets/js/frontend/invite-url.js"></script><script src="/assets/website/js/frontend/G.js"></script>
+</body>
+
+</html>
