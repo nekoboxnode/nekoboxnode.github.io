@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://nekoboxnode.github.io/news/article-27508.htm" />
+    <meta charset="utf-8">
+    <title>vue实现下拉效果</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <meta name="description" content="手把手教你实现vue下拉菜单组件 96 阿乾哥 0.4 2019.02.26 00:20* 字数 2050 阅读 930评论 0喜欢 3 这篇文章我们一起来实现一个vue的下拉菜单组件。 像这种基本U" />
+    
+    <!-- Favicon -->
+    <link href="__ADDON__/img/nekoboxnode/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Ubuntu:wght@500;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcdn.net/ajax/libs/bootstrap-icons/1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="__ADDON__/js/frontend/nekoboxnode/lib/animate/animate.min.css" rel="stylesheet">
+    <link href="__ADDON__/js/frontend/nekoboxnode/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="/assets/website/css/nekoboxnode/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="/assets/website/css/nekoboxnode/style.css" rel="stylesheet">
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-93Z2TV5VL1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-93Z2TV5VL1');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body data-page="detail">
+    <!-- Spinner Start -->
+    <div id="spinner"
+        class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-grow text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <!-- Spinner End -->
+
+
+        <!-- Navbar Start -->
+    <div class="container-fluid sticky-top">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-dark p-0">
+                                <a href="/" class="navbar-brand text-white">NekoBox Node</a>
+                                <button type="button" class="navbar-toggler ms-auto me-0" data-bs-toggle="collapse"
+                    data-bs-target="#navbarCollapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <div class="navbar-nav ms-auto">
+                                                <a href="/" class="nav-item nav-link">首页</a>
+                                                <a href="/free-nodes/" class="nav-item nav-link">免费节点</a>
+                                                <a href="/paid-subscribe/" class="nav-item nav-link">推荐机场</a>
+                                                <a href="/news/" class="nav-item nav-link">新闻资讯</a>
+                                                <a href="#" class="nav-item nav-link">关于</a>
+                        <a href="#" class="nav-item nav-link">联系</a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <!-- Navbar End -->
+
+
+    <!-- Hero Start -->
+    <div class="container-fluid pt-5 bg-primary hero-header">
+        <div class="container pt-5">
+            <div class="row g-5 pt-5">
+                <div class="col-lg-6 align-self-center text-center text-lg-start mb-lg-5">
+                    <h1 class="text-white mb-4 animated slideInRight">vue实现下拉效果</h1>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb justify-content-center justify-content-lg-start mb-0">
+                            <li class="breadcrumb-item"><a class="text-white" href="/" title="首页">首页</a></li>
+                            <li class="breadcrumb-item"><a class="text-white" href="/news/" title="新闻资讯">新闻资讯</a></li>
+                            <li class="breadcrumb-item text-white active" aria-current="page">正文</li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="col-lg-6 align-self-end text-center text-lg-end">
+                    <img class="img-fluid" href="/assets/website/img/nekoboxnode/hero-img.png" alt="" style="max-height: 300px;">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Hero End -->
+
+
+    <!-- Full Screen Search Start -->
+    <div class="modal fade" id="searchModal" tabindex="-1">
+        <div class="modal-dialog modal-fullscreen">
+            <div class="modal-content" style="background: rgba(20, 24, 62, 0.7);">
+                <div class="modal-header border-0">
+                    <button type="button" class="btn btn-square bg-white btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body d-flex align-items-center justify-content-center">
+                    <div class="input-group" style="max-width: 600px;">
+                        <input type="text" class="form-control bg-transparent border-light p-3"
+                            placeholder="Type search keyword">
+                        <button class="btn btn-light px-4"><i class="bi bi-search"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Full Screen Search End -->
+
+
+    <!-- About Start -->
+    <div class="container-fluid py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                                    <input type="hidden" id="share-website-info" data-name="" data-url="">
+                  				  				  				<div id="content_views" class="markdown_views prism-atom-one-dark"> <p>手把手教你实现vue下拉菜单组件<br /> 96 阿乾哥<br /> 0.4 2019.02.26 00:20* 字数 2050 阅读 930评论 0喜欢 3</p> <p>这篇文章我们一起来实现一个vue的下拉菜单组件。<br /> 像这种基本UI组件，网上已经有很多了，为什么要自己实现呢？其实并不是有意重复造轮子，而是想通过这个过程回顾一下vue组件开发的一些细节和注意事项。</p> <p>为什么选择下拉菜单组件？<br /> 因为：麻雀虽小五脏俱全，这个小小的组件涉及到了不少vue组件开发的知识点。<br /> 好了，那就开始吧！</p> <p>首先创建一个vue-cli的项目，笔者用的是vue-cli3，创建过程略，然后创建一个vue组件：DropDownList.vue</p> <p>在编写模板之前，我们来分析一下这个组件的视图结构和功能。<br /> 下拉菜单组件应该由两部分组成：</p> <pre><code>选中项的文本 待选菜单（默认隐藏）</code></pre> <p>它的主要功能包括：</p> <pre><code>鼠标经过下拉菜单组件，显示待选菜单 鼠标滑出下拉菜单组件，隐藏待选菜单 鼠标点击待选菜单中的条目，选中项文本更新，组件派发change事件 我们编写如下这样的模板：</code></pre> <p>选中项文本右侧的i标签，用来实现下拉菜单的三角形图标，在下文的css中我们用背景图来实现。<br /> 我们给根元素div已经添加了鼠标经过和滑出的回调函数，具体实现见下文。</p> <p>接下来我们为这个下拉菜单编写样式，在模板下方添加style标签，为了防止和其他组件的样式发生冲突，笔者建议大家在开发组件时，都给style加上scoped属性。另外，笔者在这里用到了scss，具体代码如下：</p> <p>关于样式，这里就不详细展开了，只说其中几个需要注意的点：</p> <pre><code>那个i元素的样式，我用到了一个网络图片，大家可以自行更换 待选菜单ul在css里并没有让它隐藏，因为我们要通过js来控制，具体原因见下文 待选菜单ul使用了绝对定位，因为当它展开的时候，不应该影响页面上其他元素的布局</code></pre> <p>现在这个组件大概长这个样子：</p> <p>1.png</p> <p>我们继续为这个组件定义属性，很显然，待选菜单应该作为属性传进来，一定不能是内部写死的，属性定义如下：</p> <p>这个页面引入并使用了我们的DropDownList组件，:dataList=“dplist” 绑定了当前页面的dplist数组到组件的dataList属性上，这个数组中的对象有一个city字段，我们希望此字段显示在下拉菜单上，因此我们设置组件的labelProperty为city，我们还给这个组件注册了change事件，这个组件内部需要派发这个事件，见下文。</p> <p>现在我们回到组件的模板部分，发现它都还是静态内容，我们把这些静态内容修改为通过属性渲染。</p> <p>其中待选菜单li的文本是 item[labelProperty] 这样就能正确的显示开发者指定的字段了。<br /> 我们看看选中项的文本表达式：dplLabel，我们并没有定义这个属性，也没有定义这个内部数据，它是哪儿来的？选中项的文本应该是 dataList[activeIndex][labelProperty] （这个很好理解吧，有问题请留言），但这个表达式太长了，写在模板里不利于维护，我们就把它写到计算属性里吧。</p> <p>computed:{<!-- --><br /> dplLable(){<!-- --><br /> return this.dataList[this.activeIndex][this.labelProperty]<br /> }<br /> }</p> <p>于是才有了上面的dplLabel，计算属性真的很好用呢。</p> <p>现在下拉菜单的视图和数据关联部分我们已经写完了，接下来我们要实现它的功能。</p> <p>第一步是先让待选菜单默认隐藏起来，这里我们为什么不直接用css的display:none呢，然后鼠标经过的时候display:block不就可以了吗？因为这样的话，我们无法实现点击待选菜单条目的时候让它隐藏，体验不好。我们用js来控制，但vue对直接访问dom元素支持的并不好，我们要想在组件初始化的时候访问dom元素，有一个最方便的做法，那就是：自定义指令。</p> <p>我们为下拉菜单组件添加局部自定义指令，代码如下：</p> <p>directives:{<!-- --><br /> dpl:{<!-- --><br /> bind(el){<!-- --><br /> el.style.display = “none”;<br /> }<br /> }<br /> },</p> <p>这个dpl就是自定义指令啦，请忽略我笨拙的命名哈！然后我们在自定义指令的钩子函数bind方法中，访问el元素，控制它的style属性display:none; 最后，把这个自定义指令加到模板里面的ul标签上。别忘了要加v-，现在看看效果，待选菜单已经隐藏了。</p> <ul></ul> <p>我们利用自定义指令钩子函数访问dom元素，实现了对dom的控制，这一点非常实用！</p> <p>让我们继续实现最开始为下拉菜单定义的鼠标经过和鼠标滑出的监听，实现待选菜单的显示与隐藏。</p> <p>onDplOver(event){<!-- --><br /> let ul = event.currentTarget.childNodes[1];<br /> ul.style.display = “block”;<br /> },<br /> onDplOut(event){<!-- --><br /> let ul = event.currentTarget.childNodes[1];<br /> ul.style.display = “none”;<br /> },</p> <p>我们在鼠标事件中，访问event的currentTarget对象，为什么不是target？因为下拉菜单的子元素也会触发这个事件，如果访问target，可能不会是我们预期的顶层元素。</p> <p>最后一步，我们实现待选菜单条目的点击事件，点击后，待选菜单隐藏，修改内部状态，派发change事件。</p> <p>onLiClick(index){<!-- --><br /> let path = event.path || (event.composedPath &amp;&amp; event.composedPath()) //兼容火狐和safari<br /> path[1].style.display = “none”;<br /> this.activeIndex = index;<br /> this.$emit(“change”, {<!-- --><br /> index:index,<br /> value:this.dataList[index]<br /> })<br /> }</p> <p>这里有一个细节需要注意，我们要通过li元素找到外层ul元素，但path不支持火狐和safari，好在这两个浏览器支持composedPath，因此才有了第一行代码的兼容写法。然后通过修改内部数据activeIndex实现选中项文本的更新，最后调用emit方法向父元素派发change事件，别忘了把事件对象封装好传出去。</p> <p>完整的代码如下：</p> <p>以上为大家展示了vue如何实现一个下拉菜单组件，虽然比较简单，但也基本涉及到了组件开发常用的一些特性。</p> </div> 			                <div class="clearfix"></div>
+                <div class="col-md-12 mt-5">
+                                        <p>上一个：<a href="/news/article-27046.htm">厦门宠物领养中心在哪里 厦门宠物领养中心在哪里啊</a></p>
+                                        <p>下一个：<a href="/news/article-27509.htm">基于web的宠物领养系统的设计毕业论文（宠物领养网站源码）</a></p>
+                                    </div>
+                                </div>
+                <div class="col-md-3">
+                    <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/free-nodes/2024-9-28-clash-node.htm" title="「9月28日」最高速度19.5M/S，2024年NekoBox每天更新免费节点订阅链接">「9月28日」最高速度19.5M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-8-14-free-clash.htm" title="「8月14日」最高速度18.7M/S，2024年NekoBox每天更新免费节点订阅链接">「8月14日」最高速度18.7M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-6-13-free-high-speed-nodes.htm" title="「6月13日」最高速度21.6M/S，2024年SSR/V2ray/Shadowrocket/Clash每天更新免费节点订阅链接">「6月13日」最高速度21.6M/S，2024年SSR/V2ray/Shadowrocket/Clash每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-4-29-node-share.htm" title="「4月29日」最高速度20.7M/S，2024年V2ray/Clash/SSR/Shadowrocket每天更新免费节点订阅链接">「4月29日」最高速度20.7M/S，2024年V2ray/Clash/SSR/Shadowrocket每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-21955.htm" title="海拉鲁图鉴宝物（海拉鲁图鉴 材料）">海拉鲁图鉴宝物（海拉鲁图鉴 材料）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-11-21-free-ssr-subscribe.htm" title="「11月21日」最高速度18.4M/S，2024年NekoBox每天更新免费节点订阅链接">「11月21日」最高速度18.4M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-10-9-free-v2ray-subscribe.htm" title="「10月9日」最高速度19.4M/S，2024年NekoBox每天更新免费节点订阅链接">「10月9日」最高速度19.4M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-8-19-free-v2ray-subscribe.htm" title="「8月19日」最高速度19.7M/S，2024年NekoBox每天更新免费节点订阅链接">「8月19日」最高速度19.7M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-7-17-shadowrocket-node.htm" title="「7月17日」最高速度21.5M/S，2024年NekoBox每天更新免费节点订阅链接">「7月17日」最高速度21.5M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-23324.htm" title="宠物粮业务员好干吗工资多少一个月（宠物粮食业务员）">宠物粮业务员好干吗工资多少一个月（宠物粮食业务员）</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">57</span> <a href="/date/2024-12/" title="2024-12 归档">2024-12</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">34</span> <a href="/date/2024-11/" title="2024-11 归档">2024-11</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">31</span> <a href="/date/2024-10/" title="2024-10 归档">2024-10</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">30</span> <a href="/date/2024-09/" title="2024-09 归档">2024-09</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">31</span> <a href="/date/2024-08/" title="2024-08 归档">2024-08</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">27</span> <a href="/date/2024-07/" title="2024-07 归档">2024-07</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">26</span> <a href="/date/2024-06/" title="2024-06 归档">2024-06</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">31</span> <a href="/date/2024-05/" title="2024-05 归档">2024-05</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">4</span> <a href="/date/2024-04/" title="2024-04 归档">2024-04</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- About End -->
+
+
+
+        <!-- Footer Start -->
+    <div class="container-fluid bg-dark text-white-50 footer pt-5">
+        <div class="container wow fadeIn" data-wow-delay="0.1s">
+            <div class="copyright">
+                <div class="row">
+                    <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                            <p>
+                                <a href="/">首页</a> | 
+                                <a href="/free-node/">免费节点</a> | 
+                                <a href="/news/">新闻资讯</a> |
+                                <a href="/about-us.htm">关于我们</a> |
+                                <a href="/disclaimer.htm">免责申明</a> |
+                                <a href="/privacy.htm">隐私申明</a> |
+                                <a href="/sitemap.xml">网站地图</a>
+                            </p>
+                        NekoBoxNode官网节点站 版权所有
+                        <br />
+                        Powered by WordPress
+                    </div>
+                    <div class="col-md-6 text-center text-md-end">
+                        <div class="footer-menu">
+                            <a href="/">Home</a>
+                            <a href="#">Cookies</a>
+                            <a href="#">Help</a>
+                            <a href="#">FAQs</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer End -->
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top pt-2"><i class="bi bi-arrow-up"></i></a>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.0.0/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/wow/wow.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/easing/easing.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/waypoints/waypoints.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/counterup/counterup.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/owlcarousel/owl.carousel.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="/assets/website/js/frontend/nekoboxnode/main.js"></script>
+    <script src="https://www.freeclashnode.com/assets/js/frontend/invite-url.js"></script><script src="/assets/website/js/frontend/G.js"></script>
+</body>
+
+</html>
