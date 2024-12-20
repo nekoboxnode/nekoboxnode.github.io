@@ -128,7 +128,8 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-9">
-                                      				  				  				<div id="content_views" class="markdown_views prism-atom-one-dark"> <p><a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://www.cnblogs.com/zcmos/p/10277554.html"  rel="nofollow">vue动态加载静态资源</a></p> <p>项目背景：项目的使用场景是面向信息安全相关部门，环境很有可能没有公网，局域网并不稳定，所以无法使用七牛等CDN保存图片资源。从而采用引入本地资源的方式</p> <p>通常一张本地静态图片在vue中的写法是这样</p> <pre><code>&lt;img src="@/assets/icon/demo.png" alt="vue动态加载静态资源"&gt;</code></pre> <p>但是，img标签如果在src路径中使用变量，会被编译为字符串，导致编译后的路径就是我们写上去的字符串形式，比如你在data中定义了一个变量src，然后在img标签中引用</p> <pre><code>//data中定义变量src data() {   return {     src: 'demo'    } } //模版中的标签 &lt;img src="@/assets/icon/" + src + ".png" alt="vue动态加载静态资源"&gt;</code></pre> <p>你会发现这个时候图片并没有被加载出来，浏览器中这张图片的地址直接显示’@/assets/icon/demo.png’，也就是没有经过编译的步骤，直接将我们的输入当作字符串显示</p> <p>在实际开发中，难免会需要动态生成图片路径的场景，那么如何正确显示图片呢？</p> <ol> <li>在当前页面全局import图片地址</li> </ol> <pre><code>//使用import引入 import pic1 from '@/assets/icon/demo1.png' import pic2 from '@/assets/icon/demo2.png' //在data中定义图片变量 data() {   return {     pic: {[       name: 'demo1',       src: pic1,     ], [       name: 'demo2',       src: pic2,     ]}   } } //在HTML中使用 &lt;img v-for="item in pic" :src="item.src" :alt="item.name"/&gt;</code></pre> <p>图片可以正确显示，但需要图片名称和你引入的图片手动做好对应。作为一个程序员，当然不会使用这么low的操作了，所以就有了下文</p> <ol start="2"> <li>使用require<br /> require可以在代码中使用，所以我们可以在获取数据的同时，为数对象增加一个src的属性</li> </ol> <pre><code>getData() {   this.data.forEach(ele =&gt; {     ele.src = require('@/assets/icon/' + ele.name + '.png');   }) }</code></pre> <p>这就需要我们规范本地图片的命名了，确保能最有效地获取到正确的图片路径<br /> 使用require的时候也需要注意一点：require内容不能使用变量，如下写法会直接导致编译报错</p> <pre><code>let src = '@/assets/icon/demo.png'; require(src) //报错“. is not a module”</code></pre> <p>3.将本地资源放到static目录下引用</p> <pre><code>getData() {   this.data.forEach(ele =&gt; {     ele.src = 'static/icon/' + ele.name + '.png'   }) }</code></pre> </div> 			                <div class="clearfix"></div>
+                                    <input type="hidden" id="share-website-info" data-name="" data-url="">
+                  				  				  				<div id="content_views" class="markdown_views prism-atom-one-dark"> <p><a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://www.cnblogs.com/zcmos/p/10277554.html"  rel="nofollow">vue动态加载静态资源</a></p> <p>项目背景：项目的使用场景是面向信息安全相关部门，环境很有可能没有公网，局域网并不稳定，所以无法使用七牛等CDN保存图片资源。从而采用引入本地资源的方式</p> <p>通常一张本地静态图片在vue中的写法是这样</p> <pre><code>&lt;img src="@/assets/icon/demo.png" alt="vue动态加载静态资源"&gt;</code></pre> <p>但是，img标签如果在src路径中使用变量，会被编译为字符串，导致编译后的路径就是我们写上去的字符串形式，比如你在data中定义了一个变量src，然后在img标签中引用</p> <pre><code>//data中定义变量src data() {   return {     src: 'demo'    } } //模版中的标签 &lt;img src="@/assets/icon/" + src + ".png" alt="vue动态加载静态资源"&gt;</code></pre> <p>你会发现这个时候图片并没有被加载出来，浏览器中这张图片的地址直接显示’@/assets/icon/demo.png’，也就是没有经过编译的步骤，直接将我们的输入当作字符串显示</p> <p>在实际开发中，难免会需要动态生成图片路径的场景，那么如何正确显示图片呢？</p> <ol> <li>在当前页面全局import图片地址</li> </ol> <pre><code>//使用import引入 import pic1 from '@/assets/icon/demo1.png' import pic2 from '@/assets/icon/demo2.png' //在data中定义图片变量 data() {   return {     pic: {[       name: 'demo1',       src: pic1,     ], [       name: 'demo2',       src: pic2,     ]}   } } //在HTML中使用 &lt;img v-for="item in pic" :src="item.src" :alt="item.name"/&gt;</code></pre> <p>图片可以正确显示，但需要图片名称和你引入的图片手动做好对应。作为一个程序员，当然不会使用这么low的操作了，所以就有了下文</p> <ol start="2"> <li>使用require<br /> require可以在代码中使用，所以我们可以在获取数据的同时，为数对象增加一个src的属性</li> </ol> <pre><code>getData() {   this.data.forEach(ele =&gt; {     ele.src = require('@/assets/icon/' + ele.name + '.png');   }) }</code></pre> <p>这就需要我们规范本地图片的命名了，确保能最有效地获取到正确的图片路径<br /> 使用require的时候也需要注意一点：require内容不能使用变量，如下写法会直接导致编译报错</p> <pre><code>let src = '@/assets/icon/demo.png'; require(src) //报错“. is not a module”</code></pre> <p>3.将本地资源放到static目录下引用</p> <pre><code>getData() {   this.data.forEach(ele =&gt; {     ele.src = 'static/icon/' + ele.name + '.png'   }) }</code></pre> </div> 			                <div class="clearfix"></div>
                 <div class="col-md-12 mt-5">
                                         <p>上一个：<a href="/news/article-19204.htm">动物疫苗研发生产流程是什么（动物疫苗制造技术）</a></p>
                                         <p>下一个：<a href="/news/article-19659.htm">卖一吨饲料一般利润多少 开个饲料加工厂需要投资多少钱</a></p>
@@ -141,16 +142,16 @@
     </div>
     <div class="panel-body">
         <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
-                        <li class="py-2"><a href="/free-nodes/2024-5-2-shadowrocket-node.htm" title="「5月2日」最高速度19.6M/S，2024年Clash/Shadowrocket/V2ray/SSR每天更新免费节点订阅链接">「5月2日」最高速度19.6M/S，2024年Clash/Shadowrocket/V2ray/SSR每天更新免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2024-4-29-node-share.htm" title="「4月29日」最高速度20.7M/S，2024年V2ray/Clash/SSR/Shadowrocket每天更新免费节点订阅链接">「4月29日」最高速度20.7M/S，2024年V2ray/Clash/SSR/Shadowrocket每天更新免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/news/article-19203.htm" title="动物打了疫苗还会有狂犬病吗（打了疫苗的动物用不用打狂犬疫苗）">动物打了疫苗还会有狂犬病吗（打了疫苗的动物用不用打狂犬疫苗）</a></li>
-                        <li class="py-2"><a href="/free-nodes/2024-10-19-free-v2ray-subscribe.htm" title="「10月19日」最高速度19.3M/S，2024年NekoBox每天更新免费节点订阅链接">「10月19日」最高速度19.3M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2024-6-8-free-clash-subscribe.htm" title="「6月8日」最高速度18.3M/S，2024年Clash/SSR/Shadowrocket/V2ray每天更新免费节点订阅链接">「6月8日」最高速度18.3M/S，2024年Clash/SSR/Shadowrocket/V2ray每天更新免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2024-6-9-free-ssr-node.htm" title="「6月9日」最高速度18.4M/S，2024年Clash/Shadowrocket/SSR/V2ray每天更新免费节点订阅链接">「6月9日」最高速度18.4M/S，2024年Clash/Shadowrocket/SSR/V2ray每天更新免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2024-5-29-node-share-links.htm" title="「5月29日」最高速度19.5M/S，2024年V2ray/Shadowrocket/Clash/SSR每天更新免费节点订阅链接">「5月29日」最高速度19.5M/S，2024年V2ray/Shadowrocket/Clash/SSR每天更新免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2024-5-7-clash-node-daily-updates.htm" title="「5月7日」最高速度22.4M/S，2024年V2ray/Shadowrocket/Clash/SSR每天更新免费节点订阅链接">「5月7日」最高速度22.4M/S，2024年V2ray/Shadowrocket/Clash/SSR每天更新免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2024-6-24-free-v2ray-subscribe.htm" title="「6月24日」最高速度21.5M/S，2024年Clash/Shadowrocket/SSR/V2ray每天更新免费节点订阅链接">「6月24日」最高速度21.5M/S，2024年Clash/Shadowrocket/SSR/V2ray每天更新免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2024-9-5-free-clash-subscribe.htm" title="「9月5日」最高速度20.9M/S，2024年NekoBox每天更新免费节点订阅链接">「9月5日」最高速度20.9M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-9-19-free-ssr-subscribe.htm" title="「9月19日」最高速度18.2M/S，2024年NekoBox每天更新免费节点订阅链接">「9月19日」最高速度18.2M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-4-27-free-high-speed-nodes.htm" title="4月27日19.6M/S|V2ray/SSR/Clash/Shadowrocket免费节点每天更新订阅链接">4月27日19.6M/S|V2ray/SSR/Clash/Shadowrocket免费节点每天更新订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-10-1-free-clash-subscribe.htm" title="「10月1日」最高速度19.2M/S，2024年NekoBox每天更新免费节点订阅链接">「10月1日」最高速度19.2M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-11-18-free-v2ray-subscribe.htm" title="「11月18日」最高速度21.2M/S，2024年NekoBox每天更新免费节点订阅链接">「11月18日」最高速度21.2M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-9-10-clash-node.htm" title="「9月10日」最高速度21.9M/S，2024年NekoBox每天更新免费节点订阅链接">「9月10日」最高速度21.9M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-27969.htm" title="动物疫苗使用时需要注意哪几个方面的问题（动物疫苗使用时需要注意哪几个方面的问题和建议）">动物疫苗使用时需要注意哪几个方面的问题（动物疫苗使用时需要注意哪几个方面的问题和建议）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-8-28-free-shadowrocket-node.htm" title="「8月28日」最高速度21.8M/S，2024年NekoBox每天更新免费节点订阅链接">「8月28日」最高速度21.8M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-10-25-free-node-subscribe.htm" title="「10月25日」最高速度21.3M/S，2024年NekoBox每天更新免费节点订阅链接">「10月25日」最高速度21.3M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-11-10-free-clash.htm" title="「11月10日」最高速度21.2M/S，2024年NekoBox每天更新免费节点订阅链接">「11月10日」最高速度21.2M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-8-17-free-v2ray-subscribe.htm" title="「8月17日」最高速度18.7M/S，2024年NekoBox每天更新免费节点订阅链接">「8月17日」最高速度18.7M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
                     </ul>
     </div>
 </div>
@@ -162,7 +163,7 @@
     <div class="panel-body">
         <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
                         <li class="py-2">
-                <h4><span class="badge" style="float: right;">15</span> <a href="/date/2024-12/" title="2024-12 归档">2024-12</a></h4>
+                <h4><span class="badge" style="float: right;">57</span> <a href="/date/2024-12/" title="2024-12 归档">2024-12</a></h4>
             </li>
                         <li class="py-2">
                 <h4><span class="badge" style="float: right;">34</span> <a href="/date/2024-11/" title="2024-11 归档">2024-11</a></h4>
@@ -208,6 +209,15 @@
             <div class="copyright">
                 <div class="row">
                     <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                            <p>
+                                <a href="/">首页</a> | 
+                                <a href="/free-node/">免费节点</a> | 
+                                <a href="/news/">新闻资讯</a> |
+                                <a href="/about-us.htm">关于我们</a> |
+                                <a href="/disclaimer.htm">免责申明</a> |
+                                <a href="/privacy.htm">隐私申明</a> |
+                                <a href="/sitemap.xml">网站地图</a>
+                            </p>
                         NekoBoxNode官网节点站 版权所有
                         <br />
                         Powered by WordPress
