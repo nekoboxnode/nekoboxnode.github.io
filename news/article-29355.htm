@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://nekoboxnode.github.io/news/article-29355.htm" />
+    <meta charset="utf-8">
+    <title>SpringBoot项目处理emoji表情到mysql</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <meta name="description" content="Mysql设置字符集编码，程序设置连接客户端编码来解决emoji表情  emoji表情现在是日常生活中必不可少的存在了，首先我们先了解一下为什么emoji表情不能像普通的字符处理？emoji 其实是表" />
+    
+    <!-- Favicon -->
+    <link href="__ADDON__/img/nekoboxnode/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Ubuntu:wght@500;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcdn.net/ajax/libs/bootstrap-icons/1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="__ADDON__/js/frontend/nekoboxnode/lib/animate/animate.min.css" rel="stylesheet">
+    <link href="__ADDON__/js/frontend/nekoboxnode/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="/assets/website/css/nekoboxnode/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="/assets/website/css/nekoboxnode/style.css" rel="stylesheet">
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-93Z2TV5VL1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-93Z2TV5VL1');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body data-page="detail">
+    <!-- Spinner Start -->
+    <div id="spinner"
+        class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-grow text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <!-- Spinner End -->
+
+
+        <!-- Navbar Start -->
+    <div class="container-fluid sticky-top">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-dark p-0">
+                                <a href="/" class="navbar-brand text-white">NekoBox Node</a>
+                                <button type="button" class="navbar-toggler ms-auto me-0" data-bs-toggle="collapse"
+                    data-bs-target="#navbarCollapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <div class="navbar-nav ms-auto">
+                                                <a href="/" class="nav-item nav-link">首页</a>
+                                                <a href="/free-nodes/" class="nav-item nav-link">免费节点</a>
+                                                <a href="/paid-subscribe/" class="nav-item nav-link">推荐机场</a>
+                                                <a href="/news/" class="nav-item nav-link">新闻资讯</a>
+                                                <a href="#" class="nav-item nav-link">关于</a>
+                        <a href="#" class="nav-item nav-link">联系</a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <!-- Navbar End -->
+
+
+    <!-- Hero Start -->
+    <div class="container-fluid pt-5 bg-primary hero-header">
+        <div class="container pt-5">
+            <div class="row g-5 pt-5">
+                <div class="col-lg-6 align-self-center text-center text-lg-start mb-lg-5">
+                    <h1 class="text-white mb-4 animated slideInRight">SpringBoot项目处理emoji表情到mysql</h1>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb justify-content-center justify-content-lg-start mb-0">
+                            <li class="breadcrumb-item"><a class="text-white" href="/" title="首页">首页</a></li>
+                            <li class="breadcrumb-item"><a class="text-white" href="/news/" title="新闻资讯">新闻资讯</a></li>
+                            <li class="breadcrumb-item text-white active" aria-current="page">正文</li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="col-lg-6 align-self-end text-center text-lg-end">
+                    <img class="img-fluid" href="/assets/website/img/nekoboxnode/hero-img.png" alt="" style="max-height: 300px;">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Hero End -->
+
+
+    <!-- Full Screen Search Start -->
+    <div class="modal fade" id="searchModal" tabindex="-1">
+        <div class="modal-dialog modal-fullscreen">
+            <div class="modal-content" style="background: rgba(20, 24, 62, 0.7);">
+                <div class="modal-header border-0">
+                    <button type="button" class="btn btn-square bg-white btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body d-flex align-items-center justify-content-center">
+                    <div class="input-group" style="max-width: 600px;">
+                        <input type="text" class="form-control bg-transparent border-light p-3"
+                            placeholder="Type search keyword">
+                        <button class="btn btn-light px-4"><i class="bi bi-search"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Full Screen Search End -->
+
+
+    <!-- About Start -->
+    <div class="container-fluid py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                                    <input type="hidden" id="share-website-info" data-name="" data-url="">
+                  				  				  				<div id="content_views" class="markdown_views prism-atom-one-dark"> <h4><a id="Mysqlemoji_0" rel="nofollow"></a>Mysql设置字符集编码，程序设置连接客户端编码来解决emoji表情</h4> <p> emoji表情现在是日常生活中必不可少的存在了，首先我们先了解一下为什么emoji表情不能像普通的字符处理？emoji 其实是表情符号，来自日语词汇“絵文字”（假名为“えもじ”，读音即 emoji）。</p> <p> 最早由栗田穰崇（Shigetaka Kurita）创作，并在日本网络及手机用户中流行。 自苹果公司发布的 iOS 5 输入法中加入了emoji 后，这种表情符号开始席卷全球。<br /> 目前 emoji 已被大多数现代计算机系统所兼容的 Unicode 编码采纳，普遍应用于各种手机短信和社交网络中。</p> <p>主要是因为MySQL 默认使用的是UTF8 编码，UTF8 编码只支持 1-3 个字节。<br /> 而 emoji 占有 4 个字节的存储空间，所以自然保存不了。但是从 MYSQL5.5 开始，可支持 4 个字节 UTF 编码，只要将编码标记成 utf8mb4 即可。并且utf8mb4 是兼容 UTF8 的。</p> <p>接下来就是处理这个问题的一些方法：从数据库和程序出发解决问题！</p> <h4><a id="1utf8mb4_10" rel="nofollow"></a>1.设置数据库，表，字段编码为utf8mb4</h4> <p> 根据自己的需求选择设置字符集编码，可以手动设置（直接选中某个字段设置编码方式。数据库只能创建的时候设置，但是不推荐手动创建方式），也可以通过sql语句设置，但是用这两种方式都有可能造成锁表！前提是数据量特别大，所以请慎重！</p> <ul> <li> <p>设置某个字段字符集编码</p> <pre><code class="prism language-sql"><span class="token keyword">alter</span><span class="token keyword">table</span><span class="token punctuation">`</span>tableName<span class="token punctuation">`</span> change 字段名 字段名<span class="token keyword">varchar</span><span class="token punctuation">(</span><span class="token number">20</span><span class="token punctuation">)</span><span class="token keyword">character</span><span class="token keyword">set</span> 字符集编码<span class="token punctuation">;</span></code></pre> </li> <li> <p>设置数据库表的字符集编码</p> <pre><code class="prism language-sql"><span class="token comment"># 默认的字符排序规则</span><span class="token keyword">ALTER</span><span class="token keyword">TABLE</span> offline_hana_ztbasic<span class="token keyword">CONVERT</span><span class="token keyword">TO</span><span class="token keyword">CHARACTER</span><span class="token keyword">SET</span> utf8mb4<span class="token punctuation">;</span><span class="token comment"># 可以设置字符排序规则</span><span class="token keyword">ALTER</span><span class="token keyword">TABLE</span> offline_hana_ztbasic9<span class="token keyword">CONVERT</span><span class="token keyword">TO</span><span class="token keyword">CHARACTER</span><span class="token keyword">SET</span> utf8mb4<span class="token keyword">COLLATE</span> utf8mb4_unicode_ci<span class="token punctuation">;</span></code></pre> </li> <li> <p>修改某个数据库的字符集编码</p> <pre><code class="prism language-sql"><span class="token keyword">alter</span><span class="token keyword">database</span><span class="token punctuation">`</span>databaseName<span class="token punctuation">`</span><span class="token keyword">default</span><span class="token keyword">character</span><span class="token keyword">set</span> 字符集编码<span class="token punctuation">;</span></code></pre> </li> <li> <p>修改数据库默认的字符集编码</p> <p> 打开 MySQL 配置文件（Windows 下是 my.ini，Linux 下是 my.cnf）修改配置，将编码改成 utf8mb4</p> <pre><code class="prism language-ini">[client] default-character-set=utf8mb4[mysql] default-character-set=utf8mb4[mysqld] init-connect=’SET NAMES utf8mb4′ character-set-server=utf8mb4</code></pre> <p>修改之后必须重启mysql服务。</p> </li> </ul> <h4><a id="2_40" rel="nofollow"></a>2.设置客户端连接数据库编码</h4> <p> 可能有些人跟我一样，设置完数据库里面的字符编码集后，程序还是报错，问题还是没解决。可能每个人的编码软件不一样或者设置不一样。反正经过上面的设置，已经可以在数据库手动插入emoji表情，并且可以保存。</p> <p>那么问题来了，怎么解决呢？</p> <p>根据数据源的不同，设置的也不同。</p> <pre><code class="prism language-properties"># 以下是最常用的数据源   # druid的方式 spring.datasource.druid.connection-init-sqls=set names utf8mb4; # hikari spring.datasource.hikari.connection-init-sql=set names utf8mb4;</code></pre> <p>设置完成之后，就大功告成啦！</p> </div> 			                <div class="clearfix"></div>
+                <div class="col-md-12 mt-5">
+                                        <p>上一个：<a href="/news/article-28897.htm">宠物领养条约内容 宠物领养条约内容是什么</a></p>
+                                        <p>下一个：<a href="/news/article-29356.htm">动物疫苗接种时间表最新消息 动物疫苗接种时间表最新消息查询</a></p>
+                                    </div>
+                                </div>
+                <div class="col-md-3">
+                    <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/free-nodes/2024-6-1-free-ssr-subscribe.htm" title="「6月1日」最高速度19M/S，2024年Clash/SSR/Shadowrocket/V2ray每天更新免费节点订阅链接">「6月1日」最高速度19M/S，2024年Clash/SSR/Shadowrocket/V2ray每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-12-8-node-share-links.htm" title="「12月8日」最高速度19M/S，2024年NekoBox每天更新免费节点订阅链接">「12月8日」最高速度19M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-5-29-node-share-links.htm" title="「5月29日」最高速度19.5M/S，2024年V2ray/Shadowrocket/Clash/SSR每天更新免费节点订阅链接">「5月29日」最高速度19.5M/S，2024年V2ray/Shadowrocket/Clash/SSR每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-9-15-free-ssr-subscribe.htm" title="「9月15日」最高速度18.4M/S，2024年NekoBox每天更新免费节点订阅链接">「9月15日」最高速度18.4M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-12-18-free-clash-subscribe.htm" title="「12月18日」最高速度21.8M/S，2024年NekoBox每天更新免费节点订阅链接">「12月18日」最高速度21.8M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-27046.htm" title="厦门宠物领养中心在哪里 厦门宠物领养中心在哪里啊">厦门宠物领养中心在哪里 厦门宠物领养中心在哪里啊</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-8-16-clash-node.htm" title="「8月16日」最高速度22.2M/S，2024年NekoBox每天更新免费节点订阅链接">「8月16日」最高速度22.2M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-9-14-free-node-subscribe-links.htm" title="「9月14日」最高速度18.8M/S，2024年NekoBox每天更新免费节点订阅链接">「9月14日」最高速度18.8M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-27508.htm" title="vue实现下拉效果">vue实现下拉效果</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-12-3-shadowrocket-node.htm" title="「12月3日」最高速度18.3M/S，2024年NekoBox每天更新免费节点订阅链接">「12月3日」最高速度18.3M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">69</span> <a href="/date/2024-12/" title="2024-12 归档">2024-12</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">34</span> <a href="/date/2024-11/" title="2024-11 归档">2024-11</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">31</span> <a href="/date/2024-10/" title="2024-10 归档">2024-10</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">30</span> <a href="/date/2024-09/" title="2024-09 归档">2024-09</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">31</span> <a href="/date/2024-08/" title="2024-08 归档">2024-08</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">27</span> <a href="/date/2024-07/" title="2024-07 归档">2024-07</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">26</span> <a href="/date/2024-06/" title="2024-06 归档">2024-06</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">31</span> <a href="/date/2024-05/" title="2024-05 归档">2024-05</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">4</span> <a href="/date/2024-04/" title="2024-04 归档">2024-04</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- About End -->
+
+
+
+        <!-- Footer Start -->
+    <div class="container-fluid bg-dark text-white-50 footer pt-5">
+        <div class="container wow fadeIn" data-wow-delay="0.1s">
+            <div class="copyright">
+                <div class="row">
+                    <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                            <p>
+                                <a href="/">首页</a> | 
+                                <a href="/free-node/">免费节点</a> | 
+                                <a href="/news/">新闻资讯</a> |
+                                <a href="/about-us.htm">关于我们</a> |
+                                <a href="/disclaimer.htm">免责申明</a> |
+                                <a href="/privacy.htm">隐私申明</a> |
+                                <a href="/sitemap.xml">网站地图</a>
+                            </p>
+                        NekoBoxNode官网节点站 版权所有
+                        <br />
+                        Powered by WordPress
+                    </div>
+                    <div class="col-md-6 text-center text-md-end">
+                        <div class="footer-menu">
+                            <a href="/">Home</a>
+                            <a href="#">Cookies</a>
+                            <a href="#">Help</a>
+                            <a href="#">FAQs</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer End -->
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top pt-2"><i class="bi bi-arrow-up"></i></a>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.0.0/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/wow/wow.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/easing/easing.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/waypoints/waypoints.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/counterup/counterup.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/owlcarousel/owl.carousel.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="/assets/website/js/frontend/nekoboxnode/main.js"></script>
+    <script src="https://www.freeclashnode.com/assets/js/frontend/invite-url.js"></script><script src="/assets/website/js/frontend/G.js"></script>
+</body>
+
+</html>
