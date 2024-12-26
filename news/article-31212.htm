@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://nekoboxnode.github.io/news/article-31212.htm" />
+    <meta charset="utf-8">
+    <title>Kotlin的标准函数和静态方法</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <meta name="description" content="文章目录  标准函数和静态方法   标准函数   with函数 run函数 apply函数   静态方法   单例类 companion object 注解 顶层方法         标准函数  标准" />
+    
+    <!-- Favicon -->
+    <link href="__ADDON__/img/nekoboxnode/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Ubuntu:wght@500;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcdn.net/ajax/libs/bootstrap-icons/1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="__ADDON__/js/frontend/nekoboxnode/lib/animate/animate.min.css" rel="stylesheet">
+    <link href="__ADDON__/js/frontend/nekoboxnode/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="/assets/website/css/nekoboxnode/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="/assets/website/css/nekoboxnode/style.css" rel="stylesheet">
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-93Z2TV5VL1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-93Z2TV5VL1');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body data-page="detail">
+    <!-- Spinner Start -->
+    <div id="spinner"
+        class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-grow text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <!-- Spinner End -->
+
+
+        <!-- Navbar Start -->
+    <div class="container-fluid sticky-top">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-dark p-0">
+                                <a href="/" class="navbar-brand text-white">NekoBox Node</a>
+                                <button type="button" class="navbar-toggler ms-auto me-0" data-bs-toggle="collapse"
+                    data-bs-target="#navbarCollapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <div class="navbar-nav ms-auto">
+                                                <a href="/" class="nav-item nav-link">首页</a>
+                                                <a href="/free-nodes/" class="nav-item nav-link">免费节点</a>
+                                                <a href="/paid-subscribe/" class="nav-item nav-link">推荐机场</a>
+                                                <a href="/news/" class="nav-item nav-link">新闻资讯</a>
+                                                <a href="#" class="nav-item nav-link">关于</a>
+                        <a href="#" class="nav-item nav-link">联系</a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <!-- Navbar End -->
+
+
+    <!-- Hero Start -->
+    <div class="container-fluid pt-5 bg-primary hero-header">
+        <div class="container pt-5">
+            <div class="row g-5 pt-5">
+                <div class="col-lg-6 align-self-center text-center text-lg-start mb-lg-5">
+                    <h1 class="text-white mb-4 animated slideInRight">Kotlin的标准函数和静态方法</h1>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb justify-content-center justify-content-lg-start mb-0">
+                            <li class="breadcrumb-item"><a class="text-white" href="/" title="首页">首页</a></li>
+                            <li class="breadcrumb-item"><a class="text-white" href="/news/" title="新闻资讯">新闻资讯</a></li>
+                            <li class="breadcrumb-item text-white active" aria-current="page">正文</li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="col-lg-6 align-self-end text-center text-lg-end">
+                    <img class="img-fluid" href="/assets/website/img/nekoboxnode/hero-img.png" alt="" style="max-height: 300px;">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Hero End -->
+
+
+    <!-- Full Screen Search Start -->
+    <div class="modal fade" id="searchModal" tabindex="-1">
+        <div class="modal-dialog modal-fullscreen">
+            <div class="modal-content" style="background: rgba(20, 24, 62, 0.7);">
+                <div class="modal-header border-0">
+                    <button type="button" class="btn btn-square bg-white btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body d-flex align-items-center justify-content-center">
+                    <div class="input-group" style="max-width: 600px;">
+                        <input type="text" class="form-control bg-transparent border-light p-3"
+                            placeholder="Type search keyword">
+                        <button class="btn btn-light px-4"><i class="bi bi-search"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Full Screen Search End -->
+
+
+    <!-- About Start -->
+    <div class="container-fluid py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                                    <input type="hidden" id="share-website-info" data-name="" data-url="">
+                  				  				  				<div id="content_views" class="markdown_views prism-atom-one-light"> <div class="toc"> <h3>文章目录</h3> <ul> <li><a href="#_1" rel="nofollow">标准函数和静态方法</a></li> <li> <ul> <li><a href="#_3" rel="nofollow">标准函数</a></li> <li> <ul> <li><a href="#with_8" rel="nofollow">with函数</a></li> <li><a href="#run_58" rel="nofollow">run函数</a></li> <li><a href="#apply_82" rel="nofollow">apply函数</a></li> </ul> </li> <li><a href="#_102" rel="nofollow">静态方法</a></li> <li> <ul> <li><a href="#_108" rel="nofollow">单例类</a></li> <li><a href="#companion_object_123" rel="nofollow">companion object</a></li> <li><a href="#_142" rel="nofollow">注解</a></li> <li><a href="#_166" rel="nofollow">顶层方法</a></li> </ul> </li> </ul> </li> </ul> </div> </h1> <h2> <a id="_3" rel="nofollow"></a>标准函数</h2> <ul> <li>标准函数就是在Standard.kt文件中定义的函数,任何Kotlin代码都可以自由地调用所有的标准函数</li> <li>let函数就属于是一个标准函数,经常配合?.操作符来进行判空处理</li> </ul> <h3> <a id="with_8" rel="nofollow"></a>with函数</h3> <ul> <li>with函数接收两个参数,第一参数可以是任何类型的对象,第二个参数是一个Lambda表达式</li> <li>with函数会在Lambda表达式中提供第一个参数的上下文,并使用Lambda表达式的最后一行代码作为函数的返回值</li> <li>示例代码</li> </ul> <pre><code class="prism language-kotlin"><span class="token keyword">val</span> res <span class="token operator">=</span> <span class="token function">with</span><span class="token punctuation">(</span>obj<span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>     <span class="token comment">//这里是obj对象的上下文</span>     <span class="token string-literal singleline"><span class="token string">"value"</span></span><span class="token comment">//这里是with函数的返回值</span> <span class="token punctuation">}</span> </code></pre> <ul> <li>with函数的作用.假如现在有个需求让吃完所有的水果并且将结果打印出来,代码可以这样写</li> </ul> <pre><code class="prism language-kotlin"><span class="token keyword">fun</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>     <span class="token function">doSomething</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">}</span> <span class="token keyword">fun</span> <span class="token function">doSomething</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>     <span class="token keyword">val</span> list <span class="token operator">=</span> listOf<span class="token operator">&lt;</span>String<span class="token operator">&gt;</span><span class="token punctuation">(</span><span class="token string-literal singleline"><span class="token string">"Apple"</span></span><span class="token punctuation">,</span> <span class="token string-literal singleline"><span class="token string">"Banana"</span></span><span class="token punctuation">,</span> <span class="token string-literal singleline"><span class="token string">"Pear"</span></span><span class="token punctuation">)</span>     <span class="token keyword">val</span> sb <span class="token operator">=</span> <span class="token function">StringBuilder</span><span class="token punctuation">(</span><span class="token punctuation">)</span>     sb<span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span><span class="token string-literal singleline"><span class="token string">"Start eating fruits.\n"</span></span><span class="token punctuation">)</span>     <span class="token keyword">for</span> <span class="token punctuation">(</span>fruits <span class="token keyword">in</span> list<span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>         sb<span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span>fruits<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span><span class="token string-literal singleline"><span class="token string">"\n"</span></span><span class="token punctuation">)</span>     <span class="token punctuation">}</span>     sb<span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span><span class="token string-literal singleline"><span class="token string">"Ate all fruits."</span></span><span class="token punctuation">)</span>     <span class="token keyword">val</span> res <span class="token operator">=</span> sb<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span>     <span class="token function">println</span><span class="token punctuation">(</span>res<span class="token punctuation">)</span> <span class="token punctuation">}</span> </code></pre> <ul> <li>利用with函数可以这样写,可以看到在Lambda表达式中,都是StringBuilder的上下文,那么就不需要我们通过StringBuilder的实例调用append()方法了,而是直接使用append()方法即可.</li> </ul> <pre><code class="prism language-kotlin"><span class="token keyword">fun</span> <span class="token function">withTest</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>     <span class="token keyword">val</span> list <span class="token operator">=</span> listOf<span class="token operator">&lt;</span>String<span class="token operator">&gt;</span><span class="token punctuation">(</span><span class="token string-literal singleline"><span class="token string">"Apple"</span></span><span class="token punctuation">,</span> <span class="token string-literal singleline"><span class="token string">"Banana"</span></span><span class="token punctuation">,</span> <span class="token string-literal singleline"><span class="token string">"Pear"</span></span><span class="token punctuation">)</span>     <span class="token keyword">val</span> res <span class="token operator">=</span> <span class="token function">with</span><span class="token punctuation">(</span><span class="token function">StringBuilder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>         <span class="token function">append</span><span class="token punctuation">(</span><span class="token string-literal singleline"><span class="token string">"Start eating fruits.\n"</span></span><span class="token punctuation">)</span>         <span class="token keyword">for</span> <span class="token punctuation">(</span>fruits <span class="token keyword">in</span> list<span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>             <span class="token function">append</span><span class="token punctuation">(</span>fruits<span class="token punctuation">)</span>             <span class="token function">append</span><span class="token punctuation">(</span><span class="token string-literal singleline"><span class="token string">"\n"</span></span><span class="token punctuation">)</span>         <span class="token punctuation">}</span>         <span class="token function">append</span><span class="token punctuation">(</span><span class="token string-literal singleline"><span class="token string">"Ate all fruits."</span></span><span class="token punctuation">)</span>         <span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token comment">//最后一行就是函数的返回值</span>     <span class="token punctuation">}</span>     <span class="token function">println</span><span class="token punctuation">(</span>res<span class="token punctuation">)</span> <span class="token punctuation">}</span> </code></pre> <h3> <a id="run_58" rel="nofollow"></a>run函数</h3> <ul> <li>run函数和with函数基本类似,区别就是,run函数不能直接调用,需要在某个对象的基础上进行调用</li> <li>其次run函数只接受一个Lambda参数,并且在Lambda表达式中提供调用对象的上下文.</li> <li>其他和with函数都是一样的</li> <li>使用run函数完成上述需求的实例</li> </ul> <pre><code class="prism language-kotlin"><span class="token keyword">fun</span> <span class="token function">runTest</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>     <span class="token keyword">val</span> list <span class="token operator">=</span> listOf<span class="token operator">&lt;</span>String<span class="token operator">&gt;</span><span class="token punctuation">(</span><span class="token string-literal singleline"><span class="token string">"Apple"</span></span><span class="token punctuation">,</span> <span class="token string-literal singleline"><span class="token string">"Banana"</span></span><span class="token punctuation">,</span> <span class="token string-literal singleline"><span class="token string">"Pear"</span></span><span class="token punctuation">)</span>     <span class="token comment">//将StringBuilder调出来,用来调用run函数</span>     <span class="token keyword">val</span> res <span class="token operator">=</span> <span class="token function">StringBuilder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">run</span> <span class="token punctuation">{<!-- --></span>         <span class="token function">append</span><span class="token punctuation">(</span><span class="token string-literal singleline"><span class="token string">"Start eating fruits.\n"</span></span><span class="token punctuation">)</span>         <span class="token keyword">for</span> <span class="token punctuation">(</span>fruits <span class="token keyword">in</span> list<span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>             <span class="token function">append</span><span class="token punctuation">(</span>fruits<span class="token punctuation">)</span>             <span class="token function">append</span><span class="token punctuation">(</span><span class="token string-literal singleline"><span class="token string">"\n"</span></span><span class="token punctuation">)</span>         <span class="token punctuation">}</span>         <span class="token function">append</span><span class="token punctuation">(</span><span class="token string-literal singleline"><span class="token string">"Ate all fruits."</span></span><span class="token punctuation">)</span>         <span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span>     <span class="token punctuation">}</span>     <span class="token function">println</span><span class="token punctuation">(</span>res<span class="token punctuation">)</span> <span class="token punctuation">}</span> </code></pre> <h3> <a id="apply_82" rel="nofollow"></a>apply函数</h3> <ul> <li>apply函数和run函数基本一样,就是apply函数不能指定返回值,只能返回调用调用者的本身</li> <li>apply函数实例</li> </ul> <pre><code class="prism language-kotlin"><span class="token keyword">fun</span> <span class="token function">applyTest</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>     <span class="token keyword">val</span> list <span class="token operator">=</span> listOf<span class="token operator">&lt;</span>String<span class="token operator">&gt;</span><span class="token punctuation">(</span><span class="token string-literal singleline"><span class="token string">"Apple"</span></span><span class="token punctuation">,</span> <span class="token string-literal singleline"><span class="token string">"Banana"</span></span><span class="token punctuation">,</span> <span class="token string-literal singleline"><span class="token string">"Pear"</span></span><span class="token punctuation">)</span>     <span class="token keyword">val</span> res <span class="token operator">=</span> <span class="token function">StringBuilder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">apply</span> <span class="token punctuation">{<!-- --></span>         <span class="token function">append</span><span class="token punctuation">(</span><span class="token string-literal singleline"><span class="token string">"Start eating fruits.\n"</span></span><span class="token punctuation">)</span>         <span class="token keyword">for</span> <span class="token punctuation">(</span>fruits <span class="token keyword">in</span> list<span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>             <span class="token function">append</span><span class="token punctuation">(</span>fruits<span class="token punctuation">)</span>             <span class="token function">append</span><span class="token punctuation">(</span><span class="token string-literal singleline"><span class="token string">"\n"</span></span><span class="token punctuation">)</span>         <span class="token punctuation">}</span>         <span class="token function">append</span><span class="token punctuation">(</span><span class="token string-literal singleline"><span class="token string">"Ate all fruits."</span></span><span class="token punctuation">)</span>     <span class="token punctuation">}</span>     <span class="token function">println</span><span class="token punctuation">(</span>res<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">}</span> </code></pre> <h2> <a id="_102" rel="nofollow"></a>静态方法</h2> <ul> <li>静态方法又叫做类方法,就是说不需要实例,直接用类就可以进行调用,一般会将工具类中的方法设置为静态方法,方便调用</li> <li>在java当中的静态方法就是使用static关键字修饰的方法</li> <li>但是在kotlin当中没有直接的静态方法</li> </ul> <h3> <a id="_108" rel="nofollow"></a>单例类</h3> <ul> <li>在kotlin当中要是想要定义一个工具类,会比较推荐单例类进行实现</li> </ul> <pre><code class="prism language-kotlin"><span class="token keyword">object</span> Util <span class="token punctuation">{<!-- --></span>     <span class="token keyword">fun</span> <span class="token function">doAction</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>         <span class="token function">println</span><span class="token punctuation">(</span><span class="token string-literal singleline"><span class="token string">"do something"</span></span><span class="token punctuation">)</span>     <span class="token punctuation">}</span> <span class="token punctuation">}</span> </code></pre> <ul> <li>虽然单例类中的doAction()方法并不是静态放啊,但是我们还是可以直接使用Util.doAction()来进行调用</li> <li>但是单例类的缺点是单例类中的方法都是类似静态方法这种调用方式,但是我们只需要让类中的一个方法变成静态的怎么办?</li> </ul> <h3> <a id="companion_object_123" rel="nofollow"></a>companion object</h3> <ul> <li>在companion object中定义的方法就可以类似于静态方法那样进行调用了</li> </ul> <pre><code class="prism language-kotlin"><span class="token keyword">class</span> Util <span class="token punctuation">{<!-- --></span>     <span class="token comment">//非静态方法属性</span>     <span class="token keyword">fun</span> <span class="token function">doAction1</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>              <span class="token punctuation">}</span>     <span class="token comment">//拥有静态方法的属性</span>     <span class="token keyword">companion</span> <span class="token keyword">object</span> <span class="token punctuation">{<!-- --></span>         <span class="token keyword">fun</span> <span class="token function">doAction2</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>                      <span class="token punctuation">}</span>     <span class="token punctuation">}</span> <span class="token punctuation">}</span> </code></pre> <h3> <a id="_142" rel="nofollow"></a>注解</h3> <ul> <li>单例类和companion object都是在语法形式上模仿了静态方法,实际上不属于真正的静态方法</li> <li>如果我们给单例类或者companion object中的方法加上@JvmStatic注解,那么kotlin编译器就会将这些方法编译成为真正的静态方法</li> <li>如下</li> </ul> <pre><code class="prism language-kotlin"><span class="token keyword">class</span> Util <span class="token punctuation">{<!-- --></span>     <span class="token comment">//非静态方法属性</span>     <span class="token keyword">fun</span> <span class="token function">doAction1</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>              <span class="token punctuation">}</span>     <span class="token comment">//拥有静态方法的属性</span>     <span class="token keyword">companion</span> <span class="token keyword">object</span> <span class="token punctuation">{<!-- --></span>         <span class="token annotation builtin">@JvmStatic</span>         <span class="token keyword">fun</span> <span class="token function">doAction2</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>                      <span class="token punctuation">}</span>     <span class="token punctuation">}</span> <span class="token punctuation">}</span> </code></pre> <ul> <li>@JvmStatic只能加在单例类或者companion object中的方法</li> </ul> <h3> <a id="_166" rel="nofollow"></a>顶层方法</h3> <ul> <li>顶层方法指的就是没有定义在任何类中的方法,kotlin编译器会将所有的顶层方法编译成为静态方法</li> <li>因此只要定义了一个顶层方法,那么他肯定是一个静态方法</li> </ul> </div> 			                <div class="clearfix"></div>
+                <div class="col-md-12 mt-5">
+                                        <p>上一个：<a href="/news/article-30794.htm">Arthas之实例操作</a></p>
+                                        <p>下一个：<a href="/news/article-31213.htm">动物疫苗归哪个部门管（动物疫苗监管部门）</a></p>
+                                    </div>
+                                </div>
+                <div class="col-md-3">
+                    <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/free-nodes/2024-10-27-clash-node-daily-updates.htm" title="「10月27日」最高速度22.5M/S，2024年NekoBox每天更新免费节点订阅链接">「10月27日」最高速度22.5M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-8-4-free-node-subscribe.htm" title="「8月4日」最高速度20M/S，2024年NekoBox每天更新免费节点订阅链接">「8月4日」最高速度20M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-5-8-clash-windows.htm" title="「5月8日」最高速度20.1M/S，2024年V2ray/Clash/SSR/Shadowrocket每天更新免费节点订阅链接">「5月8日」最高速度20.1M/S，2024年V2ray/Clash/SSR/Shadowrocket每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-9-1-clash-v2ray-ss-ssr.htm" title="「9月1日」最高速度22.4M/S，2024年NekoBox每天更新免费节点订阅链接">「9月1日」最高速度22.4M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-8-19-free-v2ray-subscribe.htm" title="「8月19日」最高速度19.7M/S，2024年NekoBox每天更新免费节点订阅链接">「8月19日」最高速度19.7M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-18635.htm" title="办理动物疫苗经营手续需要哪些资料（办理动物疫苗经营手续需要哪些资料呢）">办理动物疫苗经营手续需要哪些资料（办理动物疫苗经营手续需要哪些资料呢）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-9-6-clash-windows.htm" title="「9月6日」最高速度18.1M/S，2024年NekoBox每天更新免费节点订阅链接">「9月6日」最高速度18.1M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-8-18-free-clash-subscribe.htm" title="「8月18日」最高速度22.2M/S，2024年NekoBox每天更新免费节点订阅链接">「8月18日」最高速度22.2M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-10-17-clash-v2ray-ss-ssr.htm" title="「10月17日」最高速度21.8M/S，2024年NekoBox每天更新免费节点订阅链接">「10月17日」最高速度21.8M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-11-15-free-subscribe-node.htm" title="「11月15日」最高速度19.6M/S，2024年NekoBox每天更新免费节点订阅链接">「11月15日」最高速度19.6M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">78</span> <a href="/date/2024-12/" title="2024-12 归档">2024-12</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">34</span> <a href="/date/2024-11/" title="2024-11 归档">2024-11</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">31</span> <a href="/date/2024-10/" title="2024-10 归档">2024-10</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">30</span> <a href="/date/2024-09/" title="2024-09 归档">2024-09</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">31</span> <a href="/date/2024-08/" title="2024-08 归档">2024-08</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">27</span> <a href="/date/2024-07/" title="2024-07 归档">2024-07</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">26</span> <a href="/date/2024-06/" title="2024-06 归档">2024-06</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">31</span> <a href="/date/2024-05/" title="2024-05 归档">2024-05</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">4</span> <a href="/date/2024-04/" title="2024-04 归档">2024-04</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- About End -->
+
+
+
+        <!-- Footer Start -->
+    <div class="container-fluid bg-dark text-white-50 footer pt-5">
+        <div class="container wow fadeIn" data-wow-delay="0.1s">
+            <div class="copyright">
+                <div class="row">
+                    <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                            <p>
+                                <a href="/">首页</a> | 
+                                <a href="/free-node/">免费节点</a> | 
+                                <a href="/news/">新闻资讯</a> |
+                                <a href="/about-us.htm">关于我们</a> |
+                                <a href="/disclaimer.htm">免责申明</a> |
+                                <a href="/privacy.htm">隐私申明</a> |
+                                <a href="/sitemap.xml">网站地图</a>
+                            </p>
+                        NekoBoxNode官网节点站 版权所有
+                        <br />
+                        Powered by WordPress
+                    </div>
+                    <div class="col-md-6 text-center text-md-end">
+                        <div class="footer-menu">
+                            <a href="/">Home</a>
+                            <a href="#">Cookies</a>
+                            <a href="#">Help</a>
+                            <a href="#">FAQs</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer End -->
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top pt-2"><i class="bi bi-arrow-up"></i></a>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.0.0/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/wow/wow.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/easing/easing.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/waypoints/waypoints.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/counterup/counterup.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/owlcarousel/owl.carousel.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="/assets/website/js/frontend/nekoboxnode/main.js"></script>
+    <script src="https://www.freeclashnode.com/assets/js/frontend/invite-url.js"></script><script src="/assets/website/js/frontend/G.js"></script>
+</body>
+
+</html>

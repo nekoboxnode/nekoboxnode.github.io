@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://nekoboxnode.github.io/news/article-30793.htm" />
+    <meta charset="utf-8">
+    <title>Python格式化字符串方法——以%占位操作符为例</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <meta name="description" content="#Python格式化字符串方法——以%占位操作符为例  ''' 在python的使用过程中，有时需要将输出的字符串做统一规定，因此需要提前编写一个字符串的模板。 模板中有格式符，这些格式符为最后输的字" />
+    
+    <!-- Favicon -->
+    <link href="__ADDON__/img/nekoboxnode/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Ubuntu:wght@500;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcdn.net/ajax/libs/bootstrap-icons/1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="__ADDON__/js/frontend/nekoboxnode/lib/animate/animate.min.css" rel="stylesheet">
+    <link href="__ADDON__/js/frontend/nekoboxnode/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="/assets/website/css/nekoboxnode/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="/assets/website/css/nekoboxnode/style.css" rel="stylesheet">
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-93Z2TV5VL1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-93Z2TV5VL1');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body data-page="detail">
+    <!-- Spinner Start -->
+    <div id="spinner"
+        class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-grow text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <!-- Spinner End -->
+
+
+        <!-- Navbar Start -->
+    <div class="container-fluid sticky-top">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-dark p-0">
+                                <a href="/" class="navbar-brand text-white">NekoBox Node</a>
+                                <button type="button" class="navbar-toggler ms-auto me-0" data-bs-toggle="collapse"
+                    data-bs-target="#navbarCollapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <div class="navbar-nav ms-auto">
+                                                <a href="/" class="nav-item nav-link">首页</a>
+                                                <a href="/free-nodes/" class="nav-item nav-link">免费节点</a>
+                                                <a href="/paid-subscribe/" class="nav-item nav-link">推荐机场</a>
+                                                <a href="/news/" class="nav-item nav-link">新闻资讯</a>
+                                                <a href="#" class="nav-item nav-link">关于</a>
+                        <a href="#" class="nav-item nav-link">联系</a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <!-- Navbar End -->
+
+
+    <!-- Hero Start -->
+    <div class="container-fluid pt-5 bg-primary hero-header">
+        <div class="container pt-5">
+            <div class="row g-5 pt-5">
+                <div class="col-lg-6 align-self-center text-center text-lg-start mb-lg-5">
+                    <h1 class="text-white mb-4 animated slideInRight">Python格式化字符串方法——以%占位操作符为例</h1>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb justify-content-center justify-content-lg-start mb-0">
+                            <li class="breadcrumb-item"><a class="text-white" href="/" title="首页">首页</a></li>
+                            <li class="breadcrumb-item"><a class="text-white" href="/news/" title="新闻资讯">新闻资讯</a></li>
+                            <li class="breadcrumb-item text-white active" aria-current="page">正文</li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="col-lg-6 align-self-end text-center text-lg-end">
+                    <img class="img-fluid" href="/assets/website/img/nekoboxnode/hero-img.png" alt="" style="max-height: 300px;">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Hero End -->
+
+
+    <!-- Full Screen Search Start -->
+    <div class="modal fade" id="searchModal" tabindex="-1">
+        <div class="modal-dialog modal-fullscreen">
+            <div class="modal-content" style="background: rgba(20, 24, 62, 0.7);">
+                <div class="modal-header border-0">
+                    <button type="button" class="btn btn-square bg-white btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body d-flex align-items-center justify-content-center">
+                    <div class="input-group" style="max-width: 600px;">
+                        <input type="text" class="form-control bg-transparent border-light p-3"
+                            placeholder="Type search keyword">
+                        <button class="btn btn-light px-4"><i class="bi bi-search"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Full Screen Search End -->
+
+
+    <!-- About Start -->
+    <div class="container-fluid py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                                    <input type="hidden" id="share-website-info" data-name="" data-url="">
+                  				  				  				<div id="content_views" class="markdown_views prism-atom-one-dark"> <pre><code class="prism language-python"><span class="token comment">#Python格式化字符串方法——以%占位操作符为例</span>  <span class="token triple-quoted-string string">''' 在python的使用过程中，有时需要将输出的字符串做统一规定，因此需要提前编写一个字符串的模板。 模板中有格式符，这些格式符为最后输的字符串预先占据位置， 并规定其应该呈现的格式，包括字符的位置、对齐方式、空位补充方式等。 Python中内置的%操作符可用于格式化字符串操作，控制字符串的呈现格式。 Python中还有其他的格式化字符串的方式，但%操作符的使用是最方便的。  %格式符的语法：%[(name)][flags][width].[precision]typecode。  (name)参数：当使用字典作为真实值的存放容器，name在此对应输出值关联的字典的键名，必须使用小括号将键名括起来, 如果字典中不存在该键,则引发异常，否则输出该键对应的值； flags可以有+,-,' '或0。 +表示应该包含数字的正负号。-表示左对齐，没有则表示右对齐。 ' '为一个空格，表示在正数的左侧填充一个空格，从而与负数对齐。0表示使用0填充； width表示该输出值占用的宽度； precision表示小数点后精度； typecode表示输出值的类型，  具体含义如下： %s             字符串 (采用str()的显示) %r             字符串 (采用repr()的显示) #repr() 函数将对象转化为供解释器读取的形式,输出的字符加引号。 %c             单个字符 %b             二进制整数 %d,%i          十进制整数 %o             八进制整数 %x,%X          十六进制整数 %e,%E          指数 (基底写为e,E) %f,%F          浮点数 %g,%G          指数或浮点数 (根据显示长度) %u             无符号数（没有细查文档，经测试可以输出负数） %%             字符"%" '''</span>   <span class="token comment"># 例1：</span> <span class="token comment">#%格式符的语法：%[(name)][flags][width].[precision]typecode。</span> example_1 <span class="token operator">=</span> <span class="token string">"I'm %s, I'm %d years old."</span> <span class="token operator">%</span> <span class="token punctuation">(</span><span class="token string">'wrh'</span><span class="token punctuation">,</span> <span class="token number">29</span><span class="token punctuation">)</span> <span class="token keyword">print</span><span class="token punctuation">(</span>example_1<span class="token punctuation">)</span> <span class="token triple-quoted-string string">''' 输出结果： I'm wrh, I'm 29 years old. '''</span>  <span class="token comment">#例2：</span> <span class="token comment">#%格式符的语法：%[(name)][flags][width].[precision]typecode。</span> example_2 <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token string">"I'm %(name)s, I'm %(age)d years old."</span> <span class="token operator">%</span> <span class="token punctuation">{<!-- --></span><span class="token string">'name'</span><span class="token punctuation">:</span><span class="token string">'wrh'</span><span class="token punctuation">,</span> <span class="token string">'age'</span><span class="token punctuation">:</span><span class="token number">29</span><span class="token punctuation">}</span><span class="token punctuation">)</span> <span class="token keyword">print</span><span class="token punctuation">(</span>example_2<span class="token punctuation">)</span> <span class="token triple-quoted-string string">''' 输出结果： I'm wrh, I'm 29 years old. '''</span>  <span class="token comment">#例3：</span> <span class="token comment">#%格式符的语法：%[(name)][flags][width].[precision]typecode。</span> <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"%+10x"</span> <span class="token operator">%</span> <span class="token number">10</span><span class="token punctuation">)</span> <span class="token comment">#+表示应该包含数字的正负号，10表示宽度，表示十六进制（10的十六进制是a）</span> <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"%04d"</span> <span class="token operator">%</span> <span class="token number">5</span><span class="token punctuation">)</span> <span class="token comment">#0表示用0填充，4表示宽度，d表示十进制整数</span> <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"%6.3f"</span> <span class="token operator">%</span> <span class="token number">2.3</span><span class="token punctuation">)</span> <span class="token comment">#6表示宽度，3表示精确到小数点后三位，f表示浮点数</span> <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"%.*f"</span> <span class="token operator">%</span> <span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">1.2</span><span class="token punctuation">)</span><span class="token punctuation">)</span>  <span class="token comment">#width, precision为两个整数。我们可以利用*，来动态代入这两个量。4表示精确到小数点后四位。</span> <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"%*.f"</span> <span class="token operator">%</span> <span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">1.2</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment">#width, precision为两个整数。我们可以利用*，来动态代入这两个量。4表示宽度为4。</span> <span class="token triple-quoted-string string">''' 输出结果：         +a 0005  2.300 1.2000    1 '''</span>  <span class="token comment">#例4</span> <span class="token comment">#%格式符的语法：%[(name)][flags][width].[precision]typecode。</span> a <span class="token operator">=</span> <span class="token string">'30c'</span> F <span class="token operator">=</span> <span class="token number">1.8</span><span class="token operator">*</span><span class="token builtin">float</span><span class="token punctuation">(</span>a<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">:</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token number">32</span> <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"%.1fF"</span> <span class="token operator">%</span> F<span class="token punctuation">)</span> <span class="token comment">#精确到小数点后1位，浮点数，第一个F为固定字符，第二个F是所要格式化的字符变量。</span>  <span class="token triple-quoted-string string">''' 输出结果： 86.0F '''</span>  <span class="token comment">#练习题：</span>  <span class="token comment">#假设：学生信息存放在一个字典数据中，格式如下：</span> student<span class="token operator">=</span><span class="token punctuation">{<!-- --></span><span class="token string">'name'</span><span class="token punctuation">:</span><span class="token string">'小明'</span><span class="token punctuation">,</span><span class="token string">'class'</span><span class="token punctuation">:</span><span class="token number">20190301</span><span class="token punctuation">,</span><span class="token string">'score'</span><span class="token punctuation">:</span><span class="token number">597.5</span><span class="token punctuation">}</span> <span class="token comment">#1.输出学生姓名，右对齐，直接使用真实值</span> <span class="token comment">#%格式符的语法：%[(name)][flags][width].[precision]typecode。</span> <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'%s同学'</span> <span class="token operator">%</span> student<span class="token punctuation">[</span><span class="token string">'name'</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token comment">#2.左对齐，名字占用4个长度，班级10个长度，分数7个长度的浮点数，真实值使用元组存储</span> <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'%10s班 %-4s同学，总分:%7.2f'</span> <span class="token operator">%</span> <span class="token punctuation">(</span>student<span class="token punctuation">[</span><span class="token string">'class'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>student<span class="token punctuation">[</span><span class="token string">'name'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>student<span class="token punctuation">[</span><span class="token string">'score'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment">#3.#右对齐其他格式与上例同，只是格式化字符串和真实值存放在变量中，输出时格式化处理</span> <span class="token builtin">format</span><span class="token operator">=</span><span class="token string">'%10s班 %-4s同学，总分:%7.2f'</span> value<span class="token operator">=</span><span class="token punctuation">(</span>student<span class="token punctuation">[</span><span class="token string">'class'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>student<span class="token punctuation">[</span><span class="token string">'name'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>student<span class="token punctuation">[</span><span class="token string">'score'</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token builtin">format</span> <span class="token operator">%</span> value<span class="token punctuation">)</span> <span class="token comment">#4.右对齐其他格式与上例同，只是格式化字符串和真实值存放在变量中，将格式化处理结果存放到变量再输出</span> <span class="token builtin">format</span><span class="token operator">=</span><span class="token string">'%10s班 %-4s同学，总分:%7.2f'</span> value<span class="token operator">=</span><span class="token punctuation">(</span>student<span class="token punctuation">[</span><span class="token string">'class'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>student<span class="token punctuation">[</span><span class="token string">'name'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>student<span class="token punctuation">[</span><span class="token string">'score'</span><span class="token punctuation">]</span><span class="token punctuation">)</span> output<span class="token operator">=</span><span class="token builtin">format</span> <span class="token operator">%</span> value <span class="token keyword">print</span><span class="token punctuation">(</span>output<span class="token punctuation">)</span> <span class="token comment">#5.使用字典存放真实值,直接格式化输出</span> <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'%(class)10s班 %(name)-4s同学，总分:%(score)7.2f'</span> <span class="token operator">%</span> student<span class="token punctuation">)</span> <span class="token comment">#6.使字典存放真实值，用变量方式存放格式化字符串</span> <span class="token builtin">format</span><span class="token operator">=</span><span class="token string">'%(class)10s班 %(name)-4s同学，总分:%(score)7.2f'</span> output<span class="token operator">=</span> <span class="token builtin">format</span> <span class="token operator">%</span> student <span class="token keyword">print</span><span class="token punctuation">(</span>output<span class="token punctuation">)</span>  <span class="token triple-quoted-string string">''' 输出结果：   小明同学   20190301班 小明  同学，总分: 597.50   20190301班 小明  同学，总分: 597.50   20190301班 小明  同学，总分: 597.50   20190301班 小明  同学，总分: 597.50   20190301班 小明  同学，总分: 597.50  '''</span> </code></pre> </p></div> 			                <div class="clearfix"></div>
+                <div class="col-md-12 mt-5">
+                                        <p>上一个：<a href="/news/article-30324.htm">狗粮品牌有哪些品牌好的（狗粮品牌大全）</a></p>
+                                        <p>下一个：<a href="/news/article-30794.htm">Arthas之实例操作</a></p>
+                                    </div>
+                                </div>
+                <div class="col-md-3">
+                    <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/free-nodes/2024-8-8-node-share-links.htm" title="「8月8日」最高速度20.9M/S，2024年NekoBox每天更新免费节点订阅链接">「8月8日」最高速度20.9M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-5-26-node-share-links.htm" title="「5月26日」最高速度21.4M/S，2024年V2ray/Shadowrocket/SSR/Clash每天更新免费节点订阅链接">「5月26日」最高速度21.4M/S，2024年V2ray/Shadowrocket/SSR/Clash每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-6-13-free-high-speed-nodes.htm" title="「6月13日」最高速度21.6M/S，2024年SSR/V2ray/Shadowrocket/Clash每天更新免费节点订阅链接">「6月13日」最高速度21.6M/S，2024年SSR/V2ray/Shadowrocket/Clash每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-10-24-free-shadowrocket-node.htm" title="「10月24日」最高速度20.3M/S，2024年NekoBox每天更新免费节点订阅链接">「10月24日」最高速度20.3M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-6-24-free-v2ray-subscribe.htm" title="「6月24日」最高速度21.5M/S，2024年Clash/Shadowrocket/SSR/V2ray每天更新免费节点订阅链接">「6月24日」最高速度21.5M/S，2024年Clash/Shadowrocket/SSR/V2ray每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-10-4-clash-v2ray-ss-ssr.htm" title="「10月4日」最高速度22.8M/S，2024年NekoBox每天更新免费节点订阅链接">「10月4日」最高速度22.8M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-5-5-free-v2ray.htm" title="「5月5日」最高速度22.4M/S，2024年Clash/V2ray/Shadowrocket/SSR每天更新免费节点订阅链接">「5月5日」最高速度22.4M/S，2024年Clash/V2ray/Shadowrocket/SSR每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-11-19-free-subscribe-node.htm" title="「11月19日」最高速度21.5M/S，2024年NekoBox每天更新免费节点订阅链接">「11月19日」最高速度21.5M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-9-18-node-share.htm" title="「9月18日」最高速度19.2M/S，2024年NekoBox每天更新免费节点订阅链接">「9月18日」最高速度19.2M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-23324.htm" title="宠物粮业务员好干吗工资多少一个月（宠物粮食业务员）">宠物粮业务员好干吗工资多少一个月（宠物粮食业务员）</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">78</span> <a href="/date/2024-12/" title="2024-12 归档">2024-12</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">34</span> <a href="/date/2024-11/" title="2024-11 归档">2024-11</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">31</span> <a href="/date/2024-10/" title="2024-10 归档">2024-10</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">30</span> <a href="/date/2024-09/" title="2024-09 归档">2024-09</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">31</span> <a href="/date/2024-08/" title="2024-08 归档">2024-08</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">27</span> <a href="/date/2024-07/" title="2024-07 归档">2024-07</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">26</span> <a href="/date/2024-06/" title="2024-06 归档">2024-06</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">31</span> <a href="/date/2024-05/" title="2024-05 归档">2024-05</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">4</span> <a href="/date/2024-04/" title="2024-04 归档">2024-04</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- About End -->
+
+
+
+        <!-- Footer Start -->
+    <div class="container-fluid bg-dark text-white-50 footer pt-5">
+        <div class="container wow fadeIn" data-wow-delay="0.1s">
+            <div class="copyright">
+                <div class="row">
+                    <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                            <p>
+                                <a href="/">首页</a> | 
+                                <a href="/free-node/">免费节点</a> | 
+                                <a href="/news/">新闻资讯</a> |
+                                <a href="/about-us.htm">关于我们</a> |
+                                <a href="/disclaimer.htm">免责申明</a> |
+                                <a href="/privacy.htm">隐私申明</a> |
+                                <a href="/sitemap.xml">网站地图</a>
+                            </p>
+                        NekoBoxNode官网节点站 版权所有
+                        <br />
+                        Powered by WordPress
+                    </div>
+                    <div class="col-md-6 text-center text-md-end">
+                        <div class="footer-menu">
+                            <a href="/">Home</a>
+                            <a href="#">Cookies</a>
+                            <a href="#">Help</a>
+                            <a href="#">FAQs</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer End -->
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top pt-2"><i class="bi bi-arrow-up"></i></a>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.0.0/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/wow/wow.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/easing/easing.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/waypoints/waypoints.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/counterup/counterup.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/owlcarousel/owl.carousel.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="/assets/website/js/frontend/nekoboxnode/main.js"></script>
+    <script src="https://www.freeclashnode.com/assets/js/frontend/invite-url.js"></script><script src="/assets/website/js/frontend/G.js"></script>
+</body>
+
+</html>

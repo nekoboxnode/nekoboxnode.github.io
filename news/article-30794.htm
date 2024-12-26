@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://nekoboxnode.github.io/news/article-30794.htm" />
+    <meta charset="utf-8">
+    <title>Arthas之实例操作</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <meta name="description" content="Arthas之实例操作 1. 静态类属性操作 获取public静态属性 ognl -c 7cd84586 '@com.system.framework.ArtahsDemoClassLoader@pu" />
+    
+    <!-- Favicon -->
+    <link href="__ADDON__/img/nekoboxnode/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Ubuntu:wght@500;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcdn.net/ajax/libs/bootstrap-icons/1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="__ADDON__/js/frontend/nekoboxnode/lib/animate/animate.min.css" rel="stylesheet">
+    <link href="__ADDON__/js/frontend/nekoboxnode/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="/assets/website/css/nekoboxnode/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="/assets/website/css/nekoboxnode/style.css" rel="stylesheet">
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-93Z2TV5VL1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-93Z2TV5VL1');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body data-page="detail">
+    <!-- Spinner Start -->
+    <div id="spinner"
+        class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-grow text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <!-- Spinner End -->
+
+
+        <!-- Navbar Start -->
+    <div class="container-fluid sticky-top">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-dark p-0">
+                                <a href="/" class="navbar-brand text-white">NekoBox Node</a>
+                                <button type="button" class="navbar-toggler ms-auto me-0" data-bs-toggle="collapse"
+                    data-bs-target="#navbarCollapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <div class="navbar-nav ms-auto">
+                                                <a href="/" class="nav-item nav-link">首页</a>
+                                                <a href="/free-nodes/" class="nav-item nav-link">免费节点</a>
+                                                <a href="/paid-subscribe/" class="nav-item nav-link">推荐机场</a>
+                                                <a href="/news/" class="nav-item nav-link">新闻资讯</a>
+                                                <a href="#" class="nav-item nav-link">关于</a>
+                        <a href="#" class="nav-item nav-link">联系</a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <!-- Navbar End -->
+
+
+    <!-- Hero Start -->
+    <div class="container-fluid pt-5 bg-primary hero-header">
+        <div class="container pt-5">
+            <div class="row g-5 pt-5">
+                <div class="col-lg-6 align-self-center text-center text-lg-start mb-lg-5">
+                    <h1 class="text-white mb-4 animated slideInRight">Arthas之实例操作</h1>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb justify-content-center justify-content-lg-start mb-0">
+                            <li class="breadcrumb-item"><a class="text-white" href="/" title="首页">首页</a></li>
+                            <li class="breadcrumb-item"><a class="text-white" href="/news/" title="新闻资讯">新闻资讯</a></li>
+                            <li class="breadcrumb-item text-white active" aria-current="page">正文</li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="col-lg-6 align-self-end text-center text-lg-end">
+                    <img class="img-fluid" href="/assets/website/img/nekoboxnode/hero-img.png" alt="" style="max-height: 300px;">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Hero End -->
+
+
+    <!-- Full Screen Search Start -->
+    <div class="modal fade" id="searchModal" tabindex="-1">
+        <div class="modal-dialog modal-fullscreen">
+            <div class="modal-content" style="background: rgba(20, 24, 62, 0.7);">
+                <div class="modal-header border-0">
+                    <button type="button" class="btn btn-square bg-white btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body d-flex align-items-center justify-content-center">
+                    <div class="input-group" style="max-width: 600px;">
+                        <input type="text" class="form-control bg-transparent border-light p-3"
+                            placeholder="Type search keyword">
+                        <button class="btn btn-light px-4"><i class="bi bi-search"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Full Screen Search End -->
+
+
+    <!-- About Start -->
+    <div class="container-fluid py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                                    <input type="hidden" id="share-website-info" data-name="" data-url="">
+                  				  				  				<h2 id="arthas之实例操作">Arthas之实例操作</h2> <h3 id="1-静态类属性操作">1. 静态类属性操作</h3> <p>获取public静态属性</p> <pre><code class="language-bash">ognl -c 7cd84586 '@com.system.framework.ArtahsDemoClassLoader@pubTestPrex' ognl -c 7cd84586 "@com.system.framework.ArtahsDemoClassLoader@pubfinalTestPrex"</code></pre> <p>输出各式 @Type[属性值]，内容如下</p> <pre><code class="language-java">@String[static public] ... @String[final static public]</code></pre> <p>获取private静态属性</p> <pre><code class="language-bash">ognl -c 7cd84586 '@com.system.framework.ArtahsDemoClassLoader@privTestPrex' ognl -c 7cd84586 '@com.system.framework.ArtahsDemoClassLoader@privFnalTestPrex'</code></pre> <pre><code class="language-java">@String[static private] ... @String[final static private]</code></pre> <p>修改public静态属性,被final修饰，不能被修改</p> <pre><code class="language-java">// author:herbert qq:464884492 date:20220331 测试代码想修改FINAL修饰符，结果没有成功 @Test public void testModifyFinal() throws Exception {   Field finalField = this.getClass().getDeclaredField("privFnalTestPrex");   finalField.setAccessible(true);   System.out.println("==========初始值==========");   System.out.println(finalField.get(null));   Field modiField = Field.class.getDeclaredField("modifiers");   modiField.setAccessible(true);   modiField.setInt(finalField, finalField.getModifiers() &amp; ~Modifier.FINAL);   finalField.set(null, "修改后FInal");   System.out.println("==========修改值==========");   System.out.println(privFnalTestPrex); }</code></pre> <p>静态变量赋值，不能通过=直接赋值，需要采用反射的方式设置值</p> <pre><code class="language-bash">ognl '#c=@com.system.framework.ArtahsDemoClassLoader@class,#f=#c.getDeclaredField("pubTestPrex"),#f.set(#c,"modify static public ")'</code></pre> <p>修改private静态属性,需要在反射时调用方法<code>setAccessible</code>,使<strong>private</strong>特殊转化为<strong>public</strong></p> <pre><code class="language-bash">ognl '#c=@com.system.framework.ArtahsDemoClassLoader@class,#f=#c.getDeclaredField("privTestPrex"),#f.setAccessible(true),#f.set(#c,"modify static private ")'</code></pre> <h3 id="2-静态类方法调用">2. 静态类方法调用</h3> <p>静态方法调用和静态属性一样，格式为<code>@class@method(args)</code></p> <p>无参数调用</p> <pre><code class="language-bash">ognl -c 7cd84586 '@com.system.framework.ArtahsDemoClassLoader@setPublicStaticMethod()' ognl -c 7cd84586 '@com.system.framework.ArtahsDemoClassLoader@modfiyPrivateStaticFiled()'</code></pre> <pre><code class="language-java">... ======第5次输出====== 源文件初始输出==&gt;static public/static private/testRefect--1/final static public/final static private 源文件初始输出==&gt;static public/static private/testRefect--2/final static public/final static private ======第6次输出====== 源文件初始输出==&gt;modify by method static public/static private/testRefect--1/final static public/final static private 源文件初始输出==&gt;modify by method static public/static private/testRefect--2/final static public/final static private ... ======第11次输出====== 源文件初始输出==&gt;modify by method static public/static private/testRefect--1/final static public/final static private 源文件初始输出==&gt;modify by method static public/static private/testRefect--2/final static public/final static private ======第12次输出====== 源文件初始输出==&gt;modify by method static public/modify by method static private/testRefect--1/final static public/final static private 源文件初始输出==&gt;modify by method static public/modify by method static private/testRefect--2/final static public/final static private ... // author:herbert qq:464884492 date:20220331</code></pre> <p>有参数调用</p> <pre><code class="language-bash">ognl -c 7cd84586 '@com.system.framework.ArtahsDemoClassLoader@getPublicStaticMethod("input params")' ... ognl -c 7cd84586 '@com.system.framework.ArtahsDemoClassLoader@getStaticPrivateMethod("input params")'</code></pre> <pre><code class="language-java">@String[input params &lt;==&gt; public static method return string] ... @String[input params &lt;==&gt; private static method return string]</code></pre> <p>从以上的测试结果来说，静态方法不管是<strong>public</strong>还是<strong>private</strong>都可以直接调用。</p> <h3 id="3-获取非静态类实例">3. 获取非静态类实例</h3> <p>查看某个类实例，无 --limit 参数默认10个</p> <pre><code class="language-bash">vmtool -c 3e2e18f2 -a getInstances --className *EncryptClass vmtool -c 3e2e18f2 -a getInstances --className *EncryptClass --express 'instances.length' vmtool -c 3e2e18f2 -a getInstances --className *EncryptClass --express 'instances[0]'</code></pre> <pre><code class="language-java">@EncryptClass[][     @EncryptClass[com.system.framework.EncryptClass@3c573d32],     @EncryptClass[com.system.framework.EncryptClass@68390fae], ] ... @Integer[2] ... @EncryptClass[     note=@String[testRefect--1], ]</code></pre> <p>经过上边测试发现，一个类存在多个classloader加载时，需要<strong>指定classloader</strong>。但从返回结果看，返回了<strong>所有classloader加载的实例</strong></p> <h3 id="4-实例方法调用">4. 实例方法调用</h3> <p>调用实例<code>getNote</code> 和<code>setNote</code> 方法</p> <pre><code class="language-bash">vmtool -c 3e2e18f2 -a getInstances --className *EncryptClass --express '#val=instances[0],#val.getNote()' vmtool -c 3e2e18f2 -a getInstances --className *EncryptClass --express '#val=instances[0],#val.setNote("modify by instance"+#val.getNote())'</code></pre> <pre><code class="language-java">@String[testRefect--1]  ======第7次输出====== 源文件初始输出==&gt;static public/static private/testRefect--1/final static public/final static private 源文件初始输出==&gt;static public/static private/testRefect--2/final static public/final static private ======第8次输出====== 源文件初始输出==&gt;static public/static private/modify by instancetestRefect--1/final static public/final static private 源文件初始输出==&gt;static public/static private/testRefect--2/final static public/final static private</code></pre> <p>从控制台输出结果，对比第7次和8次输出，我们可以发现第一个loader加载的class实例已经成功修改了</p> <h3 id="5-实例属性操作">5. 实例属性操作</h3> <p>获取或者修改第一个实例 note 属性</p> <pre><code class="language-bash">vmtool -c 3e2e18f2 -a getInstances --className *EncryptClass --express '#val=instances[1].note' vmtool -c 3e2e18f2 -a getInstances --className *EncryptClass --express '#val=instances[1],#val.note="modify by instance"+#val.note'</code></pre> <pre><code class="language-java">@String[testRefect--2] ... ======第121次输出====== 源文件初始输出==&gt;static public/static private/modify by instancetestRefect--1/final static public/final static private 源文件初始输出==&gt;static public/static private/testRefect--2/final static public/final static private ======第122次输出====== 源文件初始输出==&gt;static public/static private/modify by instancetestRefect--1/final static public/final static private 源文件初始输出==&gt;static public/static private/modify by instancetestRefect--2/final static public/final static private</code></pre> <p>从控制台输出结果，对比第121次和122次输出，我们可以发现第二个loader加载的class实例已经成功修改了</p> <h3 id="6-条件操作">6. 条件操作</h3> <p>返回的对象集合，可以做二次筛选<strong>投影</strong>操作，也可以带条件查询符合的数据</p> <pre><code class="language-bash">vmtool -c 3e2e18f2 -a getInstances --className *EncryptClass --express '#val=instances' vmtool -c 3e2e18f2 -a getInstances --className *EncryptClass --express '#val=instances.{note}' vmtool -c 3e2e18f2 -a getInstances --className *EncryptClass --express '#val=instances.{#this.note}' vmtool -c 3e2e18f2 -a getInstances --className *EncryptClass --express '#val=instances.{? #this.note.indexOf("1")&gt;0}.{note}'</code></pre> <pre><code class="language-java">@EncryptClass[][     @EncryptClass[com.system.framework.EncryptClass@52790e67],     @EncryptClass[com.system.framework.EncryptClass@822cf83], ] ... @ArrayList[     @String[modify by instancetestRefect--1],     @String[modify by instancetestRefect--2], ] ... @ArrayList[     @String[modify by instancetestRefect--1],     @String[modify by instancetestRefect--2], ] ... @ArrayList[     @String[modify by instancetestRefect--1], ]</code></pre> <h4 id="7-总结"></h4> 			                <div class="clearfix"></div>
+                <div class="col-md-12 mt-5">
+                                        <p>上一个：<a href="/news/article-30793.htm">Python格式化字符串方法——以%占位操作符为例</a></p>
+                                        <p>下一个：<a href="/news/article-31212.htm">Kotlin的标准函数和静态方法</a></p>
+                                    </div>
+                                </div>
+                <div class="col-md-3">
+                    <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/free-nodes/2024-5-27-node-share.htm" title="「5月27日」最高速度18.6M/S，2024年Shadowrocket/SSR/V2ray/Clash每天更新免费节点订阅链接">「5月27日」最高速度18.6M/S，2024年Shadowrocket/SSR/V2ray/Clash每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-7-7-free-clash.htm" title="「7月7日」最高速度22.2M/S，2024年NekoBox每天更新免费节点订阅链接">「7月7日」最高速度22.2M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-27968.htm" title="聊城市宠物饲料有限公司（聊城市宠物饲料有限公司招聘）">聊城市宠物饲料有限公司（聊城市宠物饲料有限公司招聘）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-10-16-clash-node.htm" title="「10月16日」最高速度19M/S，2024年NekoBox每天更新免费节点订阅链接">「10月16日」最高速度19M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-7-26-free-node-subscribe-links.htm" title="「7月26日」最高速度22.5M/S，2024年NekoBox每天更新免费节点订阅链接">「7月26日」最高速度22.5M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-10-29-free-v2ray-subscribe.htm" title="「10月29日」最高速度22M/S，2024年NekoBox每天更新免费节点订阅链接">「10月29日」最高速度22M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-6-24-free-v2ray-subscribe.htm" title="「6月24日」最高速度21.5M/S，2024年Clash/Shadowrocket/SSR/V2ray每天更新免费节点订阅链接">「6月24日」最高速度21.5M/S，2024年Clash/Shadowrocket/SSR/V2ray每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-9-24-free-clash-subscribe.htm" title="「9月24日」最高速度20.9M/S，2024年NekoBox每天更新免费节点订阅链接">「9月24日」最高速度20.9M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-19203.htm" title="动物打了疫苗还会有狂犬病吗（打了疫苗的动物用不用打狂犬疫苗）">动物打了疫苗还会有狂犬病吗（打了疫苗的动物用不用打狂犬疫苗）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-10-15-shadowrocket-node.htm" title="「10月15日」最高速度22.4M/S，2024年NekoBox每天更新免费节点订阅链接">「10月15日」最高速度22.4M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">78</span> <a href="/date/2024-12/" title="2024-12 归档">2024-12</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">34</span> <a href="/date/2024-11/" title="2024-11 归档">2024-11</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">31</span> <a href="/date/2024-10/" title="2024-10 归档">2024-10</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">30</span> <a href="/date/2024-09/" title="2024-09 归档">2024-09</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">31</span> <a href="/date/2024-08/" title="2024-08 归档">2024-08</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">27</span> <a href="/date/2024-07/" title="2024-07 归档">2024-07</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">26</span> <a href="/date/2024-06/" title="2024-06 归档">2024-06</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">31</span> <a href="/date/2024-05/" title="2024-05 归档">2024-05</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">4</span> <a href="/date/2024-04/" title="2024-04 归档">2024-04</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- About End -->
+
+
+
+        <!-- Footer Start -->
+    <div class="container-fluid bg-dark text-white-50 footer pt-5">
+        <div class="container wow fadeIn" data-wow-delay="0.1s">
+            <div class="copyright">
+                <div class="row">
+                    <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                            <p>
+                                <a href="/">首页</a> | 
+                                <a href="/free-node/">免费节点</a> | 
+                                <a href="/news/">新闻资讯</a> |
+                                <a href="/about-us.htm">关于我们</a> |
+                                <a href="/disclaimer.htm">免责申明</a> |
+                                <a href="/privacy.htm">隐私申明</a> |
+                                <a href="/sitemap.xml">网站地图</a>
+                            </p>
+                        NekoBoxNode官网节点站 版权所有
+                        <br />
+                        Powered by WordPress
+                    </div>
+                    <div class="col-md-6 text-center text-md-end">
+                        <div class="footer-menu">
+                            <a href="/">Home</a>
+                            <a href="#">Cookies</a>
+                            <a href="#">Help</a>
+                            <a href="#">FAQs</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer End -->
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top pt-2"><i class="bi bi-arrow-up"></i></a>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.0.0/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/wow/wow.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/easing/easing.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/waypoints/waypoints.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/counterup/counterup.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/owlcarousel/owl.carousel.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="/assets/website/js/frontend/nekoboxnode/main.js"></script>
+    <script src="https://www.freeclashnode.com/assets/js/frontend/invite-url.js"></script><script src="/assets/website/js/frontend/G.js"></script>
+</body>
+
+</html>
