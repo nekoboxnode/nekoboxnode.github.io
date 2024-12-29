@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://nekoboxnode.github.io/news/article-31746.htm" />
+    <meta charset="utf-8">
+    <title>C#实现文件Move和Copy操作_C#教程_</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <meta name="description" content="文件移动(Move)操作和文件的复制(Copy)是C#程式开发经常遇到的方法，根据传入的源文件地址和目标文件地址参数，实现对文件的操作。实现代码如下： Move操作代码  public static " />
+    
+    <!-- Favicon -->
+    <link href="__ADDON__/img/nekoboxnode/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Ubuntu:wght@500;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcdn.net/ajax/libs/bootstrap-icons/1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="__ADDON__/js/frontend/nekoboxnode/lib/animate/animate.min.css" rel="stylesheet">
+    <link href="__ADDON__/js/frontend/nekoboxnode/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="/assets/website/css/nekoboxnode/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="/assets/website/css/nekoboxnode/style.css" rel="stylesheet">
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-93Z2TV5VL1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-93Z2TV5VL1');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body data-page="detail">
+    <!-- Spinner Start -->
+    <div id="spinner"
+        class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-grow text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <!-- Spinner End -->
+
+
+        <!-- Navbar Start -->
+    <div class="container-fluid sticky-top">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-dark p-0">
+                                <a href="/" class="navbar-brand text-white">NekoBox Node</a>
+                                <button type="button" class="navbar-toggler ms-auto me-0" data-bs-toggle="collapse"
+                    data-bs-target="#navbarCollapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <div class="navbar-nav ms-auto">
+                                                <a href="/" class="nav-item nav-link">首页</a>
+                                                <a href="/free-nodes/" class="nav-item nav-link">免费节点</a>
+                                                <a href="/paid-subscribe/" class="nav-item nav-link">推荐机场</a>
+                                                <a href="/news/" class="nav-item nav-link">新闻资讯</a>
+                                                <a href="#" class="nav-item nav-link">关于</a>
+                        <a href="#" class="nav-item nav-link">联系</a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <!-- Navbar End -->
+
+
+    <!-- Hero Start -->
+    <div class="container-fluid pt-5 bg-primary hero-header">
+        <div class="container pt-5">
+            <div class="row g-5 pt-5">
+                <div class="col-lg-6 align-self-center text-center text-lg-start mb-lg-5">
+                    <h1 class="text-white mb-4 animated slideInRight">C#实现文件Move和Copy操作_C#教程_</h1>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb justify-content-center justify-content-lg-start mb-0">
+                            <li class="breadcrumb-item"><a class="text-white" href="/" title="首页">首页</a></li>
+                            <li class="breadcrumb-item"><a class="text-white" href="/news/" title="新闻资讯">新闻资讯</a></li>
+                            <li class="breadcrumb-item text-white active" aria-current="page">正文</li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="col-lg-6 align-self-end text-center text-lg-end">
+                    <img class="img-fluid" href="/assets/website/img/nekoboxnode/hero-img.png" alt="" style="max-height: 300px;">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Hero End -->
+
+
+    <!-- Full Screen Search Start -->
+    <div class="modal fade" id="searchModal" tabindex="-1">
+        <div class="modal-dialog modal-fullscreen">
+            <div class="modal-content" style="background: rgba(20, 24, 62, 0.7);">
+                <div class="modal-header border-0">
+                    <button type="button" class="btn btn-square bg-white btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body d-flex align-items-center justify-content-center">
+                    <div class="input-group" style="max-width: 600px;">
+                        <input type="text" class="form-control bg-transparent border-light p-3"
+                            placeholder="Type search keyword">
+                        <button class="btn btn-light px-4"><i class="bi bi-search"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Full Screen Search End -->
+
+
+    <!-- About Start -->
+    <div class="container-fluid py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                                    <input type="hidden" id="share-website-info" data-name="" data-url="">
+                  				  				  				<p>文件移动(Move)操作和文件的复制(Copy)是C#程式开发经常遇到的方法，根据传入的源文件地址和目标文件地址参数，实现对文件的操作。实现代码如下：</p> <h3>Move操作代码</h3> <div class="ay1code"> <pre class="brush:csharp;">public static void MoveFolder(string sourcePath, string destPath)          {              if (Directory.Exists(sourcePath))              {                  if (!Directory.Exists(destPath))                  {                      //目标目录不存在则创建                        try                      {                          Directory.CreateDirectory(destPath);                      }                      catch (Exception ex)                      {                          throw new Exception("创建目标目录失败：" + ex.Message);                      }                  }                  //获得源文件下所有文件                    List&lt;string&gt; files = new List&lt;string&gt;(Directory.GetFiles(sourcePath));                  files.ForEach(c =&gt;                  {                      string destFile = Path.Combine(new string[] { destPath, Path.GetFileName(c) });                      //覆盖模式                        if (File.Exists(destFile))                      {                          File.Delete(destFile);                      }                      File.Move(c, destFile);                  });                  //获得源文件下所有目录文件                    List&lt;string&gt; folders = new List&lt;string&gt;(Directory.GetDirectories(sourcePath));                    folders.ForEach(c =&gt;                  {                      string destDir = Path.Combine(new string[] { destPath, Path.GetFileName(c) });                      //Directory.Move必须要在同一个根目录下移动才有效，不能在不同卷中移动。                        //Directory.Move(c, destDir);                          //采用递归的方法实现                        MoveFolder(c, destDir);                  });              }              else              {}          }         </pre> </div> <h3>Copy操作代码</h3> <div class="ay1code"> <pre class="brush:csharp;">public static void CopyFilefolder(string sourceFilePath, string targetFilePath)          {              //获取源文件夹中的所有非目录文件              string[] files = Directory.GetFiles(sourceFilePath);              string fileName;              string destFile;              //如果目标文件夹不存在，则新建目标文件夹              if (!Directory.Exists(targetFilePath))              {                  Directory.CreateDirectory(targetFilePath);              }              //将获取到的文件一个一个拷贝到目标文件夹中                foreach (string s in files)              {                  fileName = Path.GetFileName(s);                  destFile = Path.Combine(targetFilePath, fileName);                  File.Copy(s, destFile, true);              }              //上面一段在MSDN上可以看到源码                 //获取并存储源文件夹中的文件夹名              string[] filefolders = Directory.GetFiles(sourceFilePath);              //创建Directoryinfo实例               DirectoryInfo dirinfo = new DirectoryInfo(sourceFilePath);              //获取得源文件夹下的所有子文件夹名              DirectoryInfo[] subFileFolder = dirinfo.GetDirectories();              for (int j = 0; j &lt; subFileFolder.Length; j++)              {                  //获取所有子文件夹名                   string subSourcePath = sourceFilePath + "\\" + subFileFolder[j].ToString();                  string subTargetPath = targetFilePath + "\\" + subFileFolder[j].ToString();                  //把得到的子文件夹当成新的源文件夹，递归调用CopyFilefolder                  CopyFilefolder(subSourcePath, subTargetPath);              }          }</pre> </div> 			                <div class="clearfix"></div>
+                <div class="col-md-12 mt-5">
+                                        <p>上一个：<a href="/news/article-31213.htm">动物疫苗归哪个部门管（动物疫苗监管部门）</a></p>
+                                        <p>下一个：<a href="/news/article-31747.htm">妙三多疫苗说明书（妙三多疫苗使用说明）</a></p>
+                                    </div>
+                                </div>
+                <div class="col-md-3">
+                    <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/free-nodes/2024-11-27-free-high-speed-nodes.htm" title="「11月27日」最高速度22.7M/S，2024年NekoBox每天更新免费节点订阅链接">「11月27日」最高速度22.7M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-10-6-node-share-links.htm" title="「10月6日」最高速度21.8M/S，2024年NekoBox每天更新免费节点订阅链接">「10月6日」最高速度21.8M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-6-13-free-high-speed-nodes.htm" title="「6月13日」最高速度21.6M/S，2024年SSR/V2ray/Shadowrocket/Clash每天更新免费节点订阅链接">「6月13日」最高速度21.6M/S，2024年SSR/V2ray/Shadowrocket/Clash每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-8-22-node-share-links.htm" title="「8月22日」最高速度19M/S，2024年NekoBox每天更新免费节点订阅链接">「8月22日」最高速度19M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-24515.htm" title="同城宠物领养赠送（有没有同城领养宠物的小程序）">同城宠物领养赠送（有没有同城领养宠物的小程序）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-10-4-clash-v2ray-ss-ssr.htm" title="「10月4日」最高速度22.8M/S，2024年NekoBox每天更新免费节点订阅链接">「10月4日」最高速度22.8M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-10-21-free-v2ray-subscribe.htm" title="「10月21日」最高速度18M/S，2024年NekoBox每天更新免费节点订阅链接">「10月21日」最高速度18M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-11-12-free-ssr-subscribe.htm" title="「11月12日」最高速度18.8M/S，2024年NekoBox每天更新免费节点订阅链接">「11月12日」最高速度18.8M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-11-29-free-v2ray-subscribe.htm" title="「11月29日」最高速度22.9M/S，2024年NekoBox每天更新免费节点订阅链接">「11月29日」最高速度22.9M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-9-9-free-v2ray.htm" title="「9月9日」最高速度20.6M/S，2024年NekoBox每天更新免费节点订阅链接">「9月9日」最高速度20.6M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">87</span> <a href="/date/2024-12/" title="2024-12 归档">2024-12</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">34</span> <a href="/date/2024-11/" title="2024-11 归档">2024-11</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">31</span> <a href="/date/2024-10/" title="2024-10 归档">2024-10</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">30</span> <a href="/date/2024-09/" title="2024-09 归档">2024-09</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">31</span> <a href="/date/2024-08/" title="2024-08 归档">2024-08</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">27</span> <a href="/date/2024-07/" title="2024-07 归档">2024-07</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">26</span> <a href="/date/2024-06/" title="2024-06 归档">2024-06</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">31</span> <a href="/date/2024-05/" title="2024-05 归档">2024-05</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">4</span> <a href="/date/2024-04/" title="2024-04 归档">2024-04</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- About End -->
+
+
+
+        <!-- Footer Start -->
+    <div class="container-fluid bg-dark text-white-50 footer pt-5">
+        <div class="container wow fadeIn" data-wow-delay="0.1s">
+            <div class="copyright">
+                <div class="row">
+                    <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                            <p>
+                                <a href="/">首页</a> | 
+                                <a href="/free-node/">免费节点</a> | 
+                                <a href="/news/">新闻资讯</a> |
+                                <a href="/about-us.htm">关于我们</a> |
+                                <a href="/disclaimer.htm">免责申明</a> |
+                                <a href="/privacy.htm">隐私申明</a> |
+                                <a href="/sitemap.xml">网站地图</a>
+                            </p>
+                        NekoBoxNode官网节点站 版权所有
+                        <br />
+                        Powered by WordPress
+                    </div>
+                    <div class="col-md-6 text-center text-md-end">
+                        <div class="footer-menu">
+                            <a href="/">Home</a>
+                            <a href="#">Cookies</a>
+                            <a href="#">Help</a>
+                            <a href="#">FAQs</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer End -->
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top pt-2"><i class="bi bi-arrow-up"></i></a>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.0.0/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/wow/wow.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/easing/easing.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/waypoints/waypoints.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/counterup/counterup.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/owlcarousel/owl.carousel.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="/assets/website/js/frontend/nekoboxnode/main.js"></script>
+    <script src="https://www.freeclashnode.com/assets/js/frontend/invite-url.js"></script><script src="/assets/website/js/frontend/G.js"></script>
+</body>
+
+</html>
