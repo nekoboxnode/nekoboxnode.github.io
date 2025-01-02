@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://nekoboxnode.github.io/news/article-34610.htm" />
+    <meta charset="utf-8">
+    <title>嵌入式Linux开发-根文件系统NFS网络挂载</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <meta name="description" content="1. 前言 根文件系统是Linux内核启动之后挂载的第一个文件系统，上篇文章里已经介绍过，如何使用busybox来制作根文件系统。这篇文章介绍根文件系统制作成功后，如何让内核找到文件系统，并完成挂载，" />
+    
+    <!-- Favicon -->
+    <link href="__ADDON__/img/nekoboxnode/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Ubuntu:wght@500;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcdn.net/ajax/libs/bootstrap-icons/1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="__ADDON__/js/frontend/nekoboxnode/lib/animate/animate.min.css" rel="stylesheet">
+    <link href="__ADDON__/js/frontend/nekoboxnode/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="/assets/website/css/nekoboxnode/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="/assets/website/css/nekoboxnode/style.css" rel="stylesheet">
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-93Z2TV5VL1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-93Z2TV5VL1');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body data-page="detail">
+    <!-- Spinner Start -->
+    <div id="spinner"
+        class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-grow text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <!-- Spinner End -->
+
+
+        <!-- Navbar Start -->
+    <div class="container-fluid sticky-top">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-dark p-0">
+                                <a href="/" class="navbar-brand text-white">NekoBox Node</a>
+                                <button type="button" class="navbar-toggler ms-auto me-0" data-bs-toggle="collapse"
+                    data-bs-target="#navbarCollapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <div class="navbar-nav ms-auto">
+                                                <a href="/" class="nav-item nav-link">首页</a>
+                                                <a href="/free-nodes/" class="nav-item nav-link">免费节点</a>
+                                                <a href="/paid-subscribe/" class="nav-item nav-link">推荐机场</a>
+                                                <a href="/news/" class="nav-item nav-link">新闻资讯</a>
+                                                <a href="#" class="nav-item nav-link">关于</a>
+                        <a href="#" class="nav-item nav-link">联系</a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <!-- Navbar End -->
+
+
+    <!-- Hero Start -->
+    <div class="container-fluid pt-5 bg-primary hero-header">
+        <div class="container pt-5">
+            <div class="row g-5 pt-5">
+                <div class="col-lg-6 align-self-center text-center text-lg-start mb-lg-5">
+                    <h1 class="text-white mb-4 animated slideInRight">嵌入式Linux开发-根文件系统NFS网络挂载</h1>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb justify-content-center justify-content-lg-start mb-0">
+                            <li class="breadcrumb-item"><a class="text-white" href="/" title="首页">首页</a></li>
+                            <li class="breadcrumb-item"><a class="text-white" href="/news/" title="新闻资讯">新闻资讯</a></li>
+                            <li class="breadcrumb-item text-white active" aria-current="page">正文</li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="col-lg-6 align-self-end text-center text-lg-end">
+                    <img class="img-fluid" href="/assets/website/img/nekoboxnode/hero-img.png" alt="" style="max-height: 300px;">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Hero End -->
+
+
+    <!-- Full Screen Search Start -->
+    <div class="modal fade" id="searchModal" tabindex="-1">
+        <div class="modal-dialog modal-fullscreen">
+            <div class="modal-content" style="background: rgba(20, 24, 62, 0.7);">
+                <div class="modal-header border-0">
+                    <button type="button" class="btn btn-square bg-white btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body d-flex align-items-center justify-content-center">
+                    <div class="input-group" style="max-width: 600px;">
+                        <input type="text" class="form-control bg-transparent border-light p-3"
+                            placeholder="Type search keyword">
+                        <button class="btn btn-light px-4"><i class="bi bi-search"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Full Screen Search End -->
+
+
+    <!-- About Start -->
+    <div class="container-fluid py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                                    <input type="hidden" id="share-website-info" data-name="" data-url="">
+                  				  				  				<div id="content_views" class="markdown_views prism-tomorrow-night-eighties"> <h2><a id="1__0" rel="nofollow"></a>1. 前言</h2> <p>根文件系统是Linux内核启动之后挂载的第一个文件系统，上篇文章里已经介绍过，如何使用busybox来制作根文件系统。这篇文章介绍根文件系统制作成功后，如何让内核找到文件系统，并完成挂载，进入到系统命令行终端。</p> <p>根文件系统支持从网络挂载和本地挂载两种方式：</p> <p>（1）如果是采用网络挂载就将路径设置为/dev/nfs，NFS是Linux下常用的网络文件系统，这种方式挂载一般是在系统开发阶段，方便修改调试代码，也就是将根文件系统放在PC机上，嵌入式开发板通过网络到PC机进行访问。</p> <p>（2）本地挂载就是让内核从SD卡、EMMC、光盘等设备里加载根文件系统，设备路径设置为/dev/sda、/dev/ram等等。具体设备节点名称是什么就填什么。本地挂载一般用在产品发布的时候，当整个系统开发完毕，就将PC机上的完整目录拷贝到本地存储设备里，让内核直接从本地加载，这样开启启动的速度会快很多，文件读写也快很多，不在经过网络传输。本地挂载不方便调试代码，一般开发阶段还是NFS方式比较方便。</p> <p>上面说的路径设置这些配置是在uboot里设置，uboot有一个环境变量专门用于给内核传参，当内核启动之后，会根据uboot传递的参数完成执行。</p> <p>当前采用的开发板是友善之臂的Tiny4412，内核、uboot、交叉编译器都采用官方光盘自带的文件。</p> <p><strong>如果设置内核为NFS网络挂载，uboot的环境变量设置格式如下：</strong></p> <pre><code class="prism language-bash">TINY4412<span class="token comment"># setenv bootargs root=/dev/nfs nfsroot=192.168.10.11:/home/wbyq/work/rootfs ip=192.168.10.123:192.168.10.11:192.168.10.1:255.255.255.0::eth0:off init=/linuxrc console=ttySAC0 lcd=S702</span> TINY4412<span class="token comment"># saveenv</span> TINY4412<span class="token comment"># reset</span></code></pre> <h2><a id="2_NFS_22" rel="nofollow"></a>2. NFS网络方式挂载</h2> <p>前提是先把根文件系统制作好才能继续这一步。当前的宿主机采用redhat6.3，这个系统比较老，但是功能是很齐全的，运行起来很流畅。要进行NFS网络挂载，需要先把PC机的网络与开发板的网络设置好，保证在同一个局域网内。当前的redhat6.3系统是跑在VM虚拟机里，接下来就对网络进行配置。</p> <p><strong>开发板NFS网络挂载的思路:</strong></p> <ol> <li>PC机开启NFS服务器,配置NFS共享的路径: 将rootfs共享出来.</li> <li>开发板当做NFS客户端,去挂载PC机共享的目录，完成文件系统的访问</li> </ol> <p><strong>（1）配置虚拟机网络</strong></p> <p><img decoding="async" src="http://img.555519.xyz/uploads/20221117/7eba4ea544f554c5a460a0cf2492ead8.jpg" alt="嵌入式Linux开发-根文件系统NFS网络挂载"></p> <p><img decoding="async" src="http://img.555519.xyz/uploads/20221117/1a70cb2b8544b4578b534d2e3fb77afd.jpg" alt="嵌入式Linux开发-根文件系统NFS网络挂载"></p> <p><strong>（2）配置PC机NFS服务器</strong></p> <pre><code class="prism language-bash"><span class="token punctuation">[</span>wbyq@wbyq rootfs<span class="token punctuation">]</span>$<span class="token function">sudo</span><span class="token function">vim</span> /etc/exports /home/wbyq/work/rootfs *<span class="token punctuation">(</span>insecure,rw,no_root_squash,sync<span class="token punctuation">)</span></code></pre> <p>编写个脚本方便启动NFS服务器: 可以放在用户目录下<br /> 比如:<code>nfs_restart.sh</code> 运用脚本要使用管理员权限,脚本改权限为可执行</p> <pre><code class="prism language-bash"><span class="token function">service</span> nfs restart<span class="token comment">#重启 NFS 服务器</span><span class="token function">service</span> iptables stop<span class="token comment">#关闭防火墙</span><span class="token function">ifconfig</span> eth0<span class="token number">192.168</span>.10.11<span class="token comment">#设置IP地址</span></code></pre> <p>查看系统网卡名称:<code>ifconfig</code></p> <p><strong>（3）运行脚本启动NFS服务器</strong></p> <pre><code class="prism language-bash"><span class="token punctuation">[</span>wbyq@wbyq ~<span class="token punctuation">]</span>$<span class="token function">sudo</span> ./nfs_restart.sh<span class="token punctuation">[</span>sudo<span class="token punctuation">]</span> password<span class="token keyword">for</span> wbyq:  关闭 NFS 守护进程：<span class="token punctuation">[</span>失败<span class="token punctuation">]</span> 关闭 NFS mountd：<span class="token punctuation">[</span>失败<span class="token punctuation">]</span> 关闭 NFS quotas：<span class="token punctuation">[</span>失败<span class="token punctuation">]</span> 关闭 NFS 服务：<span class="token punctuation">[</span>确定<span class="token punctuation">]</span> 启动 NFS 服务：<span class="token punctuation">[</span>确定<span class="token punctuation">]</span> 关掉 NFS 配额：<span class="token punctuation">[</span>确定<span class="token punctuation">]</span> 启动 NFS mountd：<span class="token punctuation">[</span>确定<span class="token punctuation">]</span> 正在启动 RPC idmapd：<span class="token punctuation">[</span>确定<span class="token punctuation">]</span> 正在启动 RPC idmapd：<span class="token punctuation">[</span>确定<span class="token punctuation">]</span> 启动 NFS 守护进程：<span class="token punctuation">[</span>确定<span class="token punctuation">]</span><span class="token punctuation">[</span>wbyq@wbyq ~<span class="token punctuation">]</span>$<span class="token function">sudo</span> ./nfs_restart.sh  关闭 NFS 守护进程：<span class="token punctuation">[</span>确定<span class="token punctuation">]</span> 关闭 NFS mountd：<span class="token punctuation">[</span>确定<span class="token punctuation">]</span> 关闭 NFS quotas：<span class="token punctuation">[</span>确定<span class="token punctuation">]</span> 关闭 NFS 服务：<span class="token punctuation">[</span>确定<span class="token punctuation">]</span> 启动 NFS 服务：<span class="token punctuation">[</span>确定<span class="token punctuation">]</span> 关掉 NFS 配额：<span class="token punctuation">[</span>确定<span class="token punctuation">]</span> 启动 NFS mountd：<span class="token punctuation">[</span>确定<span class="token punctuation">]</span> 正在启动 RPC idmapd：<span class="token punctuation">[</span>确定<span class="token punctuation">]</span> 正在启动 RPC idmapd：<span class="token punctuation">[</span>确定<span class="token punctuation">]</span> 启动 NFS 守护进程：<span class="token punctuation">[</span>确定<span class="token punctuation">]</span><span class="token punctuation">[</span>wbyq@wbyq ~<span class="token punctuation">]</span>$</code></pre> <p><strong>（4）设置UBOOT的环境变量</strong></p> <pre><code class="prism language-bash">进入到uboot的命令行，设置环境变量。<span class="token builtin class-name">set</span> bootargs<span class="token assign-left variable">root</span><span class="token operator">=</span>/dev/nfs<span class="token assign-left variable">nfsroot</span><span class="token operator">=</span><span class="token number">192.168</span>.10.11:/home/wbyq/work/rootfs<span class="token assign-left variable">ip</span><span class="token operator">=</span><span class="token number">192.168</span>.10.123:192.168.10.11:192.168.10.1:255.255.255.0::eth0:off<span class="token assign-left variable">init</span><span class="token operator">=</span>/linuxrc<span class="token assign-left variable">console</span><span class="token operator">=</span>ttySAC0<span class="token assign-left variable">lcd</span><span class="token operator">=</span>S702<span class="token builtin class-name">set</span> bootargs<span class="token assign-left variable">root</span><span class="token operator">=</span>/dev/nfs<span class="token assign-left variable">nfsroot</span><span class="token operator">=</span><span class="token operator">&lt;</span>服务器地址<span class="token operator">&gt;</span>:<span class="token operator">&lt;</span>NFS共享路径<span class="token operator">&gt;</span><span class="token assign-left variable">ip</span><span class="token operator">=</span><span class="token operator">&lt;</span>开发板IP<span class="token operator">&gt;</span>:<span class="token operator">&lt;</span>服务器地址<span class="token operator">&gt;</span>:<span class="token operator">&lt;</span>网关<span class="token operator">&gt;</span>:255.255.255.0::eth0:off<span class="token assign-left variable">init</span><span class="token operator">=</span>/linuxrc<span class="token assign-left variable">console</span><span class="token operator">=</span>ttySAC0<span class="token assign-left variable">lcd</span><span class="token operator">=</span>S702  执行示例: TINY4412<span class="token comment"># set bootargs root=/dev/nfs nfsroot=192.168.10.11:/home/wbyq/work/rootfs ip=192.168.10.123:192.168.10.11:192.168.10.1:255.255.255.0::eth0:off init=/linuxrc console=ttySAC0 lcd=S702</span> TINY4412<span class="token comment"># save</span> TINY4412<span class="token comment"># reset</span></code></pre> <p>重启之后开发板正常就会进入到Linux命令行：</p> <p><img decoding="async" src="http://img.555519.xyz/uploads/20221117/5d40b2019dd926e5e654998b1c2915b6.jpg" alt="嵌入式Linux开发-根文件系统NFS网络挂载"></p> <p><img decoding="async" src="http://img.555519.xyz/uploads/20221117/7303634e529c8cb9d74743465f7d4710.jpg" alt="嵌入式Linux开发-根文件系统NFS网络挂载"></p> <p><img decoding="async" src="http://img.555519.xyz/uploads/20221117/3e27b1e716cc196a6882b5b8d3fe46db.jpg" alt="嵌入式Linux开发-根文件系统NFS网络挂载"></p> </div> 			                <div class="clearfix"></div>
+                <div class="col-md-12 mt-5">
+                                        <p>上一个：<a href="/news/article-34136.htm">宠物粮食店名称大全图片及图片（宠物粮店名字）</a></p>
+                                        <p>下一个：<a href="/news/article-34613.htm">vue将方法挂载到原型上</a></p>
+                                    </div>
+                                </div>
+                <div class="col-md-3">
+                    <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/free-nodes/2024-7-15-node-share-links.htm" title="「7月15日」最高速度19.3M/S，2024年NekoBox每天更新免费节点订阅链接">「7月15日」最高速度19.3M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-19659.htm" title="卖一吨饲料一般利润多少 开个饲料加工厂需要投资多少钱">卖一吨饲料一般利润多少 开个饲料加工厂需要投资多少钱</a></li>
+                        <li class="py-2"><a href="/news/article-27509.htm" title="基于web的宠物领养系统的设计毕业论文（宠物领养网站源码）">基于web的宠物领养系统的设计毕业论文（宠物领养网站源码）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-10-26-free-node-subscribe.htm" title="「10月26日」最高速度20.4M/S，2024年NekoBox每天更新免费节点订阅链接">「10月26日」最高速度20.4M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-31213.htm" title="动物疫苗归哪个部门管（动物疫苗监管部门）">动物疫苗归哪个部门管（动物疫苗监管部门）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-11-6-clash-node-daily-updates.htm" title="「11月6日」最高速度22.5M/S，2024年NekoBox每天更新免费节点订阅链接">「11月6日」最高速度22.5M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-26584.htm" title="中国动物疫苗市场分析 中国动物疫苗市场分析报告">中国动物疫苗市场分析 中国动物疫苗市场分析报告</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-11-22-node-share-links.htm" title="「11月22日」最高速度22.1M/S，2024年NekoBox每天更新免费节点订阅链接">「11月22日」最高速度22.1M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-6-6-free-clash-subscribe.htm" title="「6月6日」最高速度20.9M/S，2024年Shadowrocket/V2ray/Clash/SSR每天更新免费节点订阅链接">「6月6日」最高速度20.9M/S，2024年Shadowrocket/V2ray/Clash/SSR每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-9-2-clash-node.htm" title="「9月2日」最高速度18.2M/S，2024年NekoBox每天更新免费节点订阅链接">「9月2日」最高速度18.2M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">6</span> <a href="/date/2025-01/" title="2025-01 归档">2025-01</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">93</span> <a href="/date/2024-12/" title="2024-12 归档">2024-12</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">34</span> <a href="/date/2024-11/" title="2024-11 归档">2024-11</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">31</span> <a href="/date/2024-10/" title="2024-10 归档">2024-10</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">30</span> <a href="/date/2024-09/" title="2024-09 归档">2024-09</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">31</span> <a href="/date/2024-08/" title="2024-08 归档">2024-08</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">27</span> <a href="/date/2024-07/" title="2024-07 归档">2024-07</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">26</span> <a href="/date/2024-06/" title="2024-06 归档">2024-06</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">31</span> <a href="/date/2024-05/" title="2024-05 归档">2024-05</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">4</span> <a href="/date/2024-04/" title="2024-04 归档">2024-04</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- About End -->
+
+
+
+        <!-- Footer Start -->
+    <div class="container-fluid bg-dark text-white-50 footer pt-5">
+        <div class="container wow fadeIn" data-wow-delay="0.1s">
+            <div class="copyright">
+                <div class="row">
+                    <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                            <p>
+                                <a href="/">首页</a> | 
+                                <a href="/free-node/">免费节点</a> | 
+                                <a href="/news/">新闻资讯</a> |
+                                <a href="/about-us.htm">关于我们</a> |
+                                <a href="/disclaimer.htm">免责申明</a> |
+                                <a href="/privacy.htm">隐私申明</a> |
+                                <a href="/sitemap.xml">网站地图</a>
+                            </p>
+                        NekoBoxNode官网节点站 版权所有
+                        <br />
+                        Powered by WordPress
+                    </div>
+                    <div class="col-md-6 text-center text-md-end">
+                        <div class="footer-menu">
+                            <a href="/">Home</a>
+                            <a href="#">Cookies</a>
+                            <a href="#">Help</a>
+                            <a href="#">FAQs</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer End -->
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top pt-2"><i class="bi bi-arrow-up"></i></a>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.0.0/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/wow/wow.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/easing/easing.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/waypoints/waypoints.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/counterup/counterup.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/owlcarousel/owl.carousel.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="/assets/website/js/frontend/nekoboxnode/main.js"></script>
+    <script src="https://www.freeclashnode.com/assets/js/frontend/invite-url.js"></script><script src="/assets/website/js/frontend/G.js"></script>
+</body>
+
+</html>
