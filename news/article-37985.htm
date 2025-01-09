@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://nekoboxnode.github.io/news/article-37985.htm" />
+    <meta charset="utf-8">
+    <title>基于知名微服务框架go-micro开发gRPC应用程序</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <meta name="description" content="go-micro是golang的一个微服务框架。 go-micro各个版本之间的兼容性问题一直被诟病，前几年go-micro更是分化出了两个分支： 一个延续了go-micro，只不过转到了其公司CEO" />
+    
+    <!-- Favicon -->
+    <link href="__ADDON__/img/nekoboxnode/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Ubuntu:wght@500;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcdn.net/ajax/libs/bootstrap-icons/1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="__ADDON__/js/frontend/nekoboxnode/lib/animate/animate.min.css" rel="stylesheet">
+    <link href="__ADDON__/js/frontend/nekoboxnode/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="/assets/website/css/nekoboxnode/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="/assets/website/css/nekoboxnode/style.css" rel="stylesheet">
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-93Z2TV5VL1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-93Z2TV5VL1');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body data-page="detail">
+    <!-- Spinner Start -->
+    <div id="spinner"
+        class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-grow text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <!-- Spinner End -->
+
+
+        <!-- Navbar Start -->
+    <div class="container-fluid sticky-top">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-dark p-0">
+                                <a href="/" class="navbar-brand text-white">NekoBox Node</a>
+                                <button type="button" class="navbar-toggler ms-auto me-0" data-bs-toggle="collapse"
+                    data-bs-target="#navbarCollapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <div class="navbar-nav ms-auto">
+                                                <a href="/" class="nav-item nav-link">首页</a>
+                                                <a href="/free-nodes/" class="nav-item nav-link">免费节点</a>
+                                                <a href="/paid-subscribe/" class="nav-item nav-link">推荐机场</a>
+                                                <a href="/news/" class="nav-item nav-link">新闻资讯</a>
+                                                <a href="#" class="nav-item nav-link">关于</a>
+                        <a href="#" class="nav-item nav-link">联系</a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <!-- Navbar End -->
+
+
+    <!-- Hero Start -->
+    <div class="container-fluid pt-5 bg-primary hero-header">
+        <div class="container pt-5">
+            <div class="row g-5 pt-5">
+                <div class="col-lg-6 align-self-center text-center text-lg-start mb-lg-5">
+                    <h1 class="text-white mb-4 animated slideInRight">基于知名微服务框架go-micro开发gRPC应用程序</h1>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb justify-content-center justify-content-lg-start mb-0">
+                            <li class="breadcrumb-item"><a class="text-white" href="/" title="首页">首页</a></li>
+                            <li class="breadcrumb-item"><a class="text-white" href="/news/" title="新闻资讯">新闻资讯</a></li>
+                            <li class="breadcrumb-item text-white active" aria-current="page">正文</li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="col-lg-6 align-self-end text-center text-lg-end">
+                    <img class="img-fluid" href="/assets/website/img/nekoboxnode/hero-img.png" alt="" style="max-height: 300px;">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Hero End -->
+
+
+    <!-- Full Screen Search Start -->
+    <div class="modal fade" id="searchModal" tabindex="-1">
+        <div class="modal-dialog modal-fullscreen">
+            <div class="modal-content" style="background: rgba(20, 24, 62, 0.7);">
+                <div class="modal-header border-0">
+                    <button type="button" class="btn btn-square bg-white btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body d-flex align-items-center justify-content-center">
+                    <div class="input-group" style="max-width: 600px;">
+                        <input type="text" class="form-control bg-transparent border-light p-3"
+                            placeholder="Type search keyword">
+                        <button class="btn btn-light px-4"><i class="bi bi-search"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Full Screen Search End -->
+
+
+    <!-- About Start -->
+    <div class="container-fluid py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                                    <input type="hidden" id="share-website-info" data-name="" data-url="">
+                  				  				  				<p>go-micro是golang的一个微服务框架。</p> <p>go-micro各个版本之间的兼容性问题一直被诟病，前几年go-micro更是分化出了两个分支：</p> <p>一个延续了go-micro，只不过转到了其公司CEO的个人Github仓库中，访问地址：</p> <p><a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://github.com/asim/go-micro"  target="_blank" rel="nofollow">asim/go-micro: A Go microservices framework (github.com)</a></p> <p>一个转向了云原生方向，名字叫Micro，访问地址：</p> <p><a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://github.com/micro/micro"  target="_blank" rel="nofollow">micro/micro: API first cloud platform (github.com)</a></p> <p>不过都还是开源的，当前的许可证都是Apache 2.0，不是某些人说的不能商用了，当然无法保证以后不会改许可证。</p> <hr/> <p>回到正文，这篇文章将介绍使用go-micro最新版本v4开发gRPC服务的方式。</p> </h1> <p>这个工具也称为proto编译器，可以用来生成各种开发语言使用proto协议的代码。</p> <p>下载地址：<a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://github.com/protocolbuffers/protobuf/releases"  target="_blank" rel="nofollow">https://github.com/protocolbuffers/protobuf/releases</a></p> <p>一般下载最新版本就行，注意要符合自己当前的操作系统。</p> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220509/3a15f9dda18528d0985c519c4e907b31.jpg" alt="基于知名微服务框架go-micro开发gRPC应用程序"></p> <p>解压后里边有个<em>protoc.exe</em> ，拷贝到<em>GOPATH</em> 的 bin 目录下，我这里就是<em>C:/Users/PC-001/go/bin</em> ，PC-<em>001</em> 是登录当前操作系统的用户名，需要换成你自己的。<em>GOPATH</em> 可以通过执行<em>go env</em> 查看到。</p> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220509/d4da714043efb8da92632b5a395088f6.jpg" alt="基于知名微服务框架go-micro开发gRPC应用程序"></p> <p>一般都是把<em>GOPATH</em> 的<em>bin</em> 目录添加到环境变量的<em>PATH</em> 变量中，如果没有，请自行添加上。</p> </h1> <p>需要安装两个插件，它们用来生成 Golang 版本的 proto 协议代码和 go-micro 的 gRPC 代理代码。</p> <p>执行如下命令，会在<em>GOPATH</em> 的<em>bin</em> 目录下生成两个可执行文件：<em>protoc-gen-go.exe</em> 和<em>protoc-gen-micro.exe</em>。</p> <pre><code class="language-powershell">go install google.golang.org/protobuf/cmd/protoc-gen-go go install go-micro.dev/v4/cmd/protoc-gen-micro@v4</code></pre> </h1> <p>proto文件是符合Protocol Buffers语言规范的数据交换协议文件，就像以前WebService定义服务时使用的XML文件。现在一般都是用proto3了，这里创建一个名为<em>hello.proto</em> 的文件，放到项目的proto目录下：</p> <pre><code class="language-go">syntax = "proto3";  option go_package="/proto";  package Business;  service Hello {   rpc Say (SayRequest) returns (SayResponse); }  message SayResponse {   string Message = 1; }  message SayRequest {   string Name = 1; }</code></pre> <p>这个协议很简单，有个名字为Hello的服务，提供一个名字为Say的rpc方法，这个方法有输入输出，输入信息中有一个名为Name的参数，输出信息中有一个名为Message的返回值。</p> </h1> <p>在项目根目录中执行如下命令，会在proto目录下生成两个文件：hello.pb.go 和 hello.pb.micro.go。</p> <pre><code>protoc --go_out=. --go_opt=paths=source_relative --micro_out=. --micro_opt=paths=source_relative proto/hello.proto</code></pre> <p>hello.pb.go 中是输入输出数据类型的Golang定义，hello.pb.micro.go 中是go-micro客户端和服务端的gRPC代理程序。</p> <p>也可以将文件生成到别的目录中，比如修改<em>proto</em> 文件中<em>go_package</em> 的配置为：</p> <pre><code>option go_package="/business";</code></pre> <p>然后执行下面的命令，会生成到项目下的business目录中：</p> <pre><code>protoc --go_out=.  --micro_out=. proto/hello.proto</code></pre> <p>具体这个命令还有哪些参数，可以执行<em>protoc -help</em> 去探索下，这里就不罗嗦了。</p> </h1> <p>这里先上代码：</p> <pre><code class="language-go">package main  import ( 	"context" 	"fmt" 	"grpchello/proto" 	"log" 	"time"  	"github.com/asim/go-micro/plugins/server/grpc/v4" 	"go-micro.dev/v4" 	"go-micro.dev/v4/server" )  type Hello struct{}  func (s *Hello) Say(ctx context.Context, req *proto.SayRequest, rsp *proto.SayResponse) error { 	fmt.Println("request:", req.Name) 	rsp.Message = "Hello " + req.Name 	return nil }  func main() {  	grpcServer := grpc.NewServer()  	service := micro.NewService( 		micro.Server(grpcServer), 		micro.Name("grpchello.service"), 		micro.Address("0.0.0.0:8001"), 		micro.RegisterTTL(time.Second*30), 		micro.RegisterInterval(time.Second*10), 	)  	// optionally setup command line usage 	service.Init()  	// Register Handlers 	proto.RegisterHelloHandler(service.Server(), &amp;Hello{})  	// Run server 	if err := service.Run(); err != nil { 		log.Fatal(err) 	} }</code></pre> <p>整个过程如下：</p> <p>先定义一个名为 Hello 的类型，它去实现hello.pb.micro.go中生成的HelloHandler接口，也就是编写具体的业务实现。</p> <p>然后通过grpc.NewServer创建一个gRPC服务器，这里决定go-micro底层通信使用gPRC；</p> <p>然后通过micro.NewService创建一个micro服务，这里需要传入上面创建的grpc server，还要设置服务的名称、监听端口，以及保持服务健康用的TTL和上报周期。go-mico当前默认的服务发现机制是mdns，不用额外部署服务发现工具，不过一般只建议在开发环境使用，生产环境建议使用etcd；</p> <p>通过上面的步骤对服务进行一些初始化之后，再将Hello类型的实例注册到grpc server；</p> <p>最后启动服务，就可以开始接客了。</p> <p>如果直接粘贴这段代码的话，会有很多包没有引用进来，可以通过<em>go get</em> 获取这些包，也可以执行命令：<em>go mod tidy</em> 来引入需要的包。</p> <p>这里边还import了一个<em>grpchello/proto</em> ，这个是我这边项目的mod是<em>grpchello</em>，gRPC代理程序的package是proto，如果你的不一样，需要修改下。</p> </h1> <p>访问gRPC服务也是通过<em>hello.pb.micro.go</em> 中生成的方法，直接上代码：</p> <pre><code class="language-go">package main  import ( 	"bufio" 	"context" 	"fmt" 	"grpchello/proto" 	"os"  	"github.com/asim/go-micro/plugins/client/grpc/v4" 	"go-micro.dev/v4" )  func main() {  	service := micro.NewService( 		micro.Client(grpc.NewClient()), 	)  	service.Init() 	client := proto.NewHelloService("grpchello.service", service.Client())  	rsp, err := client.Say(context.TODO(), &amp;proto.SayRequest{Name: "BOSSMA"}) 	if err != nil { 		fmt.Println(err) 	}  	fmt.Println(rsp)  	fmt.Println("按回车键退出程序...") 	in := bufio.NewReader(os.Stdin) 	_, _, _ = in.ReadLine() }</code></pre> <p>上面的程序使用了<em>grpc.NewClient</em> , 这决定了底层通信采用gRPC；然后再使用生成的代码<em>proto.NewHelloService</em> 创建客户端代理，这里指定的服务名字必须是服务端注册的名字；最后使用这个客户端代理调用相应的方法。</p> </h1> <p>可以使用<em>go run xxx.go</em> 来编译并运行程序。这里为了方便测试，先使用<em>go build</em> 将它们编译为exe，然后再双击运行。实际运行效果如下：</p> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220509/03cbf71500c04ea9705d39f93be931c7.jpg" alt="基于知名微服务框架go-micro开发gRPC应用程序"></p> <hr/> <p>以上就是本文的主要内容了，完整代码示例已经上传到 Github：<a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://github.com/bosima/go-demo/tree/main/go-micro-grpc-hello"  target="_blank" rel="nofollow">https://github.com/bosima/go-demo/tree/main/go-micro-grpc-hello</a></p> 			                <div class="clearfix"></div>
+                <div class="col-md-12 mt-5">
+                                        <p>上一个：<a href="/news/article-37520.htm">猫咪不见了会自己回家吗（猫咪不见了会自己回家吗视频）</a></p>
+                                        <p>下一个：<a href="/news/article-37986.htm">猫驱虫多久一次体内体外多少钱（猫咪体内驱虫多久钱）</a></p>
+                                    </div>
+                                </div>
+                <div class="col-md-3">
+                    <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/news/article-33196.htm" title="动物疫苗公司排名（动物疫苗公司10强）">动物疫苗公司排名（动物疫苗公司10强）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-12-22-free-v2ray.htm" title="「12月22日」最高速度20M/S，2024年NekoBox每天更新免费节点订阅链接">「12月22日」最高速度20M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-12-14-free-subscribe-node.htm" title="「12月14日」最高速度19.2M/S，2024年NekoBox每天更新免费节点订阅链接">「12月14日」最高速度19.2M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-1-2-free-v2ray-subscribe.htm" title="「1月2日」最高速度22M/S，2025年NekoBox每天更新免费节点订阅链接">「1月2日」最高速度22M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-10-24-free-shadowrocket-node.htm" title="「10月24日」最高速度20.3M/S，2024年NekoBox每天更新免费节点订阅链接">「10月24日」最高速度20.3M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-12-17-shadowrocket-node.htm" title="「12月17日」最高速度20.2M/S，2024年NekoBox每天更新免费节点订阅链接">「12月17日」最高速度20.2M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-24717.htm" title="宠物医师资格证可以自考吗（可以考宠物医生执照吗）">宠物医师资格证可以自考吗（可以考宠物医生执照吗）</a></li>
+                        <li class="py-2"><a href="/news/article-32700.htm" title="宠物粮食市场调研报告范文怎么写（宠物粮食市场份额）">宠物粮食市场调研报告范文怎么写（宠物粮食市场份额）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-11-1-shadowrocket-node.htm" title="「11月1日」最高速度21.8M/S，2024年NekoBox每天更新免费节点订阅链接">「11月1日」最高速度21.8M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-11-23-free-high-speed-nodes.htm" title="「11月23日」最高速度22.2M/S，2024年NekoBox每天更新免费节点订阅链接">「11月23日」最高速度22.2M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">27</span> <a href="/date/2025-01/" title="2025-01 归档">2025-01</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">93</span> <a href="/date/2024-12/" title="2024-12 归档">2024-12</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">34</span> <a href="/date/2024-11/" title="2024-11 归档">2024-11</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">25</span> <a href="/date/2024-10/" title="2024-10 归档">2024-10</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- About End -->
+
+
+
+        <!-- Footer Start -->
+    <div class="container-fluid bg-dark text-white-50 footer pt-5">
+        <div class="container wow fadeIn" data-wow-delay="0.1s">
+            <div class="copyright">
+                <div class="row">
+                    <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                            <p>
+                                <a href="/">首页</a> | 
+                                <a href="/free-node/">免费节点</a> | 
+                                <a href="/news/">新闻资讯</a> |
+                                <a href="/about-us.htm">关于我们</a> |
+                                <a href="/disclaimer.htm">免责申明</a> |
+                                <a href="/privacy.htm">隐私申明</a> |
+                                <a href="/sitemap.xml">网站地图</a>
+                            </p>
+                        NekoBoxNode官网节点站 版权所有
+                        <br />
+                        Powered by WordPress
+                    </div>
+                    <div class="col-md-6 text-center text-md-end">
+                        <div class="footer-menu">
+                            <a href="/">Home</a>
+                            <a href="#">Cookies</a>
+                            <a href="#">Help</a>
+                            <a href="#">FAQs</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer End -->
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top pt-2"><i class="bi bi-arrow-up"></i></a>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.0.0/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/wow/wow.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/easing/easing.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/waypoints/waypoints.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/counterup/counterup.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/owlcarousel/owl.carousel.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="/assets/website/js/frontend/nekoboxnode/main.js"></script>
+    <script src="https://www.freeclashnode.com/assets/js/frontend/invite-url.js"></script><script src="/assets/website/js/frontend/G.js"></script>
+</body>
+
+</html>
