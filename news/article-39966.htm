@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://nekoboxnode.github.io/news/article-39966.htm" />
+    <meta charset="utf-8">
+    <title>android 黑夜模式适配记录</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <meta name="description" content="文章目录  前言 一、不开启深色模式   1.关闭自动深色模式   二、自己适配深色模式   1.关闭自动深色模式 2.创建res深色适配目录       (1) 适配colors,strings (" />
+    
+    <!-- Favicon -->
+    <link href="__ADDON__/img/nekoboxnode/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Ubuntu:wght@500;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcdn.net/ajax/libs/bootstrap-icons/1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="__ADDON__/js/frontend/nekoboxnode/lib/animate/animate.min.css" rel="stylesheet">
+    <link href="__ADDON__/js/frontend/nekoboxnode/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="/assets/website/css/nekoboxnode/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="/assets/website/css/nekoboxnode/style.css" rel="stylesheet">
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-93Z2TV5VL1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-93Z2TV5VL1');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body data-page="detail">
+    <!-- Spinner Start -->
+    <div id="spinner"
+        class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-grow text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <!-- Spinner End -->
+
+
+        <!-- Navbar Start -->
+    <div class="container-fluid sticky-top">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-dark p-0">
+                                <a href="/" class="navbar-brand text-white">NekoBox Node</a>
+                                <button type="button" class="navbar-toggler ms-auto me-0" data-bs-toggle="collapse"
+                    data-bs-target="#navbarCollapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <div class="navbar-nav ms-auto">
+                                                <a href="/" class="nav-item nav-link">首页</a>
+                                                <a href="/free-nodes/" class="nav-item nav-link">免费节点</a>
+                                                <a href="/paid-subscribe/" class="nav-item nav-link">推荐机场</a>
+                                                <a href="/news/" class="nav-item nav-link">新闻资讯</a>
+                                                <a href="#" class="nav-item nav-link">关于</a>
+                        <a href="#" class="nav-item nav-link">联系</a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <!-- Navbar End -->
+
+
+    <!-- Hero Start -->
+    <div class="container-fluid pt-5 bg-primary hero-header">
+        <div class="container pt-5">
+            <div class="row g-5 pt-5">
+                <div class="col-lg-6 align-self-center text-center text-lg-start mb-lg-5">
+                    <h1 class="text-white mb-4 animated slideInRight">android 黑夜模式适配记录</h1>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb justify-content-center justify-content-lg-start mb-0">
+                            <li class="breadcrumb-item"><a class="text-white" href="/" title="首页">首页</a></li>
+                            <li class="breadcrumb-item"><a class="text-white" href="/news/" title="新闻资讯">新闻资讯</a></li>
+                            <li class="breadcrumb-item text-white active" aria-current="page">正文</li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="col-lg-6 align-self-end text-center text-lg-end">
+                    <img class="img-fluid" href="/assets/website/img/nekoboxnode/hero-img.png" alt="" style="max-height: 300px;">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Hero End -->
+
+
+    <!-- Full Screen Search Start -->
+    <div class="modal fade" id="searchModal" tabindex="-1">
+        <div class="modal-dialog modal-fullscreen">
+            <div class="modal-content" style="background: rgba(20, 24, 62, 0.7);">
+                <div class="modal-header border-0">
+                    <button type="button" class="btn btn-square bg-white btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body d-flex align-items-center justify-content-center">
+                    <div class="input-group" style="max-width: 600px;">
+                        <input type="text" class="form-control bg-transparent border-light p-3"
+                            placeholder="Type search keyword">
+                        <button class="btn btn-light px-4"><i class="bi bi-search"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Full Screen Search End -->
+
+
+    <!-- About Start -->
+    <div class="container-fluid py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                                    <input type="hidden" id="share-website-info" data-name="" data-url="">
+                  				  				  				<div id="content_views" class="markdown_views prism-atom-one-dark"> <div class="toc"> <h3>文章目录</h3> <ul> <li><a href="#_4" rel="nofollow">前言</a></li> <li><a href="#_10" rel="nofollow">一、不开启深色模式</a></li> <li> <ul> <li><a href="#1_12" rel="nofollow">1.关闭自动深色模式</a></li> </ul> </li> <li><a href="#_57" rel="nofollow">二、自己适配深色模式</a></li> <li> <ul> <li><a href="#1_66" rel="nofollow">1.关闭自动深色模式</a></li> <li><a href="#2res_70" rel="nofollow">2.创建res深色适配目录</a></li> <li> <ul> <li> <ul> <li> <ul> <li><a href="#1_colorsstrings_74" rel="nofollow">(1) 适配colors,strings</a></li> <li><a href="#2_shape_99" rel="nofollow">(2) 适配图片或者shape等</a></li> <li><a href="#3_Activity_171" rel="nofollow">(3) Activity的处理</a></li> </ul> </li> </ul> </li> </ul> </li> </ul> </li> <li><a href="#APP_203" rel="nofollow">三、APP内开启深色模式</a></li> </ul> </div> <hr color="#000000" size="1&quot;"/> </h1> <p><font color="#727272">在android 10以上，手机可开启深色模式，为了让手机更符合谷歌的规范，我们需要进行深色模式的适配</font></p> <hr color="#000000" size="1&quot;"/> </h1> <p><font color="#727272">深色模式下，部分手机系统开启深色模式后，会自动帮我们将app转变为深色模式，即使我们并没有进行适配；这种自动的转色，大部分时候不尽人意，为了不让app在深色模式下显示紊乱，我们需要关闭深色模式；</font></p> <h2> <a id="1_12" rel="nofollow"></a>1.关闭自动深色模式</h2> <pre><code>1.一般我们都会让整个app使用统一的theme，如下： </code></pre> <pre><code class="prism language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>application</span> 	<span class="token attr-name">...</span> 	<span class="token attr-name"><span class="token namespace">android:</span>theme</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>@style/mTheme<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span> 	... <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>application</span><span class="token punctuation">&gt;</span></span> </code></pre> <pre><code>在style.xml中，定义我们的theme，如下： </code></pre> <pre><code class="prism language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>style</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>mTheme<span class="token punctuation">"</span></span> <span class="token attr-name">parent</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>Theme.AppCompat.DayNight.NoActionBar<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span><span class="token style language-css">          &lt;item name=<span class="token string">"colorPrimary"</span>&gt;@color/colorPrimary&lt;/item&gt;         &lt;item name=<span class="token string">"colorPrimaryDark"</span>&gt;@color/colorPrimaryDark&lt;/item&gt;         &lt;item name=<span class="token string">"colorAccent"</span>&gt;@color/colorAccent&lt;/item&gt;         &lt;item name=<span class="token string">"android:windowAnimationStyle"</span>&gt;@style/default_animation&lt;/item&gt;         &lt;item name=<span class="token string">"android:windowBackground"</span>&gt;@color/base_color_FDFDFD&lt;/item&gt;     </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>style</span><span class="token punctuation">&gt;</span></span> </code></pre> <pre><code>为了关闭部分手机系统自动将app转为深色模式，我们需要在style中加入如下一行： 加入之后一般会报错，提示为此设置为api 29 以上才有，我们只需根据提示快速生成value-v29文件夹， 此时会自动在value-v29文件夹下生成style.xml </code></pre> <pre><code class="prism language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>item</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>android:forceDarkAllowed<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>false<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>item</span><span class="token punctuation">&gt;</span></span> </code></pre> <pre><code>2.如果APP在前台，系统转为深色模式，APP可见的Activity将会被重新创建，既然我们不开启深色模式， 那么我们也不需要重新创建Activity,在 AndroidManifest.xml 中,我们对Activity 做如下修改： </code></pre> <pre><code class="prism language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>activity</span>             <span class="token attr-name">...</span>             <span class="token attr-name"><span class="token namespace">android:</span>configChanges</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>uiMode<span class="token punctuation">"</span></span> 			<span class="token attr-name">...</span> <span class="token punctuation">/&gt;</span></span> </code></pre> <hr/> </h1> <p><font color="#727272">适配深色模式一般有以下几种方式：</font></p> <ul> <li>让系统自动适配；就是上面我们关闭的那种，大部分情况下自动转变深色模式不尽人意，部分手机也无法实现；</li> <li>完全由我们自己适配；即为每种颜色定义一个深色模式下的颜色值，这种方案也需要关闭系统自动转变深色模式的功能，否则部分深色模式下的颜色值不生效，这种方案工作量比较大；</li> <li>系统自动适配与我们自己的适配共同使用；这种方案工作量相对较小；系统自动适配颜色，对转换的不如意的View，我们可以 setForceDarkAllowed(false),然后再自己适配颜色；</li> </ul> <p>我们采用第二种方案来讲解，完全自己适配，这样讲的东西比较多一点；</p> <h2> <a id="1_66" rel="nofollow"></a>1.关闭自动深色模式</h2> <pre><code>第一步我们要操作的当然是关闭自动深色模式，让我们自己接手颜色适配，参照文章中的第一个步骤即可； </code></pre> <h2> <a id="2res_70" rel="nofollow"></a>2.创建res深色适配目录</h2> <p><font color="#727272">当系统转变为深色模式时，会自动调用res目录下的xxx-night目录，在其中寻找匹配的颜色或图片；</font></p> <h5> <a id="1_colorsstrings_74" rel="nofollow"></a>(1) 适配colors,strings</h5> <pre><code>1.我们需要在res目录下，创建values-night文件夹，在文件夹中，创建colors.xml文件，用以适配颜色; </code></pre> <p><img decoding="async" src="http://img.555519.xyz/uploads/20221223/209c6efceda782bda9a2d40dc6cb7d49.jpg" alt="android 黑夜模式适配记录"><br /> 其中，values 下 colors.xml 内的颜色值名称 与 values-night 下 colors.xml 内的颜色值名称必须相同，这样，当转变为深色模式时，系统将使用 values-night 下的 colors.xml，如果 values-night 下没有相同的颜色值名称，则会继续使用 values 下colors.xml 内的颜色值；</p> <pre><code>2.strings 的适配也与上同理，如果我们在string中使用了富文本， 只需要在values-night 下生成strings.xml 即可；如下： </code></pre> <pre><code class="prism language-xml">values 下： <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>string</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>fuWenBen<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>         <span class="token cdata">&lt;![CDATA[            &lt;font&gt;&lt;textFont color=\'#000000\' size='41px'&gt;%s&lt;/textFont&gt;&lt;/font&gt;&lt;br/&gt;谁看过我          ]]&gt;</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>string</span><span class="token punctuation">&gt;</span></span>  values-night 下：  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>string</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>fuWenBen<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>         <span class="token cdata">&lt;![CDATA[            &lt;font&gt;&lt;textFont color=\'#FFFFFF\' size='41px'&gt;%s&lt;/textFont&gt;&lt;/font&gt;&lt;br/&gt;谁看过我          ]]&gt;</span>  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>string</span><span class="token punctuation">&gt;</span></span> </code></pre> <h5> <a id="2_shape_99" rel="nofollow"></a>(2) 适配图片或者shape等</h5> <pre><code>1.我们可能在深色模式下，需要图标展现不同的颜色，如亮色模式下，图标是黑色的， 而在深色模式下，图标需要是白色的，我们只需创建drawable-night / mipmap-night 即可，如下： </code></pre> <p><img decoding="async" src="http://img.555519.xyz/uploads/20221223/2524fdd2bcad966be0519849b3a4f9e2.jpg" alt="android 黑夜模式适配记录"></p> <pre><code>2.其实适配图标我们还有其他的办法，即在colors中定义图标的颜色，如下： </code></pre> <pre><code class="prism language-xml">values 下 <span class="token comment">&lt;!--    图标颜色 灰色-白色--&gt;</span>     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>color</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>iconColor_999999<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>#999999<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>color</span><span class="token punctuation">&gt;</span></span> values-night 下  <span class="token comment">&lt;!--    图标颜色 灰色-白色--&gt;</span>     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>color</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>iconColor_999999<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>#FFFFFF<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>color</span><span class="token punctuation">&gt;</span></span> </code></pre> <pre><code>定义完成之后，我们在需要变色的imageView,定义tint即可，tint 会帮助我们将图标修改成 我们定义的颜色，如下： </code></pre> <pre><code class="prism language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ImageView</span> 			<span class="token attr-name">...</span> 			<span class="token attr-name"><span class="token namespace">android:</span>src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>@drawable/icon_phone<span class="token punctuation">"</span></span>  			<span class="token attr-name"><span class="token namespace">app:</span>tint</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>@color/iconColor_999999<span class="token punctuation">"</span></span>             <span class="token attr-name"><span class="token namespace">tools:</span>ignore</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>ContentDescription<span class="token punctuation">"</span></span> <span class="token punctuation">/&gt;</span></span> </code></pre> <pre><code>动态设置ImageView的tint,如下： </code></pre> <pre><code class="prism language-java">imageView<span class="token punctuation">.</span><span class="token function">setImageDrawable</span><span class="token punctuation">(</span>ContextCompat<span class="token punctuation">.</span><span class="token function">getDrawable</span><span class="token punctuation">(</span>context<span class="token punctuation">,</span>R<span class="token punctuation">.</span>drawable<span class="token punctuation">.</span>icon_phone<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> imageView<span class="token punctuation">.</span><span class="token function">setImageTintList</span><span class="token punctuation">(</span> 	ColorStateList<span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span> 		ContextCompat<span class="token punctuation">.</span><span class="token function">getColor</span><span class="token punctuation">(</span>context<span class="token punctuation">,</span> R<span class="token punctuation">.</span>color<span class="token punctuation">.</span>colorBlack<span class="token punctuation">)</span> 	<span class="token punctuation">)</span> <span class="token punctuation">)</span><span class="token punctuation">;</span> </code></pre> <pre><code>3.给亮色的背景图片增加蒙版，而不用增加图片来适配，如下： </code></pre> <pre><code class="prism language-xml">values 下 <span class="token comment">&lt;!--    图标颜色 灰色-白色--&gt;</span>     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>color</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>iconColor_mark<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>#00000000<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>color</span><span class="token punctuation">&gt;</span></span> values-night 下  <span class="token comment">&lt;!--    图标颜色 灰色-白色--&gt;</span>     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>color</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>iconColor_mark<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>#40000000<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>color</span><span class="token punctuation">&gt;</span></span> </code></pre> <pre><code>定义完成后，我们在需要增加蒙版的ImageView 增加 tintMode 与 tint，如下： </code></pre> <pre><code class="prism language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ImageView</span> 			<span class="token attr-name">...</span>             <span class="token attr-name"><span class="token namespace">android:</span>src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>@drawable/pink_bg<span class="token punctuation">"</span></span>             <span class="token attr-name"><span class="token namespace">android:</span>scaleType</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>fitXY<span class="token punctuation">"</span></span>             <span class="token attr-name"><span class="token namespace">android:</span>tintMode</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>src_atop<span class="token punctuation">"</span></span>             <span class="token attr-name"><span class="token namespace">app:</span>tint</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>@color/iconColor_mark<span class="token punctuation">"</span></span>             <span class="token attr-name"><span class="token namespace">tools:</span>ignore</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>ContentDescription<span class="token punctuation">"</span></span> <span class="token punctuation">/&gt;</span></span>  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>Button</span> 		<span class="token attr-name">...</span> 		<span class="token attr-name"><span class="token namespace">android:</span>background</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>@drawable/pink_bg<span class="token punctuation">"</span></span> 		<span class="token attr-name"><span class="token namespace">android:</span>backgroundTintMode</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>src_atop<span class="token punctuation">"</span></span>         <span class="token attr-name"><span class="token namespace">android:</span>backgroundTint</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>@color/iconColor_mark<span class="token punctuation">"</span></span>        <span class="token punctuation">/&gt;</span></span>           </code></pre> <h5> <a id="3_Activity_171" rel="nofollow"></a>(3) Activity的处理</h5> <pre><code>1.当我们完成以上适配后，就需要注意一点，当APP处于前台，系统转为深色模式后， activity会被重新创建并切换深色模式，某些情况下这并不是我们希望看到的， 所以当系统转为深色模式时，如果我们不需要让activity重新创建，我们需要做如下编码： </code></pre> <pre><code class="prism language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>activity</span>             <span class="token attr-name">...</span>             <span class="token attr-name"><span class="token namespace">android:</span>configChanges</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>uiMode<span class="token punctuation">"</span></span> 			<span class="token attr-name">...</span> <span class="token punctuation">/&gt;</span></span> </code></pre> <pre><code>不被重新创建的Activity,将不会应用深色模式，此种情况下，我们可能需要自己处理一些深色转变， 我们在Activity做如下编码，当系统深色模式启用/关闭时，以下方法将会被调用： </code></pre> <pre><code class="prism language-java"> 	<span class="token annotation punctuation">@Override</span>     <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">onConfigurationChanged</span><span class="token punctuation">(</span><span class="token annotation punctuation">@NonNull</span> Configuration newConfig<span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>         <span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">onConfigurationChanged</span><span class="token punctuation">(</span>newConfig<span class="token punctuation">)</span><span class="token punctuation">;</span>         <span class="token keyword">int</span> currentNightMode <span class="token operator">=</span> newConfig<span class="token punctuation">.</span>uiMode <span class="token operator">&amp;</span> Configuration<span class="token punctuation">.</span>UI_MODE_NIGHT_MASK<span class="token punctuation">;</span>         <span class="token keyword">if</span> <span class="token punctuation">(</span>currentNightMode <span class="token operator">==</span> Configuration<span class="token punctuation">.</span>UI_MODE_NIGHT_YES<span class="token punctuation">)</span><span class="token punctuation">{<!-- --></span> 			<span class="token comment">//系统开启了深色模式，自己做相应处理</span> 		<span class="token punctuation">}</span><span class="token keyword">else</span> <span class="token punctuation">{<!-- --></span>             <span class="token comment">//系统关闭了深色模式，自己做相应处理</span>         <span class="token punctuation">}</span>     <span class="token punctuation">}</span> </code></pre> <hr/> </h1> <p><font color="#727272">有时候我们可能会有需求，在APP内设置切换深色模式，对此，我们可能需要手动切换为深色模式，即使系统当前并非深色模式；</font></p> <pre><code>1.做如下编码切换APP为 深色/亮色 模式： 	(1).已经被创建的Activity 只有调用recreate() / 关闭重新创建 才能切换深色/亮色模式； 	(2).调用此方法不会触发回调 onConfigurationChanged() 方法； </code></pre> <pre><code class="prism language-java"><span class="token comment">//设置为日间亮色模式</span> AppCompatDelegate<span class="token punctuation">.</span><span class="token function">setDefaultNightMode</span><span class="token punctuation">(</span>AppCompatDelegate<span class="token punctuation">.</span>MODE_NIGHT_NO<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//设置为夜间深色模式</span> AppCompatDelegate<span class="token punctuation">.</span><span class="token function">setDefaultNightMode</span><span class="token punctuation">(</span>AppCompatDelegate<span class="token punctuation">.</span>MODE_NIGHT_YES<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//重新创建Activity,以使用 深色/亮色 模式</span> <span class="token function">recreate</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> </code></pre> <pre><code>2.做如下编码切换当前Activity为 深色/亮色 模式： 	(1).此方法不会使除 当前调用处的Activity 外 已创建/未创建 的 Activity 转换模式，简而言之， 	只有当前的Activity 会切换模式； 	(2).如果在AndroidManifest.xml中配置当前Activity android:configChanges="uiMode",则不会 	切换模式，但是会回调onConfigurationChanged() 方法；可调用reCreate()使当前Activity切换 	模式; 	(3).如果未配置configChanges="uiMode",则会重新创建当前Activity,并切换模式，不会回调 	onConfigurationChanged()方法； </code></pre> <pre><code class="prism language-java"><span class="token comment">//设置为日间亮色模式</span> <span class="token function">getDelegate</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">setLocalNightMode</span><span class="token punctuation">(</span>AppCompatDelegate<span class="token punctuation">.</span>MODE_NIGHT_NO<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//设置为夜间深色模式</span> <span class="token function">getDelegate</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">setLocalNightMode</span><span class="token punctuation">(</span>AppCompatDelegate<span class="token punctuation">.</span>MODE_NIGHT_YES<span class="token punctuation">)</span><span class="token punctuation">;</span> </code></pre> <pre><code>3.判断当前的手机系统是否为深色模式： 	(1).此方法是判断系统的深色模式是否开启，我们上面的操作并不会影响此判断； </code></pre> <pre><code class="prism language-java"><span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">isDarkTheme</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>         <span class="token keyword">int</span> flag <span class="token operator">=</span> <span class="token function">getResources</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getConfiguration</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>uiMode <span class="token operator">&amp;</span> Configuration<span class="token punctuation">.</span>UI_MODE_NIGHT_MASK<span class="token punctuation">;</span>         <span class="token keyword">return</span> flag <span class="token operator">==</span> Configuration<span class="token punctuation">.</span>UI_MODE_NIGHT_YES<span class="token punctuation">;</span>     <span class="token punctuation">}</span> </code></pre> </p></div> 			                <div class="clearfix"></div>
+                <div class="col-md-12 mt-5">
+                                        <p>上一个：<a href="/news/article-39478.htm">聊城哪里有卖宠物狗的市场（聊城买狗的地方）</a></p>
+                                        <p>下一个：<a href="/news/article-39967.htm">宠物领养证如何办理手续流程图解大全（宠物领养证怎么办）</a></p>
+                                    </div>
+                                </div>
+                <div class="col-md-3">
+                    <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/news/article-37985.htm" title="基于知名微服务框架go-micro开发gRPC应用程序">基于知名微服务框架go-micro开发gRPC应用程序</a></li>
+                        <li class="py-2"><a href="/news/article-28440.htm" title="办理动物诊疗许可证需要什么材料洛阳（动物诊疗许可证需要多少钱）">办理动物诊疗许可证需要什么材料洛阳（动物诊疗许可证需要多少钱）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-1-7-free-subscribe-node.htm" title="「1月7日」最高速度19.8M/S，2025年NekoBox每天更新免费节点订阅链接">「1月7日」最高速度19.8M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-30793.htm" title="Python格式化字符串方法——以%占位操作符为例">Python格式化字符串方法——以%占位操作符为例</a></li>
+                        <li class="py-2"><a href="/news/article-30323.htm" title="猫三联是一针针对一个病毒吗（猫三联是一针针对一个病毒吗还是两针）">猫三联是一针针对一个病毒吗（猫三联是一针针对一个病毒吗还是两针）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-11-10-free-clash.htm" title="「11月10日」最高速度21.2M/S，2024年NekoBox每天更新免费节点订阅链接">「11月10日」最高速度21.2M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-24716.htm" title="TS语言与JS语言的区别">TS语言与JS语言的区别</a></li>
+                        <li class="py-2"><a href="/news/article-25181.htm" title="宠物零食加工设备批发 宠物零食加工设备批发厂家">宠物零食加工设备批发 宠物零食加工设备批发厂家</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-12-16-free-shadowrocket-node.htm" title="「12月16日」最高速度22.9M/S，2024年NekoBox每天更新免费节点订阅链接">「12月16日」最高速度22.9M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-12-25-clash-v2ray-ss-ssr.htm" title="「12月25日」最高速度18.1M/S，2024年NekoBox每天更新免费节点订阅链接">「12月25日」最高速度18.1M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">39</span> <a href="/date/2025-01/" title="2025-01 归档">2025-01</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">93</span> <a href="/date/2024-12/" title="2024-12 归档">2024-12</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">34</span> <a href="/date/2024-11/" title="2024-11 归档">2024-11</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">25</span> <a href="/date/2024-10/" title="2024-10 归档">2024-10</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- About End -->
+
+
+
+        <!-- Footer Start -->
+    <div class="container-fluid bg-dark text-white-50 footer pt-5">
+        <div class="container wow fadeIn" data-wow-delay="0.1s">
+            <div class="copyright">
+                <div class="row">
+                    <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                            <p>
+                                <a href="/">首页</a> | 
+                                <a href="/free-node/">免费节点</a> | 
+                                <a href="/news/">新闻资讯</a> |
+                                <a href="/about-us.htm">关于我们</a> |
+                                <a href="/disclaimer.htm">免责申明</a> |
+                                <a href="/privacy.htm">隐私申明</a> |
+                                <a href="/sitemap.xml">网站地图</a>
+                            </p>
+                        NekoBoxNode官网节点站 版权所有
+                        <br />
+                        Powered by WordPress
+                    </div>
+                    <div class="col-md-6 text-center text-md-end">
+                        <div class="footer-menu">
+                            <a href="/">Home</a>
+                            <a href="#">Cookies</a>
+                            <a href="#">Help</a>
+                            <a href="#">FAQs</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer End -->
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top pt-2"><i class="bi bi-arrow-up"></i></a>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.0.0/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/wow/wow.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/easing/easing.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/waypoints/waypoints.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/counterup/counterup.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/owlcarousel/owl.carousel.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="/assets/website/js/frontend/nekoboxnode/main.js"></script>
+    <script src="https://www.freeclashnode.com/assets/js/frontend/invite-url.js"></script><script src="/assets/website/js/frontend/G.js"></script>
+</body>
+
+</html>
