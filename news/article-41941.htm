@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://nekoboxnode.github.io/news/article-41941.htm" />
+    <meta charset="utf-8">
+    <title>vue项目中,如何实现excel的导入导出excel导入功能-组件封装</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <meta name="description" content="目标 从vue-element-admin中提供的excel导入功能迁移到当前的项目中 思路  安装包 拷贝组件  安装必要的插件 这个插件叫做xlsx npm install xlsx -S 复制代" />
+    
+    <!-- Favicon -->
+    <link href="__ADDON__/img/nekoboxnode/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Ubuntu:wght@500;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcdn.net/ajax/libs/bootstrap-icons/1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="__ADDON__/js/frontend/nekoboxnode/lib/animate/animate.min.css" rel="stylesheet">
+    <link href="__ADDON__/js/frontend/nekoboxnode/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="/assets/website/css/nekoboxnode/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="/assets/website/css/nekoboxnode/style.css" rel="stylesheet">
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-93Z2TV5VL1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-93Z2TV5VL1');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body data-page="detail">
+    <!-- Spinner Start -->
+    <div id="spinner"
+        class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-grow text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <!-- Spinner End -->
+
+
+        <!-- Navbar Start -->
+    <div class="container-fluid sticky-top">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-dark p-0">
+                                <a href="/" class="navbar-brand text-white">NekoBox Node</a>
+                                <button type="button" class="navbar-toggler ms-auto me-0" data-bs-toggle="collapse"
+                    data-bs-target="#navbarCollapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <div class="navbar-nav ms-auto">
+                                                <a href="/" class="nav-item nav-link">首页</a>
+                                                <a href="/free-nodes/" class="nav-item nav-link">免费节点</a>
+                                                <a href="/paid-subscribe/" class="nav-item nav-link">推荐机场</a>
+                                                <a href="/news/" class="nav-item nav-link">新闻资讯</a>
+                                                <a href="#" class="nav-item nav-link">关于</a>
+                        <a href="#" class="nav-item nav-link">联系</a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <!-- Navbar End -->
+
+
+    <!-- Hero Start -->
+    <div class="container-fluid pt-5 bg-primary hero-header">
+        <div class="container pt-5">
+            <div class="row g-5 pt-5">
+                <div class="col-lg-6 align-self-center text-center text-lg-start mb-lg-5">
+                    <h1 class="text-white mb-4 animated slideInRight">vue项目中,如何实现excel的导入导出excel导入功能-组件封装</h1>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb justify-content-center justify-content-lg-start mb-0">
+                            <li class="breadcrumb-item"><a class="text-white" href="/" title="首页">首页</a></li>
+                            <li class="breadcrumb-item"><a class="text-white" href="/news/" title="新闻资讯">新闻资讯</a></li>
+                            <li class="breadcrumb-item text-white active" aria-current="page">正文</li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="col-lg-6 align-self-end text-center text-lg-end">
+                    <img class="img-fluid" href="/assets/website/img/nekoboxnode/hero-img.png" alt="" style="max-height: 300px;">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Hero End -->
+
+
+    <!-- Full Screen Search Start -->
+    <div class="modal fade" id="searchModal" tabindex="-1">
+        <div class="modal-dialog modal-fullscreen">
+            <div class="modal-content" style="background: rgba(20, 24, 62, 0.7);">
+                <div class="modal-header border-0">
+                    <button type="button" class="btn btn-square bg-white btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body d-flex align-items-center justify-content-center">
+                    <div class="input-group" style="max-width: 600px;">
+                        <input type="text" class="form-control bg-transparent border-light p-3"
+                            placeholder="Type search keyword">
+                        <button class="btn btn-light px-4"><i class="bi bi-search"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Full Screen Search End -->
+
+
+    <!-- About Start -->
+    <div class="container-fluid py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                                    <input type="hidden" id="share-website-info" data-name="" data-url="">
+                  				  				  				<div id="content_views" class="htmledit_views"> <h3>目标</h3> <p>从vue-element-admin中提供的excel导入功能迁移到当前的项目中</p> <h3>思路</h3> <ul> <li>安装包</li> <li>拷贝组件</li> </ul> <h3>安装必要的插件</h3> <p>这个插件叫做<code>xlsx</code></p> <pre><code>npm install xlsx -S 复制代码</code></pre> <h3>引入UploadExcel组件并注册为全局</h3> <ul> <li>将vue-element-admin提供的组件复制到我们自己的项目 **<code>src/components/UploadExcel</code>**下</li> <li>在index.js将它注册成全局组件</li> </ul> <pre><code>import PageTools from './PageTools' import UploadExcel from './UploadExcel'  export default {  &nbsp;// 插件的初始化, 插件给你提供的全局的功能, 都可以在这里配置  &nbsp;install(Vue) {  &nbsp; &nbsp;// 进行组件的全局注册  &nbsp; &nbsp;Vue.component('PageTools', PageTools) // 注册工具栏组件  &nbsp; &nbsp;Vue.component('UploadExcel', UploadExcel) // 注册导入excel组件   } } 复制代码</code></pre> <h2>员工管理-excel导入功能-准备页面</h2> <h3>目标</h3> <p>根据业务要求，配置一个独立的路由，然后在这个单独的页面中实现<strong>员工导入</strong>功能</p> <h3>思路</h3> <ol> <li>配置路由</li> <li>建立对应的页面，然后在这个页面中引入UploadExcel组件实现导入功能</li> </ol> <h3>建立公共导入的页面路由</h3> <p>新建一个公共的导入页面，即<strong>import路由组件</strong><strong><code>src/views/import/index.vue</code></strong></p> <p>在页面中使用前面封装的excel上传组件，并补充导入成功后的回调函数</p> <pre><code>&lt;template&gt;  &nbsp;&lt;upload-excel :on-success="handleSuccess" /&gt; &lt;/template&gt;  &lt;script&gt; export default {  &nbsp;name: 'Import',  &nbsp;methods: {  &nbsp; &nbsp;handleSuccess({ header, results }) {  &nbsp; &nbsp; &nbsp;console.log(header, results)  &nbsp;  }   } } &lt;/script&gt; 复制代码</code></pre> <h3>配置路由</h3> <p>这个路由不需要根据权限控制，直接定义为静态路由即可。在**<code>src/router/index.js</code>**下的静态路由中添加一个路由</p> <pre><code>{  &nbsp; &nbsp;path: '/import',  &nbsp; &nbsp;component: Layout,  &nbsp; &nbsp;hidden: true, // 不显示到左侧菜单  &nbsp; &nbsp;children: [{  &nbsp; &nbsp; &nbsp;path: '',   &nbsp; &nbsp; &nbsp;component: () =&gt; import('@/views/import')  &nbsp;  }] } 复制代码</code></pre> <h3>测试导入效果</h3> <p>点击上传，分析handleSuccess的执行结果</p> <pre><code>handleSuccess({ header, results }) {  &nbsp; &nbsp; &nbsp;// header 标题  &nbsp; &nbsp; &nbsp;// &nbsp; &nbsp; &nbsp;  ['姓名','手机号']  &nbsp; &nbsp; &nbsp;// results excel表格的内容  &nbsp; &nbsp; &nbsp;// &nbsp; &nbsp; &nbsp;  [ {'姓名'：'小张'， '手机号': '13712345678'}, {.....} ]  &nbsp; &nbsp; &nbsp;console.log(header, results)  &nbsp;  } 复制代码</code></pre> <p>excel导入插件本质：把excel经过分析转换成js能够识别的常规数据，拿到数据我们可以进行任何操作</p> <h2>员工管理-实现excel导入-数据处理</h2> <h3>目标</h3> <p>数据格式转换：将excel解析好的数据经过处理后，转成可以传给接口调用的数据</p> <p style="text-align:center;"><img decoding="async" alt="image.png" src="http://img.555519.xyz/uploads3/20220607/550fb2242e46eb37266a197ecd1c6ad6.jpg"></p> <h3>思路</h3> <p>调用接口进行excel上传的<strong>重点其实是数据的处理</strong>，我们需要按照接口的要求，把excel表格中经过插件处理好的数据处理成后端接口要求的格式</p> <blockquote> <p>下面是后端接口要求的示例格式</p> <p style="text-align:center;"><img decoding="async" alt="image.png" src="http://img.555519.xyz/uploads3/20220607/36a7a4a85a738d7c6703c0b7d19bdb65.jpg"></p> </blockquote> <h3>按接口要求，处理excel导入的数据</h3> <p>处理内容包含：</p> <ul> <li>字段中文转英文。excel中读入的是<code>姓名</code>,而后端需要的是<code>username</code></li> <li>日期处理。从excel中读入的时间是一个number值，而后端需要的是标准日期。</li> </ul> <p>为了方便维护代码，单独封装一个方法来实现这个转换的功能。</p> <pre><code>/**  &nbsp; &nbsp; * results excel表格的内容  &nbsp; &nbsp;  // [  &nbsp; &nbsp; &nbsp; &nbsp;  {'姓名'：'小张'， '手机号': '13712345678'}  &nbsp; &nbsp; &nbsp;  , {.....}  &nbsp; &nbsp; &nbsp;  ]   &nbsp; &nbsp;  // 目标  &nbsp; &nbsp;  // [ {'username'：'小张'，'mobile': '13712345678'}, {.....} ]  &nbsp; &nbsp; */  &nbsp; &nbsp;// 把一个对象数组中的每个对象的属性名，从中文改成英文  &nbsp; &nbsp;// 思路：对于原数组每个对象来说  &nbsp; &nbsp;// &nbsp;  （1） 找出所有的中文key  &nbsp; &nbsp;// &nbsp; &nbsp; (2)  得到对应的英文key  &nbsp; &nbsp;// &nbsp; &nbsp; (3)  拼接一个新对象： 英文key:值  &nbsp; &nbsp;transExcel(results) {  &nbsp; &nbsp; &nbsp;const mapInfo = {  &nbsp; &nbsp; &nbsp; &nbsp;'入职日期': 'timeOfEntry',  &nbsp; &nbsp; &nbsp; &nbsp;'手机号': 'mobile',  &nbsp; &nbsp; &nbsp; &nbsp;'姓名': 'username',  &nbsp; &nbsp; &nbsp; &nbsp;'转正日期': 'correctionTime',  &nbsp; &nbsp; &nbsp; &nbsp;'工号': 'workNumber',  &nbsp; &nbsp; &nbsp; &nbsp;'部门': 'departmentName',  &nbsp; &nbsp; &nbsp; &nbsp;'聘用形式': 'formOfEmployment'  &nbsp; &nbsp;  }  &nbsp; &nbsp; &nbsp;return results.map(zhObj =&gt; {  &nbsp; &nbsp; &nbsp; &nbsp;const enObj = {}  &nbsp; &nbsp; &nbsp; &nbsp;const zhKeys = Object.keys(zhObj) // ['姓名', '手机号']   &nbsp; &nbsp; &nbsp; &nbsp;zhKeys.forEach(zhKey =&gt; {  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;const enKey = mapInfo[zhKey]   &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;enObj[enKey] = zhObj[zhKey]  &nbsp; &nbsp; &nbsp;  })   &nbsp; &nbsp; &nbsp; &nbsp;return enObj  &nbsp; &nbsp;  })  &nbsp;  } 复制代码</code></pre> <h2>实现excel导入-封装接口并调用</h2> <h3>目标</h3> <p>完成按钮跳转，导入完成（接口调用）之后，再跳回到原来的页面</p> <h3>分析</h3> <p>在页面上，点击了导入之后，做跳转，跳到上传页面；</p> <p>把接口准备好，</p> <h3>接口api</h3> <p>src/api/employee</p> <pre><code>/**  * @description: 导入excel  * @param {*} data  * @return {*}  */ export function importEmployee(data) {  &nbsp;return request({  &nbsp; &nbsp;url: '/sys/user/batch',  &nbsp; &nbsp;method: 'post',  &nbsp; &nbsp;data   }) } 复制代码</code></pre> <h3>在页面中使用</h3> <p>导入API<code>import { importEmployee } from '@/api/employees'</code></p> <p>封装doImport</p> <pre><code>  &nbsp; async doImport(data) {  &nbsp; &nbsp; &nbsp;try {  &nbsp; &nbsp; &nbsp; &nbsp;const res = await importEmployee(data)  &nbsp; &nbsp; &nbsp; &nbsp;console.log('importEmployee', res)  &nbsp; &nbsp; &nbsp; &nbsp;this.$message.success('导入成功')   &nbsp; &nbsp; &nbsp; &nbsp;// 页面后退  &nbsp; &nbsp; &nbsp; &nbsp;this.$router.back()  &nbsp; &nbsp;  } catch (err) {  &nbsp; &nbsp; &nbsp; &nbsp;console.log('importEmployee', err)  &nbsp; &nbsp; &nbsp; &nbsp;this.$message.error('导入失败')  &nbsp; &nbsp;  }  &nbsp;  },  &nbsp; &nbsp;//  1. 把数据从excel文件读入到浏览器内存  &nbsp; &nbsp;handleSuccess({ header, results }) {  &nbsp; &nbsp; &nbsp;console.log(header, results)   &nbsp; &nbsp; &nbsp;// 2. 按接口要求 组装数据  &nbsp; &nbsp; &nbsp;const data = this.transExcel(results)  &nbsp; &nbsp; &nbsp;console.log('按接口要求 组装数据', data)  &nbsp; &nbsp; &nbsp;// 3. 调用接口做上传  &nbsp; &nbsp; &nbsp;this.doImport(data)  &nbsp;  }, 复制代码</code></pre> <h2>excel导出功能介绍</h2> <h3>背景</h3> <p>在表格（element-table）中查询到了我们需要的数据，希望用他们生成excel文件，保存在本地。</p> <h3><strong>思路</strong></h3> <p>前端主导（工作大量在前端）</p> <p style="text-align:center;"><img decoding="async" alt="image.png" src="http://img.555519.xyz/uploads3/20220607/7280967180e2927f48378f7605f6cd6d.jpg"></p> <ul> <li>取回数据，<strong>保存excel文件</strong></li> </ul> <p>后端主导（工作大量在后端）</p> <p style="text-align:center;"><img decoding="async" alt="image.png" src="http://img.555519.xyz/uploads3/20220607/90e93c489f2e93db58cc902e09c0f578.jpg"></p> <ul> <li>前端调用接口</li> </ul> <h2>分析vue-element-admin中的导出方案</h2> <h3>目标</h3> <p>先去vue-admin中去学习导出功能的用法，并归纳总结把它用到本项目中的步骤</p> <blockquote> <p>前置工作：这个功能在我们课程一开始学习的vue-element-admin中有现成的功能参考，我们也在<code>项目资源</code>里提供了现成的插件包，大家先把它复制到自己项目的<code>src目录</code>下</p> </blockquote> <h3>学习使用现成的excel导出组件</h3> <p>通过路由路径定位到源码位置</p> <p style="text-align:center;"><img decoding="async" alt="image.png" src="http://img.555519.xyz/uploads3/20220607/5d160bb8dc6a32d77d65c7e972b96000.jpg"></p> <p><strong>熟悉案例代码</strong></p> <p>网上示例地址：<a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://link.juejin.cn?target=https%3A%2F%2Fgitee.com%2Fpanjiachen%2Fvue-element-admin%2Fblob%2Fmaster%2Fsrc%2Fviews%2Fexcel%2Fexport-excel.vue"  title="gitee.com/panjiachen/…" rel="nofollow">gitee.com/panjiachen/…</a></p> <pre><code>onclick: function (){  &nbsp;import('@/vendor/Export2Excel').then(excel =&gt; {  &nbsp; &nbsp;const tHeader = ['Id', 'Title', 'Author', 'Readings', 'Date']  &nbsp; &nbsp;const filterVal = ['id', 'title', 'author', 'pageviews', 'display_time']  &nbsp; &nbsp;const list = this.list  &nbsp; &nbsp;const data = this.formatJson(filterVal, list)  &nbsp; &nbsp;excel.export_json_to_excel({  &nbsp; &nbsp; &nbsp;header: tHeader,  &nbsp; &nbsp; &nbsp;data,  &nbsp; &nbsp; &nbsp;filename: this.filename,  &nbsp; &nbsp; &nbsp;autoWidth: this.autoWidth,  &nbsp; &nbsp; &nbsp;bookType: this.bookType  &nbsp;  })  &nbsp; &nbsp;this.downloadLoading = false  }) } 复制代码</code></pre> <h3>具体说明</h3> <ol> <li> <p>插件包位于<code>src/vendor/export2Excel</code>中，采用的是按需引入的方式</p> <p>什么时候正式要使用导出功能了,插件才会被正式引入到应用里</p> <pre><code>import('@/vendor/Export2Excel').then(excel =&gt; {}) 复制代码</code></pre> </li> <li> <p><code>Export2Excel</code>依赖的包有<code>js-xlsx</code>、<code>file-saver</code>和<code>script-loader</code></p> <p>也就是说，在项目跑起来之前要安装依赖</p> <pre><code>npm install file-saver script-loader --save 复制代码</code></pre> </li> </ol> <h2>员工导出-基础导出功能实现</h2> <h3>目标</h3> <p>把vue-element-admin中的导出功能，迁移本项目</p> <p>使用静态数据实现基础的导出功能（先不使用从接口获取的数据）</p> <h3>思路</h3> <ol> <li>将vue-element-admin中的src/vendor/export2Excel复制到本项目中，直接使用</li> <li>在项目中安装依赖</li> </ol> <pre><code>npm install file-saver script-loader xlsx --save 复制代码</code></pre> <h3>给导出按钮添加点击事件</h3> <p>回调函数内容如下</p> <pre><code>import('@/vendor/Export2Excel').then(excel =&gt; {  &nbsp;// excel表示导入的模块对象  &nbsp;console.log(excel)  &nbsp;excel.export_json_to_excel({  &nbsp; &nbsp;header: ['姓名', '工资'], // 表头 必填  &nbsp; &nbsp;data: [  &nbsp; &nbsp;  ['刘备', 100],  &nbsp; &nbsp;  ['关羽', 500]  &nbsp;  ], // 具体数据 必填  &nbsp; &nbsp;filename: 'excel-list', // 文件名称  &nbsp; &nbsp;autoWidth: true, // 宽度是否自适应  &nbsp; &nbsp;bookType: 'xlsx' // 生成的文件类型   }) }) 复制代码</code></pre> <p>以上代码表示:</p> <ol> <li>当我们正式点击<code>导出</code>按钮之后，才去加载vendor文件夹中的Export2Excel模块</li> <li>import方法执行完毕返回的是一个promise对象，在then方法中我们可以拿到使用的模块对象</li> <li>重点关注data的配置部分，我们发现它需要一个严格的二维数组</li> </ol> <p><strong>Excel导出参数说明</strong></p> <table> <thead> <tr> <th>参数</th> <th>说明</th> <th>类型</th> <th>可选值</th> <th>默认值</th> </tr> </thead> <tbody> <tr> <td>header</td> <td>导出数据的表头</td> <td>Array</td> <td>/</td> <td>[]</td> </tr> <tr> <td>data</td> <td>导出的具体数据</td> <td>Array</td> <td>/</td> <td><strong>[[]]</strong></td> </tr> <tr> <td>filename</td> <td>导出文件名</td> <td>String</td> <td>/</td> <td>excel-list</td> </tr> <tr> <td>autoWidth</td> <td>单元格是否要自适应宽度</td> <td>Boolean</td> <td>true / false</td> <td>true</td> </tr> <tr> <td>bookType</td> <td>导出文件类型</td> <td>String</td> <td>xlsx, csv, txt,<a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://link.juejin.cn?target=https%3A%2F%2Fgithub.com%2FSheetJS%2Fjs-xlsx%23supported-output-formats"  title="more" rel="nofollow">more</a></td> <td>xlsx</td> </tr> </tbody> </table> </div> 			                <div class="clearfix"></div>
+                <div class="col-md-12 mt-5">
+                                        <p>上一个：<a href="/news/article-41457.htm">收猫长期回收各种宠物猫电话（有回收猫咪的吗）</a></p>
+                                        <p>下一个：<a href="/news/article-41942.htm">动物疫苗接种时间表图片大全集高清（动物疫苗接种时间表图片大全集高清视频）</a></p>
+                                    </div>
+                                </div>
+                <div class="col-md-3">
+                    <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/news/article-31747.htm" title="妙三多疫苗说明书（妙三多疫苗使用说明）">妙三多疫苗说明书（妙三多疫苗使用说明）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-1-8-free-clash-subscribe.htm" title="「1月8日」最高速度19.9M/S，2025年NekoBox每天更新免费节点订阅链接">「1月8日」最高速度19.9M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-11-2-node-share.htm" title="「11月2日」最高速度22.3M/S，2024年NekoBox每天更新免费节点订阅链接">「11月2日」最高速度22.3M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-29355.htm" title="SpringBoot项目处理emoji表情到mysql">SpringBoot项目处理emoji表情到mysql</a></li>
+                        <li class="py-2"><a href="/news/article-35427.htm" title="正规领养宠物流程表格图（领养宠物程序）">正规领养宠物流程表格图（领养宠物程序）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-1-1-clash-node.htm" title="「1月1日」最高速度21.3M/S，2025年NekoBox每天更新免费节点订阅链接">「1月1日」最高速度21.3M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-34613.htm" title="vue将方法挂载到原型上">vue将方法挂载到原型上</a></li>
+                        <li class="py-2"><a href="/news/article-19203.htm" title="动物打了疫苗还会有狂犬病吗（打了疫苗的动物用不用打狂犬疫苗）">动物打了疫苗还会有狂犬病吗（打了疫苗的动物用不用打狂犬疫苗）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-12-14-free-subscribe-node.htm" title="「12月14日」最高速度19.2M/S，2024年NekoBox每天更新免费节点订阅链接">「12月14日」最高速度19.2M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-1-15-free-clash.htm" title="「1月15日」最高速度21.6M/S，2025年NekoBox每天更新免费节点订阅链接">「1月15日」最高速度21.6M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">51</span> <a href="/date/2025-01/" title="2025-01 归档">2025-01</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">93</span> <a href="/date/2024-12/" title="2024-12 归档">2024-12</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">34</span> <a href="/date/2024-11/" title="2024-11 归档">2024-11</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">25</span> <a href="/date/2024-10/" title="2024-10 归档">2024-10</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- About End -->
+
+
+
+        <!-- Footer Start -->
+    <div class="container-fluid bg-dark text-white-50 footer pt-5">
+        <div class="container wow fadeIn" data-wow-delay="0.1s">
+            <div class="copyright">
+                <div class="row">
+                    <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                            <p>
+                                <a href="/">首页</a> | 
+                                <a href="/free-node/">免费节点</a> | 
+                                <a href="/news/">新闻资讯</a> |
+                                <a href="/about-us.htm">关于我们</a> |
+                                <a href="/disclaimer.htm">免责申明</a> |
+                                <a href="/privacy.htm">隐私申明</a> |
+                                <a href="/sitemap.xml">网站地图</a>
+                            </p>
+                        NekoBoxNode官网节点站 版权所有
+                        <br />
+                        Powered by WordPress
+                    </div>
+                    <div class="col-md-6 text-center text-md-end">
+                        <div class="footer-menu">
+                            <a href="/">Home</a>
+                            <a href="#">Cookies</a>
+                            <a href="#">Help</a>
+                            <a href="#">FAQs</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer End -->
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top pt-2"><i class="bi bi-arrow-up"></i></a>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.0.0/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/wow/wow.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/easing/easing.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/waypoints/waypoints.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/counterup/counterup.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/owlcarousel/owl.carousel.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="/assets/website/js/frontend/nekoboxnode/main.js"></script>
+    <script src="https://www.freeclashnode.com/assets/js/frontend/invite-url.js"></script><script src="/assets/website/js/frontend/G.js"></script>
+</body>
+
+</html>
