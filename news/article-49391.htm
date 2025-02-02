@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html xml:lang="zh-CN" lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://nekoboxnode.github.io/news/article-49391.htm" />
+    <meta charset="utf-8">
+    <title>Go并发编程sync.Cond的具体使用_Golang</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <meta name="description" content="目录  简介 详细介绍 案例：Redis连接池 注意点    简介 Go 标准库提供 Cond 原语的目的是，为等待 / 通知场景下的并发问题提供支持。Cond 通常应用于等待某个条件的一组 goro" />
+    
+    <!-- Favicon -->
+    <link href="/assets/website/img/nekoboxnode/favicon.ico" rel="icon">
+
+    <meta name="author" content="NekoBoxNode官网节点站">
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://nekoboxnode.github.io/news/article-49391.htm" />
+    <meta property="og:site_name" content="NekoBoxNode官网节点站" />
+    <meta property="og:title" content="Go并发编程sync.Cond的具体使用_Golang" />
+    <meta property="og:image" content="https://nekoboxnode.github.io/uploads/20240427/ebcee063ba5043fe30c283a163ec11da.webp" />
+        <meta property="og:release_date" content="2025-02-01T07:13:45" />
+    <meta property="og:updated_time" content="2025-02-01T07:13:45" />
+        <meta property="og:description" content="目录  简介 详细介绍 案例：Redis连接池 注意点    简介 Go 标准库提供 Cond 原语的目的是，为等待 / 通知场景下的并发问题提供支持。Cond 通常应用于等待某个条件的一组 goro" />
+    
+    <meta name="applicable-device" content="pc,mobile" />
+    <meta name="renderer" content="webkit" />
+    <meta name="force-rendering" content="webkit" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta name="robots" content="max-image-preview:large" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Go并发编程sync.Cond的具体使用_Golang">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="dns-prefetch" href="https:/www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cm.g.doubleclick.net">
+        
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Ubuntu:wght@500;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcdn.net/ajax/libs/bootstrap-icons/1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="/assets/website/js/frontend/nekoboxnode/lib/animate/animate.min.css" rel="stylesheet">
+    <link href="/assets/website/js/frontend/nekoboxnode/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="/assets/website/css/nekoboxnode/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="/assets/website/css/nekoboxnode/style.css" rel="stylesheet">
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-93Z2TV5VL1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-93Z2TV5VL1');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body data-page="detail">
+    <!-- Spinner Start -->
+    <div id="spinner"
+        class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-grow text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <!-- Spinner End -->
+
+
+        <!-- Navbar Start -->
+    <div class="container-fluid sticky-top">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-dark p-0">
+                                <a href="/" class="navbar-brand text-white">NekoBox Node</a>
+                                <button type="button" class="navbar-toggler ms-auto me-0" data-bs-toggle="collapse"
+                    data-bs-target="#navbarCollapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <div class="navbar-nav ms-auto">
+                                                <a href="/" class="nav-item nav-link">首页</a>
+                                                <a href="/free-nodes/" class="nav-item nav-link">免费节点</a>
+                                                <a href="/paid-subscribe/" class="nav-item nav-link">推荐机场</a>
+                                                <a href="/news/" class="nav-item nav-link">新闻资讯</a>
+                                                <a href="#" class="nav-item nav-link">关于</a>
+                        <a href="#" class="nav-item nav-link">联系</a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <!-- Navbar End -->
+
+
+    <!-- Hero Start -->
+    <div class="container-fluid pt-5 bg-primary hero-header">
+        <div class="container pt-5">
+            <div class="row g-5 pt-5">
+                <div class="col-lg-6 align-self-center text-center text-lg-start mb-lg-5">
+                    <h1 class="text-white mb-4 animated slideInRight">Go并发编程sync.Cond的具体使用_Golang</h1>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb justify-content-center justify-content-lg-start mb-0">
+                            <li class="breadcrumb-item"><a class="text-white" href="/" title="首页">首页</a></li>
+                            <li class="breadcrumb-item"><a class="text-white" href="/news/" title="新闻资讯">新闻资讯</a></li>
+                            <li class="breadcrumb-item text-white active" aria-current="page">正文</li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="col-lg-6 align-self-end text-center text-lg-end">
+                    <img class="img-fluid" href="/assets/website/img/nekoboxnode/hero-img.png" alt="" style="max-height: 300px;">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Hero End -->
+
+
+    <!-- Full Screen Search Start -->
+    <div class="modal fade" id="searchModal" tabindex="-1">
+        <div class="modal-dialog modal-fullscreen">
+            <div class="modal-content" style="background: rgba(20, 24, 62, 0.7);">
+                <div class="modal-header border-0">
+                    <button type="button" class="btn btn-square bg-white btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body d-flex align-items-center justify-content-center">
+                    <div class="input-group" style="max-width: 600px;">
+                        <input type="text" class="form-control bg-transparent border-light p-3"
+                            placeholder="Type search keyword">
+                        <button class="btn btn-light px-4"><i class="bi bi-search"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Full Screen Search End -->
+
+
+    <!-- About Start -->
+    <div class="container-fluid py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                                    <input type="hidden" id="share-website-info" data-name="" data-url="">
+                  				  				  				<div id="navCategory"> <h5 class="catalogue">目录</h5> <ul class="first_class_ul"> <li><a href="#_label0" rel="nofollow">简介</a></li> <li><a href="#_label1" rel="nofollow">详细介绍</a></li> <li><a href="#_label2" rel="nofollow">案例：Redis连接池</a></li> <li><a href="#_label3" rel="nofollow">注意点</a></li> </ul> </div> <p class="maodian"><a name="_label0" rel="nofollow"></a></p> <h2>简介</h2> <p><code>Go </code>标准库提供 <code>Cond </code>原语的目的是，为等待 / 通知场景下的并发问题提供支持。<code>Cond</code> 通常应用于等待某个条件的一组 <code>goroutine</code>，等条件变为 <code>true</code> 的时候，其中一个 <code>goroutine</code> 或者所有的 <code>goroutine</code> 都会被唤醒执行。</p> <p><code>Cond</code> 是和某个条件相关，这个条件需要一组 <code>goroutine</code> 协作共同完成，在条件还没有满足的时候，所有等待这个条件的 <code>goroutine</code> 都会被阻塞住，只有这一组 <code>goroutine</code> 通过协作达到了这个条件，等待的 goroutine 才可能继续进行下去。</p> <p>这个条件可以是我们自定义的 <code>true/false</code> 逻辑表达式。</p> <p>但是 <code>Cond</code> 使用的比较少，因为在大部分场景下是可以被 <code>Channel</code> 和 <code>WaitGroup</code> 来替换的。</p> <p class="maodian"><a name="_label1" rel="nofollow"></a></p> <h2>详细介绍</h2> <p>下面就是 <code>Cond</code> 的数据结构和对外提供的方法，<code>Cond</code> 内部维护了一个等待队列和锁实例。</p> <div class="ay1code"> <pre class="brush:go;">type Cond struct {     noCopy noCopy       // 锁     L Locker       // 等待队列     notify  notifyList     checker copyChecker  }    func NeWCond(l Locker) *Cond  func (c *Cond) Broadcast()  func (c *Cond) Signal()  func (c *Cond) Wait()</pre> </div> <ul> <li> <p><strong>NeWCond</strong>： <code>NeWCond</code> 方法需要调用者传入一个 <code>Locker</code> 接口，这个接口就 <code>Lock/UnLock</code> 方法，所以我们可以传入一个 <code>sync.Metex</code> 对象</p> </li> <li> <p><strong>Signal</strong>：允许调用者唤醒一个等待当前 <code>Cond</code> 的 <code>goroutine</code>。如果 <code>Cond</code> 等待队列中有一个或者多个等待的 <code>goroutine</code> ，则从等待队列中移除第一个 <code>goroutine</code> 并把它唤醒</p> </li> <li> <p><strong>Broadcast</strong>：允许调用者唤醒所有等待当前 <code>Cond</code> 的 <code>goroutine</code>。如果 Cond 等待队列中有一个或者多个等待的 <code>goroutine</code>，则清空所有等待的 <code>goroutine</code>，并全部唤醒</p> </li> <li> <p><strong>Wait</strong>：会把调用者放入<code> Cond</code> 的等待队列中并阻塞，直到被 <code>Signal</code> 或者 <code>Broadcast</code> 的方法从等待队列中移除并唤醒</p> </li> </ul> <p class="maodian"><a name="_label2" rel="nofollow"></a></p> <h2>案例：Redis连接池</h2> <p>可以看一下下面的代码，使用了 <code>Cond</code> 实现一个 <code>Redis</code> 的连接池，最关键的代码就是在链表为空的时候需要调用 <code>Cond</code> 的 <code>Wait</code> 方法，将 <code>gorutine</code> 进行阻塞。然后 <code>goruntine</code> 在使用完连接后，将连接返回池子后，需要通知其他阻塞的 <code>goruntine</code> 来获取连接。</p> <div class="ay1code"> <pre class="brush:xhtml;">package main    import (     "container/list"     "fmt"     "math/rand"     "sync"     "time"  )    // 连接池  type Pool struct {     lock    sync.Mutex // 锁     clients list.List  // 连接     cond    *sync.Cond // cond实例     close   bool       // 是否关闭  }    // Redis Client  type Client struct {     id int32  }    // 创建Redis Client  func NewClient() *Client {     return &amp;Client{        id: rand.Int31n(100000),     }  }    // 关闭Redis Client  func (this *Client) Close() {     fmt.Printf("Client:%d 正在关闭", this.id)  }    // 创建连接池  func NewPool(maxConnNum int) *Pool {     pool := new(Pool)     pool.cond = sync.NewCond(&amp;pool.lock)       // 创建连接     for i := 0; i &lt; maxConnNum; i++ {        client := NewClient()        pool.clients.PushBack(client)     }       return pool  }    // 从池子中获取连接  func (this *Pool) Pull() *Client {     this.lock.Lock()     defer this.lock.Unlock()       // 已关闭     if this.close {        fmt.Println("Pool is closed")        return nil     }       // 如果连接池没有连接 需要阻塞     for this.clients.Len() &lt;= 0 {        this.cond.Wait()     }       // 从链表中取出头节点，删除并返回     ele := this.clients.Remove(this.clients.Front())     return ele.(*Client)  }    // 将连接放回池子  func (this *Pool) Push(client *Client) {     this.lock.Lock()     defer this.lock.Unlock()       if this.close {        fmt.Println("Pool is closed")        return     }       // 向链表尾部插入一个连接     this.clients.PushBack(client)       // 唤醒一个正在等待的goruntine     this.cond.Signal()  }    // 关闭池子  func (this *Pool) Close() {     this.lock.Lock()     defer this.lock.Unlock()       // 关闭连接     for e := this.clients.Front(); e != nil; e = e.Next() {        client := e.Value.(*Client)        client.Close()     }       // 重置数据     this.close = true     this.clients.Init()  }    func main() {       var wg sync.WaitGroup       pool := NewPool(3)     for i := 1; i &lt;= 10; i++ {        wg.Add(1)        go func(index int) {             defer wg.Done()             // 获取一个连接           client := pool.Pull()             fmt.Printf("Time:%s | 【goruntine#%d】获取到client[%d]\n", time.Now().Format("15:04:05"), index, client.id)           time.Sleep(time.Second * 5)           fmt.Printf("Time:%s | 【goruntine#%d】使用完毕，将client[%d]放回池子\n", time.Now().Format("15:04:05"), index, client.id)             // 将连接放回池子           pool.Push(client)        }(i)     }       wg.Wait()  }</pre> </div> <p>运行结果：</p> <blockquote> <p>Time:15:10:25 | 【goruntine#7】获取到client[31847]<br />Time:15:10:25 | 【goruntine#5】获取到client[27887]<br />Time:15:10:25 | 【goruntine#10】获取到client[98081]<br />Time:15:10:30 | 【goruntine#5】使用完毕，将client[27887]放回池子<br />Time:15:10:30 | 【goruntine#6】获取到client[27887]               <br />Time:15:10:30 | 【goruntine#10】使用完毕，将client[98081]放回池子<br />Time:15:10:30 | 【goruntine#7】使用完毕，将client[31847]放回池子 <br />Time:15:10:30 | 【goruntine#1】获取到client[31847]               <br />Time:15:10:30 | 【goruntine#9】获取到client[98081]               <br />Time:15:10:35 | 【goruntine#6】使用完毕，将client[27887]放回池子<br />Time:15:10:35 | 【goruntine#3】获取到client[27887]              <br />Time:15:10:35 | 【goruntine#1】使用完毕，将client[31847]放回池子<br />Time:15:10:35 | 【goruntine#4】获取到client[31847]              <br />Time:15:10:35 | 【goruntine#9】使用完毕，将client[98081]放回池子<br />Time:15:10:35 | 【goruntine#2】获取到client[98081]              <br />Time:15:10:40 | 【goruntine#3】使用完毕，将client[27887]放回池子<br />Time:15:10:40 | 【goruntine#8】获取到client[27887]              <br />Time:15:10:40 | 【goruntine#2】使用完毕，将client[98081]放回池子<br />Time:15:10:40 | 【goruntine#4】使用完毕，将client[31847]放回池子<br />Time:15:10:45 | 【goruntine#8】使用完毕，将client[27887]放回池子</p> </blockquote> <p class="maodian"><a name="_label3" rel="nofollow"></a></p> <h2>注意点</h2> <ul> <li>在调用 <code>Wait</code> 方法前，需要先加锁，就像我上面例子中 <code>Pull</code> 方法也是先加锁</li> </ul> <p>看一下源码就知道了，因为 <code>Wait</code> 方法的执行逻辑是先将 <code>goruntine</code> 添加到等待队列中，然后释放锁，然后阻塞，等唤醒后，会继续加锁。如果在调用 <code>Wait</code> 前不加锁，但是里面会解锁，执行的时候就会报错。</p> <div class="ay1code"> <pre class="brush:go;">//  //    c.L.Lock()  //    for !condition() {  //        c.Wait()  //    }  //    ... make use of condition ...  //    c.L.Unlock()  //  func (c *Cond) Wait() {     c.checker.check()          // 添加到等待队列     t := runtime_notifyListAdd(&amp;c.notify)     c.L.Unlock()          // 阻塞     runtime_notifyListWait(&amp;c.notify, t)     c.L.Lock()  }</pre> </div> <ul> <li>还是 <code>Wait</code> 方法，在唤醒后需要继续检查 <code>Cond</code> 条件</li> </ul> <p>就拿上面的 <code>redis</code> 连接案例来进行说明吧，我这里是使用了 <code>for</code> 循环来进行检测。如果将 <code>for</code> 循环改成使用 <code>if</code>，也就是只判断一次，会有什么问题？可以停下来先想想</p> <p>上面说了调用者也可以使用 <code>Broadcast</code> 方法来唤醒 <code>goruntine</code> ，如果使用的是 <code>Broadcast</code> 方法，所有的 <code>goruntine</code> 都会被唤醒，然后大家都去链表中去获取 <code>redis</code> 连接了，就会出现部分 <code>goruntine</code>拿不到连接，实际上没有那么多连接可以获取，因为每次只会放回一个连接到池子中。</p> <div class="ay1code"> <pre class="brush:go;">// 如果连接池没有连接 需要阻塞  for this.clients.Len() &lt;= 0 {    this.cond.Wait()  }    // 获取连接  ele := this.clients.Remove(this.clients.Front())  return ele.(*Client)</pre> </div> 			                <div class="clearfix"></div>
+                <div class="col-md-12 mt-5">
+                                        <p>上一个：<a href="/news/article-48876.htm">太原小狗免费赠送拜托领养 太原小狗免费赠送拜托领养是真的吗</a></p>
+                                        <p>下一个：<a href="/news/article-49392.htm">给宠物猫打疫苗多少钱一针（给宠物猫打疫苗需要多少钱）</a></p>
+                                    </div>
+                                </div>
+                <div class="col-md-3">
+                    <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/free-nodes/2024-12-25-clash-v2ray-ss-ssr.htm" title="「12月25日」最高速度18.1M/S，2024年NekoBox每天更新免费节点订阅链接">「12月25日」最高速度18.1M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-1-15-free-clash.htm" title="「1月15日」最高速度21.6M/S，2025年NekoBox每天更新免费节点订阅链接">「1月15日」最高速度21.6M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-45426.htm" title="北京看动物去哪里好看（北京看动物的地方）">北京看动物去哪里好看（北京看动物的地方）</a></li>
+                        <li class="py-2"><a href="/news/article-21957.htm" title="宠颐生动物医院好么（宠颐生动物医院方庄店）">宠颐生动物医院好么（宠颐生动物医院方庄店）</a></li>
+                        <li class="py-2"><a href="/news/article-30122.htm" title="宠物粮从哪里进货便宜又好吃呢图片（宠物粮在哪里买比较放心）">宠物粮从哪里进货便宜又好吃呢图片（宠物粮在哪里买比较放心）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-1-21-free-ssr-subscribe.htm" title="「1月21日」最高速度18.3M/S，2025年NekoBox每天更新免费节点订阅链接">「1月21日」最高速度18.3M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-21491.htm" title="动物疫苗接种途径有哪些方法（动物疫苗法最新消息2019）">动物疫苗接种途径有哪些方法（动物疫苗法最新消息2019）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-10-30-free-ssr-node.htm" title="「10月30日」最高速度23M/S，2024年NekoBox每天更新免费节点订阅链接">「10月30日」最高速度23M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-43924.htm" title="哪里可以免费领养小动物的软件（什么软件可以免费领养小动物）">哪里可以免费领养小动物的软件（什么软件可以免费领养小动物）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-12-31-clash-v2ray-ss-ssr.htm" title="「12月31日」最高速度19M/S，2025年NekoBox每天更新免费节点订阅链接">「12月31日」最高速度19M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">6</span> <a href="/date/2025-02/" title="2025-02 归档">2025-02</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">93</span> <a href="/date/2025-01/" title="2025-01 归档">2025-01</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">93</span> <a href="/date/2024-12/" title="2024-12 归档">2024-12</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">34</span> <a href="/date/2024-11/" title="2024-11 归档">2024-11</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">25</span> <a href="/date/2024-10/" title="2024-10 归档">2024-10</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- About End -->
+
+
+
+        <!-- Footer Start -->
+    <div class="container-fluid bg-dark text-white-50 footer pt-5">
+        <div class="container wow fadeIn" data-wow-delay="0.1s">
+            <div class="copyright">
+                <div class="row">
+                    <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                            <p>
+                                <a href="/">首页</a> | 
+                                <a href="/free-node/">免费节点</a> | 
+                                <a href="/news/">新闻资讯</a> |
+                                <a href="/about-us.htm">关于我们</a> |
+                                <a href="/disclaimer.htm">免责申明</a> |
+                                <a href="/privacy.htm">隐私申明</a> |
+                                <a href="/sitemap.xml">网站地图</a>
+                            </p>
+                        NekoBoxNode官网节点站 版权所有
+                        <br />
+                        Powered by WordPress
+                    </div>
+                    <div class="col-md-6 text-center text-md-end">
+                        <div class="footer-menu">
+                            <a href="/">Home</a>
+                            <a href="#">Cookies</a>
+                            <a href="#">Help</a>
+                            <a href="#">FAQs</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer End -->
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top pt-2"><i class="bi bi-arrow-up"></i></a>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.0.0/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/wow/wow.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/easing/easing.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/waypoints/waypoints.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/counterup/counterup.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/owlcarousel/owl.carousel.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="/assets/website/js/frontend/nekoboxnode/main.js"></script>
+    <script src="https://www.freeclashnode.com/assets/js/frontend/invite-url.js"></script><script src="/assets/website/js/frontend/G.js"></script>
+</body>
+
+</html>
