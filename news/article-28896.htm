@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html xml:lang="zh-CN" lang="zh-CN">
 
 <head>
         <link rel="canonical" href="https://nekoboxnode.github.io/news/article-28896.htm" />
@@ -9,8 +9,34 @@
         <meta name="description" content="假设，我们需要编写一个函数，该函数返回数组中至少出现两次的第一个元素的索引。如果没有元素出现多次，我们必须返回-1。我们必须在恒定的空间中执行此操作（即，不使用额外的内存）。 因此，让我们为这个问题编" />
     
     <!-- Favicon -->
-    <link href="__ADDON__/img/nekoboxnode/favicon.ico" rel="icon">
+    <link href="/assets/website/img/nekoboxnode/favicon.ico" rel="icon">
 
+    <meta name="author" content="NekoBoxNode官网节点站">
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://nekoboxnode.github.io/news/article-28896.htm" />
+    <meta property="og:site_name" content="NekoBoxNode官网节点站" />
+    <meta property="og:title" content="JavaScript查找数组中的第一个冗余元素方法详解" />
+    <meta property="og:image" content="https://nekoboxnode.github.io/uploads/20240427/a0768b05ca1b0857abdbaf4d0ab4a0b1.webp" />
+        <meta property="og:release_date" content="2024-12-21T10:10:11" />
+    <meta property="og:updated_time" content="2024-12-21T10:10:11" />
+        <meta property="og:description" content="假设，我们需要编写一个函数，该函数返回数组中至少出现两次的第一个元素的索引。如果没有元素出现多次，我们必须返回-1。我们必须在恒定的空间中执行此操作（即，不使用额外的内存）。 因此，让我们为这个问题编" />
+    
+    <meta name="applicable-device" content="pc,mobile" />
+    <meta name="renderer" content="webkit" />
+    <meta name="force-rendering" content="webkit" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta name="robots" content="max-image-preview:large" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="JavaScript查找数组中的第一个冗余元素方法详解">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="dns-prefetch" href="https:/www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cm.g.doubleclick.net">
+        
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -22,8 +48,8 @@
     <link href="https://cdn.bootcdn.net/ajax/libs/bootstrap-icons/1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
     <!-- Libraries Stylesheet -->
-    <link href="__ADDON__/js/frontend/nekoboxnode/lib/animate/animate.min.css" rel="stylesheet">
-    <link href="__ADDON__/js/frontend/nekoboxnode/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="/assets/website/js/frontend/nekoboxnode/lib/animate/animate.min.css" rel="stylesheet">
+    <link href="/assets/website/js/frontend/nekoboxnode/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
 
     <!-- Customized Bootstrap Stylesheet -->
     <link href="/assets/website/css/nekoboxnode/bootstrap.min.css" rel="stylesheet">
@@ -142,16 +168,16 @@
     </div>
     <div class="panel-body">
         <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
-                        <li class="py-2"><a href="/free-nodes/2024-10-18-clash-windows.htm" title="「10月18日」最高速度18.4M/S，2024年NekoBox每天更新免费节点订阅链接">「10月18日」最高速度18.4M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2024-5-23-shadowrocket-node.htm" title="「5月23日」最高速度22.7M/S，2024年SSR/Clash/Shadowrocket/V2ray每天更新免费节点订阅链接">「5月23日」最高速度22.7M/S，2024年SSR/Clash/Shadowrocket/V2ray每天更新免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2024-10-17-clash-v2ray-ss-ssr.htm" title="「10月17日」最高速度21.8M/S，2024年NekoBox每天更新免费节点订阅链接">「10月17日」最高速度21.8M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2024-10-16-clash-node.htm" title="「10月16日」最高速度19M/S，2024年NekoBox每天更新免费节点订阅链接">「10月16日」最高速度19M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2024-10-29-free-v2ray-subscribe.htm" title="「10月29日」最高速度22M/S，2024年NekoBox每天更新免费节点订阅链接">「10月29日」最高速度22M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2024-7-23-node-share.htm" title="「7月23日」最高速度19.7M/S，2024年NekoBox每天更新免费节点订阅链接">「7月23日」最高速度19.7M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2024-8-28-free-shadowrocket-node.htm" title="「8月28日」最高速度21.8M/S，2024年NekoBox每天更新免费节点订阅链接">「8月28日」最高速度21.8M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/news/article-31747.htm" title="妙三多疫苗说明书（妙三多疫苗使用说明）">妙三多疫苗说明书（妙三多疫苗使用说明）</a></li>
-                        <li class="py-2"><a href="/free-nodes/2024-4-28-shadowrocket-node.htm" title="「4月28日」最高速度23M/S，2024年Clash/Shadowrocket/SSR/V2ray每天更新免费节点订阅链接">「4月28日」最高速度23M/S，2024年Clash/Shadowrocket/SSR/V2ray每天更新免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2024-8-20-shadowrocket-node.htm" title="「8月20日」最高速度19.9M/S，2024年NekoBox每天更新免费节点订阅链接">「8月20日」最高速度19.9M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-11-24-free-v2ray-subscribe.htm" title="「11月24日」最高速度22.9M/S，2024年NekoBox每天更新免费节点订阅链接">「11月24日」最高速度22.9M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-18635.htm" title="办理动物疫苗经营手续需要哪些资料（办理动物疫苗经营手续需要哪些资料呢）">办理动物疫苗经营手续需要哪些资料（办理动物疫苗经营手续需要哪些资料呢）</a></li>
+                        <li class="py-2"><a href="/news/article-37985.htm" title="基于知名微服务框架go-micro开发gRPC应用程序">基于知名微服务框架go-micro开发gRPC应用程序</a></li>
+                        <li class="py-2"><a href="/news/article-47399.htm" title="同城免费领养宠物可靠吗安全吗（同城宠物猫领养）">同城免费领养宠物可靠吗安全吗（同城宠物猫领养）</a></li>
+                        <li class="py-2"><a href="/news/article-34937.htm" title="宠物医院开办批准手续需要多久（宠物医院开办条件）">宠物医院开办批准手续需要多久（宠物医院开办条件）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-12-23-free-clash.htm" title="「12月23日」最高速度20.4M/S，2024年NekoBox每天更新免费节点订阅链接">「12月23日」最高速度20.4M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-43925.htm" title="全国兽药厂家排行榜（全国排名前十兽药厂家）">全国兽药厂家排行榜（全国排名前十兽药厂家）</a></li>
+                        <li class="py-2"><a href="/news/article-32221.htm" title="pytorch报错  ConvTranspose1d object has no attribute padding_mode">pytorch报错  ConvTranspose1d object has no attribute padding_mode</a></li>
+                        <li class="py-2"><a href="/news/article-42452.htm" title="猫咪最信任你的八大表现（猫让摸哪里代表信任你）">猫咪最信任你的八大表现（猫让摸哪里代表信任你）</a></li>
+                        <li class="py-2"><a href="/news/article-29356.htm" title="动物疫苗接种时间表最新消息 动物疫苗接种时间表最新消息查询">动物疫苗接种时间表最新消息 动物疫苗接种时间表最新消息查询</a></li>
                     </ul>
     </div>
 </div>
@@ -163,34 +189,16 @@
     <div class="panel-body">
         <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
                         <li class="py-2">
-                <h4><span class="badge" style="float: right;">3</span> <a href="/date/2025-01/" title="2025-01 归档">2025-01</a></h4>
+                <h4><span class="badge" style="float: right;">6</span> <a href="/date/2025-02/" title="2025-02 归档">2025-02</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">93</span> <a href="/date/2025-01/" title="2025-01 归档">2025-01</a></h4>
             </li>
                         <li class="py-2">
                 <h4><span class="badge" style="float: right;">93</span> <a href="/date/2024-12/" title="2024-12 归档">2024-12</a></h4>
             </li>
                         <li class="py-2">
-                <h4><span class="badge" style="float: right;">34</span> <a href="/date/2024-11/" title="2024-11 归档">2024-11</a></h4>
-            </li>
-                        <li class="py-2">
-                <h4><span class="badge" style="float: right;">31</span> <a href="/date/2024-10/" title="2024-10 归档">2024-10</a></h4>
-            </li>
-                        <li class="py-2">
-                <h4><span class="badge" style="float: right;">30</span> <a href="/date/2024-09/" title="2024-09 归档">2024-09</a></h4>
-            </li>
-                        <li class="py-2">
-                <h4><span class="badge" style="float: right;">31</span> <a href="/date/2024-08/" title="2024-08 归档">2024-08</a></h4>
-            </li>
-                        <li class="py-2">
-                <h4><span class="badge" style="float: right;">27</span> <a href="/date/2024-07/" title="2024-07 归档">2024-07</a></h4>
-            </li>
-                        <li class="py-2">
-                <h4><span class="badge" style="float: right;">26</span> <a href="/date/2024-06/" title="2024-06 归档">2024-06</a></h4>
-            </li>
-                        <li class="py-2">
-                <h4><span class="badge" style="float: right;">31</span> <a href="/date/2024-05/" title="2024-05 归档">2024-05</a></h4>
-            </li>
-                        <li class="py-2">
-                <h4><span class="badge" style="float: right;">4</span> <a href="/date/2024-04/" title="2024-04 归档">2024-04</a></h4>
+                <h4><span class="badge" style="float: right;">30</span> <a href="/date/2024-11/" title="2024-11 归档">2024-11</a></h4>
             </li>
                     </ul>
     </div>
