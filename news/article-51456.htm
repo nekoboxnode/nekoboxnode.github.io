@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html xml:lang="zh-CN" lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://nekoboxnode.github.io/news/article-51456.htm" />
+    <meta charset="utf-8">
+    <title>Redis(六) 数据库和缓存的一致性问题</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <meta name="description" content="文章目录    一 先上结论 二 四种常用的缓存更新策略： 三 写操作的缓存更新策略分析   一 双更策略： 二 删除策略： 三 延时双删策略：   四 失败重试   同步重试： 异步重试： 借助消息" />
+    
+    <!-- Favicon -->
+    <link href="/assets/website/img/nekoboxnode/favicon.ico" rel="icon">
+
+    <meta name="author" content="NekoBoxNode官网节点站">
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://nekoboxnode.github.io/news/article-51456.htm" />
+    <meta property="og:site_name" content="NekoBoxNode官网节点站" />
+    <meta property="og:title" content="Redis(六) 数据库和缓存的一致性问题" />
+    <meta property="og:image" content="https://nekoboxnode.github.io/uploads/20240427/c799b1314704c75ee236a084ba283f0c.webp" />
+        <meta property="og:release_date" content="2025-02-05T08:19:32" />
+    <meta property="og:updated_time" content="2025-02-05T08:19:32" />
+        <meta property="og:description" content="文章目录    一 先上结论 二 四种常用的缓存更新策略： 三 写操作的缓存更新策略分析   一 双更策略： 二 删除策略： 三 延时双删策略：   四 失败重试   同步重试： 异步重试： 借助消息" />
+    
+    <meta name="applicable-device" content="pc,mobile" />
+    <meta name="renderer" content="webkit" />
+    <meta name="force-rendering" content="webkit" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta name="robots" content="max-image-preview:large" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Redis(六) 数据库和缓存的一致性问题">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="dns-prefetch" href="https:/www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cm.g.doubleclick.net">
+        
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Ubuntu:wght@500;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcdn.net/ajax/libs/bootstrap-icons/1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="/assets/website/js/frontend/nekoboxnode/lib/animate/animate.min.css" rel="stylesheet">
+    <link href="/assets/website/js/frontend/nekoboxnode/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="/assets/website/css/nekoboxnode/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="/assets/website/css/nekoboxnode/style.css" rel="stylesheet">
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-93Z2TV5VL1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-93Z2TV5VL1');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body data-page="detail">
+    <!-- Spinner Start -->
+    <div id="spinner"
+        class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-grow text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <!-- Spinner End -->
+
+
+        <!-- Navbar Start -->
+    <div class="container-fluid sticky-top">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-dark p-0">
+                <a href="/" class="navbar-brand">
+                                <span>Neko Box Node</span>
+                                </a>
+                <button type="button" class="navbar-toggler ms-auto me-0" data-bs-toggle="collapse"
+                    data-bs-target="#navbarCollapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <div class="navbar-nav ms-auto">
+                                                <a href="/" class="nav-item nav-link">首页</a>
+                                                <a href="/free-nodes/" class="nav-item nav-link">免费节点</a>
+                                                <a href="/paid-subscribe/" class="nav-item nav-link">推荐机场</a>
+                                                <a href="/news/" class="nav-item nav-link">新闻资讯</a>
+                                                <a href="#" class="nav-item nav-link">关于</a>
+                        <a href="#" class="nav-item nav-link">联系</a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <!-- Navbar End -->
+
+
+    <!-- Hero Start -->
+    <div class="container-fluid pt-5 bg-primary hero-header">
+        <div class="container pt-5">
+            <div class="row g-5 pt-5">
+                <div class="col-lg-6 align-self-center text-center text-lg-start mb-lg-5">
+                    <h1 class="text-white mb-4 animated slideInRight">Redis(六) 数据库和缓存的一致性问题</h1>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb justify-content-center justify-content-lg-start mb-0">
+                            <li class="breadcrumb-item"><a class="text-white" href="/" title="首页">首页</a></li>
+                            <li class="breadcrumb-item"><a class="text-white" href="/news/" title="新闻资讯">新闻资讯</a></li>
+                            <li class="breadcrumb-item text-white active" aria-current="page">正文</li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="col-lg-6 align-self-end text-center text-lg-end">
+                    <img class="img-fluid" href="/assets/website/img/nekoboxnode/hero-img.png" alt="" style="max-height: 300px;">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Hero End -->
+
+
+    <!-- Full Screen Search Start -->
+    <div class="modal fade" id="searchModal" tabindex="-1">
+        <div class="modal-dialog modal-fullscreen">
+            <div class="modal-content" style="background: rgba(20, 24, 62, 0.7);">
+                <div class="modal-header border-0">
+                    <button type="button" class="btn btn-square bg-white btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body d-flex align-items-center justify-content-center">
+                    <div class="input-group" style="max-width: 600px;">
+                        <input type="text" class="form-control bg-transparent border-light p-3"
+                            placeholder="Type search keyword">
+                        <button class="btn btn-light px-4"><i class="bi bi-search"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Full Screen Search End -->
+
+
+    <!-- About Start -->
+    <div class="container-fluid py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                                    <input type="hidden" id="share-website-info" data-name="" data-url="">
+                  				  				  				<div id="content_views" class="markdown_views prism-atom-one-dark"> <div class="toc"> <h3>文章目录</h3> <ul> <li> <ul> <li><a href="#__6" rel="nofollow">一 先上结论</a></li> <li><a href="#__20" rel="nofollow">二 四种常用的缓存更新策略：</a></li> <li><a href="#__32" rel="nofollow">三 写操作的缓存更新策略分析</a></li> <li> <ul> <li><a href="#__34" rel="nofollow">一 双更策略：</a></li> <li><a href="#__51" rel="nofollow">二 删除策略：</a></li> <li><a href="#__74" rel="nofollow">三 延时双删策略：</a></li> </ul> </li> <li><a href="#__87" rel="nofollow">四 失败重试</a></li> <li> <ul> <li><a href="#_90" rel="nofollow">同步重试：</a></li> <li><a href="#_93" rel="nofollow">异步重试：</a></li> <li><a href="#_96" rel="nofollow">借助消息队列：</a></li> <li><a href="#_110" rel="nofollow">订阅数据库变更日志：</a></li> </ul> </li> <li><a href="#__125" rel="nofollow">五 场景方案</a></li> </ul> </li> </ul> </div> <p> 参考：<br /><a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://mp.weixin.qq.com/s?__biz=MzIyOTYxNDI5OA==&amp;mid=2247487312&amp;idx=1&amp;sn=fa19566f5729d6598155b5c676eee62d&amp;chksm=e8beb8e5dfc931f3e35655da9da0b61c79f2843101c130cf38996446975014f958a6481aacf1&amp;scene=178&amp;cur_album_id=1699766580538032128#rd"  rel="nofollow">缓存和数据库一致性问题</a><br /><a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://www.zhihu.com/zvideo/1404083855665672192"  rel="nofollow">如何保持mysql和redis中数据的一致性</a><br /><a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://zhuanlan.zhihu.com/p/450576104"  rel="nofollow">Redis缓存与数据库一致性解决方案</a></p> <h2><a id="__6" rel="nofollow"></a>一 先上结论</h2> <p>一旦决定使用缓存，那必然要<strong>面临一致性问题</strong>，任何一种解决方案都无法保证绝对意义上的数据一致性。<br /> “性能和一致性就像天平的两端，无法做到都满足要求。”</p> <p>一致性问题需要 具体场景，具体分析。</p> <p>缓存和数据库的一致性问题不是一成不变的，分析一致性问题，需要考虑以下3点：<br /><strong>缓存数据库操作的原子性（成功执行）</strong>、<strong>并发</strong>、<strong>缓存击穿</strong>。</p> <p>缓存有两种模式：读写缓存、只读缓存。<br /> 读写缓存：若要对数据进行<strong>增删改</strong>，需要在Cache进行。 同时根据采取的写回策略，决定是否同步写回DB。<br /> 只读缓存：若要对数据进行<strong>增删改</strong>，只需在DB进行。同时根据缓存更新策略，决定何时更新或者删除。<br /> 本文仅针对<strong>只读缓存</strong>，结合具体的场景进行讨论。</p> <h2><a id="__20" rel="nofollow"></a>二 四种常用的缓存更新策略：</h2> <p>对于<strong>读操作</strong>，加了缓存后的读操作流程，此过程不存在不一致问题：<br /><img decoding="async" src="http://img.555519.xyz/uploads3/20220823/db2d6a6fc68a963a9a38ab179949900d.jpg" alt="Redis(六) 数据库和缓存的一致性问题"><br /> 对于<strong>新增操作</strong>，直接写到DB，不操作Cache。<br /> 对于<strong>删除操作</strong>，直接双删。先删DB再删Cache，或者先删Cache再删DB，同时保证两个操作的成功执行。<br /> 对于<strong>写操作</strong>，有四种常用的缓存更新策略，分别是：<br /> 先更新数据库再删除缓存<br /> 先删除缓存再更新数据库<br /> 先更新数据库再更新缓存<br /> 先更新缓存再更新数据库</p> <h2><a id="__32" rel="nofollow"></a>三 写操作的缓存更新策略分析</h2> <p>由于机器卡顿、网络延迟、服务器距离不一致等原因，以下各情景都是有可能出现的。</p> <h3><a id="__34" rel="nofollow"></a>一 双更策略：</h3> <p>第一个问题-无法保证数据库和缓存读操作的原子性：<br /> 当更新操作无法成功执行时，无论先更新哪一个，<strong>但凡第二步操作发生异常</strong>，就会导致数据不一致，对业务造成影响。</p> <p>第二个问题-并发：（缓存脏数据）<br /> 场景：<strong>两个写操作线程并发更新同一条数据</strong>，此时可能会由于<strong>执行时序发生错乱</strong>，而导致数据不一致问题。<br /> 以先更DB再更Cache的策略为例，写操作A和写操作B先后更新key1，在操作A未完成时操作B便开始执行，假如执行顺序如下：A先更DB中的key1为a，B更新DB中的key1为b，B更新Cache中的key1为b，A更新Cache中的key为a。最终，DB中key1为b，Cache中的key1为a，数据不一致。<br /><img decoding="async" src="http://img.555519.xyz/uploads3/20220823/6a47fd4293a864d72568f309d2380ad1.jpg" alt="Redis(六) 数据库和缓存的一致性问题"></p> <p>第三个问题-缓存击穿：不存在</p> <p>其他问题：<br /> 双更策略的<strong>缓存利用率不高</strong>，每次数据发生变更，都会更新缓存，但是缓存中的数据不一定会被立即读取，这就会<strong>导致缓存中可能存放了很多非热点数据</strong>，浪费缓存资源。（最主要的原因！）<br /> 而且很多情况下，写到缓存中的值，并不是与数据库中的值一一对应的，很有可能是先查询数据库，再经过一系列计算得出一个值再写到缓存中，对于非热点数据的一系列计算，还会<strong>造成机器性能的浪费</strong>。</p> <p>结论：<strong>因此，在大多数场景下，都不建议采用双更策略。</strong></p> <h3><a id="__51" rel="nofollow"></a>二 删除策略：</h3> <p>第一个问题-无法保证数据库和缓存读操作的原子性：<br /> 同上分析，无论先更新还是先删除，但凡第二步操作异常，都会导致数据不一致。</p> <p>第二个问题-并发：需要分别考虑<br /> 1 先删除缓存再更新数据库<br /> 场景：写操作和读操作并发执行。<br /><strong>两个条件</strong>：先写再读，更新DB的时间 &gt; 读DB+写Cache时间。<br /> 写操作A更新key1尚未完成时，读操作B查询key1，假如执行顺序如下：A先删了Cache中的key1，正在更新DB，此时，操作B从缓存中读key1不存在，去DB中读旧的key1，再写入Cache旧的key1，然后操作A更新DB的操作完成。此时，DB中是新值，Cache中是旧值，数据不一致。<br /> 2 先更新数据库再删除缓存<br /> 场景：<strong>写操作和读操作并发执行</strong>。<br /><strong>三个条件</strong>：缓存中的key刚好被清除（也许是失效、也许是写操作执行的删除），先读再写，读DB+写Cache &gt; 写DB+删Cache<br /> 缓存中的key刚好被清除，读操作查询key1未完成时，写操作B更新key1，假如执行顺序如下：A从缓存中读key1不存在，A去DB中读旧的key1，此时，B开始更新key1，B先将新的key1写入DB，B去Cache中删旧的key1发现不存在，此时，A操作再把从DB读出的旧的key1写入Cache。此时，DB中是新值，Cache中是旧值，数据不一致。<br /><img decoding="async" src="http://img.555519.xyz/uploads3/20220823/ca5447b882ab352ba485f72b6d27a86f.jpg" alt="Redis(六) 数据库和缓存的一致性问题"></p> <p>后者<strong>这种场景出现的概率很低</strong>，尤其是第三个条件发生的概率其实是非常低的。因为，写数据库一般会先加锁，所以写数据库，通常是要比读数据库的时间更长的。</p> <p>第三个问题-缓存击穿<br /> 任何删除Cache的行为，在高并发场景下，都有可能导致缓存击穿。可以采用<strong>读操作互斥、定时更新</strong>的方案，缓解缓存击穿问题。</p> <p>结论：<strong>大多场景下，建议采用“先更新数据库，再删除缓存策略”，可以最大程度上保证数据一致性。</strong><br /> 注：后删策略也是Spring-cache中使用的更新策略，Cache Aside Pattern旁路缓存模式中的更新策略。</p> <h3><a id="__74" rel="nofollow"></a>三 延时双删策略：</h3> <p><strong>用于解决后删策略产生的数据不一致问题</strong>，极端情况下的并发读写操作。<br /> 缓存都变成了旧值，解决这类问题最有效的办法就是，把缓存删掉。<br /> 但是不能立即删，而是需要延迟删，删除操作放入延迟队列中，这就是业界给出的方案：<br /> 缓存延迟双删策略，即在线程 A更新完数据库、 删除缓存之后，<strong>先休眠一会，再删除一次缓存</strong>。</p> <p><strong>延迟时间</strong>要大于线程 B 读取数据库 + 写入缓存的时间。但是，这个时间在分布式和高并发场景下，其实是很难评估的。凭借经验大致估算这个延迟时间，<strong>只能尽可能地降低不一致的概率</strong>，极端情况下，还是会发生不一致现象。</p> <p>所以实际使用中，还是建议采用<strong>先更新数据库，再删除缓存</strong>的策略。</p> <p>其他策略：read-through write-through write-behind</p> <h2><a id="__87" rel="nofollow"></a>四 失败重试</h2> <p>目的：针对后删策略中，更新操作时<strong>删除缓存失败</strong>的问题，用于保证缓存操作执行成功。（操作的原子性）</p> <h3><a id="_90" rel="nofollow"></a>同步重试：</h3> <p>只要执行失败，就一直重试，直到删除成功。<br /> 缺点：立即重试可能仍会失败，重试多少次为止，持续占用线程，影响redis服务器为别的请求提供服务。</p> <h3><a id="_93" rel="nofollow"></a>异步重试：</h3> <p>失败后把重试请求写入消息队列；</p> <h3><a id="_96" rel="nofollow"></a>借助消息队列：</h3> <p>为了避免第二步执行失败，我们可以<strong>把操作缓存的请求，直接放到消息队列中</strong>，由消费者来操作缓存。</p> <p>为什么一定要写入消息队列？<br /> 在执行失败的线程中一直重试时，如果项目重启了，那这次重试请求就会丢失，这条数据就会一直不一致。</p> <p>消息队列的优势：<br /><strong>消息队列保证可靠性</strong>-写到队列中的消息，成功消费之前不会丢失，重启项目也不担心；<br /><strong>消息队列保证消息成功投递</strong>-下游从队列拉取消息，成功消费后才会删除消息，否则还会继续投递消息给消费者，符合重试的场景。</p> <p>需要考虑的问题：写消息队列的操作也可能会失败，引入消息队列会增加维护成本。<br /> 操作缓存和写消息队列，同时失败的概率其实是很小的；项目中一般都会用到消息队列，维护成本并没有新增很多。引入消息队列来解决这个问题，是比较合适的。<br /> 此时架构模型如下图所示：<br /><img decoding="async" src="http://img.555519.xyz/uploads3/20220823/b0d9659e534fdf5589c54ae13ce3a80a.jpg" alt="Redis(六) 数据库和缓存的一致性问题"></p> <h3><a id="_110" rel="nofollow"></a>订阅数据库变更日志：</h3> <p>Binlog-数据库变更日志<br /> 此时，更新数据时，<strong>只需修改数据库</strong>，无需操作缓存。根据订阅的变更日志异步操作缓存。</p> <p>拿 MySQL 举例，当一条数据发生修改时，MySQL 就会产生一条变更日志（Binlog），我们可以<strong>订阅这个日志，拿到具体操作的数据，然后再去删除对应的缓存</strong>。<br /> 订阅数据库变更日志，目前也有比较成熟的开源<strong>中间件</strong>，例如阿里的 canal。</p> <p>使用这种方案的优点在于：<br /> 无需考虑写消息队列失败情况：只要写 MySQL 成功，Binlog 肯定会有<br /> 自动投递到下游队列：canal 自动把数据库变更日志投递给下游的消息队列<br /> 缺点：需要投入精力去维护 canal 的高可用和稳定性。<br /> 此时架构模型如下图所示：<br /><img decoding="async" src="http://img.555519.xyz/uploads3/20220823/ad3f75b2ed257f4b3f574fb0a4780fd7.jpg" alt="Redis(六) 数据库和缓存的一致性问题"><br /> 总结：<strong>保证数据库和缓存一致性，推荐采用「先更新数据库，再删除缓存」方案，并配合「消息队列」或「订阅变更日志」的方式来做</strong>。</p> <h2><a id="__125" rel="nofollow"></a>五 场景方案</h2> <p>业务体量小，且对数据一致性要求不高的业务场景：<br /> 可以考虑遇到写操作<strong>只更新DB不更新Cache，然后定期更新缓存</strong>的策略。<br /> 优点：所有读请求都可以直接命中缓存，不需要再查数据库，性能高。<br /> 缺点：因为是定时刷新缓存，<strong>缓存和数据库存在不一致</strong>，程度取决于更新缓存的频率</p> <p>业务体量很大的场景，如何解决缓存利用率和一致性问题：<br /> 缓存利用率：缓存中只保留最近访问的热点数据。写入缓存中的数据，都设置失效时间。<br /> 缓存更新策略：先更新数据库，再删除缓存<br /> 失败重试策略：异步更新，借助消息队列 或 订阅变更日志</p> <p>案例：<a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://github.com/985938339/LGRepository"  rel="nofollow">使用虚引用优化redis与mysql数据同步的锁粒度问题</a> 、<a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://zhuanlan.zhihu.com/p/361724414"  rel="nofollow">降低在更新缓存时的锁粒度</a>、<a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://blog.csdn.net/weixin_44228698/article/details/113791793"  rel="nofollow">使用队列实现redis数据一致性</a></p> </div> 			                <div class="clearfix"></div>
+                <div class="col-md-12 mt-5">
+                                        <p>上一个：<a href="/news/article-50910.htm">为什么猫不打疫苗不能绝育（猫不肯打疫苗）</a></p>
+                                        <p>下一个：<a href="/news/article-51457.htm">python 接受ctrl c结束子进程，subprocess.Popen杀死子进程</a></p>
+                                    </div>
+                                </div>
+                <div class="col-md-3">
+                    <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/free-nodes/2025-2-4-free-ssr-node.htm" title="「2月4日」最高速度23M/S，2025年NekoBox每天更新免费节点订阅链接">「2月4日」最高速度23M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-40955.htm" title="宠物粮食加工厂加盟条件及费用表图片（宠物粮食加工厂加盟条件及费用表图片）">宠物粮食加工厂加盟条件及费用表图片（宠物粮食加工厂加盟条件及费用表图片）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-12-19-free-node-subscribe.htm" title="「12月19日」最高速度23M/S，2024年NekoBox每天更新免费节点订阅链接">「12月19日」最高速度23M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-20578.htm" title="js模块 &#8211; amd cmd commonjs esm umd">js模块 &#8211; amd cmd commonjs esm umd</a></li>
+                        <li class="py-2"><a href="/news/article-51456.htm" title="Redis(六) 数据库和缓存的一致性问题">Redis(六) 数据库和缓存的一致性问题</a></li>
+                        <li class="py-2"><a href="/news/article-39478.htm" title="聊城哪里有卖宠物狗的市场（聊城买狗的地方）">聊城哪里有卖宠物狗的市场（聊城买狗的地方）</a></li>
+                        <li class="py-2"><a href="/news/article-25655.htm" title="动物疫苗一般多少钱一针啊视频（动物疫苗的作用）">动物疫苗一般多少钱一针啊视频（动物疫苗的作用）</a></li>
+                        <li class="py-2"><a href="/news/article-46432.htm" title="CTF babyarm内核题目分析">CTF babyarm内核题目分析</a></li>
+                        <li class="py-2"><a href="/news/article-30121.htm" title="Python trino执行hive insert overwrite不生效的问题">Python trino执行hive insert overwrite不生效的问题</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-1-22-free-v2ray-subscribe.htm" title="「1月22日」最高速度22.4M/S，2025年NekoBox每天更新免费节点订阅链接">「1月22日」最高速度22.4M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">18</span> <a href="/date/2025-02/" title="2025-02 归档">2025-02</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">93</span> <a href="/date/2025-01/" title="2025-01 归档">2025-01</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">93</span> <a href="/date/2024-12/" title="2024-12 归档">2024-12</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">30</span> <a href="/date/2024-11/" title="2024-11 归档">2024-11</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- About End -->
+
+
+
+        <!-- Footer Start -->
+    <div class="container-fluid bg-dark text-white-50 footer pt-5">
+        <div class="container wow fadeIn" data-wow-delay="0.1s">
+            <div class="copyright">
+                <div class="row">
+                    <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                            <p>
+                                <a href="/">首页</a> | 
+                                <a href="/free-node/">免费节点</a> | 
+                                <a href="/news/">新闻资讯</a> |
+                                <a href="/about-us.htm">关于我们</a> |
+                                <a href="/disclaimer.htm">免责申明</a> |
+                                <a href="/privacy.htm">隐私申明</a> |
+                                <a href="/sitemap.xml">网站地图</a>
+                            </p>
+                        NekoBoxNode官网节点站 版权所有
+                        <br />
+                        Powered by WordPress
+                    </div>
+                    <div class="col-md-6 text-center text-md-end">
+                        <div class="footer-menu">
+                            <a href="/">Home</a>
+                            <a href="#">Cookies</a>
+                            <a href="#">Help</a>
+                            <a href="#">FAQs</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer End -->
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top pt-2"><i class="bi bi-arrow-up"></i></a>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.0.0/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/wow/wow.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/easing/easing.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/waypoints/waypoints.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/counterup/counterup.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/owlcarousel/owl.carousel.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="/assets/website/js/frontend/nekoboxnode/main.js"></script>
+    <script src="https://www.freeclashnode.com/assets/js/frontend/invite-url.js"></script><script src="/assets/website/js/frontend/G.js"></script>
+</body>
+
+</html>
