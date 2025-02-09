@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html xml:lang="zh-CN" lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://nekoboxnode.github.io/news/article-53589.htm" />
+    <meta charset="utf-8">
+    <title>Centos7部署RabbitMQ的镜像队列集群_在线工具</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <meta name="description" content="在上一章节中，我们学会了如何搭建一个单节点的RabbitMQ服务器，但是单节点的RabbitMQ不可靠，如果单节点挂掉，则会导致消息队列不可用。此处我们搭建一个3个节点的RabbitMQ集群，用于解决" />
+    
+    <!-- Favicon -->
+    <link href="/assets/website/img/nekoboxnode/favicon.ico" rel="icon">
+
+    <meta name="author" content="NekoBoxNode官网节点站">
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://nekoboxnode.github.io/news/article-53589.htm" />
+    <meta property="og:site_name" content="NekoBoxNode官网节点站" />
+    <meta property="og:title" content="Centos7部署RabbitMQ的镜像队列集群_在线工具" />
+    <meta property="og:image" content="https://nekoboxnode.github.io/uploads/20240427/3597432505a7326f247280aff1ddb6ca.webp" />
+        <meta property="og:release_date" content="2025-02-09T10:04:25" />
+    <meta property="og:updated_time" content="2025-02-09T10:04:25" />
+        <meta property="og:description" content="在上一章节中，我们学会了如何搭建一个单节点的RabbitMQ服务器，但是单节点的RabbitMQ不可靠，如果单节点挂掉，则会导致消息队列不可用。此处我们搭建一个3个节点的RabbitMQ集群，用于解决" />
+    
+    <meta name="applicable-device" content="pc,mobile" />
+    <meta name="renderer" content="webkit" />
+    <meta name="force-rendering" content="webkit" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta name="robots" content="max-image-preview:large" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Centos7部署RabbitMQ的镜像队列集群_在线工具">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="dns-prefetch" href="https:/www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cm.g.doubleclick.net">
+        
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Ubuntu:wght@500;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcdn.net/ajax/libs/bootstrap-icons/1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="/assets/website/js/frontend/nekoboxnode/lib/animate/animate.min.css" rel="stylesheet">
+    <link href="/assets/website/js/frontend/nekoboxnode/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="/assets/website/css/nekoboxnode/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="/assets/website/css/nekoboxnode/style.css" rel="stylesheet">
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-93Z2TV5VL1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-93Z2TV5VL1');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body data-page="detail">
+    <!-- Spinner Start -->
+    <div id="spinner"
+        class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-grow text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <!-- Spinner End -->
+
+
+        <!-- Navbar Start -->
+    <div class="container-fluid sticky-top">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-dark p-0">
+                <a href="/" class="navbar-brand">
+                                <span>Neko Box Node</span>
+                                </a>
+                <button type="button" class="navbar-toggler ms-auto me-0" data-bs-toggle="collapse"
+                    data-bs-target="#navbarCollapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <div class="navbar-nav ms-auto">
+                                                <a href="/" class="nav-item nav-link">首页</a>
+                                                <a href="/free-nodes/" class="nav-item nav-link">免费节点</a>
+                                                <a href="/paid-subscribe/" class="nav-item nav-link">推荐机场</a>
+                                                <a href="/client.htm" class="nav-item nav-link">客户端</a>
+                                                <a href="/news/" class="nav-item nav-link">新闻资讯</a>
+                                            </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <!-- Navbar End -->
+
+
+    <!-- Hero Start -->
+    <div class="container-fluid pt-5 bg-primary hero-header">
+        <div class="container pt-5">
+            <div class="row g-5 pt-5">
+                <div class="col-lg-6 align-self-center text-center text-lg-start mb-lg-5">
+                    <h1 class="text-white mb-4 animated slideInRight">Centos7部署RabbitMQ的镜像队列集群_在线工具</h1>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb justify-content-center justify-content-lg-start mb-0">
+                            <li class="breadcrumb-item"><a class="text-white" href="/" title="首页">首页</a></li>
+                            <li class="breadcrumb-item"><a class="text-white" href="/news/" title="新闻资讯">新闻资讯</a></li>
+                            <li class="breadcrumb-item text-white active" aria-current="page">正文</li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="col-lg-6 align-self-end text-center text-lg-end">
+                    <img class="img-fluid" href="/assets/website/img/nekoboxnode/hero-img.png" alt="" style="max-height: 300px;">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Hero End -->
+
+
+    <!-- Full Screen Search Start -->
+    <div class="modal fade" id="searchModal" tabindex="-1">
+        <div class="modal-dialog modal-fullscreen">
+            <div class="modal-content" style="background: rgba(20, 24, 62, 0.7);">
+                <div class="modal-header border-0">
+                    <button type="button" class="btn btn-square bg-white btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body d-flex align-items-center justify-content-center">
+                    <div class="input-group" style="max-width: 600px;">
+                        <input type="text" class="form-control bg-transparent border-light p-3"
+                            placeholder="Type search keyword">
+                        <button class="btn btn-light px-4"><i class="bi bi-search"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Full Screen Search End -->
+
+
+    <!-- About Start -->
+    <div class="container-fluid py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                                    <input type="hidden" id="share-website-info" data-name="" data-url="">
+                  				  				  				</h1> <p>在<a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://www.cnblogs.com/huan1993/p/15654891.html"  target="_blank"  rel="nofollow">上一章</a>节中，我们学会了如何搭建一个单节点的RabbitMQ服务器，但是单节点的RabbitMQ不可靠，如果单节点挂掉，则会导致消息队列不可用。此处我们搭建一个3个节点的RabbitMQ集群，用于解决这个问题。</p> </h1> <h2 id="1集群类型">1、集群类型</h2> <p>默认情况下的RabbitMQ集群只是元数据（metadata）是同步的，队列中的消息是不同步的，这样也是不安全的，需要配置成镜像队列，让数据也冗余到别的节点中，这样才能保证一个节点挂掉，还可以对外提供服务。</p> <p><code>元数据</code>：指的是队列信息、交换机信息、绑定信息等。</p> <h2 id="2节点名的重要性">2、节点名的重要性</h2> <p>在集群中，节点名必须要唯一，集群中是通过节点名来进行联系的。<br /><img decoding="async" src="http://img.555519.xyz/uploads3/20220428/276ff3567fc08168976039b3310edded.jpg" alt="Centos7部署RabbitMQ的镜像队列集群_在线工具"></p> <h2 id="3erlang-cookie-的重要性">3、erlang cookie 的重要性</h2> <p>集群节点中是通过什么来认证的，从而让集群节点可以互相通讯，靠的就是 <code>erlang cookie</code>，因此集群中的erlang cookie的值必须要一致。</p> <h3 id="1erlang-cookie文件的位置">1、erlang cookie文件的位置</h3> <p>不同的操作系统这个文件的位置是不一样的。<br /><img decoding="async" src="http://img.555519.xyz/uploads3/20220428/91a8c3a336d8b1dd7770284d2ef1c884.jpg" alt="Centos7部署RabbitMQ的镜像队列集群_在线工具"><br /> 这个位置一般是在 <code>/var/lib/rabbitmq/.erlang.cookie</code>这个位置。</p> <h3 id="2erlang-cookie文件的权限">2、erlang cookie文件的权限</h3> <p><code>.erlang.cookie</code>的文件权限一般给<code>600</code>就可以了，不要给太高或太低，否则集群可能无法启动。<br /><img decoding="async" src="http://img.555519.xyz/uploads3/20220428/73a15919977d161374828c8fda509d4c.jpg" alt="Centos7部署RabbitMQ的镜像队列集群_在线工具"></p> <h2 id="4集群节点类型">4、集群节点类型</h2> <p>RabbitMQ集群分为<code>磁盘节点</code>和<code>内存节点</code>。<br /> 1、<strong>磁盘节点</strong>所有的数据都是存在磁盘上<br /> 2、<strong>内存节点</strong>的数据是存在内存中，<strong>但不是所有的数据都是存在内存中的</strong>，比如：消息只会存在索引等。<br /> 3、在一个集群中<strong>至少需要一个磁盘(disc)节点</strong></p> <h2 id="5集群中加入节点">5、集群中加入节点</h2> <p>新加入的集群的节点必须是一个全新的节点，不可以带有数据，如果存在则需要在加入集群的节点上执行<code>rabbitmqctl reset</code>。</p> </h1> <p>此处以3个Centos7服务器来搭建一个RabbitMQ集群。</p> <table> <thead> <tr> <th>主机名</th> <th>ip地址</th> <th>节点类型</th> <th>用户名</th> <th>密码</th> <th>management port</th> <th>amqp port</th> </tr> </thead> <tbody> <tr> <td>centos01</td> <td>192.168.56.101</td> <td>磁盘节点(disc)</td> <td>admin</td> <td>admin</td> <td>15672</td> <td>5672</td> </tr> <tr> <td>centos02</td> <td>192.168.56.102</td> <td>磁盘节点(disc)</td> <td>admin</td> <td>admin</td> <td>15672</td> <td>5672</td> </tr> <tr> <td>centos03</td> <td>192.168.56.103</td> <td>内存节点(ram)</td> <td>admin</td> <td>admin</td> <td>15672</td> <td>5672</td> </tr> </tbody> </table> <p>　　</p> <h2 id="1配置3个服务器都可以访问各自的主机名">1、配置3个服务器都可以访问各自的主机名</h2> <p>在3台服务器上都需要这样操作<br /><code>vim /etc/hosts</code></p> <pre><code class="language-bash"> bash192.168.56.101 centos01 192.168.56.102 centos02 192.168.56.103 centos03 </code></pre> <h2 id="2同步各个节点的erlang-cookie">2、同步各个节点的erlang cookie</h2> <p>如果cookie文件不存在，则可以启动一个RabbitMQ节点，然后在复制过去，在复制的过程中，需要保证 RabbitMQ节点最好都不要启动。</p> <p><code>在centos01服务器上操作</code></p> <pre><code class="language-bash">scp /var/lib/rabbitmq/.erlang.cookie root@192.168.56.102:/var/lib/rabbitmq/.erlang.cookie scp /var/lib/rabbitmq/.erlang.cookie root@192.168.56.103:/var/lib/rabbitmq/.erlang.cookie </code></pre> <h2 id="3创建集群">3、创建集群</h2> <h3 id="1centos01服务器上操作">1、centos01服务器上操作</h3> <pre><code class="language-bash">rabbitmq-server -detached </code></pre> <p>可以查看<code>/var/log/rabbitmq/rabbit\@centos01.log</code>这个日志文件看是否启动成功。</p> <h3 id="2放行集群通讯端口等">2、放行集群通讯端口等</h3> <pre><code class="language-bash">firewall-cmd --zone=public --add-port=5672/tcp --permanent firewall-cmd --zone=public --add-port=15672/tcp --permanent firewall-cmd --zone=public --add-port=4369/tcp --permanent firewall-cmd --zone=public --add-port=25672/tcp --permanent </code></pre> <h2 id="3centos02加入centos01">3、centos02加入centos01</h2> <pre><code class="language-bash">rabbitmq-server -detached rabbitmqctl stop_app rabbitmqctl reset rabbitmqctl join_cluster rabbit@centos01 rabbitmqctl start_app </code></pre> <h2 id="4centos03加入centos02">4、centos03加入centos02</h2> <pre><code class="language-bash">rabbitmq-server -detached rabbitmqctl stop_app rabbitmqctl reset rabbitmqctl join_cluster rabbit@centos02 --ram rabbitmqctl start_app </code></pre> <h2 id="5查看集群是否构建完成">5、查看集群是否构建完成</h2> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220428/aa4b377ab48222791b256b9dd80a3a0c.jpg" alt="Centos7部署RabbitMQ的镜像队列集群_在线工具"></p> <h2 id="6将centos03集群移除">6、将centos03集群移除</h2> <h3 id="1将需要被移除的节点停止">1、将需要被移除的节点停止</h3> <pre><code class="language-bash">rabbitmqctl stop </code></pre> <h3 id="2在另外启动的节点上执行">2、在另外启动的节点上执行</h3> <pre><code class="language-bash">rabbitmqctl forget_cluster_node rabbit@centos03 </code></pre> <h3 id="3重新加入集群中">3、重新加入集群中</h3> <p>在启动的时候可能报如下错误<code>"Node rabbit@centos03 thinks it's clustered with node rabbit@centos02, but rabbit@centos02 disagrees"</code><br /><img decoding="async" src="http://img.555519.xyz/uploads3/20220428/74780eb74c6ee88114b0cf009b9fac6f.jpg" alt="Centos7部署RabbitMQ的镜像队列集群_在线工具"><br /> 这个时候我们需要删除<code>rm -rvf /var/lib/rabbitmq/mnesia/</code>这个目录，然后在次执行加入集群的命令即可。</p> <pre><code class="language-bash">rabbitmq-server -detached rabbitmqctl stop_app rabbitmqctl reset rabbitmqctl join_cluster rabbit@centos02 --ram rabbitmqctl start_app </code></pre> </h1> <h2 id="1普通集群">1、普通集群</h2> <p>经过上方步骤构成的集群是一个普通的集群，只是队列中的元数据共享，而队列中的数据是具体保存到某个节点上的。<br /><img decoding="async" src="http://img.555519.xyz/uploads3/20220428/cb8b5a0969dd1f24ff0a6f3ac5b5590f.jpg" alt="Centos7部署RabbitMQ的镜像队列集群_在线工具"><br /> 这样够不成高可用，如果这个节点挂掉的话，则这个队列的数据还是不可以消费的，也无法往这个队列中发送数据。那么如果解决这个问题呢，答案是使用镜像队列集群。</p> <h2 id="2镜像队列集群">2、镜像队列集群</h2> <p>在默认的虚拟主机(<code>/</code>)所有的队列都配置成镜像队列。(<code>ha-all</code>只是取的名字)</p> <pre><code class="language-bash">rabbitmqctl set_policy --vhost / ha-all "^" '{"ha-mode":"all"}' </code></pre> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220428/53a736a0c6afa2f5f4aa2d547ef884a4.jpg" alt="Centos7部署RabbitMQ的镜像队列集群_在线工具"><br /> 创建完镜像队列后发现，队列在所有的节点上都存在。</p> <p>镜像队列的高级用法，参考官方文档 <a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://www.rabbitmq.com/ha.html"  target="_blank"  rel="nofollow">https://www.rabbitmq.com/ha.html</a></p> </h1> <p>1、<a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://www.rabbitmq.com/clustering.html"  target="_blank"  rel="nofollow">RabbitMQ官方集群搭建</a><br /> 2、<a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://www.rabbitmq.com/ha.html"  target="_blank"  rel="nofollow">镜像队列的用法</a></p> 			                <div class="clearfix"></div>
+                <div class="col-md-12 mt-5">
+                                        <p>上一个：<a href="/news/article-53044.htm">tf.keras.layers.Conv1D和tf.keras.layers.Conv1DTranspose</a></p>
+                                        <p>下一个：<a href="/news/article-53590.htm">开一家宠物寄养（开一家宠物寄养店需要注意什么）</a></p>
+                                    </div>
+                                </div>
+                <div class="col-md-3">
+                    <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/news/article-22869.htm" title="JAVA程序进阶——LocalDate、LocalTime、LocalDateTime">JAVA程序进阶——LocalDate、LocalTime、LocalDateTime</a></li>
+                        <li class="py-2"><a href="/news/article-52514.htm" title="狗粮颗粒机成型原理视频讲解（狗粮造粒机）">狗粮颗粒机成型原理视频讲解（狗粮造粒机）</a></li>
+                        <li class="py-2"><a href="/news/article-30793.htm" title="Python格式化字符串方法——以%占位操作符为例">Python格式化字符串方法——以%占位操作符为例</a></li>
+                        <li class="py-2"><a href="/news/article-25183.htm" title="合肥宠物救助中心地址（合肥宠物救助中心地址查询）">合肥宠物救助中心地址（合肥宠物救助中心地址查询）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-12-29-free-shadowrocket-node.htm" title="「12月29日」最高速度18.5M/S，2024年NekoBox每天更新免费节点订阅链接">「12月29日」最高速度18.5M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-12-23-free-clash.htm" title="「12月23日」最高速度20.4M/S，2024年NekoBox每天更新免费节点订阅链接">「12月23日」最高速度20.4M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-42452.htm" title="猫咪最信任你的八大表现（猫让摸哪里代表信任你）">猫咪最信任你的八大表现（猫让摸哪里代表信任你）</a></li>
+                        <li class="py-2"><a href="/news/article-41457.htm" title="收猫长期回收各种宠物猫电话（有回收猫咪的吗）">收猫长期回收各种宠物猫电话（有回收猫咪的吗）</a></li>
+                        <li class="py-2"><a href="/news/article-27044.htm" title="养宠物违约金怎么赔偿 养宠物违约金怎么赔偿的">养宠物违约金怎么赔偿 养宠物违约金怎么赔偿的</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-1-11-node-share.htm" title="「1月11日」最高速度18.9M/S，2025年NekoBox每天更新免费节点订阅链接">「1月11日」最高速度18.9M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">27</span> <a href="/date/2025-02/" title="2025-02 归档">2025-02</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">93</span> <a href="/date/2025-01/" title="2025-01 归档">2025-01</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">93</span> <a href="/date/2024-12/" title="2024-12 归档">2024-12</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">30</span> <a href="/date/2024-11/" title="2024-11 归档">2024-11</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- About End -->
+
+
+
+        <!-- Footer Start -->
+    <div class="container-fluid bg-dark text-white-50 footer pt-5">
+        <div class="container wow fadeIn" data-wow-delay="0.1s">
+            <div class="copyright">
+                <div class="row">
+                    <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                            <p>
+                                <a href="/">首页</a> | 
+                                <a href="/free-node/">免费节点</a> | 
+                                <a href="/news/">新闻资讯</a> |
+                                <a href="/about-us.htm">关于我们</a> |
+                                <a href="/disclaimer.htm">免责申明</a> |
+                                <a href="/privacy.htm">隐私申明</a> |
+                                <a href="/sitemap.xml">网站地图</a>
+                            </p>
+                        NekoBoxNode官网节点站 版权所有
+                        <br />
+                        Powered by WordPress
+                    </div>
+                    <div class="col-md-6 text-center text-md-end">
+                        <div class="footer-menu">
+                            <a href="/">Home</a>
+                            <a href="#">Cookies</a>
+                            <a href="#">Help</a>
+                            <a href="#">FAQs</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer End -->
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top pt-2"><i class="bi bi-arrow-up"></i></a>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.0.0/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/wow/wow.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/easing/easing.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/waypoints/waypoints.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/counterup/counterup.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/owlcarousel/owl.carousel.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="/assets/website/js/frontend/nekoboxnode/main.js"></script>
+    <script src="https://www.freeclashnode.com/assets/js/frontend/invite-url.js"></script><script src="/assets/website/js/frontend/G.js"></script>
+</body>
+
+</html>
