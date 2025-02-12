@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html xml:lang="zh-CN" lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://nekoboxnode.github.io/news/article-54126.htm" />
+    <meta charset="utf-8">
+    <title>JavaScript 进阶第二章（循环结构 ）</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <meta name="description" content="while循环结构 1.语法：  while(条件 true/false){ &nbsp; &nbsp; &nbsp; &nbsp; 循环体/需要重复执行的代码; &nbsp; &nbsp; }   " />
+    
+    <!-- Favicon -->
+    <link href="/assets/website/img/nekoboxnode/favicon.ico" rel="icon">
+
+    <meta name="author" content="NekoBoxNode官网节点站">
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://nekoboxnode.github.io/news/article-54126.htm" />
+    <meta property="og:site_name" content="NekoBoxNode官网节点站" />
+    <meta property="og:title" content="JavaScript 进阶第二章（循环结构 ）" />
+    <meta property="og:image" content="https://nekoboxnode.github.io/uploads/20240427/ebcee063ba5043fe30c283a163ec11da.webp" />
+        <meta property="og:release_date" content="2025-02-10T07:37:38" />
+    <meta property="og:updated_time" content="2025-02-10T07:37:38" />
+        <meta property="og:description" content="while循环结构 1.语法：  while(条件 true/false){ &nbsp; &nbsp; &nbsp; &nbsp; 循环体/需要重复执行的代码; &nbsp; &nbsp; }   " />
+    
+    <meta name="applicable-device" content="pc,mobile" />
+    <meta name="renderer" content="webkit" />
+    <meta name="force-rendering" content="webkit" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta name="robots" content="max-image-preview:large" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="JavaScript 进阶第二章（循环结构 ）">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="dns-prefetch" href="https:/www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cm.g.doubleclick.net">
+        
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Ubuntu:wght@500;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcdn.net/ajax/libs/bootstrap-icons/1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="/assets/website/js/frontend/nekoboxnode/lib/animate/animate.min.css" rel="stylesheet">
+    <link href="/assets/website/js/frontend/nekoboxnode/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="/assets/website/css/nekoboxnode/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="/assets/website/css/nekoboxnode/style.css" rel="stylesheet">
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-93Z2TV5VL1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-93Z2TV5VL1');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body data-page="detail">
+    <!-- Spinner Start -->
+    <div id="spinner"
+        class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-grow text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <!-- Spinner End -->
+
+
+        <!-- Navbar Start -->
+    <div class="container-fluid sticky-top">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-dark p-0">
+                <a href="/" class="navbar-brand">
+                                <span>Neko Box Node</span>
+                                </a>
+                <button type="button" class="navbar-toggler ms-auto me-0" data-bs-toggle="collapse"
+                    data-bs-target="#navbarCollapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <div class="navbar-nav ms-auto">
+                                                <a href="/" class="nav-item nav-link">首页</a>
+                                                <a href="/free-nodes/" class="nav-item nav-link">免费节点</a>
+                                                <a href="/paid-subscribe/" class="nav-item nav-link">推荐机场</a>
+                                                <a href="/client.htm" class="nav-item nav-link">客户端</a>
+                                                <a href="/news/" class="nav-item nav-link">新闻资讯</a>
+                                            </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <!-- Navbar End -->
+
+
+    <!-- Hero Start -->
+    <div class="container-fluid pt-5 bg-primary hero-header">
+        <div class="container pt-5">
+            <div class="row g-5 pt-5">
+                <div class="col-lg-6 align-self-center text-center text-lg-start mb-lg-5">
+                    <h1 class="text-white mb-4 animated slideInRight">JavaScript 进阶第二章（循环结构 ）</h1>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb justify-content-center justify-content-lg-start mb-0">
+                            <li class="breadcrumb-item"><a class="text-white" href="/" title="首页">首页</a></li>
+                            <li class="breadcrumb-item"><a class="text-white" href="/news/" title="新闻资讯">新闻资讯</a></li>
+                            <li class="breadcrumb-item text-white active" aria-current="page">正文</li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="col-lg-6 align-self-end text-center text-lg-end">
+                    <img class="img-fluid" href="/assets/website/img/nekoboxnode/hero-img.png" alt="" style="max-height: 300px;">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Hero End -->
+
+
+    <!-- Full Screen Search Start -->
+    <div class="modal fade" id="searchModal" tabindex="-1">
+        <div class="modal-dialog modal-fullscreen">
+            <div class="modal-content" style="background: rgba(20, 24, 62, 0.7);">
+                <div class="modal-header border-0">
+                    <button type="button" class="btn btn-square bg-white btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body d-flex align-items-center justify-content-center">
+                    <div class="input-group" style="max-width: 600px;">
+                        <input type="text" class="form-control bg-transparent border-light p-3"
+                            placeholder="Type search keyword">
+                        <button class="btn btn-light px-4"><i class="bi bi-search"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Full Screen Search End -->
+
+
+    <!-- About Start -->
+    <div class="container-fluid py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                                    <input type="hidden" id="share-website-info" data-name="" data-url="">
+                  				  				  				<div id="content_views" class="htmledit_views"> <h2>while循环结构</h2> <p>1.语法：</p> <blockquote> <p>while(条件 true/false){<!-- --></p> <p>&nbsp; &nbsp; &nbsp; &nbsp; 循环体/需要重复执行的代码;<br /> &nbsp; &nbsp; }</p> </blockquote> <ul> <li> <p>执行步骤：</p> <ul> <li> <p>1.判断条件是否成立</p> <ul> <li> <p>1.1 如果成立，执行循环体代码，然后重复步骤1</p> </li> <li> <p>1.2 如果不成立，结束循环，执行大括号后面的代码</p> </li> </ul> </li> </ul> </li> <li> <p>3.注意点</p> <ul> <li> <p>（1）小括号中的语句，无论结果是什么都会转换成布尔类型来判断是否成立</p> </li> <li> <p>（2）避免写一个死循环</p> </li> </ul> </li> </ul> <h3>代码演示：</h3> <pre><code class="language-javascript">&lt;script&gt;      // 需求：打印 3 次 '你好呀，海海'      // 复制粘贴弊端：（1）代码冗余  （2）不便于维护     // console.log ( "你好呀，海海" );     // console.log ( "你好呀，海海" );     // console.log ( "你好呀，海海" );           /*     1.循环结构 ： 代码重复执行      2. 语法         while(条件 true/false){             循环体 ：需要重复执行的代码         };      执行步骤         1. 判断条件是否成立             2.1 成立：执行循环体代码。 重复步骤1             2.2 不成立，循环语句结束，执行大括号后面的代码      */     let i = 1; // 循环变量，记录循环次数     while( i &lt;= 3 ){         console.log ( "你好呀，海海" );        i++; // 循环变量自增  自增的目的是为了控制循环的次数，否则这是一个死循环     }     console.log('111'); // 大括号外的代码与循环结构没有关系，还是顺序执行      // 循环语句注意点：     // 循环语句注意点：     // (1)小括号中的语句，无论结果是什么都会转换成布尔类型来判断是否成立     // (2)避免写一个死循环     // let num = 1;     // while(num &lt; 10){     //     console.log ( num );     //     num++; // 改变循环变量的值，可以避免死循环     // }  &lt;/script&gt;</code></pre> <h2>do-while循环结构</h2> <p>1.语法</p> <blockquote> <p>do{<!-- --><br /> &nbsp; &nbsp; 循环体;<br /> }while( 条件 );</p> </blockquote> <ul> <li> <p>2.执行过程</p> <ul> <li> <p>1.先执行循环体代码</p> </li> <li> <p>2.执行条件语句</p> <ul> <li> <p>如果结果为true，执行循环体代码</p> </li> <li> <p>如果为false，循环结束</p> </li> </ul> </li> <li> <p>3.重复步骤2</p> </li> </ul> </li> <li> <p>3.do-while和while实现的循环其实是一样的，只有一个不同点：do-while循环不管怎样先执行一次循环体代码，然后再判断条件</p> <ul> <li> <p>while循环：先奏后斩（先判断条件再执行循环体）</p> </li> <li> <p>do-while循环：先斩后奏（不管怎样先执行一次循环体代码，然后再判断条件）</p> </li> </ul> </li> </ul> <h3>代码演示：</h3> <pre><code class="language-javascript">&lt;script&gt;      //1.while循环:     //let i = 1;     // while(i &gt; 5){     //     // 循环条件不成立，循环体一次都不执行     //     console.log ( "哈哈哈哈" );     //     i++     // }      //2.do-while循环     /**      do-while语法：(用的很少)       do{             循环体;         }while( 条件 );       特点：无论如何先执行一次循环体，然后再去判断条件      */     let i = 1;         do{             console.log ( "嘿嘿嘿" );             i++;         }while (i &gt; 5);        // while循环：先奏后斩（先判断条件再执行循环体）     // do-while循环：先斩后奏（不管怎样先执行一次循环体代码，然后再判断条件）      // 3.do-while循环与while循环应用场景     // 无论如何需要先执行一次循环体，使用do-while代码更简洁      // 例子：让用户输入账号和密码，如果输入正确就登陆成功，如果输入错误就让他一直输入      // while循环实现     // let username = prompt('请输入账号');     // let password = prompt('请输入密码');     //     // while(username != 'admin' || password != '123456'){     //     username = prompt('请输入账号');     //     password = prompt('请输入密码');     // }      //do-while实现     do{         let username = prompt('请输入账号');         let password = prompt('请输入密码');     }while(username != 'admin' || password != '123456')  &lt;/script&gt;</code></pre> <h2>循环结构总结</h2> <ul> <li> <p>1.原则上，三种循环结构语句之间可以互转，只不过每一种语句的适用场景不一样</p> </li> <li> <p>2.最常用：for循环：适合循环次数固定</p> </li> <li> <p>3.while循环：适合循环次数不固定</p> </li> <li> <p>4.do-while循环：适合循环次数不固定，但是循环体代码至少要执行一次</p> </li> </ul> </h1> </h1> </p></div> 			                <div class="clearfix"></div>
+                <div class="col-md-12 mt-5">
+                                        <p>上一个：<a href="/news/article-53590.htm">开一家宠物寄养（开一家宠物寄养店需要注意什么）</a></p>
+                                        <p>下一个：<a href="/news/article-54127.htm">人打的狂犬和动物打的狂犬一样吗 人打的狂犬和动物打的狂犬一样吗图片</a></p>
+                                    </div>
+                                </div>
+                <div class="col-md-3">
+                    <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/free-nodes/2025-1-27-free-clash.htm" title="「1月27日」最高速度22.2M/S，2025年NekoBox每天更新免费节点订阅链接">「1月27日」最高速度22.2M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-47884.htm" title="动物疫苗检测标准是什么 动物疫苗检测标准是什么意思">动物疫苗检测标准是什么 动物疫苗检测标准是什么意思</a></li>
+                        <li class="py-2"><a href="/news/article-47399.htm" title="同城免费领养宠物可靠吗安全吗（同城宠物猫领养）">同城免费领养宠物可靠吗安全吗（同城宠物猫领养）</a></li>
+                        <li class="py-2"><a href="/news/article-32700.htm" title="宠物粮食市场调研报告范文怎么写（宠物粮食市场份额）">宠物粮食市场调研报告范文怎么写（宠物粮食市场份额）</a></li>
+                        <li class="py-2"><a href="/news/article-35427.htm" title="正规领养宠物流程表格图（领养宠物程序）">正规领养宠物流程表格图（领养宠物程序）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-12-18-free-clash-subscribe.htm" title="「12月18日」最高速度21.8M/S，2024年NekoBox每天更新免费节点订阅链接">「12月18日」最高速度21.8M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-38492.htm" title="以字符串的升序排列单词-JavaScript">以字符串的升序排列单词-JavaScript</a></li>
+                        <li class="py-2"><a href="/news/article-55230.htm" title="vue如何通过button的disabled控制按钮能否被使用_vue.js">vue如何通过button的disabled控制按钮能否被使用_vue.js</a></li>
+                        <li class="py-2"><a href="/news/article-19203.htm" title="动物打了疫苗还会有狂犬病吗（打了疫苗的动物用不用打狂犬疫苗）">动物打了疫苗还会有狂犬病吗（打了疫苗的动物用不用打狂犬疫苗）</a></li>
+                        <li class="py-2"><a href="/news/article-26121.htm" title="对进程、线程和协程的理解以及它们的区别">对进程、线程和协程的理解以及它们的区别</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">36</span> <a href="/date/2025-02/" title="2025-02 归档">2025-02</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">93</span> <a href="/date/2025-01/" title="2025-01 归档">2025-01</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">93</span> <a href="/date/2024-12/" title="2024-12 归档">2024-12</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">30</span> <a href="/date/2024-11/" title="2024-11 归档">2024-11</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- About End -->
+
+
+
+        <!-- Footer Start -->
+    <div class="container-fluid bg-dark text-white-50 footer pt-5">
+        <div class="container wow fadeIn" data-wow-delay="0.1s">
+            <div class="copyright">
+                <div class="row">
+                    <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                            <p>
+                                <a href="/">首页</a> | 
+                                <a href="/free-node/">免费节点</a> | 
+                                <a href="/news/">新闻资讯</a> |
+                                <a href="/about-us.htm">关于我们</a> |
+                                <a href="/disclaimer.htm">免责申明</a> |
+                                <a href="/privacy.htm">隐私申明</a> |
+                                <a href="/sitemap.xml">网站地图</a>
+                            </p>
+                        NekoBoxNode官网节点站 版权所有
+                        <br />
+                        Powered by WordPress
+                    </div>
+                    <div class="col-md-6 text-center text-md-end">
+                        <div class="footer-menu">
+                            <a href="/">Home</a>
+                            <a href="#">Cookies</a>
+                            <a href="#">Help</a>
+                            <a href="#">FAQs</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer End -->
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top pt-2"><i class="bi bi-arrow-up"></i></a>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.0.0/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/wow/wow.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/easing/easing.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/waypoints/waypoints.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/counterup/counterup.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/owlcarousel/owl.carousel.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="/assets/website/js/frontend/nekoboxnode/main.js"></script>
+    <script src="https://www.freeclashnode.com/assets/js/frontend/invite-url.js"></script><script src="/assets/website/js/frontend/G.js"></script>
+</body>
+
+</html>
