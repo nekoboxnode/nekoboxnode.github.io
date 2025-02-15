@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html xml:lang="zh-CN" lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://nekoboxnode.github.io/news/article-55772.htm" />
+    <meta charset="utf-8">
+    <title>java中集合的Collection集合</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <meta name="description" content="1.集合的主要体系及分支   1.概述：首先Collection是属于单列集合的顶层接口，表示为一组对象。其类型为引用数据类型，具体创建对象，通过多态的形式进行。 2.主要常用方法(E这种是指泛型类型" />
+    
+    <!-- Favicon -->
+    <link href="/assets/website/img/nekoboxnode/favicon.ico" rel="icon">
+
+    <meta name="author" content="NekoBoxNode官网节点站">
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://nekoboxnode.github.io/news/article-55772.htm" />
+    <meta property="og:site_name" content="NekoBoxNode官网节点站" />
+    <meta property="og:title" content="java中集合的Collection集合" />
+    <meta property="og:image" content="https://nekoboxnode.github.io/uploads/20240427/510837b685296a9b08bff94351d2c5f3.webp" />
+        <meta property="og:release_date" content="2025-02-13T03:09:22" />
+    <meta property="og:updated_time" content="2025-02-13T03:09:22" />
+        <meta property="og:description" content="1.集合的主要体系及分支   1.概述：首先Collection是属于单列集合的顶层接口，表示为一组对象。其类型为引用数据类型，具体创建对象，通过多态的形式进行。 2.主要常用方法(E这种是指泛型类型" />
+    
+    <meta name="applicable-device" content="pc,mobile" />
+    <meta name="renderer" content="webkit" />
+    <meta name="force-rendering" content="webkit" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta name="robots" content="max-image-preview:large" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="java中集合的Collection集合">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="dns-prefetch" href="https:/www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cm.g.doubleclick.net">
+        
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Ubuntu:wght@500;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcdn.net/ajax/libs/bootstrap-icons/1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="/assets/website/js/frontend/nekoboxnode/lib/animate/animate.min.css" rel="stylesheet">
+    <link href="/assets/website/js/frontend/nekoboxnode/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="/assets/website/css/nekoboxnode/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="/assets/website/css/nekoboxnode/style.css" rel="stylesheet">
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-93Z2TV5VL1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-93Z2TV5VL1');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body data-page="detail">
+    <!-- Spinner Start -->
+    <div id="spinner"
+        class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-grow text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <!-- Spinner End -->
+
+
+        <!-- Navbar Start -->
+    <div class="container-fluid sticky-top">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-dark p-0">
+                <a href="/" class="navbar-brand">
+                                <span>Neko Box Node</span>
+                                </a>
+                <button type="button" class="navbar-toggler ms-auto me-0" data-bs-toggle="collapse"
+                    data-bs-target="#navbarCollapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <div class="navbar-nav ms-auto">
+                                                <a href="/" class="nav-item nav-link">首页</a>
+                                                <a href="/free-nodes/" class="nav-item nav-link">免费节点</a>
+                                                <a href="/paid-subscribe/" class="nav-item nav-link">推荐机场</a>
+                                                <a href="/client.htm" class="nav-item nav-link">客户端</a>
+                                                <a href="/news/" class="nav-item nav-link">新闻资讯</a>
+                                            </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <!-- Navbar End -->
+
+
+    <!-- Hero Start -->
+    <div class="container-fluid pt-5 bg-primary hero-header">
+        <div class="container pt-5">
+            <div class="row g-5 pt-5">
+                <div class="col-lg-6 align-self-center text-center text-lg-start mb-lg-5">
+                    <h1 class="text-white mb-4 animated slideInRight">java中集合的Collection集合</h1>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb justify-content-center justify-content-lg-start mb-0">
+                            <li class="breadcrumb-item"><a class="text-white" href="/" title="首页">首页</a></li>
+                            <li class="breadcrumb-item"><a class="text-white" href="/news/" title="新闻资讯">新闻资讯</a></li>
+                            <li class="breadcrumb-item text-white active" aria-current="page">正文</li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="col-lg-6 align-self-end text-center text-lg-end">
+                    <img class="img-fluid" href="/assets/website/img/nekoboxnode/hero-img.png" alt="" style="max-height: 300px;">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Hero End -->
+
+
+    <!-- Full Screen Search Start -->
+    <div class="modal fade" id="searchModal" tabindex="-1">
+        <div class="modal-dialog modal-fullscreen">
+            <div class="modal-content" style="background: rgba(20, 24, 62, 0.7);">
+                <div class="modal-header border-0">
+                    <button type="button" class="btn btn-square bg-white btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body d-flex align-items-center justify-content-center">
+                    <div class="input-group" style="max-width: 600px;">
+                        <input type="text" class="form-control bg-transparent border-light p-3"
+                            placeholder="Type search keyword">
+                        <button class="btn btn-light px-4"><i class="bi bi-search"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Full Screen Search End -->
+
+
+    <!-- About Start -->
+    <div class="container-fluid py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                                    <input type="hidden" id="share-website-info" data-name="" data-url="">
+                  				  				  				<div id="content_views" class="markdown_views prism-atom-one-light"> <h2> <a id="1_0" rel="nofollow"></a>1.集合的主要体系及分支</h2> <p><img decoding="async" src="http://img.555519.xyz/uploads/20230110/7faa72e84705b8eb40105a27c058e41b.jpg" alt="java中集合的Collection集合"></p> </h1> <p>1.概述：首先Collection是属于单列集合的顶层接口，表示为一组对象。其类型为引用数据类型，具体创建对象，通过多态的形式进行。<br /> 2.主要常用方法(E这种是指泛型类型，可以为任何引用类型)：<img decoding="async" src="http://img.555519.xyz/uploads/20230110/36b41632666fd1570028f0afa5c3e5a6.jpg" alt="java中集合的Collection集合"><br /> 3.Collection集合的遍历(Iterator迭代器，集合的专用遍历方式) <br /> 概述：<img decoding="async" src="http://img.555519.xyz/uploads/20230110/35f7fae4e3923386c73f1ee108ee5959.jpg" alt="java中集合的Collection集合"></p> </h1> <p>1.概述:有序集合，且允许有重复的元素，使用者可以精确的控制每个元素的插入位置，并且可以快速访问。<br /> 特点：有序(存储与取出顺序一致)，且元素可以重复。<br /> 2.常用方法：<img decoding="async" src="http://img.555519.xyz/uploads/20230110/abdad1572f839d7012b03fce35bb08dc.jpg" alt="java中集合的Collection集合"><br /> *<strong>3.List的列表迭代器（Listlterator）</strong><br /><strong>用法</strong>：可以按照任意方向进行遍历，并在迭代期间修改列表，并获取列表中迭代器的位置，是list集合特有的迭代器。<br /> 常用方法：<img decoding="async" src="http://img.555519.xyz/uploads/20230110/7225a2dd1b7c529e519ff20e726391de.jpg" alt="java中集合的Collection集合"><br /> 当使用倒叙遍历时，是需要注意先进行一遍正向顺序；或者直接通过Collection工具类中的reverse()的方法进行倒叙，再输出。<br /><strong>4.并发修改异常(ConcurrentModificationException)</strong><br /><strong>主要产生原因</strong>：通过内部类的形式，当通过hasNext()这个方法时，遍历集合中加以判断并添加时会发生并发异常，是因为list.add（）会导致实际的修改集合和预期的修改集合不对等而触发并发修改异常。<br /><strong>因为</strong>:当你使用list的add方法时候，只会添加实际修改集合的值，而预期的修改集合值不会增加，而hasNext()的使用是需要预期和实际进行判断的。<br /> 如何避免这种异常出现：？<br /> 1.使用列表迭代器的方法进行添加，因为add不会导致实际与预期的不对等。<br /> 2.通过for循环进行遍历。</p> <h2> <a id="21_List_22" rel="nofollow"></a>2.1 List的实现类</h2> <p>1.ArrayList(底层数据结构属于数组实现，增删慢，查询快)；<br /> 2.LinkedList(底层数据结构属于双链表，查询慢，增删快)；<br /> 常用方法：<br /><img decoding="async" src="http://img.555519.xyz/uploads/20230110/da9dca83c7627d063c0d18d2dcd71589.jpg" alt="java中集合的Collection集合"></p> </h1> <p>特点：集合是无序的(存储与取出顺序不一致)，且不允许有重复元素，没有索引值，因此不能使用普通for遍历。</p> <h2> <a id="31HashSetSet_32" rel="nofollow"></a>3.1HashSet(Set的实现类)</h2> <p>1.哈希值<br /> 概述：哈希值是JDK通过对象的地址或者字符串或者数字算出来的int类型的值。<br /> 特点：同一个对象的哈希值是相同的，且在默认情况下不同对象的哈希值是不同的。<br /> 2.数据结构之哈希表<br /><img decoding="async" src="http://img.555519.xyz/uploads/20230110/69b9f7d7674bca646d41fea2f569f5bf.jpg" alt="java中集合的Collection集合"><br /><strong>3.怎么HashSet集合的元素唯一性?(重中之重)</strong><br /><img decoding="async" src="http://img.555519.xyz/uploads/20230110/8e553ee499a99943d1cd0c7b6513910b.jpg" alt="java中集合的Collection集合"></p> <p><strong>4.LinkedHashSet集合(HashSet的子类)</strong><br /><img decoding="async" src="http://img.555519.xyz/uploads/20230110/a7a75f327a8785e8f787391e4d47799b.jpg" alt="java中集合的Collection集合"><br /> LinkedHashSet集合元素是有序的。</p> <h2> <a id="32TreeSetSet_44" rel="nofollow"></a>3.2TreeSet集合(Set的实现类)</h2> <p><strong>特点</strong>:可以通过自然排序或者特定的比较器(主要用于Comparable接口来进行)来进行排序；<br /><strong>自然排序Comparable：</strong><img decoding="async" src="http://img.555519.xyz/uploads/20230110/ebd7ef9508f370b8ee4e16b5c0f8511b.jpg" alt="java中集合的Collection集合"></p> <p>String类实现类自然排序Comparable接口，则可以直接调用用来判断字符串之间的大小，而当一个类的对象之间需要比较时，是需要实现自然排序Comparable接口，重写其中compareTo的方法。(TreetSet可以通过匿名内部类的方法来进行重写自然排序方法)。</p> </h1> <h2> <a id="1Arraylist__LinkedList__52" rel="nofollow"></a>1、Arraylist 与 LinkedList 异同</h2> <p><strong>1. 是否保证线程安全</strong>： ArrayList 和 LinkedList 都是不同步的，也就是不保证线程安全；<br /><strong>2. 底层数据结构</strong>： Arraylist 底层使用的是Object数组；LinkedList 底层使用的是双向循环链表数据结构；<br /><strong>3. 插入和删除是否受元素位置的影响</strong>： <strong>① ArrayList 采用数组存储，所以插入和删除元素的时间复杂度受元素位置的影响。</strong> 比如：执行add(E e)方法的时候， ArrayList 会默认在将指定的元素追加到此列表的末尾，这种情况时间复杂度就是O(1)。但是如果要在指定位置 i 插入和删除元素的话（add(int index, E element)）时间复杂度就为 O(n-i)。因为在进行上述操作的时候集合中第 i 和第 i 个元素之后的(n-i)个元素都要执行向后位/向前移一位的操作。 <strong>② LinkedList 采用链表存储，所以插入，删除元素时间复杂度不受元素位置的影响，都是近似 O（1）而数组为近似 O（n）。</strong><br /><strong>4. 是否支持快速随机访问</strong>： LinkedList 不支持高效的随机元素访问，而ArrayList 实现了RandmoAccess 接口，所以有随机访问功能。快速随机访问就是通过元素的序号快速获取元素对象(对应于get(int index)方法)。<br /><strong>5. 内存空间占用</strong>： ArrayList的空 间浪费主要体现在在list列表的结尾会预留一定的容量空间，而LinkedList的空间花费则体现在它的每一个元素都需要消耗比ArrayList更多的空间（因为要存放直接后继和直接前驱以及数据）。</p> <h2> <a id="2ArrayList__Vector__60" rel="nofollow"></a>2、ArrayList 与 Vector 区别</h2> <p>Vector类的所有方法都是同步的。可以由两个线程安全地访问一个Vector对象、但是一个线程访问Vector的话代码要在同步操作上耗费大量的时间。<br /> Arraylist不是同步的，所以在不需要保证线程安全时时建议使用Arraylist。</p> </h1> <h2> <a id="1Collection_66" rel="nofollow"></a>1.Collection</h2> <p><strong>1. List</strong><br /> Arraylist： Object数组<br /> Vector： Object数组<br /> LinkedList： 双向循环链表<br /><strong>2. Set</strong><br /> HashSet（无序，唯一）: 基于 HashMap 实现的，底层采用 HashMap 来保存元素。<br /> LinkedHashSet： LinkedHashSet 继承与 HashSet，并且其内部是通过 LinkedHashMap 来实现的。有点类似于我们之前说的LinkedHashMap 其内部是基于 Hashmap 实现一样，不过还是有一点点区别的。<br /> TreeSet（有序，唯一）： 红黑树(自平衡的排序二叉树)。</p> </p></div> 			                <div class="clearfix"></div>
+                <div class="col-md-12 mt-5">
+                                        <p>上一个：<a href="/news/article-55230.htm">vue如何通过button的disabled控制按钮能否被使用_vue.js</a></p>
+                                        <p>下一个：<a href="/news/article-55773.htm">TensorFlow运行出错：UnicodeEncodeError: &#8216;utf-8&#8217; codec can&#8217;t encode character &#8216;\udcce&#8217; in position 2559: s</a></p>
+                                    </div>
+                                </div>
+                <div class="col-md-3">
+                    <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/news/article-20579.htm" title="动物疫苗厂家查询电话（动物疫苗经销商）">动物疫苗厂家查询电话（动物疫苗经销商）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-1-4-clash-v2ray-ss-ssr.htm" title="「1月4日」最高速度19.5M/S，2025年NekoBox每天更新免费节点订阅链接">「1月4日」最高速度19.5M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-54126.htm" title="JavaScript 进阶第二章（循环结构 ）">JavaScript 进阶第二章（循环结构 ）</a></li>
+                        <li class="py-2"><a href="/news/article-31747.htm" title="妙三多疫苗说明书（妙三多疫苗使用说明）">妙三多疫苗说明书（妙三多疫苗使用说明）</a></li>
+                        <li class="py-2"><a href="/news/article-42452.htm" title="猫咪最信任你的八大表现（猫让摸哪里代表信任你）">猫咪最信任你的八大表现（猫让摸哪里代表信任你）</a></li>
+                        <li class="py-2"><a href="/news/article-31212.htm" title="Kotlin的标准函数和静态方法">Kotlin的标准函数和静态方法</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-2-2-node-share.htm" title="「2月2日」最高速度21.2M/S，2025年NekoBox每天更新免费节点订阅链接">「2月2日」最高速度21.2M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-12-26-clash-node-daily-updates.htm" title="「12月26日」最高速度18.7M/S，2024年NekoBox每天更新免费节点订阅链接">「12月26日」最高速度18.7M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-21489.htm" title="华畜兽药是真的吗（华畜动物药业有限公司）">华畜兽药是真的吗（华畜动物药业有限公司）</a></li>
+                        <li class="py-2"><a href="/news/article-51457.htm" title="python 接受ctrl c结束子进程，subprocess.Popen杀死子进程">python 接受ctrl c结束子进程，subprocess.Popen杀死子进程</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">45</span> <a href="/date/2025-02/" title="2025-02 归档">2025-02</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">93</span> <a href="/date/2025-01/" title="2025-01 归档">2025-01</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">93</span> <a href="/date/2024-12/" title="2024-12 归档">2024-12</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">30</span> <a href="/date/2024-11/" title="2024-11 归档">2024-11</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- About End -->
+
+
+
+        <!-- Footer Start -->
+    <div class="container-fluid bg-dark text-white-50 footer pt-5">
+        <div class="container wow fadeIn" data-wow-delay="0.1s">
+            <div class="copyright">
+                <div class="row">
+                    <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                            <p>
+                                <a href="/">首页</a> | 
+                                <a href="/free-node/">免费节点</a> | 
+                                <a href="/news/">新闻资讯</a> |
+                                <a href="/about-us.htm">关于我们</a> |
+                                <a href="/disclaimer.htm">免责申明</a> |
+                                <a href="/privacy.htm">隐私申明</a> |
+                                <a href="/sitemap.xml">网站地图</a>
+                            </p>
+                        NekoBoxNode官网节点站 版权所有
+                        <br />
+                        Powered by WordPress
+                    </div>
+                    <div class="col-md-6 text-center text-md-end">
+                        <div class="footer-menu">
+                            <a href="/">Home</a>
+                            <a href="#">Cookies</a>
+                            <a href="#">Help</a>
+                            <a href="#">FAQs</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer End -->
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top pt-2"><i class="bi bi-arrow-up"></i></a>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.0.0/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/wow/wow.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/easing/easing.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/waypoints/waypoints.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/counterup/counterup.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/owlcarousel/owl.carousel.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="/assets/website/js/frontend/nekoboxnode/main.js"></script>
+    <script src="https://www.freeclashnode.com/assets/js/frontend/invite-url.js"></script><script src="/assets/website/js/frontend/G.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html xml:lang="zh-CN" lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://nekoboxnode.github.io/news/article-56332.htm" />
+    <meta charset="utf-8">
+    <title>从查询重写角度理解elasticsearch的高亮原理</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <meta name="description" content="一、高亮的一些问题 elasticsearch提供了三种高亮方式，前面我们已经简单的了解了elasticsearch的高亮原理; 高亮处理跟实际使用查询类型有十分紧密的关系，其中主要的一点就是muti" />
+    
+    <!-- Favicon -->
+    <link href="/assets/website/img/nekoboxnode/favicon.ico" rel="icon">
+
+    <meta name="author" content="NekoBoxNode官网节点站">
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://nekoboxnode.github.io/news/article-56332.htm" />
+    <meta property="og:site_name" content="NekoBoxNode官网节点站" />
+    <meta property="og:title" content="从查询重写角度理解elasticsearch的高亮原理" />
+    <meta property="og:image" content="https://nekoboxnode.github.io/uploads/20240427/c799b1314704c75ee236a084ba283f0c.webp" />
+        <meta property="og:release_date" content="2025-02-14T10:01:39" />
+    <meta property="og:updated_time" content="2025-02-14T10:01:39" />
+        <meta property="og:description" content="一、高亮的一些问题 elasticsearch提供了三种高亮方式，前面我们已经简单的了解了elasticsearch的高亮原理; 高亮处理跟实际使用查询类型有十分紧密的关系，其中主要的一点就是muti" />
+    
+    <meta name="applicable-device" content="pc,mobile" />
+    <meta name="renderer" content="webkit" />
+    <meta name="force-rendering" content="webkit" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta name="robots" content="max-image-preview:large" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="从查询重写角度理解elasticsearch的高亮原理">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="dns-prefetch" href="https:/www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cm.g.doubleclick.net">
+        
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Ubuntu:wght@500;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcdn.net/ajax/libs/bootstrap-icons/1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="/assets/website/js/frontend/nekoboxnode/lib/animate/animate.min.css" rel="stylesheet">
+    <link href="/assets/website/js/frontend/nekoboxnode/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="/assets/website/css/nekoboxnode/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="/assets/website/css/nekoboxnode/style.css" rel="stylesheet">
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-93Z2TV5VL1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-93Z2TV5VL1');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body data-page="detail">
+    <!-- Spinner Start -->
+    <div id="spinner"
+        class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-grow text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <!-- Spinner End -->
+
+
+        <!-- Navbar Start -->
+    <div class="container-fluid sticky-top">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-dark p-0">
+                <a href="/" class="navbar-brand">
+                                <span>Neko Box Node</span>
+                                </a>
+                <button type="button" class="navbar-toggler ms-auto me-0" data-bs-toggle="collapse"
+                    data-bs-target="#navbarCollapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <div class="navbar-nav ms-auto">
+                                                <a href="/" class="nav-item nav-link">首页</a>
+                                                <a href="/free-nodes/" class="nav-item nav-link">免费节点</a>
+                                                <a href="/paid-subscribe/" class="nav-item nav-link">推荐机场</a>
+                                                <a href="/client.htm" class="nav-item nav-link">客户端</a>
+                                                <a href="/news/" class="nav-item nav-link">新闻资讯</a>
+                                            </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <!-- Navbar End -->
+
+
+    <!-- Hero Start -->
+    <div class="container-fluid pt-5 bg-primary hero-header">
+        <div class="container pt-5">
+            <div class="row g-5 pt-5">
+                <div class="col-lg-6 align-self-center text-center text-lg-start mb-lg-5">
+                    <h1 class="text-white mb-4 animated slideInRight">从查询重写角度理解elasticsearch的高亮原理</h1>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb justify-content-center justify-content-lg-start mb-0">
+                            <li class="breadcrumb-item"><a class="text-white" href="/" title="首页">首页</a></li>
+                            <li class="breadcrumb-item"><a class="text-white" href="/news/" title="新闻资讯">新闻资讯</a></li>
+                            <li class="breadcrumb-item text-white active" aria-current="page">正文</li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="col-lg-6 align-self-end text-center text-lg-end">
+                    <img class="img-fluid" href="/assets/website/img/nekoboxnode/hero-img.png" alt="" style="max-height: 300px;">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Hero End -->
+
+
+    <!-- Full Screen Search Start -->
+    <div class="modal fade" id="searchModal" tabindex="-1">
+        <div class="modal-dialog modal-fullscreen">
+            <div class="modal-content" style="background: rgba(20, 24, 62, 0.7);">
+                <div class="modal-header border-0">
+                    <button type="button" class="btn btn-square bg-white btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body d-flex align-items-center justify-content-center">
+                    <div class="input-group" style="max-width: 600px;">
+                        <input type="text" class="form-control bg-transparent border-light p-3"
+                            placeholder="Type search keyword">
+                        <button class="btn btn-light px-4"><i class="bi bi-search"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Full Screen Search End -->
+
+
+    <!-- About Start -->
+    <div class="container-fluid py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                                    <input type="hidden" id="share-website-info" data-name="" data-url="">
+                  				  				  				<p>一、高亮的一些问题</p> <p>elasticsearch提供了三种高亮方式，前面我们已经简单的了解了elasticsearch的高亮原理; 高亮处理跟实际使用查询类型有十分紧密的关系，其中主要的一点就是muti term 查询的重写，例如wildcard、prefix等，由于查询本身和高亮都涉及到查询语句的重写，如果两者之间的重写机制不同，那么就可能会碰到以下情况</p> <p>相同的查询语句， 使用unified和fvh得到的高亮结果是不同的，甚至fvh Highlighter无任何高亮信息返回；</p> <p>二、数据环境</p> <p>elasticsearch 8.0</p> <pre><code>PUT highlight_test {   "mappings": {     "properties": {       "text":{         "type": "text",         "term_vector": "with_positions_offsets"       }     }   },   "settings": {     "number_of_replicas":0,     "number_of_shards": 1   } }  PUT highlight_test/_doc/1 {   "name":"mango",   "text":"my name is mongo, i am test hightlight in elastic search" }</code></pre> <p>三、muti term查询重写简介</p> <p>所谓muti term查询就是查询中并不是明确的关键字，而是需要elasticsearch重写查询语句，进一步明确关键字；以下查询会涉及到muti term查询重写；</p> <pre><code>fuzzy prefix query_string regexp wildcard</code></pre> <p>以上查询都支持rewrite参数，最终将查询重写为bool查询或者bitset；</p> <p>查询重写主要影响以下几方面</p> <p>重写需要抓取哪些关键字以及抓取的数量；</p> <p>抓取关键字的相关性计算方式；</p> <p>查询重写支持以下参数选项</p> <p>constant_score，默认值，如果需要抓取的关键字比较少，则重写为bool查询，否则抓取所有的关键字并重写为bitset；直接使用boost参数作为文档score，一般term level的查询的boost默认值为1；</p> <p>constant_score_boolean，将查询重写为bool查询，并使用boost参数作为文档的score，受到indices.query.bool.max_clause_count 限制，所以默认最多抓取1024个关键字；</p> <p>scoring_boolean，将查询重写为bool查询，并计算文档的相对权重，受到indices.query.bool.max_clause_count 限制，所以默认最多抓取1024个关键字；</p> <p>top_terms_blended_freqs_N，抓取得分最高的前N个关键字，并将查询重写为bool查询；此选项不受indices.query.bool.max_clause_count 限制；选择命中文档的所有关键字中权重最大的作为文档的score；</p> <p>top_terms_boost_N，抓取得分最高的前N个关键字，并将查询重写为bool查询；此选项不受indices.query.bool.max_clause_count 限制；直接使用boost作为文档的score；</p> <p>top_terms_N，抓取得分最高的前N个关键字，并将查询重写为bool查询；此选项不受indices.query.bool.max_clause_count 限制；计算命中文档的相对权重作为评分；</p> <p>三、wildcard查询重写分析</p> <p>我们通过elasticsearch来查看一下以下查询语句的重写逻辑；</p> <pre><code>{     "query":{         "wildcard":{             "text":{                 "value":"m*"             }         }     } }</code></pre> <p>通过查询使用的字段映射类型构建WildCardQuery，并使用查询语句中配置的rewrite对应的MultiTermQuery.RewriteMethod；</p> <pre><code>//WildcardQueryBuilder.java @Override protected Query doToQuery(SearchExecutionContext context) throws IOException {     MappedFieldType fieldType = context.getFieldType(fieldName);      if (fieldType == null) {         throw new IllegalStateException("Rewrite first");     }      MultiTermQuery.RewriteMethod method = QueryParsers.parseRewriteMethod(rewrite, null, LoggingDeprecationHandler.INSTANCE);     return fieldType.wildcardQuery(value, method, caseInsensitive, context); }</code></pre> <p>根据查询语句中配置的rewrite，查找对应的MultiTermQuery.RewriteMethod，由于我们没有在wildcard查询语句中设置rewrite参数，这里直接返回null；</p> <pre><code>//QueryParsers.java public static MultiTermQuery.RewriteMethod parseRewriteMethod(     @Nullable String rewriteMethod,     @Nullable MultiTermQuery.RewriteMethod defaultRewriteMethod,     DeprecationHandler deprecationHandler ) {     if (rewriteMethod == null) {         return defaultRewriteMethod;     }     if (CONSTANT_SCORE.match(rewriteMethod, deprecationHandler)) {         return MultiTermQuery.CONSTANT_SCORE_REWRITE;     }     if (SCORING_BOOLEAN.match(rewriteMethod, deprecationHandler)) {         return MultiTermQuery.SCORING_BOOLEAN_REWRITE;     }     if (CONSTANT_SCORE_BOOLEAN.match(rewriteMethod, deprecationHandler)) {         return MultiTermQuery.CONSTANT_SCORE_BOOLEAN_REWRITE;     }      int firstDigit = -1;     for (int i = 0; i &lt; rewriteMethod.length(); ++i) {         if (Character.isDigit(rewriteMethod.charAt(i))) {             firstDigit = i;             break;         }     }      if (firstDigit &gt;= 0) {         final int size = Integer.parseInt(rewriteMethod.substring(firstDigit));         String rewriteMethodName = rewriteMethod.substring(0, firstDigit);          if (TOP_TERMS.match(rewriteMethodName, deprecationHandler)) {             return new MultiTermQuery.TopTermsScoringBooleanQueryRewrite(size);         }         if (TOP_TERMS_BOOST.match(rewriteMethodName, deprecationHandler)) {             return new MultiTermQuery.TopTermsBoostOnlyBooleanQueryRewrite(size);         }         if (TOP_TERMS_BLENDED_FREQS.match(rewriteMethodName, deprecationHandler)) {             return new MultiTermQuery.TopTermsBlendedFreqScoringRewrite(size);         }     }      throw new IllegalArgumentException("Failed to parse rewrite_method [" + rewriteMethod + "]"); } }</code></pre> <p>WildCardQuery继承MultiTermQuery，直接调用rewrite方法进行重写，由于我们没有在wildcard查询语句中设置rewrite参数，这里直接使用默认的CONSTANT_SCORE_REWRITE；</p> <pre><code>  //MultiTermQuery.java   protected RewriteMethod rewriteMethod = CONSTANT_SCORE_REWRITE;         @Override   public final Query rewrite(IndexReader reader) throws IOException {     return rewriteMethod.rewrite(reader, this);   }</code></pre> <p>可以看到CONSTANT_SCORE_REWRITE是直接使用的匿名类，rewrite方法返回的是MultiTermQueryConstantScoreWrapper的实例；</p> <pre><code>  //MultiTermQuery.java   public static final RewriteMethod CONSTANT_SCORE_REWRITE =       new RewriteMethod() {         @Override         public Query rewrite(IndexReader reader, MultiTermQuery query) {           return new MultiTermQueryConstantScoreWrapper&lt;&gt;(query);         }       };</code></pre> <p>在以下方法中，首先会得到查询字段对应的所有term集合；<br /> 然后通过 query.getTermsEnum获取跟查询匹配的所有term集合；<br /> 最后根据collectTerms调用的返回值决定是否构建bool查询还是bit set；</p> <pre><code>      //MultiTermQueryConstantScoreWrapper.java       private WeightOrDocIdSet rewrite(LeafReaderContext context) throws IOException {         final Terms terms = context.reader().terms(query.field);         if (terms == null) {           // field does not exist           return new WeightOrDocIdSet((DocIdSet) null);         }          final TermsEnum termsEnum = query.getTermsEnum(terms);         assert termsEnum != null;          PostingsEnum docs = null;          final List&lt;TermAndState&gt; collectedTerms = new ArrayList&lt;&gt;();         if (collectTerms(context, termsEnum, collectedTerms)) {           // build a boolean query           BooleanQuery.Builder bq = new BooleanQuery.Builder();           for (TermAndState t : collectedTerms) {             final TermStates termStates = new TermStates(searcher.getTopReaderContext());             termStates.register(t.state, context.ord, t.docFreq, t.totalTermFreq);             bq.add(new TermQuery(new Term(query.field, t.term), termStates), Occur.SHOULD);           }           Query q = new ConstantScoreQuery(bq.build());           final Weight weight = searcher.rewrite(q).createWeight(searcher, scoreMode, score());           return new WeightOrDocIdSet(weight);         }          // Too many terms: go back to the terms we already collected and start building the bit set         DocIdSetBuilder builder = new DocIdSetBuilder(context.reader().maxDoc(), terms);         if (collectedTerms.isEmpty() == false) {           TermsEnum termsEnum2 = terms.iterator();           for (TermAndState t : collectedTerms) {             termsEnum2.seekExact(t.term, t.state);             docs = termsEnum2.postings(docs, PostingsEnum.NONE);             builder.add(docs);           }         }          // Then keep filling the bit set with remaining terms         do {           docs = termsEnum.postings(docs, PostingsEnum.NONE);           builder.add(docs);         } while (termsEnum.next() != null);          return new WeightOrDocIdSet(builder.build());       }</code></pre> <p>调用collectTerms默认只会提取查询命中的16个关键字；</p> <pre><code>      //MultiTermQueryConstantScoreWrapper.java       private static final int BOOLEAN_REWRITE_TERM_COUNT_THRESHOLD = 16;       private boolean collectTerms(           LeafReaderContext context, TermsEnum termsEnum, List&lt;TermAndState&gt; terms)           throws IOException {         final int threshold =             Math.min(BOOLEAN_REWRITE_TERM_COUNT_THRESHOLD, IndexSearcher.getMaxClauseCount());         for (int i = 0; i &lt; threshold; ++i) {           final BytesRef term = termsEnum.next();           if (term == null) {             return true;           }           TermState state = termsEnum.termState();           terms.add(               new TermAndState(                   BytesRef.deepCopyOf(term),                   state,                   termsEnum.docFreq(),                   termsEnum.totalTermFreq()));         }         return termsEnum.next() == null;       }</code></pre> <p>通过以上分析wildcard查询默认情况下，会提取字段中所有命中查询的关键字；</p> <p>四、fvh Highlighter中wildcard的查询重写</p> <p>在muti term query中，提取查询关键字是高亮逻辑一个很重要的步骤；</p> <p>我们使用以下高亮语句，分析以下高亮中提取查询关键字过程中的查询重写；</p> <pre><code>{     "query":{         "wildcard":{             "text":{                 "value":"m*"             }         }     },     "highlight":{         "fields":{             "text":{                 "type":"fvh"             }         }     } }</code></pre> <p>默认情况下只有匹配的字段才会进行高亮，这里构建CustomFieldQuery；</p> <pre><code>//FastVectorHighlighter.java if (field.fieldOptions().requireFieldMatch()) {     /*      * we use top level reader to rewrite the query against all readers,      * with use caching it across hits (and across readers...)      */     entry.fieldMatchFieldQuery = new CustomFieldQuery(         fieldContext.query,         hitContext.topLevelReader(),         true,         field.fieldOptions().requireFieldMatch()     ); }</code></pre> <p>通过调用flatten方法得到重写之后的flatQueries，然后将每个提取的关键字重写为BoostQuery；</p> <pre><code>  //FieldQuery.java   public FieldQuery(Query query, IndexReader reader, boolean phraseHighlight, boolean fieldMatch)       throws IOException {     this.fieldMatch = fieldMatch;     Set&lt;Query&gt; flatQueries = new LinkedHashSet&lt;&gt;();     flatten(query, reader, flatQueries, 1f);     saveTerms(flatQueries, reader);     Collection&lt;Query&gt; expandQueries = expand(flatQueries);      for (Query flatQuery : expandQueries) {       QueryPhraseMap rootMap = getRootMap(flatQuery);       rootMap.add(flatQuery, reader);       float boost = 1f;       while (flatQuery instanceof BoostQuery) {         BoostQuery bq = (BoostQuery) flatQuery;         flatQuery = bq.getQuery();         boost *= bq.getBoost();       }       if (!phraseHighlight &amp;&amp; flatQuery instanceof PhraseQuery) {         PhraseQuery pq = (PhraseQuery) flatQuery;         if (pq.getTerms().length &gt; 1) {           for (Term term : pq.getTerms()) rootMap.addTerm(term, boost);         }       }     }   }</code></pre> <p>由于WildCardQuery是MultiTermQuery的子类，所以在flatten方法中最终直接使用MultiTermQuery.TopTermsScoringBooleanQueryRewrite进行查询重写，这里的top N是MAX_MTQ_TERMS = 1024；</p> <pre><code>  //FieldQuery.java      private static final int MAX_MTQ_TERMS = 1024;      protected void flatten(       Query sourceQuery, IndexReader reader, Collection&lt;Query&gt; flatQueries, float boost)       throws IOException {             ..................................      ..................................             else if (reader != null) {       Query query = sourceQuery;       Query rewritten;       if (sourceQuery instanceof MultiTermQuery) {         rewritten =             new MultiTermQuery.TopTermsScoringBooleanQueryRewrite(MAX_MTQ_TERMS)                 .rewrite(reader, (MultiTermQuery) query);       } else {         rewritten = query.rewrite(reader);       }       if (rewritten != query) {         // only rewrite once and then flatten again - the rewritten query could have a speacial         // treatment         // if this method is overwritten in a subclass.         flatten(rewritten, reader, flatQueries, boost);       }       // if the query is already rewritten we discard it     }     // else discard queries   }</code></pre> <p>这里首先计算设置的size和getMaxSize(默认值1024， IndexSearcher.getMaxClauseCount())计算最终提取的命中关键字数量，这里最终是1024个；</p> <p>这里省略了传入collectTerms的TermCollector匿名子类的实现，其余最终提取关键字数量有关；</p> <pre><code>  //FieldQuery.java    @Override   public final Query rewrite(final IndexReader reader, final MultiTermQuery query)       throws IOException {     final int maxSize = Math.min(size, getMaxSize());     final PriorityQueue&lt;ScoreTerm&gt; stQueue = new PriorityQueue&lt;&gt;();     collectTerms(         reader,         query,         new TermCollector() {                   ................          });      .............     return build(b);   }</code></pre> <p>这里首先获取查询字段对应的所有term集合，然后获取所有的与查询匹配的term集合，最终通过传入的collector提取关键字；</p> <pre><code>  //TermCollectingRewrite.java   final void collectTerms(IndexReader reader, MultiTermQuery query, TermCollector collector)       throws IOException {     IndexReaderContext topReaderContext = reader.getContext();     for (LeafReaderContext context : topReaderContext.leaves()) {       final Terms terms = context.reader().terms(query.field);       if (terms == null) {         // field does not exist         continue;       }        final TermsEnum termsEnum = getTermsEnum(query, terms, collector.attributes);       assert termsEnum != null;        if (termsEnum == TermsEnum.EMPTY) continue;        collector.setReaderContext(topReaderContext, context);       collector.setNextEnum(termsEnum);       BytesRef bytes;       while ((bytes = termsEnum.next()) != null) {         if (!collector.collect(bytes))           return; // interrupt whole term collection, so also don't iterate other subReaders       }     }   }</code></pre> <p>这里通过控制最终提取匹配查询的关键字的数量不超过maxSize；</p> <pre><code>          //TopTermsRewrite.java           @Override           public boolean collect(BytesRef bytes) throws IOException {             final float boost = boostAtt.getBoost();              // make sure within a single seg we always collect             // terms in order             assert compareToLastTerm(bytes);              // System.out.println("TTR.collect term=" + bytes.utf8ToString() + " boost=" + boost + "             // ord=" + readerContext.ord);             // ignore uncompetitive hits             if (stQueue.size() == maxSize) {               final ScoreTerm t = stQueue.peek();               if (boost &lt; t.boost) return true;               if (boost == t.boost &amp;&amp; bytes.compareTo(t.bytes.get()) &gt; 0) return true;             }             ScoreTerm t = visitedTerms.get(bytes);             final TermState state = termsEnum.termState();             assert state != null;             if (t != null) {               // if the term is already in the PQ, only update docFreq of term in PQ               assert t.boost == boost : "boost should be equal in all segment TermsEnums";               t.termState.register(                   state, readerContext.ord, termsEnum.docFreq(), termsEnum.totalTermFreq());             } else {               // add new entry in PQ, we must clone the term, else it may get overwritten!               st.bytes.copyBytes(bytes);               st.boost = boost;               visitedTerms.put(st.bytes.get(), st);               assert st.termState.docFreq() == 0;               st.termState.register(                   state, readerContext.ord, termsEnum.docFreq(), termsEnum.totalTermFreq());               stQueue.offer(st);               // possibly drop entries from queue               if (stQueue.size() &gt; maxSize) {                 st = stQueue.poll();                 visitedTerms.remove(st.bytes.get());                 st.termState.clear(); // reset the termstate!               } else {                 st = new ScoreTerm(new TermStates(topReaderContext));               }               assert stQueue.size() &lt;= maxSize : "the PQ size must be limited to maxSize";               // set maxBoostAtt with values to help FuzzyTermsEnum to optimize               if (stQueue.size() == maxSize) {                 t = stQueue.peek();                 maxBoostAtt.setMaxNonCompetitiveBoost(t.boost);                 maxBoostAtt.setCompetitiveTerm(t.bytes.get());               }             }              return true;           }</code></pre> <p>通过以上分析可以看到，fvh Highlighter对multi term query的重写，直接使用MultiTermQuery.TopTermsScoringBooleanQueryRewrite，并限制只能最多提取查询关键字1024个；</p> <p>五、重写可能导致的高亮问题原因分析</p> <p>经过以上对查询和高亮的重写过程分析可以知道，默认情况下</p> <p>query阶段提取的是命中查询的所有的关键字，具体行为可以通过rewrite参数进行定制；</p> <p>Highlight阶段提取的是命中查询的关键字中的前1024个，具体行为不受rewrite参数的控制；</p> <p>如果查询的字段是大文本字段，导致字段的关键字很多，就可能会出现查询命中的文档的关键字不在前1024个里边，从而导致明明匹配了文档，但是却没有返回高亮信息；</p> <p>六、解决方案</p> <ol> <li>进一步明确查询关键字，减少查询命中的关键字的数量，例如输入更多的字符，；</li> <li>使用其他类型的查询替换multi term query；</li> </ol> 			                <div class="clearfix"></div>
+                <div class="col-md-12 mt-5">
+                                        <p>上一个：<a href="/news/article-55773.htm">TensorFlow运行出错：UnicodeEncodeError: &#8216;utf-8&#8217; codec can&#8217;t encode character &#8216;\udcce&#8217; in position 2559: s</a></p>
+                                        <p>下一个：<a href="/news/article-56333.htm">瑞派宠物医院是24小时的吗（瑞派宠物医院待遇怎么样）</a></p>
+                                    </div>
+                                </div>
+                <div class="col-md-3">
+                    <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/news/article-37985.htm" title="基于知名微服务框架go-micro开发gRPC应用程序">基于知名微服务框架go-micro开发gRPC应用程序</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-1-2-free-v2ray-subscribe.htm" title="「1月2日」最高速度22M/S，2025年NekoBox每天更新免费节点订阅链接">「1月2日」最高速度22M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-45936.htm" title="青岛最好的动物医院在哪里（青岛最好的动物医院在哪里啊）">青岛最好的动物医院在哪里（青岛最好的动物医院在哪里啊）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-11-12-free-ssr-subscribe.htm" title="「11月12日」最高速度18.8M/S，2024年NekoBox每天更新免费节点订阅链接">「11月12日」最高速度18.8M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-1-12-free-v2ray-subscribe.htm" title="「1月12日」最高速度20.8M/S，2025年NekoBox每天更新免费节点订阅链接">「1月12日」最高速度20.8M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-39966.htm" title="android 黑夜模式适配记录">android 黑夜模式适配记录</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-11-17-free-clash.htm" title="「11月17日」最高速度18.6M/S，2024年NekoBox每天更新免费节点订阅链接">「11月17日」最高速度18.6M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-11-7-free-v2ray.htm" title="「11月7日」最高速度22.3M/S，2024年NekoBox每天更新免费节点订阅链接">「11月7日」最高速度22.3M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-1-30-free-high-speed-nodes.htm" title="「1月30日」最高速度18.3M/S，2025年NekoBox每天更新免费节点订阅链接">「1月30日」最高速度18.3M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-2-9-free-subscribe-node.htm" title="「2月9日」最高速度19.9M/S，2025年NekoBox每天更新免费节点订阅链接">「2月9日」最高速度19.9M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">45</span> <a href="/date/2025-02/" title="2025-02 归档">2025-02</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">93</span> <a href="/date/2025-01/" title="2025-01 归档">2025-01</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">93</span> <a href="/date/2024-12/" title="2024-12 归档">2024-12</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">30</span> <a href="/date/2024-11/" title="2024-11 归档">2024-11</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- About End -->
+
+
+
+        <!-- Footer Start -->
+    <div class="container-fluid bg-dark text-white-50 footer pt-5">
+        <div class="container wow fadeIn" data-wow-delay="0.1s">
+            <div class="copyright">
+                <div class="row">
+                    <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                            <p>
+                                <a href="/">首页</a> | 
+                                <a href="/free-node/">免费节点</a> | 
+                                <a href="/news/">新闻资讯</a> |
+                                <a href="/about-us.htm">关于我们</a> |
+                                <a href="/disclaimer.htm">免责申明</a> |
+                                <a href="/privacy.htm">隐私申明</a> |
+                                <a href="/sitemap.xml">网站地图</a>
+                            </p>
+                        NekoBoxNode官网节点站 版权所有
+                        <br />
+                        Powered by WordPress
+                    </div>
+                    <div class="col-md-6 text-center text-md-end">
+                        <div class="footer-menu">
+                            <a href="/">Home</a>
+                            <a href="#">Cookies</a>
+                            <a href="#">Help</a>
+                            <a href="#">FAQs</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer End -->
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top pt-2"><i class="bi bi-arrow-up"></i></a>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.0.0/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/wow/wow.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/easing/easing.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/waypoints/waypoints.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/counterup/counterup.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/owlcarousel/owl.carousel.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="/assets/website/js/frontend/nekoboxnode/main.js"></script>
+    <script src="https://www.freeclashnode.com/assets/js/frontend/invite-url.js"></script><script src="/assets/website/js/frontend/G.js"></script>
+</body>
+
+</html>
