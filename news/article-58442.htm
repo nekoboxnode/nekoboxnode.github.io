@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html xml:lang="zh-CN" lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://nekoboxnode.github.io/news/article-58442.htm" />
+    <meta charset="utf-8">
+    <title>Spring Boot 将第三方依赖和配置文件打包在jar外部并引用</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <meta name="description" content="pom.xml文件中添加 &lt;build&gt;&lt;plugins&gt;&lt;plugin&gt;&lt;groupId&gt;org.apache.maven.plugins&lt;/g" />
+    
+    <!-- Favicon -->
+    <link href="/assets/website/img/nekoboxnode/favicon.ico" rel="icon">
+
+    <meta name="author" content="NekoBoxNode官网节点站">
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://nekoboxnode.github.io/news/article-58442.htm" />
+    <meta property="og:site_name" content="NekoBoxNode官网节点站" />
+    <meta property="og:title" content="Spring Boot 将第三方依赖和配置文件打包在jar外部并引用" />
+    <meta property="og:image" content="https://nekoboxnode.github.io/uploads/20240427/9c767e570cff2276ea9ab6b9e7b72ade.webp" />
+        <meta property="og:release_date" content="2025-02-18T00:35:23" />
+    <meta property="og:updated_time" content="2025-02-18T00:35:23" />
+        <meta property="og:description" content="pom.xml文件中添加 &lt;build&gt;&lt;plugins&gt;&lt;plugin&gt;&lt;groupId&gt;org.apache.maven.plugins&lt;/g" />
+    
+    <meta name="applicable-device" content="pc,mobile" />
+    <meta name="renderer" content="webkit" />
+    <meta name="force-rendering" content="webkit" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta name="robots" content="max-image-preview:large" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Spring Boot 将第三方依赖和配置文件打包在jar外部并引用">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="dns-prefetch" href="https:/www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cm.g.doubleclick.net">
+        
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Ubuntu:wght@500;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcdn.net/ajax/libs/bootstrap-icons/1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="/assets/website/js/frontend/nekoboxnode/lib/animate/animate.min.css" rel="stylesheet">
+    <link href="/assets/website/js/frontend/nekoboxnode/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="/assets/website/css/nekoboxnode/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="/assets/website/css/nekoboxnode/style.css" rel="stylesheet">
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-93Z2TV5VL1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-93Z2TV5VL1');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body data-page="detail">
+    <!-- Spinner Start -->
+    <div id="spinner"
+        class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-grow text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <!-- Spinner End -->
+
+
+        <!-- Navbar Start -->
+    <div class="container-fluid sticky-top">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-dark p-0">
+                <a href="/" class="navbar-brand">
+                                <span>Neko Box Node</span>
+                                </a>
+                <button type="button" class="navbar-toggler ms-auto me-0" data-bs-toggle="collapse"
+                    data-bs-target="#navbarCollapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <div class="navbar-nav ms-auto">
+                                                <a href="/" class="nav-item nav-link">首页</a>
+                                                <a href="/free-nodes/" class="nav-item nav-link">免费节点</a>
+                                                <a href="/paid-subscribe/" class="nav-item nav-link">推荐机场</a>
+                                                <a href="/client.htm" class="nav-item nav-link">客户端</a>
+                                                <a href="/news/" class="nav-item nav-link">新闻资讯</a>
+                                            </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <!-- Navbar End -->
+
+
+    <!-- Hero Start -->
+    <div class="container-fluid pt-5 bg-primary hero-header">
+        <div class="container pt-5">
+            <div class="row g-5 pt-5">
+                <div class="col-lg-6 align-self-center text-center text-lg-start mb-lg-5">
+                    <h1 class="text-white mb-4 animated slideInRight">Spring Boot 将第三方依赖和配置文件打包在jar外部并引用</h1>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb justify-content-center justify-content-lg-start mb-0">
+                            <li class="breadcrumb-item"><a class="text-white" href="/" title="首页">首页</a></li>
+                            <li class="breadcrumb-item"><a class="text-white" href="/news/" title="新闻资讯">新闻资讯</a></li>
+                            <li class="breadcrumb-item text-white active" aria-current="page">正文</li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="col-lg-6 align-self-end text-center text-lg-end">
+                    <img class="img-fluid" href="/assets/website/img/nekoboxnode/hero-img.png" alt="" style="max-height: 300px;">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Hero End -->
+
+
+    <!-- Full Screen Search Start -->
+    <div class="modal fade" id="searchModal" tabindex="-1">
+        <div class="modal-dialog modal-fullscreen">
+            <div class="modal-content" style="background: rgba(20, 24, 62, 0.7);">
+                <div class="modal-header border-0">
+                    <button type="button" class="btn btn-square bg-white btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body d-flex align-items-center justify-content-center">
+                    <div class="input-group" style="max-width: 600px;">
+                        <input type="text" class="form-control bg-transparent border-light p-3"
+                            placeholder="Type search keyword">
+                        <button class="btn btn-light px-4"><i class="bi bi-search"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Full Screen Search End -->
+
+
+    <!-- About Start -->
+    <div class="container-fluid py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                                    <input type="hidden" id="share-website-info" data-name="" data-url="">
+                  				  				  				<div id="content_views" class="markdown_views prism-atom-one-dark"> <p>pom.xml文件中添加</p> <pre class="prettyprint"><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-title">build</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">plugins</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">plugin</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">groupId</span>&gt;</span>org.apache.maven.plugins<span class="hljs-tag">&lt;/<span class="hljs-title">groupId</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">artifactId</span>&gt;</span>maven-jar-plugin<span class="hljs-tag">&lt;/<span class="hljs-title">artifactId</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">version</span>&gt;</span>2.6<span class="hljs-tag">&lt;/<span class="hljs-title">version</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">configuration</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">archive</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">manifest</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">mainClass</span>&gt;</span>com.esbk.isp.ISPApplication<span class="hljs-tag">&lt;/<span class="hljs-title">mainClass</span>&gt;</span> //指定Springboot程序启动类<span class="hljs-tag">&lt;<span class="hljs-title">addClasspath</span>&gt;</span>true<span class="hljs-tag">&lt;/<span class="hljs-title">addClasspath</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">classpathPrefix</span>&gt;</span>lib/<span class="hljs-tag">&lt;/<span class="hljs-title">classpathPrefix</span>&gt;</span> //指定依赖的jar包相对于本程序jar的位置<span class="hljs-tag">&lt;/<span class="hljs-title">manifest</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">manifestEntries</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">Class-Path</span>&gt;</span>./<span class="hljs-tag">&lt;/<span class="hljs-title">Class-Path</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">manifestEntries</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">archive</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">excludes</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">exclude</span>&gt;</span>application*.yml<span class="hljs-tag">&lt;/<span class="hljs-title">exclude</span>&gt;</span> //指定打包时要排除的文件,支持正则<span class="hljs-tag">&lt;/<span class="hljs-title">excludes</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">configuration</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">plugin</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">plugins</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">build</span>&gt;</span></code></pre> <blockquote> <p>把依赖的jar包–&gt;放到和项目打成的jar包同级的lib文件夹下<br /> 把配置文件–&gt;放到和项目打成的jar包同级的文件夹下( 或者统计的config命名的文件夹下 )</p> </blockquote> <p>如果懒得手动把那么多的依赖拷贝出来的话,可以用maven命令导出:DoutputDirectory指定就行</p> <pre class="prettyprint"><code class="hljs tex">mvn dependency:copy-dependencies -DoutputDirectory=C:<span class="hljs-command">\Users</span><span class="hljs-command">\esbk</span><span class="hljs-command">\Desktop</span><span class="hljs-command">\lib</span>  -DincludeScope=runtime</code></pre> <p>最终目录结果<br /><img decoding="async" src="http://img.555519.xyz/uploads/20221201/c7c9e71d27d6fb1dbaf929412a3d327b.jpg" alt="Spring Boot 将第三方依赖和配置文件打包在jar外部并引用"><br /> lib中是第三方依赖的jar,config中是配置文件.而且可执行的程序jar正常运行</p> <p>如果只想排除配置文件或只想配出第三方jar,删除pom中相应的配置即可</p> <p>参考文章:<br /><a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=http://www.cnblogs.com/xiaoqi/p/6955288.html"  rel="nofollow">http://www.cnblogs.com/xiaoqi/p/6955288.html</a><br /><a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=http://blog.csdn.net/liangwenmail/article/details/72528496"  rel="nofollow">http://blog.csdn.net/liangwenmail/article/details/72528496</a><br /> 感谢以上作者的分享</p> </div> 			                <div class="clearfix"></div>
+                <div class="col-md-12 mt-5">
+                                        <p>上一个：<a href="/news/article-58024.htm">宠物零食加工厂都需要什么执照（宠物零食加工需要什么资质）</a></p>
+                                        <p>下一个：<a href="/news/article-58443.htm">想开宠物用品店怎么找货源（想开宠物用品店在哪里进货）</a></p>
+                                    </div>
+                                </div>
+                <div class="col-md-3">
+                    <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/free-nodes/2024-12-4-free-node-subscribe-links.htm" title="「12月4日」最高速度19.2M/S，2024年NekoBox每天更新免费节点订阅链接">「12月4日」最高速度19.2M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-50407.htm" title="中国十大宠物粮上市公司排名榜名单（中国十大宠物粮上市公司排名榜名单及图片）">中国十大宠物粮上市公司排名榜名单（中国十大宠物粮上市公司排名榜名单及图片）</a></li>
+                        <li class="py-2"><a href="/news/article-33655.htm" title="springboot项目部署好之后第一次启动慢的解决办法">springboot项目部署好之后第一次启动慢的解决办法</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-2-1-clash-node.htm" title="「2月1日」最高速度19.5M/S，2025年NekoBox每天更新免费节点订阅链接">「2月1日」最高速度19.5M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-35427.htm" title="正规领养宠物流程表格图（领养宠物程序）">正规领养宠物流程表格图（领养宠物程序）</a></li>
+                        <li class="py-2"><a href="/news/article-32223.htm" title="自己给狗狗打疫苗可以办理犬证吗?（狗狗自己打疫苗可以办狗证吗）">自己给狗狗打疫苗可以办理犬证吗?（狗狗自己打疫苗可以办狗证吗）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-12-7-clash-v2ray-ss-ssr.htm" title="「12月7日」最高速度20.3M/S，2024年NekoBox每天更新免费节点订阅链接">「12月7日」最高速度20.3M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-25183.htm" title="合肥宠物救助中心地址（合肥宠物救助中心地址查询）">合肥宠物救助中心地址（合肥宠物救助中心地址查询）</a></li>
+                        <li class="py-2"><a href="/news/article-21491.htm" title="动物疫苗接种途径有哪些方法（动物疫苗法最新消息2019）">动物疫苗接种途径有哪些方法（动物疫苗法最新消息2019）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-11-15-free-subscribe-node.htm" title="「11月15日」最高速度19.6M/S，2024年NekoBox每天更新免费节点订阅链接">「11月15日」最高速度19.6M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">54</span> <a href="/date/2025-02/" title="2025-02 归档">2025-02</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">93</span> <a href="/date/2025-01/" title="2025-01 归档">2025-01</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">93</span> <a href="/date/2024-12/" title="2024-12 归档">2024-12</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">30</span> <a href="/date/2024-11/" title="2024-11 归档">2024-11</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- About End -->
+
+
+
+        <!-- Footer Start -->
+    <div class="container-fluid bg-dark text-white-50 footer pt-5">
+        <div class="container wow fadeIn" data-wow-delay="0.1s">
+            <div class="copyright">
+                <div class="row">
+                    <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                            <p>
+                                <a href="/">首页</a> | 
+                                <a href="/free-node/">免费节点</a> | 
+                                <a href="/news/">新闻资讯</a> |
+                                <a href="/about-us.htm">关于我们</a> |
+                                <a href="/disclaimer.htm">免责申明</a> |
+                                <a href="/privacy.htm">隐私申明</a> |
+                                <a href="/sitemap.xml">网站地图</a>
+                            </p>
+                        NekoBoxNode官网节点站 版权所有
+                        <br />
+                        Powered by WordPress
+                    </div>
+                    <div class="col-md-6 text-center text-md-end">
+                        <div class="footer-menu">
+                            <a href="/">Home</a>
+                            <a href="#">Cookies</a>
+                            <a href="#">Help</a>
+                            <a href="#">FAQs</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer End -->
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top pt-2"><i class="bi bi-arrow-up"></i></a>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.0.0/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/wow/wow.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/easing/easing.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/waypoints/waypoints.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/counterup/counterup.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/owlcarousel/owl.carousel.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="/assets/website/js/frontend/nekoboxnode/main.js"></script>
+    <script src="https://www.freeclashnode.com/assets/js/frontend/invite-url.js"></script><script src="/assets/website/js/frontend/G.js"></script>
+</body>
+
+</html>

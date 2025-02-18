@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html xml:lang="zh-CN" lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://nekoboxnode.github.io/news/article-58023.htm" />
+    <meta charset="utf-8">
+    <title>CountDownLatch和CyclicBarrier：如何让多线程步调一致</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <meta name="description" content="案例：对账系统的业务是这样的，用户通过在线商城下单，会生成电子订单，保存在订单库；之后物流会生成派送单给用户发货，派送单保存在派送单库。为了防止漏派送或者重复派送，对账系统每天还会校验是否存在异常订单" />
+    
+    <!-- Favicon -->
+    <link href="/assets/website/img/nekoboxnode/favicon.ico" rel="icon">
+
+    <meta name="author" content="NekoBoxNode官网节点站">
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://nekoboxnode.github.io/news/article-58023.htm" />
+    <meta property="og:site_name" content="NekoBoxNode官网节点站" />
+    <meta property="og:title" content="CountDownLatch和CyclicBarrier：如何让多线程步调一致" />
+    <meta property="og:image" content="https://nekoboxnode.github.io/uploads/20240427/a0cf6321446893b84e435a0167699331.webp" />
+        <meta property="og:release_date" content="2025-02-17T09:56:47" />
+    <meta property="og:updated_time" content="2025-02-17T09:56:47" />
+        <meta property="og:description" content="案例：对账系统的业务是这样的，用户通过在线商城下单，会生成电子订单，保存在订单库；之后物流会生成派送单给用户发货，派送单保存在派送单库。为了防止漏派送或者重复派送，对账系统每天还会校验是否存在异常订单" />
+    
+    <meta name="applicable-device" content="pc,mobile" />
+    <meta name="renderer" content="webkit" />
+    <meta name="force-rendering" content="webkit" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta name="robots" content="max-image-preview:large" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="CountDownLatch和CyclicBarrier：如何让多线程步调一致">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="dns-prefetch" href="https:/www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cm.g.doubleclick.net">
+        
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Ubuntu:wght@500;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcdn.net/ajax/libs/bootstrap-icons/1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="/assets/website/js/frontend/nekoboxnode/lib/animate/animate.min.css" rel="stylesheet">
+    <link href="/assets/website/js/frontend/nekoboxnode/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="/assets/website/css/nekoboxnode/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="/assets/website/css/nekoboxnode/style.css" rel="stylesheet">
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-93Z2TV5VL1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-93Z2TV5VL1');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body data-page="detail">
+    <!-- Spinner Start -->
+    <div id="spinner"
+        class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-grow text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <!-- Spinner End -->
+
+
+        <!-- Navbar Start -->
+    <div class="container-fluid sticky-top">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-dark p-0">
+                <a href="/" class="navbar-brand">
+                                <span>Neko Box Node</span>
+                                </a>
+                <button type="button" class="navbar-toggler ms-auto me-0" data-bs-toggle="collapse"
+                    data-bs-target="#navbarCollapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <div class="navbar-nav ms-auto">
+                                                <a href="/" class="nav-item nav-link">首页</a>
+                                                <a href="/free-nodes/" class="nav-item nav-link">免费节点</a>
+                                                <a href="/paid-subscribe/" class="nav-item nav-link">推荐机场</a>
+                                                <a href="/client.htm" class="nav-item nav-link">客户端</a>
+                                                <a href="/news/" class="nav-item nav-link">新闻资讯</a>
+                                            </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <!-- Navbar End -->
+
+
+    <!-- Hero Start -->
+    <div class="container-fluid pt-5 bg-primary hero-header">
+        <div class="container pt-5">
+            <div class="row g-5 pt-5">
+                <div class="col-lg-6 align-self-center text-center text-lg-start mb-lg-5">
+                    <h1 class="text-white mb-4 animated slideInRight">CountDownLatch和CyclicBarrier：如何让多线程步调一致</h1>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb justify-content-center justify-content-lg-start mb-0">
+                            <li class="breadcrumb-item"><a class="text-white" href="/" title="首页">首页</a></li>
+                            <li class="breadcrumb-item"><a class="text-white" href="/news/" title="新闻资讯">新闻资讯</a></li>
+                            <li class="breadcrumb-item text-white active" aria-current="page">正文</li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="col-lg-6 align-self-end text-center text-lg-end">
+                    <img class="img-fluid" href="/assets/website/img/nekoboxnode/hero-img.png" alt="" style="max-height: 300px;">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Hero End -->
+
+
+    <!-- Full Screen Search Start -->
+    <div class="modal fade" id="searchModal" tabindex="-1">
+        <div class="modal-dialog modal-fullscreen">
+            <div class="modal-content" style="background: rgba(20, 24, 62, 0.7);">
+                <div class="modal-header border-0">
+                    <button type="button" class="btn btn-square bg-white btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body d-flex align-items-center justify-content-center">
+                    <div class="input-group" style="max-width: 600px;">
+                        <input type="text" class="form-control bg-transparent border-light p-3"
+                            placeholder="Type search keyword">
+                        <button class="btn btn-light px-4"><i class="bi bi-search"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Full Screen Search End -->
+
+
+    <!-- About Start -->
+    <div class="container-fluid py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                                    <input type="hidden" id="share-website-info" data-name="" data-url="">
+                  				  				  				<p class="md-end-block md-p"><span class="md-plain">案例：对账系统的业务是这样的，用户通过在线商城下单，会生成电子订单，保存在订单库；之后物流会生成派送单给用户发货，派送单保存在派送单库。为了防止漏派送或者重复派送，对账系统每天还会校验是否存在异常订单。对账系统的处理逻辑很简单，系统流程图如下。目前对账系统的处理逻辑是首先查询订单，然后查询派送单，之后对比订单和派送单，将差异写入差异库。</span></p> <p class="md-end-block md-p"><img decoding="async" src="http://img.555519.xyz/uploads3/20220510/6024d1fd223138a6a333e2b939869cc2.jpg" alt="CountDownLatch和CyclicBarrier：如何让多线程步调一致"></p> <p class="md-end-block md-p"><span class="md-plain">对上面的代码抽象就是这样的,就是在一个单线程里面循环查询订单、派送单，然后执行对账，最后将写入差异库。</span></p> <pre class="md-fences md-end-block md-fences-with-lineno ty-contain-cm modeLoaded"><span><span class="cm-keyword">while(<span class="cm-variable">存在未对账订单){<br/><span><span class="cm-comment">// 查询未对账订单<br/><span><span class="cm-variable">pos<span class="cm-operator">=<span class="cm-variable">getPOrders();<br/><span><span class="cm-comment">// 查询派送单<br/><span><span class="cm-variable">dos<span class="cm-operator">=<span class="cm-variable">getDOrders();<br/><span><span class="cm-comment">// 执行对账操作<br/><span><span class="cm-variable">diff<span class="cm-operator">=<span class="cm-variable">check(<span class="cm-variable">pos,<span class="cm-variable">dos);<br/><span><span class="cm-comment">// 差异写入差异库<br/><span><span class="cm-variable">save(<span class="cm-variable">diff);<br/><span>}</span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></pre> <p class="md-end-block md-p"><span class="md-pair-s"><strong>1）上面的系统现在执行很慢，该怎样优化来执行速度呢？</strong></span></p> <ul class="ul-list" data-mark="-"> <li class="md-list-item"> <p class="md-end-block md-p"><span class="md-plain">目前是单线程的，那单线程的话我们就考虑是否可以用多线程来做。查询未对账订单和查询派送单这两个操作是可以并行处理的。</span></p> </li> </ul> <p class="md-end-block md-p"><span class="md-pair-s"><strong>2）实现查询对账订单和查询派送单并行执行的代码应该是怎样的？</strong></span></p> <pre class="md-fences md-end-block md-fences-with-lineno ty-contain-cm modeLoaded"><span><span><br/><span><span class="cm-keyword">while(<span class="cm-variable">存在未对账订单){<br/><span><span class="cm-comment">// 查询未对账订单<br/><span><span class="cm-variable">Thread<span class="cm-variable">T1<span class="cm-operator">=<span class="cm-keyword">new<span class="cm-variable">Thread(()<span class="cm-operator">-&gt;{<br/><span><span class="cm-variable">pos<span class="cm-operator">=<span class="cm-variable">getPOrders();<br/><span>  });<br/><span><span class="cm-variable">T1.<span class="cm-variable">start();<br/><span><span class="cm-comment">// 查询派送单<br/><span><span class="cm-variable">Thread<span class="cm-variable">T2<span class="cm-operator">=<span class="cm-keyword">new<span class="cm-variable">Thread(()<span class="cm-operator">-&gt;{<br/><span><span class="cm-variable">dos<span class="cm-operator">=<span class="cm-variable">getDOrders();<br/><span>  });<br/><span><span class="cm-variable">T2.<span class="cm-variable">start();<br/><span><span class="cm-comment">// 等待T1、T2结束<br/><span><span class="cm-variable">T1.<span class="cm-variable">join();<br/><span><span class="cm-variable">T2.<span class="cm-variable">join();<br/><span><span class="cm-comment">// 执行对账操作<br/><span><span class="cm-variable">diff<span class="cm-operator">=<span class="cm-variable">check(<span class="cm-variable">pos,<span class="cm-variable">dos);<br/><span><span class="cm-comment">// 差异写入差异库<br/><span><span class="cm-variable">save(<span class="cm-variable">diff);<br/><span>}</span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></pre> <ul class="ul-list" data-mark="-"> <li class="md-list-item"> <p class="md-end-block md-p"><span class="md-plain">我们在主线程中开了两个插队的线程，等这两个查询的插队线程执行完了，阻塞的主线程被唤醒，那么就可以执行对账还有写入差异库的操作了。</span></p> </li> </ul> <p class="md-end-block md-p"><span class="md-pair-s"><strong>3）思考一下，我们上面的代码还有没有优化的空间呢？</strong></span></p> <ul class="ul-list" data-mark="-"> <li class="md-list-item"> <p class="md-end-block md-p"><span class="md-plain">我们每次进行新的查询的对账的时候，都要创建两个新的线程出来，我们知道创建线程是比较好费时间的。那思考一下可不可以用线程池来减少创建线程的开销呢。</span></p> <pre class="md-fences md-end-block md-fences-with-lineno ty-contain-cm modeLoaded"><span><span><br/><span><span class="cm-comment">// 创建2个线程的线程池<br/><span><span class="cm-variable">Executor<span class="cm-variable">executor<span class="cm-operator">=<br/><span><span class="cm-variable">Executors.<span class="cm-variable">newFixedThreadPool(<span class="cm-number">2);<br/><span><span class="cm-keyword">while(<span class="cm-variable">存在未对账订单){<br/><span><span class="cm-comment">// 查询未对账订单<br/><span><span class="cm-variable">executor.<span class="cm-variable">execute(()<span class="cm-operator">-&gt; {<br/><span><span class="cm-variable">pos<span class="cm-operator">=<span class="cm-variable">getPOrders();<br/><span>  });<br/><span><span class="cm-comment">// 查询派送单<br/><span><span class="cm-variable">executor.<span class="cm-variable">execute(()<span class="cm-operator">-&gt; {<br/><span><span class="cm-variable">dos<span class="cm-operator">=<span class="cm-variable">getDOrders();<br/><span>  });<br/><span><br/><span><span class="cm-comment">/* ？？如何实现等待？？*/<br/><span><br/><span><span class="cm-comment">// 执行对账操作<br/><span><span class="cm-variable">diff<span class="cm-operator">=<span class="cm-variable">check(<span class="cm-variable">pos,<span class="cm-variable">dos);<br/><span><span class="cm-comment">// 差异写入差异库<br/><span><span class="cm-variable">save(<span class="cm-variable">diff);<br/><span>}</span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></pre> </li> </ul> <p class="md-end-block md-p"><span class="md-pair-s"><strong>4）使用上面线程池的代码的话，我的join就不能调用了，那我的主线程就不知道什么时候两个查询操作执行完了，这个时候该怎么办？</strong></span></p> <ul class="ul-list" data-mark="-"> <li class="md-list-item"> <p class="md-end-block md-p"><span class="md-plain">我们可以使用一个计数器，初始值呢设置为2，查询一次就减1，当两个查询执行完，那计数器就是0了，我们的主线程也就能被唤醒执行了。</span></p> </li> </ul> <p class="md-end-block md-p"><span class="md-pair-s"><strong>5）上面的方案是我们自己想出来的，那java其实提供了一个非常方便的实现我们上面方案的工具类CountDownLatch，那使用CountDownLatch怎样优化我们的代码呢？</strong></span></p> <ul class="ul-list" data-mark="-"> <li class="md-list-item"> <p class="md-end-block md-p"><span class="md-plain">主线程的话我们调用await方法来阻塞，两个查询线程我们执行countDown方法，会减1。主线程当检测到为0时就可以执行了</span></p> </li> </ul> <pre class="md-fences md-end-block md-fences-with-lineno ty-contain-cm modeLoaded"><span><span><br/><span><span class="cm-comment">// 创建2个线程的线程池<br/><span><span class="cm-variable">Executor<span class="cm-variable">executor<span class="cm-operator">=<br/><span><span class="cm-variable">Executors.<span class="cm-variable">newFixedThreadPool(<span class="cm-number">2);<br/><span><span class="cm-keyword">while(<span class="cm-variable">存在未对账订单){<br/><span><span class="cm-comment">// 计数器初始化为2<br/><span><span class="cm-variable">CountDownLatch<span class="cm-variable">latch<span class="cm-operator">=<br/><span><span class="cm-keyword">new<span class="cm-variable">CountDownLatch(<span class="cm-number">2);<br/><span><span class="cm-comment">// 查询未对账订单<br/><span><span class="cm-variable">executor.<span class="cm-variable">execute(()<span class="cm-operator">-&gt; {<br/><span><span class="cm-variable">pos<span class="cm-operator">=<span class="cm-variable">getPOrders();<br/><span><span class="cm-variable">latch.<span class="cm-variable">countDown();<br/><span>  });<br/><span><span class="cm-comment">// 查询派送单<br/><span><span class="cm-variable">executor.<span class="cm-variable">execute(()<span class="cm-operator">-&gt; {<br/><span><span class="cm-variable">dos<span class="cm-operator">=<span class="cm-variable">getDOrders();<br/><span><span class="cm-variable">latch.<span class="cm-variable">countDown();<br/><span>  });<br/><span><br/><span><span class="cm-comment">// 等待两个查询操作结束<br/><span><span class="cm-variable">latch.<span class="cm-variable">await();<br/><span><br/><span><span class="cm-comment">// 执行对账操作<br/><span><span class="cm-variable">diff<span class="cm-operator">=<span class="cm-variable">check(<span class="cm-variable">pos,<span class="cm-variable">dos);<br/><span><span class="cm-comment">// 差异写入差异库<br/><span><span class="cm-variable">save(<span class="cm-variable">diff);<br/><span>}</span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></pre> <p class="md-end-block md-p"> <p class="md-end-block md-p"><span class="md-pair-s"><strong>6）上面使用CountDownLatch和线程池的方案已经很不错了，在思考一下，我们的这个程序还能不能优化一下？</strong></span></p> <ul class="ul-list" data-mark="-"> <li class="md-list-item"> <p class="md-end-block md-p"><span class="md-plain">我的对账操作和下一次查询操作其实是不影响的，那么他们之间是可以并发执行的。也就是我在进行本次对账的同时，是可以执行下一次的查询操作的。</span></p> </li> </ul> <p class="md-end-block md-p"><span class="md-pair-s"><strong>7）对账需要查询出数据来才可以执行，这种的话对应什么模型？</strong></span></p> <ul class="ul-list" data-mark="-"> <li class="md-list-item"> <p class="md-end-block md-p"><span class="md-plain">生产者-消费者模型</span></p> </li> </ul> <p class="md-end-block md-p"><span class="md-pair-s"><strong>8）既然看出来了是生产者消费者模型，那就需要一个队列，生产者生产出来东西放到队列，消费者去队列当中取。但是针对我们上面的案例，一个队列的话肯会造成数据混乱，我们应该怎样设计？</strong></span></p> <ul class="ul-list" data-mark="-"> <li class="md-list-item"> <p class="md-end-block md-p"><span class="md-plain">使用两个队列，两个队列间的元素还有对应关系。订单查询操作将订单查询结果插入订单队列，派送单查询操作将派送单插入派送单队列，这两个队列的元素之间是有一一对应的关系的。我们的对账操作每次从两个队列当中各取一个，这样数据肯定不会发生混乱。</span></p> <p class="md-end-block md-p"> </li> </ul> <p class="md-end-block md-p"><span class="md-pair-s"><strong>9）我们如何用代码来实现查询和对账之间的并行呢？</strong></span></p> <ul class="ul-list" data-mark="-"> <li class="md-list-item"> <p class="md-end-block md-p"><span class="md-plain">使用三个线程，一个线程 T1 执行订单的查询工作，一个线程 T2 执行派送单的查询工作，当线程 T1 和 T2 都各自生产完 1 条数据的时候，通知线程 T3 执行对账操作。这个想法虽看上去简单，但其实还隐藏着一个条件，那就是线程 T1 和线程 T2 的工作要步调一致，不能一个跑得太快，一个跑得太慢，只有这样才能做到各自生产完 1 条数据的时候，通知线程 T3。</span></p> </li> </ul> <p class="md-end-block md-p"><span class="md-pair-s"><strong>10）我们上面的方案有哪些要解决的问题？怎样解决？</strong></span></p> <ul class="ul-list" data-mark="-"> <li class="md-list-item"> <p class="md-end-block md-p"><span class="md-plain">T1和T2要走的齐</span></p> </li> <li class="md-list-item"> <p class="md-end-block md-p"><span class="md-plain">他们执行完之后要能通知到T3</span></p> </li> <li class="md-list-item"> <p class="md-end-block md-p"><span class="md-plain">解决这两个问题的方案也很简单，还是搞一个计数器，初始化为2，T1执行完减1,T2执行完减1。当计数器值为0时，T3就可以执行了，T3执行的时候把我们计数器又重置为2,此时T1,T2又可以执行了。</span></p> </li> </ul> <p class="md-end-block md-p"><span class="md-pair-s"><strong>11）实际项目中java其实给了我们现成的实现上面方案的工具类CyclicBarrier，代码实现的怎样的？</strong></span></p> <ul class="ul-list" data-mark="-"> <li class="md-list-item"> <p class="md-end-block md-p"><span class="md-plain">CyclicBarrier 的计数器有自动重置的功能，当减到 0 的时候，会自动重置你设置的初始值,所以他要带个循环</span></p> </li> </ul> <pre class="md-fences md-end-block md-fences-with-lineno ty-contain-cm modeLoaded"><span><span><br/><span><span class="cm-comment">// 订单队列<br/><span><span class="cm-variable">Vector<span class="cm-operator">&lt;<span class="cm-variable">P<span class="cm-operator">&gt;<span class="cm-variable">pos;<br/><span><span class="cm-comment">// 派送单队列<br/><span><span class="cm-variable">Vector<span class="cm-operator">&lt;<span class="cm-variable">D<span class="cm-operator">&gt;<span class="cm-variable">dos;<br/><span><span class="cm-comment">// 执行回调的线程池<br/><span><span class="cm-variable">Executor<span class="cm-variable">executor<span class="cm-operator">=<br/><span><span class="cm-variable">Executors.<span class="cm-variable">newFixedThreadPool(<span class="cm-number">1);<br/><span><span class="cm-keyword">final<span class="cm-variable">CyclicBarrier<span class="cm-variable">barrier<span class="cm-operator">=<br/><span><span class="cm-keyword">new<span class="cm-variable">CyclicBarrier(<span class="cm-number">2, ()<span class="cm-operator">-&gt;{<br/><span><span class="cm-variable">executor.<span class="cm-variable">execute(()<span class="cm-operator">-&gt;<span class="cm-variable">check());<br/><span>  });<br/><span><br/><span><span class="cm-variable-3">void<span class="cm-def">check(){<br/><span><span class="cm-variable">P<span class="cm-variable">p<span class="cm-operator">=<span class="cm-variable">pos.<span class="cm-variable">remove(<span class="cm-number">0);<br/><span><span class="cm-variable">D<span class="cm-variable">d<span class="cm-operator">=<span class="cm-variable">dos.<span class="cm-variable">remove(<span class="cm-number">0);<br/><span><span class="cm-comment">// 执行对账操作<br/><span><span class="cm-variable">diff<span class="cm-operator">=<span class="cm-variable">check(<span class="cm-variable">p,<span class="cm-variable">d);<br/><span><span class="cm-comment">// 差异写入差异库<br/><span><span class="cm-variable">save(<span class="cm-variable">diff);<br/><span>}<br/><span><br/><span><span class="cm-variable-3">void<span class="cm-def">checkAll(){<br/><span><span class="cm-comment">// 循环查询订单库<br/><span><span class="cm-variable">Thread<span class="cm-variable">T1<span class="cm-operator">=<span class="cm-keyword">new<span class="cm-variable">Thread(()<span class="cm-operator">-&gt;{<br/><span><span class="cm-keyword">while(<span class="cm-variable">存在未对账订单){<br/><span><span class="cm-comment">// 查询订单库<br/><span><span class="cm-variable">pos.<span class="cm-variable">add(<span class="cm-variable">getPOrders());<br/><span><span class="cm-comment">// 等待<br/><span><span class="cm-variable">barrier.<span class="cm-variable">await();<br/><span> &nbsp;  }<br/><span>  });<br/><span><span class="cm-variable">T1.<span class="cm-variable">start();<br/><span><span class="cm-comment">// 循环查询运单库<br/><span><span class="cm-variable">Thread<span class="cm-variable">T2<span class="cm-operator">=<span class="cm-keyword">new<span class="cm-variable">Thread(()<span class="cm-operator">-&gt;{<br/><span><span class="cm-keyword">while(<span class="cm-variable">存在未对账订单){<br/><span><span class="cm-comment">// 查询运单库<br/><span><span class="cm-variable">dos.<span class="cm-variable">add(<span class="cm-variable">getDOrders());<br/><span><span class="cm-comment">// 等待<br/><span><span class="cm-variable">barrier.<span class="cm-variable">await();<br/><span> &nbsp;  }<br/><span>  });<br/><span><span class="cm-variable">T2.<span class="cm-variable">start();<br/><span>}</span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></pre> <p><span></span></p> <p class="md-end-block md-p"> 			                <div class="clearfix"></div>
+                <div class="col-md-12 mt-5">
+                                        <p>上一个：<a href="/news/article-57455.htm">pandas读取csv文件提示字符读取失败</a></p>
+                                        <p>下一个：<a href="/news/article-58024.htm">宠物零食加工厂都需要什么执照（宠物零食加工需要什么资质）</a></p>
+                                    </div>
+                                </div>
+                <div class="col-md-3">
+                    <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/news/article-37520.htm" title="猫咪不见了会自己回家吗（猫咪不见了会自己回家吗视频）">猫咪不见了会自己回家吗（猫咪不见了会自己回家吗视频）</a></li>
+                        <li class="py-2"><a href="/news/article-39477.htm" title="动物医院申请条件及流程怎么写范文图片（动物医院申请条件及流程怎么写范文图片大全）">动物医院申请条件及流程怎么写范文图片（动物医院申请条件及流程怎么写范文图片大全）</a></li>
+                        <li class="py-2"><a href="/news/article-53589.htm" title="Centos7部署RabbitMQ的镜像队列集群_在线工具">Centos7部署RabbitMQ的镜像队列集群_在线工具</a></li>
+                        <li class="py-2"><a href="/news/article-27508.htm" title="vue实现下拉效果">vue实现下拉效果</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-11-27-free-high-speed-nodes.htm" title="「11月27日」最高速度22.7M/S，2024年NekoBox每天更新免费节点订阅链接">「11月27日」最高速度22.7M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-39966.htm" title="android 黑夜模式适配记录">android 黑夜模式适配记录</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-12-13-free-clash.htm" title="「12月13日」最高速度22.3M/S，2024年NekoBox每天更新免费节点订阅链接">「12月13日」最高速度22.3M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-12-25-clash-v2ray-ss-ssr.htm" title="「12月25日」最高速度18.1M/S，2024年NekoBox每天更新免费节点订阅链接">「12月25日」最高速度18.1M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-44936.htm" title="怎么样正确使用动物疫苗视频（怎么样正确使用动物疫苗视频教程）">怎么样正确使用动物疫苗视频（怎么样正确使用动物疫苗视频教程）</a></li>
+                        <li class="py-2"><a href="/news/article-52515.htm" title="动物医院公司名字（动物医院企业文化）">动物医院公司名字（动物医院企业文化）</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">54</span> <a href="/date/2025-02/" title="2025-02 归档">2025-02</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">93</span> <a href="/date/2025-01/" title="2025-01 归档">2025-01</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">93</span> <a href="/date/2024-12/" title="2024-12 归档">2024-12</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">30</span> <a href="/date/2024-11/" title="2024-11 归档">2024-11</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- About End -->
+
+
+
+        <!-- Footer Start -->
+    <div class="container-fluid bg-dark text-white-50 footer pt-5">
+        <div class="container wow fadeIn" data-wow-delay="0.1s">
+            <div class="copyright">
+                <div class="row">
+                    <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                            <p>
+                                <a href="/">首页</a> | 
+                                <a href="/free-node/">免费节点</a> | 
+                                <a href="/news/">新闻资讯</a> |
+                                <a href="/about-us.htm">关于我们</a> |
+                                <a href="/disclaimer.htm">免责申明</a> |
+                                <a href="/privacy.htm">隐私申明</a> |
+                                <a href="/sitemap.xml">网站地图</a>
+                            </p>
+                        NekoBoxNode官网节点站 版权所有
+                        <br />
+                        Powered by WordPress
+                    </div>
+                    <div class="col-md-6 text-center text-md-end">
+                        <div class="footer-menu">
+                            <a href="/">Home</a>
+                            <a href="#">Cookies</a>
+                            <a href="#">Help</a>
+                            <a href="#">FAQs</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer End -->
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top pt-2"><i class="bi bi-arrow-up"></i></a>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.0.0/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/wow/wow.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/easing/easing.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/waypoints/waypoints.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/counterup/counterup.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/owlcarousel/owl.carousel.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="/assets/website/js/frontend/nekoboxnode/main.js"></script>
+    <script src="https://www.freeclashnode.com/assets/js/frontend/invite-url.js"></script><script src="/assets/website/js/frontend/G.js"></script>
+</body>
+
+</html>
