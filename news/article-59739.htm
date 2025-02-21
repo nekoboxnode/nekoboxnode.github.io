@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html xml:lang="zh-CN" lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://nekoboxnode.github.io/news/article-59739.htm" />
+    <meta charset="utf-8">
+    <title>Pandas大数据量内存优化</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <meta name="description" content="一、背景介绍 Pandas在处理大数据(尤其是列比较多的场景)时，如果不做优化，内存占用还是很大的，下面通过一个实例来说明可以怎样优化  首先，生成一批18万的数据，每条数据151列  import " />
+    
+    <!-- Favicon -->
+    <link href="/assets/website/img/nekoboxnode/favicon.ico" rel="icon">
+
+    <meta name="author" content="NekoBoxNode官网节点站">
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://nekoboxnode.github.io/news/article-59739.htm" />
+    <meta property="og:site_name" content="NekoBoxNode官网节点站" />
+    <meta property="og:title" content="Pandas大数据量内存优化" />
+    <meta property="og:image" content="https://nekoboxnode.github.io/uploads/20240427/3076c4ce61f517693e599168cc83af0f.webp" />
+        <meta property="og:release_date" content="2025-02-20T09:55:51" />
+    <meta property="og:updated_time" content="2025-02-20T09:55:51" />
+        <meta property="og:description" content="一、背景介绍 Pandas在处理大数据(尤其是列比较多的场景)时，如果不做优化，内存占用还是很大的，下面通过一个实例来说明可以怎样优化  首先，生成一批18万的数据，每条数据151列  import " />
+    
+    <meta name="applicable-device" content="pc,mobile" />
+    <meta name="renderer" content="webkit" />
+    <meta name="force-rendering" content="webkit" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta name="robots" content="max-image-preview:large" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Pandas大数据量内存优化">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="dns-prefetch" href="https:/www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cm.g.doubleclick.net">
+        
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Ubuntu:wght@500;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcdn.net/ajax/libs/bootstrap-icons/1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="/assets/website/js/frontend/nekoboxnode/lib/animate/animate.min.css" rel="stylesheet">
+    <link href="/assets/website/js/frontend/nekoboxnode/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="/assets/website/css/nekoboxnode/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="/assets/website/css/nekoboxnode/style.css" rel="stylesheet">
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-93Z2TV5VL1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-93Z2TV5VL1');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body data-page="detail">
+    <!-- Spinner Start -->
+    <div id="spinner"
+        class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-grow text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <!-- Spinner End -->
+
+
+        <!-- Navbar Start -->
+    <div class="container-fluid sticky-top">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-dark p-0">
+                <a href="/" class="navbar-brand">
+                                <span>Neko Box Node</span>
+                                </a>
+                <button type="button" class="navbar-toggler ms-auto me-0" data-bs-toggle="collapse"
+                    data-bs-target="#navbarCollapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <div class="navbar-nav ms-auto">
+                                                <a href="/" class="nav-item nav-link">首页</a>
+                                                <a href="/free-nodes/" class="nav-item nav-link">免费节点</a>
+                                                <a href="/paid-subscribe/" class="nav-item nav-link">推荐机场</a>
+                                                <a href="/client.htm" class="nav-item nav-link">客户端</a>
+                                                <a href="/news/" class="nav-item nav-link">新闻资讯</a>
+                                            </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <!-- Navbar End -->
+
+
+    <!-- Hero Start -->
+    <div class="container-fluid pt-5 bg-primary hero-header">
+        <div class="container pt-5">
+            <div class="row g-5 pt-5">
+                <div class="col-lg-6 align-self-center text-center text-lg-start mb-lg-5">
+                    <h1 class="text-white mb-4 animated slideInRight">Pandas大数据量内存优化</h1>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb justify-content-center justify-content-lg-start mb-0">
+                            <li class="breadcrumb-item"><a class="text-white" href="/" title="首页">首页</a></li>
+                            <li class="breadcrumb-item"><a class="text-white" href="/news/" title="新闻资讯">新闻资讯</a></li>
+                            <li class="breadcrumb-item text-white active" aria-current="page">正文</li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="col-lg-6 align-self-end text-center text-lg-end">
+                    <img class="img-fluid" href="/assets/website/img/nekoboxnode/hero-img.png" alt="" style="max-height: 300px;">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Hero End -->
+
+
+    <!-- Full Screen Search Start -->
+    <div class="modal fade" id="searchModal" tabindex="-1">
+        <div class="modal-dialog modal-fullscreen">
+            <div class="modal-content" style="background: rgba(20, 24, 62, 0.7);">
+                <div class="modal-header border-0">
+                    <button type="button" class="btn btn-square bg-white btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body d-flex align-items-center justify-content-center">
+                    <div class="input-group" style="max-width: 600px;">
+                        <input type="text" class="form-control bg-transparent border-light p-3"
+                            placeholder="Type search keyword">
+                        <button class="btn btn-light px-4"><i class="bi bi-search"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Full Screen Search End -->
+
+
+    <!-- About Start -->
+    <div class="container-fluid py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                                    <input type="hidden" id="share-website-info" data-name="" data-url="">
+                  				  				  				<div id="content_views" class="htmledit_views"> <h2>一、背景介绍</h2> <p>Pandas在处理大数据(尤其是<strong>列比较多</strong>的场景)时，如果不做优化，内存占用还是很大的，下面通过一个实例来说明可以怎样优化</p> <blockquote> <p>首先，生成一批18万的数据，每条数据151列</p> </blockquote> <pre><code class="language-python">import pandas as pd import numpy as np   def gen_big_data(csv_file: str, big_data_count=90000):     chars = 'abcdefghijklmnopqrstuvwxyz'     dates = pd.date_range(start='2020-01-01', periods=big_data_count, freq='30s')     big_data_cols = ['Name']     for group in range(1, 31):         big_data_cols.extend([f'date str {group}',                               f'bool {group}',                               f'int {group}',                               f'float {group}',                               f'str {group}'])     big_data = []     for i in range(0, big_data_count):         row = [f'Name Item {(i + 1)}']         for _ in range(0, 30):             row.extend([str(dates[i]),                         i % 2 == 0,                         np.random.randint(10000, 100000),                         10000 * np.random.random(),                         chars[np.random.randint(0, 26)] * 15])         big_data.append(row)     df = pd.DataFrame(data=big_data, columns=big_data_cols)     df.to_csv(csv_file, index=None)   if __name__ == '__main__':     # 修改存放路径以及模拟数据量(默认9万)     gen_big_data('./files/custom_big_data.csv', 180000)</code></pre> <p>查看生成的数据格式，可以看到每一行有151列</p> <p style="text-align:center;"><img decoding="async" alt="143e6764f47d47c9a67d2353fea292bd.png" src="http://img.555519.xyz/uploads/20221230/4bfdd81e239be8be9ad57420d6ff2158.jpg"></p> <blockquote> <p>保存数据后，先查看一下内存占用情况</p> </blockquote> <pre><code class="language-python">import pandas as pd   def info_memory(csv_file: str):     df = pd.read_csv(csv_file)     print(df.info(memory_usage='deep'))   if __name__ == '__main__':     info_memory('./files/custom_big_data.csv')</code></pre> <p>打印结果如下，可以看到当前内存占用为<strong>862.1MB</strong></p> <pre><code class="language-bash">&lt;class 'pandas.core.frame.DataFrame'&gt; RangeIndex: 180000 entries, 0 to 179999 Columns: 151 entries, Name to str 30 dtypes: bool(30), float64(30), int64(30), object(61) memory usage: 862.1 MB</code></pre> <blockquote> <p>查看不同类型的内存占用情况&nbsp;</p> </blockquote> <pre><code class="language-bash">def info_memory_by_d_type(csv_file: str):     df = pd.read_csv(csv_file)     for d_type in ['bool', 'float64', 'int64', 'object']:         d_type_selected = df.select_dtypes(include=[d_type])         mem_mean_bit = d_type_selected.memory_usage(deep=True).mean()         mem_mean_mb = mem_mean_bit / 1024 ** 2         print(f'mean memory usage: {d_type:&lt;7} - {mem_mean_mb:.3f} M')</code></pre> <p>输出结果如下，其中object类型占用内存最多</p> <pre><code class="language-bash">mean memory usage: bool    - 0.166 M mean memory usage: float64 - 1.329 M mean memory usage: int64   - 1.329 M mean memory usage: object  - 12.494 M</code></pre> <h2>二、优化方案</h2> <blockquote> <p>查看某个类型的内存占用量</p> </blockquote> <pre><code class="language-python">def info_mem_usage_mb(pd_obj):     if isinstance(pd_obj, pd.DataFrame):         mem_usage = pd_obj.memory_usage(deep=True).sum()     else:         mem_usage = pd_obj.memory_usage(deep=True)     # 转换为MB返回     return f'{mem_usage / 1024 ** 2:02.3f} MB'</code></pre> <blockquote> <p>int和float类型</p> </blockquote> <p>对于int和float类型的数据，Pandas加载到内存中的数据，默认是int64和float64。一般场景下的数据，用int32和float32就足够了，用<strong>numpy.iinfo</strong>和<strong>numpy.finfo</strong>可以打印对应类型的取值范围</p> <pre><code class="language-bash">Machine parameters for int32 --------------------------------------------------------------- min = -2147483648 max = 2147483647 ---------------------------------------------------------------  Machine parameters for int64 --------------------------------------------------------------- min = -9223372036854775808 max = 9223372036854775807 ---------------------------------------------------------------</code></pre> <pre><code class="language-bash">Machine parameters for float32 --------------------------------------------------------------- ... maxexp =    128   max =        3.4028235e+38 nexp =        8   min =        -max ---------------------------------------------------------------  Machine parameters for float64 --------------------------------------------------------------- ... maxexp =   1024   max =        1.7976931348623157e+308 nexp =       11   min =        -max ---------------------------------------------------------------</code></pre> <p>分别优化int和float的类型</p> <pre><code class="language-python">def optimize_int_and_float():     df_int = df.select_dtypes(include=['int64'])     df_int_converted = df_int.apply(pd.to_numeric, downcast='unsigned')     df_float = df.select_dtypes(include=['float64'])     df_float_converted = df_float.apply(pd.to_numeric, downcast='float')      print('int before     ', info_mem_usage_mb(df_int))     print('int converted  ', info_mem_usage_mb(df_int_converted))      print('float before   ', info_mem_usage_mb(df_float))     print('float converted', info_mem_usage_mb(df_float_converted))</code></pre> <p>优化后的结果如下，内存减少50%左右</p> <pre><code class="language-bash">int before      41.199 MB int converted   20.599 MB float before    41.199 MB float converted 20.599 MB</code></pre> <blockquote> <p>object类型中的普通str数据</p> </blockquote> <p>获取object类型数据，并调用describe()展示统计信息</p> <p style="text-align:center;"><img decoding="async" alt="5d183c5325314e73be43a2976fd1d21d.png" src="http://img.555519.xyz/uploads/20221230/701f3def7461521ce01d54cb503287e9.jpg"></p> <p>&nbsp;对于区分度较低的 str 1到str 30，一共只有26个可能的值，可以考虑转换为Pandas中的<strong>categroy</strong>类型，这里将区分度小于40%的列转换为category类型</p> <pre><code class="language-python">def optimize_obj():     df_obj = df.select_dtypes(include=['object'])     df_obj_converted = pd.DataFrame()     for col in df_obj.columns:         unique_count = len(df_obj[col].unique())         total_count = len(df_obj[col])         # 将区分度小于40%的列转换为category类型         if unique_count / total_count &lt;= 0.4:             df_obj_converted.loc[:, col] = df_obj[col].astype('category')         else:             df_obj_converted.loc[:, col] = df_obj[col]      print('object before   ', info_mem_usage_mb(df_obj))     print('object converted', info_mem_usage_mb(self.df_obj_converted))</code></pre> <p>执行结果如下，降低了300+M的内存</p> <pre><code class="language-python">object before    774.602 MB object converted 409.047 MB</code></pre> <blockquote> <p>object类型中的date数据</p> </blockquote> <pre><code class="language-python">def optimize_date_str():     df_date = pd.DataFrame()     df_date_converted = pd.DataFrame()     for col_name in df.columns:         if col_name.startswith('date str'):             df_date.loc[:, col_name] = df[col_name]             df_date_converted.loc[:, col_name] = pd.to_datetime(df[col_name])      print('date before   ', info_mem_usage_mb(df_date))     print('date converted', info_mem_usage_mb(df_date_converted))</code></pre> <p>执行结果如下，也降低了300+M的内存</p> <pre><code class="language-bash">date before    391.388 MB date converted 41.199 MB</code></pre> <h2>三、总体优化</h2> <p>综合以上的优化方法，并封装为类PandasMemoryOptimizeDemo</p> <pre><code class="language-bash">import pandas as pd import numpy as np   class PandasMemoryOptimizeDemo:     df: pd.DataFrame     df_int_converted: pd.DataFrame     df_float_converted: pd.DataFrame     df_obj_converted: pd.DataFrame     df_date_converted: pd.DataFrame      def __init__(self, csv_file: str):         self.csv_file = csv_file         self.df = pd.read_csv(self.csv_file)           @staticmethod     def info_mem_usage_mb(pd_obj):         if isinstance(pd_obj, pd.DataFrame):             mem_usage = pd_obj.memory_usage(deep=True).sum()         else:             mem_usage = pd_obj.memory_usage(deep=True)         # 转换为MB返回         return f'{mem_usage / 1024 ** 2:02.3f} MB'           def optimize_int_and_float(self):         df_int = self.df.select_dtypes(include=['int64'])         self.df_int_converted = df_int.apply(pd.to_numeric, downcast='unsigned')         df_float = self.df.select_dtypes(include=['float64'])         self.df_float_converted = df_float.apply(pd.to_numeric, downcast='float')          print('int before     ', self.info_mem_usage_mb(df_int))         print('int converted  ', self.info_mem_usage_mb(self.df_int_converted))          print('float before   ', self.info_mem_usage_mb(df_float))         print('float converted', self.info_mem_usage_mb(self.df_float_converted))      def optimize_obj(self):         df_obj = self.df.select_dtypes(include=['object'])         self.df_obj_converted = pd.DataFrame()         for col in df_obj.columns:             unique_count = len(df_obj[col].unique())             total_count = len(df_obj[col])             # 将区分度小于40%的列转换为category类型             if unique_count / total_count &lt;= 0.4:                 self.df_obj_converted.loc[:, col] = df_obj[col].astype('category')             else:                 self.df_obj_converted.loc[:, col] = df_obj[col]          print('object before   ', self.info_mem_usage_mb(df_obj))         print('object converted', self.info_mem_usage_mb(self.df_obj_converted))      def optimize_date_str(self):         df_date = pd.DataFrame()         self.df_date_converted = pd.DataFrame()         for col_name in self.df.columns:             if col_name.startswith('date str'):                 df_date.loc[:, col_name] = self.df[col_name]                 self.df_date_converted.loc[:, col_name] = pd.to_datetime(self.df[col_name])          print('date before   ', self.info_mem_usage_mb(df_date))         print('date converted', self.info_mem_usage_mb(self.df_date_converted))      def optimize_all(self):         self.optimize_int_and_float()         self.optimize_obj()         self.optimize_date_str()          df_converted = self.df.copy()         df_converted[self.df_int_converted.columns] = self.df_int_converted         df_converted[self.df_float_converted.columns] = self.df_float_converted         df_converted[self.df_obj_converted.columns] = self.df_obj_converted         df_converted[self.df_date_converted.columns] = self.df_date_converted          print('before   ', self.info_mem_usage_mb(self.df))         print('converted', self.info_mem_usage_mb(df_converted))   if __name__ == '__main__':     optimize_demo = PandasMemoryOptimizeDemo('./files/custom_big_data.csv')     optimize_demo.optimize_all()</code></pre> <p>执行结果如下，优化效果还是很明显的</p> <pre><code class="language-bash">before    862.149 MB converted 105.207 MB</code></pre> <h2>四、直接优化read_csv方法</h2> <p>写代码的过程中，如果每次都按照这样的步骤，其实还是很繁琐，那能不能在调用read_csv方法时就进行优化呢？</p> <p>接下来就一起来探索一下</p> <p>在PyCharm中，点击<a class="link-info" href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://pandas.pydata.org/pandas-docs/version/1.4/reference/api/pandas.read_csv.html#"  title="read_csv" rel="nofollow">read_csv</a>进入源码，发现该方法提供了非常丰富的参数(50+)，这里只列举需要的参数</p> <pre><code class="language-python">def read_csv(     filepath_or_buffer: FilePath | ReadCsvBuffer[bytes] | ReadCsvBuffer[str],     # General Parsing Configuration     dtype: DtypeArg | None = None,     converters=None,     # Datetime Handling     parse_dates=None,     infer_datetime_format=False,     keep_date_col=False,     date_parser=None,     low_memory=_c_parser_defaults["low_memory"],     memory_map=False,     storage_options: StorageOptions = None, ):     # locals() should never be modified     kwds = locals().copy()</code></pre> <p>可以直接指定dtype和parse_dates，最终代码如下</p> <pre><code class="language-python">def big_data_optimized_read_csv(self):     d_type_dict = {}     date_indexes = []     for i in range(1, 31):         d_type_dict[f'int {i}'] = 'int32'         d_type_dict[f'float {i}'] = 'float32'         d_type_dict[f'str {i}'] = 'category'          date_indexes.append(5 * (i - 1) + 1)     self.df = pd.read_csv(self.csv_file, dtype=d_type_dict, parse_dates=date_indexes)     print('optimized read_csv: ', self.info_mem_usage_mb(self.df))</code></pre> <p>执行结果如下，内存占用也大大降低了</p> <pre><code class="language-bash">optimized read_csv:  105.207 MB</code></pre> </p></div> 			                <div class="clearfix"></div>
+                <div class="col-md-12 mt-5">
+                                        <p>上一个：<a href="/news/article-59149.htm">动物疫苗工艺要求（动物疫苗制作流程）</a></p>
+                                        <p>下一个：<a href="/news/article-59740.htm">领养狗狗应该注意什么（领养狗狗需要注意什么）</a></p>
+                                    </div>
+                                </div>
+                <div class="col-md-3">
+                    <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/news/article-41456.htm" title="动物接种疫苗的好处有哪些方面的内容和方法（动物疫苗的作用）">动物接种疫苗的好处有哪些方面的内容和方法（动物疫苗的作用）</a></li>
+                        <li class="py-2"><a href="/news/article-38492.htm" title="以字符串的升序排列单词-JavaScript">以字符串的升序排列单词-JavaScript</a></li>
+                        <li class="py-2"><a href="/news/article-41941.htm" title="vue项目中,如何实现excel的导入导出excel导入功能-组件封装">vue项目中,如何实现excel的导入导出excel导入功能-组件封装</a></li>
+                        <li class="py-2"><a href="/news/article-34610.htm" title="嵌入式Linux开发-根文件系统NFS网络挂载">嵌入式Linux开发-根文件系统NFS网络挂载</a></li>
+                        <li class="py-2"><a href="/news/article-45426.htm" title="北京看动物去哪里好看（北京看动物的地方）">北京看动物去哪里好看（北京看动物的地方）</a></li>
+                        <li class="py-2"><a href="/news/article-31746.htm" title="C#实现文件Move和Copy操作_C#教程_">C#实现文件Move和Copy操作_C#教程_</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-2-21-free-v2ray-subscribe.htm" title="「2月21日」最高速度21.3M/S，2025年NekoBox每天更新免费节点订阅链接">「2月21日」最高速度21.3M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-12-12-free-shadowrocket-node.htm" title="「12月12日」最高速度20.9M/S，2024年NekoBox每天更新免费节点订阅链接">「12月12日」最高速度20.9M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-11-15-free-subscribe-node.htm" title="「11月15日」最高速度19.6M/S，2024年NekoBox每天更新免费节点订阅链接">「11月15日」最高速度19.6M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-1-21-free-ssr-subscribe.htm" title="「1月21日」最高速度18.3M/S，2025年NekoBox每天更新免费节点订阅链接">「1月21日」最高速度18.3M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">63</span> <a href="/date/2025-02/" title="2025-02 归档">2025-02</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">93</span> <a href="/date/2025-01/" title="2025-01 归档">2025-01</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">93</span> <a href="/date/2024-12/" title="2024-12 归档">2024-12</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">30</span> <a href="/date/2024-11/" title="2024-11 归档">2024-11</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- About End -->
+
+
+
+        <!-- Footer Start -->
+    <div class="container-fluid bg-dark text-white-50 footer pt-5">
+        <div class="container wow fadeIn" data-wow-delay="0.1s">
+            <div class="copyright">
+                <div class="row">
+                    <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                            <p>
+                                <a href="/">首页</a> | 
+                                <a href="/free-node/">免费节点</a> | 
+                                <a href="/news/">新闻资讯</a> |
+                                <a href="/about-us.htm">关于我们</a> |
+                                <a href="/disclaimer.htm">免责申明</a> |
+                                <a href="/privacy.htm">隐私申明</a> |
+                                <a href="/sitemap.xml">网站地图</a>
+                            </p>
+                        NekoBoxNode官网节点站 版权所有
+                        <br />
+                        Powered by WordPress
+                    </div>
+                    <div class="col-md-6 text-center text-md-end">
+                        <div class="footer-menu">
+                            <a href="/">Home</a>
+                            <a href="#">Cookies</a>
+                            <a href="#">Help</a>
+                            <a href="#">FAQs</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer End -->
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top pt-2"><i class="bi bi-arrow-up"></i></a>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.0.0/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/wow/wow.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/easing/easing.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/waypoints/waypoints.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/counterup/counterup.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/owlcarousel/owl.carousel.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="/assets/website/js/frontend/nekoboxnode/main.js"></script>
+    <script src="https://www.freeclashnode.com/assets/js/frontend/invite-url.js"></script><script src="/assets/website/js/frontend/G.js"></script>
+</body>
+
+</html>
