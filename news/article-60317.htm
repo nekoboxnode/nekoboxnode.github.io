@@ -159,6 +159,7 @@
                   				  				  				  			 <div id="log-box">  				<div id="catalog"><ul id="catalog-ul"> <li><i class="be be-arrowright"></i> <a href="#title-0" title="IPv4地址">IPv4地址</a></li> <li><i class="be be-arrowright"></i> <a href="#title-1" title="&nbsp;IPv6地址">&nbsp;IPv6地址</a></li> </ul><span class="log-zd"><span class="log-close"><a title="隐藏目录"><i class="be be-cross"></i><strong>目录</strong></a></span></span></div>  			</div> <div id="content_views" class="htmledit_views"> <div id="cnblogs_post_body" class="blogpost-body"> <span class="directory"></span><h4 id="title-0">IPv4地址</h4> <p>最初设计互联网络时，为了便于<strong>寻址和层次化构造网络</strong>，每个IP地址包括两个标识码(ID)，即网络ID和主机ID。同一个物理网络上的所有主机都使用同一个网络ID，网络上的一个主机(包括网络上的工作站，服务器和路由器等)有一个主机ID与其对应。Internet委员会定义了5种IP地址类型以适应不同容量的网络，即A类~E类。</p> <table border="0"> <tbody> <tr> <td>类别</td> <td>IP地址范围</td> <td>最大网络数</td> <td>最大主机数</td> <td>私有IP地址范围</td> </tr> <tr> <td>A</td> <td>0.0.0.0~127.255.255.255</td> <td>126（2^7 - 2）(A类地址的前缀为"0",网络ID标识码的位数为8位，网络号不能全为0且127.0.0.0网络保留用于回路测试，所以最大网络数为2^7-2)</td> <td>16777214(2^24 - 2 )</td> <td>10.0.0.0~10.255.255.255</td> </tr> <tr> <td>B</td> <td>128.0.0.0~191.255.255.255</td> <td>16384(2^14) (B类地址的前缀为"10"，网络ID标识码的位数为16位，因此最大网络数为(2^14))</td> <td>65534(2^16 - 2)</td> <td>172.16.0.0~172.31.255.255</td> </tr> <tr> <td>C</td> <td>192.0.0.0~223.255.255.255</td> <td>2097152(2^21)(C类地址的前缀为"110",网络ID标志码的位数为24位，因此最大网络数为(2^21))</td> <td>254(2^8 - 2)</td> <td>192.168.0.0~192.168.255.255</td> </tr> <tr> <td>D</td> <td>224.0.0.0~239.255.255.255</td> <td>D类地址的前缀为"1110"</td> <td>&nbsp;</td> <td>&nbsp;</td> </tr> <tr> <td>E</td> <td>240.0.0.0~255.255.255.255</td> <td>E类地址的前缀为"1111"</td> <td>&nbsp;</td> <td>&nbsp;</td> </tr> </tbody> </table> <p>IPv4地址由4组数字组成，每组数字之间以.分隔，每组数字的取值范围是0~255.</p> <p>IPv4必须满足以下四条规则：</p> <ol> <li>任何一个1位或者两位数字，即0~99；</li> <li>任何一个以1开头的3位数字，即100~199；</li> <li>任何一个以2开头，第二位数字在0~4之间的数字即200~249；</li> <li>任何一个以25开头，第三位数字在0~5之间的三位数字，即250~255；</li> </ol> <p>首先满足第一条规则的正则是：</p> <div class="cnblogs_code"> <pre>((\d{1,2})</pre> </p></div> <p>满足第二条规则的正则是：</p> <div class="cnblogs_code"> <pre>(1\d{1,2})</pre> </p></div> <p>满足第三条规则的正则是：</p> <div class="cnblogs_code"> <pre>(2[0-4]\d)</pre> </p></div> <p>满足第四条规则的正则是：</p> <div class="cnblogs_code"> <pre>(25[0-5])</pre> </p></div> <p>将其组合起来就能得到一个能匹配0~255的正则表达式了：</p> <div class="cnblogs_code"> <pre>((\d{1,2})|(1\d{1,2})|(2[0-4]\d)|(25[0-5]))</pre> </p></div> <p>IPv4地址由4个这样的数字组成，中间用"."隔开，所以可以匹配IPv4的正则表达式为：</p> <div class="cnblogs_code"> <pre>(((\d{1,2})|(1\d{1,2})|(2[0-4]\d)|(25[0-5]))\.){3}((\d{1,2})|(1\d{1,2})|(2[0-4]\d)|(25[0-5]))</pre> </p></div> <p>使用边界匹配，不然256.1.1.1也会匹配成功，会匹配成56.1.1.1，那么最终正确的匹配IPv4的正则表达式为：</p> <div class="cnblogs_code"> <pre>(?=(\b|\D))(((\d{1,2})|(1\d{1,2})|(2[0-4]\d)|(25[0-5]))\.){3}((\d{1,2})|(1\d{1,2})|(2[0-4]\d)|(25[0-5]))(?=(\b|\D))</pre> </p></div> <span class="directory"></span><h4 id="title-1">&nbsp;IPv6地址</h4> <p>IPv6的128位地址通常写成8组，每4组为4个十六进制数。比如：AD80:0000:0000:0000:ABAA:0000:00C2:0002 是一个合法的IPv6地址。这个地址比较长，看起来不方便也不易于书写。零压缩法可以用来缩减其长度。如果几个连续段位的值都是0，那么这些0就可以简单的一::来表示，上述地址就可以写成AD80::ABAA:0000:00C2:0002.这里需要注意的是只能简化连续的段位的0，其前后的0都要保留，比如AD80的最后的这个0，不能被简化。当然也可以在ABAA后面使用::，这样的话前面的12个0就不能压缩了。这个限制的目的是为了能准确的还原被压缩的0，不然就无法确定每个::代表多少个0.</p> <p>支持IPv6基本格式的正则表达式：</p> <div class="cnblogs_code"> <pre>^([\\da-fA-F]{1,4}:){7}([\\da-fA-F]{1,4})$</pre> </p></div> </div> <p>转载于:https://www.cnblogs.com/fangpengchengbupter/p/7929188.html</p> </p></div> 			                <div class="clearfix"></div>
                 <div class="col-md-12 mt-5">
                                         <p>上一个：<a href="/news/article-60316.htm">哪个标点符号可以用作MySQL日期部分之间的分隔符？</a></p>
+                                        <p>下一个：<a href="/news/article-60909.htm">重庆宠物领养吧最新消息视频（重庆宠物领养重庆宠物赠送）</a></p>
                                     </div>
                                 </div>
                 <div class="col-md-3">
@@ -168,16 +169,16 @@
     </div>
     <div class="panel-body">
         <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
-                        <li class="py-2"><a href="/news/article-58442.htm" title="Spring Boot 将第三方依赖和配置文件打包在jar外部并引用">Spring Boot 将第三方依赖和配置文件打包在jar外部并引用</a></li>
-                        <li class="py-2"><a href="/free-nodes/2025-1-20-clash-node.htm" title="「1月20日」最高速度20.7M/S，2025年NekoBox每天更新免费节点订阅链接">「1月20日」最高速度20.7M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/news/article-20120.htm" title="狗粮加工厂利润成本分析表模板怎么写（狗粮生产成本）">狗粮加工厂利润成本分析表模板怎么写（狗粮生产成本）</a></li>
-                        <li class="py-2"><a href="/free-nodes/2024-12-16-free-shadowrocket-node.htm" title="「12月16日」最高速度22.9M/S，2024年NekoBox每天更新免费节点订阅链接">「12月16日」最高速度22.9M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2025-1-1-clash-node.htm" title="「1月1日」最高速度21.3M/S，2025年NekoBox每天更新免费节点订阅链接">「1月1日」最高速度21.3M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2024-11-13-clash-windows.htm" title="「11月13日」最高速度23M/S，2024年NekoBox每天更新免费节点订阅链接">「11月13日」最高速度23M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/news/article-37519.htm" title="Java8 Instant 时间戳">Java8 Instant 时间戳</a></li>
-                        <li class="py-2"><a href="/news/article-60316.htm" title="哪个标点符号可以用作MySQL日期部分之间的分隔符？">哪个标点符号可以用作MySQL日期部分之间的分隔符？</a></li>
-                        <li class="py-2"><a href="/free-nodes/2025-1-13-clash-windows.htm" title="「1月13日」最高速度18.3M/S，2025年NekoBox每天更新免费节点订阅链接">「1月13日」最高速度18.3M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/news/article-46912.htm" title="tf.train.latest_checkpoint()报错，路径错误">tf.train.latest_checkpoint()报错，路径错误</a></li>
+                        <li class="py-2"><a href="/news/article-30122.htm" title="宠物粮从哪里进货便宜又好吃呢图片（宠物粮在哪里买比较放心）">宠物粮从哪里进货便宜又好吃呢图片（宠物粮在哪里买比较放心）</a></li>
+                        <li class="py-2"><a href="/news/article-50406.htm" title="医院的动物实验室是什么（动物医院仪器有哪些）">医院的动物实验室是什么（动物医院仪器有哪些）</a></li>
+                        <li class="py-2"><a href="/news/article-56332.htm" title="从查询重写角度理解elasticsearch的高亮原理">从查询重写角度理解elasticsearch的高亮原理</a></li>
+                        <li class="py-2"><a href="/news/article-30324.htm" title="狗粮品牌有哪些品牌好的（狗粮品牌大全）">狗粮品牌有哪些品牌好的（狗粮品牌大全）</a></li>
+                        <li class="py-2"><a href="/news/article-34613.htm" title="vue将方法挂载到原型上">vue将方法挂载到原型上</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-1-26-clash-v2ray-ss-ssr.htm" title="「1月26日」最高速度20.9M/S，2025年NekoBox每天更新免费节点订阅链接">「1月26日」最高速度20.9M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-11-22-node-share-links.htm" title="「11月22日」最高速度22.1M/S，2024年NekoBox每天更新免费节点订阅链接">「11月22日」最高速度22.1M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-61498.htm" title="在K8s上部署Redis 集群">在K8s上部署Redis 集群</a></li>
+                        <li class="py-2"><a href="/news/article-41941.htm" title="vue项目中,如何实现excel的导入导出excel导入功能-组件封装">vue项目中,如何实现excel的导入导出excel导入功能-组件封装</a></li>
+                        <li class="py-2"><a href="/news/article-40955.htm" title="宠物粮食加工厂加盟条件及费用表图片（宠物粮食加工厂加盟条件及费用表图片）">宠物粮食加工厂加盟条件及费用表图片（宠物粮食加工厂加盟条件及费用表图片）</a></li>
                     </ul>
     </div>
 </div>
@@ -189,7 +190,7 @@
     <div class="panel-body">
         <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
                         <li class="py-2">
-                <h4><span class="badge" style="float: right;">63</span> <a href="/date/2025-02/" title="2025-02 归档">2025-02</a></h4>
+                <h4><span class="badge" style="float: right;">72</span> <a href="/date/2025-02/" title="2025-02 归档">2025-02</a></h4>
             </li>
                         <li class="py-2">
                 <h4><span class="badge" style="float: right;">93</span> <a href="/date/2025-01/" title="2025-01 归档">2025-01</a></h4>
