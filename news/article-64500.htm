@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html xml:lang="zh-CN" lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://nekoboxnode.github.io/news/article-64500.htm" />
+    <meta charset="utf-8">
+    <title>C++中的匿名对象的概念和使用</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <meta name="description" content="C++中的匿名对象是pure RValue, 因而不能作为引用传进去。 匿名对象只存在于构造该对象的那行代码，离开构造匿名对象的哪行代码后立即调用析构函数。  class Some   {   int" />
+    
+    <!-- Favicon -->
+    <link href="/assets/website/img/nekoboxnode/favicon.ico" rel="icon">
+
+    <meta name="author" content="NekoBoxNode官网节点站">
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://nekoboxnode.github.io/news/article-64500.htm" />
+    <meta property="og:site_name" content="NekoBoxNode官网节点站" />
+    <meta property="og:title" content="C++中的匿名对象的概念和使用" />
+    <meta property="og:image" content="https://nekoboxnode.github.io/uploads/20240427/9984461df47a810bb70efd39730be29e.webp" />
+        <meta property="og:release_date" content="2025-02-28T06:56:13" />
+    <meta property="og:updated_time" content="2025-02-28T06:56:13" />
+        <meta property="og:description" content="C++中的匿名对象是pure RValue, 因而不能作为引用传进去。 匿名对象只存在于构造该对象的那行代码，离开构造匿名对象的哪行代码后立即调用析构函数。  class Some   {   int" />
+    
+    <meta name="applicable-device" content="pc,mobile" />
+    <meta name="renderer" content="webkit" />
+    <meta name="force-rendering" content="webkit" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta name="robots" content="max-image-preview:large" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="C++中的匿名对象的概念和使用">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="dns-prefetch" href="https:/www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cm.g.doubleclick.net">
+        
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Ubuntu:wght@500;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcdn.net/ajax/libs/bootstrap-icons/1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="/assets/website/js/frontend/nekoboxnode/lib/animate/animate.min.css" rel="stylesheet">
+    <link href="/assets/website/js/frontend/nekoboxnode/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="/assets/website/css/nekoboxnode/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="/assets/website/css/nekoboxnode/style.css" rel="stylesheet">
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-93Z2TV5VL1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-93Z2TV5VL1');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body data-page="detail">
+    <!-- Spinner Start -->
+    <div id="spinner"
+        class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-grow text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <!-- Spinner End -->
+
+
+        <!-- Navbar Start -->
+    <div class="container-fluid sticky-top">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-dark p-0">
+                <a href="/" class="navbar-brand">
+                                <span>Neko Box Node</span>
+                                </a>
+                <button type="button" class="navbar-toggler ms-auto me-0" data-bs-toggle="collapse"
+                    data-bs-target="#navbarCollapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <div class="navbar-nav ms-auto">
+                                                <a href="/" class="nav-item nav-link">首页</a>
+                                                <a href="/free-nodes/" class="nav-item nav-link">免费节点</a>
+                                                <a href="/paid-subscribe/" class="nav-item nav-link">推荐机场</a>
+                                                <a href="/client.htm" class="nav-item nav-link">客户端</a>
+                                                <a href="/news/" class="nav-item nav-link">新闻资讯</a>
+                                            </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <!-- Navbar End -->
+
+
+    <!-- Hero Start -->
+    <div class="container-fluid pt-5 bg-primary hero-header">
+        <div class="container pt-5">
+            <div class="row g-5 pt-5">
+                <div class="col-lg-6 align-self-center text-center text-lg-start mb-lg-5">
+                    <h1 class="text-white mb-4 animated slideInRight">C++中的匿名对象的概念和使用</h1>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb justify-content-center justify-content-lg-start mb-0">
+                            <li class="breadcrumb-item"><a class="text-white" href="/" title="首页">首页</a></li>
+                            <li class="breadcrumb-item"><a class="text-white" href="/news/" title="新闻资讯">新闻资讯</a></li>
+                            <li class="breadcrumb-item text-white active" aria-current="page">正文</li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="col-lg-6 align-self-end text-center text-lg-end">
+                    <img class="img-fluid" href="/assets/website/img/nekoboxnode/hero-img.png" alt="" style="max-height: 300px;">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Hero End -->
+
+
+    <!-- Full Screen Search Start -->
+    <div class="modal fade" id="searchModal" tabindex="-1">
+        <div class="modal-dialog modal-fullscreen">
+            <div class="modal-content" style="background: rgba(20, 24, 62, 0.7);">
+                <div class="modal-header border-0">
+                    <button type="button" class="btn btn-square bg-white btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body d-flex align-items-center justify-content-center">
+                    <div class="input-group" style="max-width: 600px;">
+                        <input type="text" class="form-control bg-transparent border-light p-3"
+                            placeholder="Type search keyword">
+                        <button class="btn btn-light px-4"><i class="bi bi-search"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Full Screen Search End -->
+
+
+    <!-- About Start -->
+    <div class="container-fluid py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                                    <input type="hidden" id="share-website-info" data-name="" data-url="">
+                  				  				  				<div id="content_views" class="htmledit_views"> <ol> <li>C++中的匿名对象是<code>pure RValue</code>, 因而不能作为引用传进去。</li> <li>匿名对象只存在于构造该对象的那行代码，离开构造匿名对象的哪行代码后立即调用析构函数。</li> </ol> <pre class="has"><code>class Some   {   int n;   public:     Some(int s){n=s;}     ~Some(){       cout&lt;&lt; "destroy\n";     }     int ret(){return n;}   };   int main(int argc, char* argv[])   {           cout&lt;&lt;Some(111).ret()&lt;&lt;"\n";           cout&lt;&lt;"wait\n";           cin.get();           return 0;  }</code></pre> <ol> <li>匿名对象的使用与优化&nbsp;<br /> 转载自&nbsp;<a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=http://blog.csdn.net/a8887396/article/details/8785994"  rel="nofollow">http://blog.csdn.net/a8887396/article/details/8785994</a> </li> </ol> <pre class="has"><code>#include &lt;iostream&gt; using namespace std; class Teacher {     string name;     string course; public:     Teacher(const char *n,const char *c):name(n),course(c)     {         cout &lt;&lt; "创建" &lt;&lt; course &lt;&lt; "老师" &lt;&lt; name &lt;&lt;endl;     }      Teacher(const Teacher&amp; t)     {         name = t.name;         course = t.course;         cout &lt;&lt; "复制" &lt;&lt; course &lt;&lt; "老师" &lt;&lt; name &lt;&lt; endl;     }      ~Teacher()     {         cout &lt;&lt; "辞退" &lt;&lt; course &lt;&lt; "老师"  &lt;&lt; name &lt;&lt;endl;     } };  int main() {       Teacher t1("陈宗权","C++");//构造函数     Teacher t2 = t1;//拷贝构造函数      //用临时匿名对象来初始化一个新对象     //编译器一般会优化成直接用创建临时对象的参数来创建新对象     Teacher t3 = Teacher("杨强","UC");      t2 = t3; //赋值函数      cout &lt;&lt; "=======" &lt;&lt;endl;     t2 = Teacher("徐薇薇","咨询"); // 没有优化 创建匿名对象  调用赋值函数，且匿名对象被析构     cout &lt;&lt; "=======" &lt;&lt;endl;   } /* 创建C++老师陈宗权 复制C++老师陈宗权 创建UC老师杨强 ======= 创建咨询老师徐薇薇 辞退咨询老师徐薇薇 ======= 辞退UC老师杨强 辞退咨询老师徐薇薇 辞退C++老师陈宗权 */</code></pre> <ol> <li>匿名对象的生命周期</li> </ol> <pre class="has"><code>class Cat { public:     Cat()     {         cout&lt;&lt;"Cat类 无参构造函数"&lt;&lt;endl;     }      Cat(Const Cat&amp; obj)     {         cout&lt;&lt;"Cat类 拷贝构造函数"&lt;&lt;endl;     }      ~Cat()     {         cout&lt;&lt;"Cat类 析构函数 "&lt;&lt;endl;     }  };  void playStage() //一个舞台，展示对象的生命周期 {     Cat();             /*在执行此代码时，利用无参构造函数生成了一个匿名Cat类对象；执行完此行代码，                             因为外部没有接此匿名对象的变量，此匿名又被析构了*/     Cat cc = Cat();    /*在执行此代码时，利用无参构造函数生成了一个匿名Cat类对象；然后将此匿名变                             成了cc这个实例对象，此匿名对象没有被析构。*/     cout&lt;&lt;"cc 对象好没有被析构"&lt;&lt;endl;     }  int main() {     playStage();     system("pause");     return 0; }</code></pre> </p></div> 			                <div class="clearfix"></div>
+                <div class="col-md-12 mt-5">
+                                        <p>上一个：<a href="/news/article-63896.htm">动物疫苗销售需要什么手续和条件呢英文（卖动物疫苗利润有多高）</a></p>
+                                        <p>下一个：<a href="/news/article-64501.htm">MassTransit 入门详解</a></p>
+                                    </div>
+                                </div>
+                <div class="col-md-3">
+                    <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/free-nodes/2024-11-22-node-share-links.htm" title="「11月22日」最高速度22.1M/S，2024年NekoBox每天更新免费节点订阅链接">「11月22日」最高速度22.1M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-19659.htm" title="卖一吨饲料一般利润多少 开个饲料加工厂需要投资多少钱">卖一吨饲料一般利润多少 开个饲料加工厂需要投资多少钱</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-12-8-node-share-links.htm" title="「12月8日」最高速度19M/S，2024年NekoBox每天更新免费节点订阅链接">「12月8日」最高速度19M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-2-16-free-v2ray-subscribe.htm" title="「2月16日」最高速度21.8M/S，2025年NekoBox每天更新免费节点订阅链接">「2月16日」最高速度21.8M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-34135.htm" title="开一个宠物寄养店怎么样（开一家宠物寄养店）">开一个宠物寄养店怎么样（开一家宠物寄养店）</a></li>
+                        <li class="py-2"><a href="/news/article-40955.htm" title="宠物粮食加工厂加盟条件及费用表图片（宠物粮食加工厂加盟条件及费用表图片）">宠物粮食加工厂加盟条件及费用表图片（宠物粮食加工厂加盟条件及费用表图片）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-11-7-free-v2ray.htm" title="「11月7日」最高速度22.3M/S，2024年NekoBox每天更新免费节点订阅链接">「11月7日」最高速度22.3M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-42451.htm" title="从 jQuery 到 Vue3 的快捷通道_在线工具">从 jQuery 到 Vue3 的快捷通道_在线工具</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-11-21-free-ssr-subscribe.htm" title="「11月21日」最高速度18.4M/S，2024年NekoBox每天更新免费节点订阅链接">「11月21日」最高速度18.4M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-1-7-free-subscribe-node.htm" title="「1月7日」最高速度19.8M/S，2025年NekoBox每天更新免费节点订阅链接">「1月7日」最高速度19.8M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">3</span> <a href="/date/2025-03/" title="2025-03 归档">2025-03</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">84</span> <a href="/date/2025-02/" title="2025-02 归档">2025-02</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">93</span> <a href="/date/2025-01/" title="2025-01 归档">2025-01</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">93</span> <a href="/date/2024-12/" title="2024-12 归档">2024-12</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">30</span> <a href="/date/2024-11/" title="2024-11 归档">2024-11</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- About End -->
+
+
+
+        <!-- Footer Start -->
+    <div class="container-fluid bg-dark text-white-50 footer pt-5">
+        <div class="container wow fadeIn" data-wow-delay="0.1s">
+            <div class="copyright">
+                <div class="row">
+                    <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                            <p>
+                                <a href="/">首页</a> | 
+                                <a href="/free-node/">免费节点</a> | 
+                                <a href="/news/">新闻资讯</a> |
+                                <a href="/about-us.htm">关于我们</a> |
+                                <a href="/disclaimer.htm">免责申明</a> |
+                                <a href="/privacy.htm">隐私申明</a> |
+                                <a href="/sitemap.xml">网站地图</a>
+                            </p>
+                        NekoBoxNode官网节点站 版权所有
+                        <br />
+                        Powered by WordPress
+                    </div>
+                    <div class="col-md-6 text-center text-md-end">
+                        <div class="footer-menu">
+                            <a href="/">Home</a>
+                            <a href="#">Cookies</a>
+                            <a href="#">Help</a>
+                            <a href="#">FAQs</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer End -->
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top pt-2"><i class="bi bi-arrow-up"></i></a>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.0.0/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/wow/wow.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/easing/easing.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/waypoints/waypoints.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/counterup/counterup.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/owlcarousel/owl.carousel.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="/assets/website/js/frontend/nekoboxnode/main.js"></script>
+    <script src="https://www.freeclashnode.com/assets/js/frontend/invite-url.js"></script><script src="/assets/website/js/frontend/G.js"></script>
+</body>
+
+</html>

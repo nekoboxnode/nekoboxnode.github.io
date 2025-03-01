@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html xml:lang="zh-CN" lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://nekoboxnode.github.io/news/article-64501.htm" />
+    <meta charset="utf-8">
+    <title>MassTransit 入门详解</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <meta name="description" content="本文地址源码  MassTransit是一个面向.net的免费开源分布式应用程序框架。 MassTransit使得创建应用程序和服务变得很容易，这些应用程序和服务利用基于消息的、松散耦合的异步通信来获" />
+    
+    <!-- Favicon -->
+    <link href="/assets/website/img/nekoboxnode/favicon.ico" rel="icon">
+
+    <meta name="author" content="NekoBoxNode官网节点站">
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://nekoboxnode.github.io/news/article-64501.htm" />
+    <meta property="og:site_name" content="NekoBoxNode官网节点站" />
+    <meta property="og:title" content="MassTransit 入门详解" />
+    <meta property="og:image" content="https://nekoboxnode.github.io/uploads/20240427/67592bf4f1310dfbdb98983a9495b3b1.webp" />
+        <meta property="og:release_date" content="2025-02-28T06:56:13" />
+    <meta property="og:updated_time" content="2025-02-28T06:56:13" />
+        <meta property="og:description" content="本文地址源码  MassTransit是一个面向.net的免费开源分布式应用程序框架。 MassTransit使得创建应用程序和服务变得很容易，这些应用程序和服务利用基于消息的、松散耦合的异步通信来获" />
+    
+    <meta name="applicable-device" content="pc,mobile" />
+    <meta name="renderer" content="webkit" />
+    <meta name="force-rendering" content="webkit" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta name="robots" content="max-image-preview:large" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="MassTransit 入门详解">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="dns-prefetch" href="https:/www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cm.g.doubleclick.net">
+        
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Ubuntu:wght@500;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcdn.net/ajax/libs/bootstrap-icons/1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="/assets/website/js/frontend/nekoboxnode/lib/animate/animate.min.css" rel="stylesheet">
+    <link href="/assets/website/js/frontend/nekoboxnode/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="/assets/website/css/nekoboxnode/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="/assets/website/css/nekoboxnode/style.css" rel="stylesheet">
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-93Z2TV5VL1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-93Z2TV5VL1');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body data-page="detail">
+    <!-- Spinner Start -->
+    <div id="spinner"
+        class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-grow text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <!-- Spinner End -->
+
+
+        <!-- Navbar Start -->
+    <div class="container-fluid sticky-top">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-dark p-0">
+                <a href="/" class="navbar-brand">
+                                <span>Neko Box Node</span>
+                                </a>
+                <button type="button" class="navbar-toggler ms-auto me-0" data-bs-toggle="collapse"
+                    data-bs-target="#navbarCollapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <div class="navbar-nav ms-auto">
+                                                <a href="/" class="nav-item nav-link">首页</a>
+                                                <a href="/free-nodes/" class="nav-item nav-link">免费节点</a>
+                                                <a href="/paid-subscribe/" class="nav-item nav-link">推荐机场</a>
+                                                <a href="/client.htm" class="nav-item nav-link">客户端</a>
+                                                <a href="/news/" class="nav-item nav-link">新闻资讯</a>
+                                            </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <!-- Navbar End -->
+
+
+    <!-- Hero Start -->
+    <div class="container-fluid pt-5 bg-primary hero-header">
+        <div class="container pt-5">
+            <div class="row g-5 pt-5">
+                <div class="col-lg-6 align-self-center text-center text-lg-start mb-lg-5">
+                    <h1 class="text-white mb-4 animated slideInRight">MassTransit 入门详解</h1>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb justify-content-center justify-content-lg-start mb-0">
+                            <li class="breadcrumb-item"><a class="text-white" href="/" title="首页">首页</a></li>
+                            <li class="breadcrumb-item"><a class="text-white" href="/news/" title="新闻资讯">新闻资讯</a></li>
+                            <li class="breadcrumb-item text-white active" aria-current="page">正文</li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="col-lg-6 align-self-end text-center text-lg-end">
+                    <img class="img-fluid" href="/assets/website/img/nekoboxnode/hero-img.png" alt="" style="max-height: 300px;">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Hero End -->
+
+
+    <!-- Full Screen Search Start -->
+    <div class="modal fade" id="searchModal" tabindex="-1">
+        <div class="modal-dialog modal-fullscreen">
+            <div class="modal-content" style="background: rgba(20, 24, 62, 0.7);">
+                <div class="modal-header border-0">
+                    <button type="button" class="btn btn-square bg-white btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body d-flex align-items-center justify-content-center">
+                    <div class="input-group" style="max-width: 600px;">
+                        <input type="text" class="form-control bg-transparent border-light p-3"
+                            placeholder="Type search keyword">
+                        <button class="btn btn-light px-4"><i class="bi bi-search"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Full Screen Search End -->
+
+
+    <!-- About Start -->
+    <div class="container-fluid py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                                    <input type="hidden" id="share-website-info" data-name="" data-url="">
+                  				  				  				<p><a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://github.com/WangJunZzz/MassTransit"  target="_blank" rel="nofollow">本文地址源码</a></p> <ul> <li>MassTransit是一个面向.net的免费开源分布式应用程序框架。</li> <li>MassTransit使得创建应用程序和服务变得很容易，这些应用程序和服务利用基于消息的、松散耦合的异步通信来获得更高的可用性、可靠性和可伸缩性。</li> <li>MassTransit 8.x版本。</li> </ul> </h1> <ul> <li>添加Nuget包引用: <ul> <li>MassTransit</li> <li>MassTransit.RabbitMQ(演示也可基于内存)</li> </ul> </li> </ul> </h1> <ul> <li>配置MassTransit</li> </ul> <pre><code class="language-charp">builder.Services.AddMassTransit(x =&gt; {         // 使用内存     //x.UsingInMemory();     // 使用RabbitMq     x.UsingRabbitMq((context, config) =&gt;     {         config.Host("rabbitmq://localhost:5672", host =&gt;         {             host.Username("admin");             host.Password("admin");         });     }); });</code></pre> <ul> <li>定义消息体</li> </ul> <pre><code class="language-charp">public class OrderEto {     public Guid Id { get; init; }      public string Name { get; set; }          public DateTime CreationTime { get; set; } }</code></pre> <ul> <li>发布消息</li> </ul> <pre><code class="language-csharp">[ApiController] [Route("[controller]")] public class PublishController : ControllerBase {     private readonly ILogger&lt;PublishController&gt; _logger;     private readonly IPublishEndpoint _publishEndpoint;      public PublishController(ILogger&lt;PublishController&gt; logger, IPublishEndpoint publishEndpoint)     {         _logger = logger;         _publishEndpoint = publishEndpoint;     }      [HttpGet]     public async Task Get()     {         await _publishEndpoint.Publish&lt;OrderEto&gt;(new OrderEto()         {             Id = Guid.NewGuid(),             Name = "Phone",             CreationTime = DateTime.Now         });     } }</code></pre> </h1> <pre><code class="language-csharp">builder.Services.AddMassTransit(x =&gt; {          // 通过扫描程序集注册消费者     x.AddConsumers(typeof(Program).Assembly);         // 通过类型单个注册消费者     // x.AddConsumer&lt;OrderEtoConsumer&gt;(typeof(OrderEtoConsumerDefinition));          // x.SetKebabCaseEndpointNameFormatter();          // 通过泛型单个注册消费者     //x.AddConsumer&lt;OrderEtoConsumer, OrderEtoConsumerDefinition&gt;();          // 通过指定命名空间注册消费者     // x.AddConsumersFromNamespaceContaining&lt;OrderEtoConsumer&gt;();          // 使用内存队列     // x.UsingInMemory();     x.UsingRabbitMq((context, config) =&gt;     {                config.Host("rabbitmq://localhost:5672", hostconfig =&gt;         {             hostconfig.Username("admin");             hostconfig.Password("admin");         });                  config.ConfigureEndpoints(context);             }); });</code></pre> <ul> <li>消费者定义</li> </ul> <pre><code class="language-csharp">public class OrderEtoConsumer : IConsumer&lt;OrderEto&gt; {     private readonly ILogger&lt;OrderEtoConsumer&gt; _logger;      public OrderEtoConsumer(ILogger&lt;OrderEtoConsumer&gt; logger)     {         _logger = logger;     }      public Task Consume(ConsumeContext&lt;OrderEto&gt; context)     {         _logger.LogInformation($"MassTransit.Consumer.One 收到消息:{JsonSerializer.Serialize(context.Message)}");         return Task.CompletedTask;     } }  public class OrderEtoConsumerDefinition : ConsumerDefinition&lt;OrderEtoConsumer&gt; {     protected override void ConfigureConsumer(IReceiveEndpointConfigurator endpointConfigurator, IConsumerConfigurator&lt;OrderEtoConsumer&gt; consumerConfigurator)     {         endpointConfigurator.UseMessageRetry(r =&gt; r.Intervals(500, 1000));     } }</code></pre> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220510/4fdf4f6d0971d4dfa5d5af3b2cd495b4.jpg" alt="MassTransit 入门详解"></p> </h1> <ul> <li><a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://github.com/WangJunZzz/abp-vnext-pro"  target="_blank" rel="nofollow">Github地址</a></li> <li><a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=http://doc.cncore.club/"  target="_blank" rel="nofollow">文档地址</a></li> <li><a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=http://120.24.194.14:8012/"  target="_blank" rel="nofollow">演示地址</a></li> </ul> 			                <div class="clearfix"></div>
+                <div class="col-md-12 mt-5">
+                                        <p>上一个：<a href="/news/article-64500.htm">C++中的匿名对象的概念和使用</a></p>
+                                        <p>下一个：<a href="/news/article-65130.htm">如何使用MySQL FROM_UNIXTIME()函数以数字格式返回日期时间值？</a></p>
+                                    </div>
+                                </div>
+                <div class="col-md-3">
+                    <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/free-nodes/2025-2-20-free-high-speed-nodes.htm" title="「2月20日」最高速度18.1M/S，2025年NekoBox每天更新免费节点订阅链接">「2月20日」最高速度18.1M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-12-13-free-clash.htm" title="「12月13日」最高速度22.3M/S，2024年NekoBox每天更新免费节点订阅链接">「12月13日」最高速度22.3M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-47398.htm" title="Kafka消费者rebalanced异常分析">Kafka消费者rebalanced异常分析</a></li>
+                        <li class="py-2"><a href="/news/article-63289.htm" title="南京哪里领养宠物比较好的地方（南京哪里有领养宠物的地方）">南京哪里领养宠物比较好的地方（南京哪里有领养宠物的地方）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-12-7-clash-v2ray-ss-ssr.htm" title="「12月7日」最高速度20.3M/S，2024年NekoBox每天更新免费节点订阅链接">「12月7日」最高速度20.3M/S，2024年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-2-8-free-clash.htm" title="「2月8日」最高速度19.2M/S，2025年NekoBox每天更新免费节点订阅链接">「2月8日」最高速度19.2M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-24717.htm" title="宠物医师资格证可以自考吗（可以考宠物医生执照吗）">宠物医师资格证可以自考吗（可以考宠物医生执照吗）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-2-22-free-clash.htm" title="「2月22日」最高速度18M/S，2025年NekoBox每天更新免费节点订阅链接">「2月22日」最高速度18M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-40953.htm" title="猫咪驱虫内外驱是怎样驱（猫咪内外驱虫注意事项）">猫咪驱虫内外驱是怎样驱（猫咪内外驱虫注意事项）</a></li>
+                        <li class="py-2"><a href="/news/article-25655.htm" title="动物疫苗一般多少钱一针啊视频（动物疫苗的作用）">动物疫苗一般多少钱一针啊视频（动物疫苗的作用）</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">3</span> <a href="/date/2025-03/" title="2025-03 归档">2025-03</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">84</span> <a href="/date/2025-02/" title="2025-02 归档">2025-02</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">93</span> <a href="/date/2025-01/" title="2025-01 归档">2025-01</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">93</span> <a href="/date/2024-12/" title="2024-12 归档">2024-12</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">30</span> <a href="/date/2024-11/" title="2024-11 归档">2024-11</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- About End -->
+
+
+
+        <!-- Footer Start -->
+    <div class="container-fluid bg-dark text-white-50 footer pt-5">
+        <div class="container wow fadeIn" data-wow-delay="0.1s">
+            <div class="copyright">
+                <div class="row">
+                    <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                            <p>
+                                <a href="/">首页</a> | 
+                                <a href="/free-node/">免费节点</a> | 
+                                <a href="/news/">新闻资讯</a> |
+                                <a href="/about-us.htm">关于我们</a> |
+                                <a href="/disclaimer.htm">免责申明</a> |
+                                <a href="/privacy.htm">隐私申明</a> |
+                                <a href="/sitemap.xml">网站地图</a>
+                            </p>
+                        NekoBoxNode官网节点站 版权所有
+                        <br />
+                        Powered by WordPress
+                    </div>
+                    <div class="col-md-6 text-center text-md-end">
+                        <div class="footer-menu">
+                            <a href="/">Home</a>
+                            <a href="#">Cookies</a>
+                            <a href="#">Help</a>
+                            <a href="#">FAQs</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer End -->
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top pt-2"><i class="bi bi-arrow-up"></i></a>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.0.0/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/wow/wow.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/easing/easing.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/waypoints/waypoints.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/counterup/counterup.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/owlcarousel/owl.carousel.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="/assets/website/js/frontend/nekoboxnode/main.js"></script>
+    <script src="https://www.freeclashnode.com/assets/js/frontend/invite-url.js"></script><script src="/assets/website/js/frontend/G.js"></script>
+</body>
+
+</html>
