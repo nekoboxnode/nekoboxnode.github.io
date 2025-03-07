@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html xml:lang="zh-CN" lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://nekoboxnode.github.io/news/article-67655.htm" />
+    <meta charset="utf-8">
+    <title>Windows下如何优雅的管理多个python版本以及简易安装相关库（包括机器学习和PyQt）</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <meta name="description" content="你是不是曾经被python版本困扰？你是不是曾经被安装python的各种包吓怕？教你一个优雅的方式------anaconda 1.什么是anaconda(百度百科)？ Anaconda指的是一个开源" />
+    
+    <!-- Favicon -->
+    <link href="/assets/website/img/nekoboxnode/favicon.ico" rel="icon">
+
+    <meta name="author" content="NekoBoxNode官网节点站">
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://nekoboxnode.github.io/news/article-67655.htm" />
+    <meta property="og:site_name" content="NekoBoxNode官网节点站" />
+    <meta property="og:title" content="Windows下如何优雅的管理多个python版本以及简易安装相关库（包括机器学习和PyQt）" />
+    <meta property="og:image" content="https://nekoboxnode.github.io/uploads/20240427/9984461df47a810bb70efd39730be29e.webp" />
+        <meta property="og:release_date" content="2025-03-05T11:11:36" />
+    <meta property="og:updated_time" content="2025-03-05T11:11:36" />
+        <meta property="og:description" content="你是不是曾经被python版本困扰？你是不是曾经被安装python的各种包吓怕？教你一个优雅的方式------anaconda 1.什么是anaconda(百度百科)？ Anaconda指的是一个开源" />
+    
+    <meta name="applicable-device" content="pc,mobile" />
+    <meta name="renderer" content="webkit" />
+    <meta name="force-rendering" content="webkit" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta name="robots" content="max-image-preview:large" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Windows下如何优雅的管理多个python版本以及简易安装相关库（包括机器学习和PyQt）">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="dns-prefetch" href="https:/www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cm.g.doubleclick.net">
+        
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Ubuntu:wght@500;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcdn.net/ajax/libs/bootstrap-icons/1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="/assets/website/js/frontend/nekoboxnode/lib/animate/animate.min.css" rel="stylesheet">
+    <link href="/assets/website/js/frontend/nekoboxnode/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="/assets/website/css/nekoboxnode/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="/assets/website/css/nekoboxnode/style.css" rel="stylesheet">
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-93Z2TV5VL1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-93Z2TV5VL1');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body data-page="detail">
+    <!-- Spinner Start -->
+    <div id="spinner"
+        class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-grow text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <!-- Spinner End -->
+
+
+        <!-- Navbar Start -->
+    <div class="container-fluid sticky-top">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-dark p-0">
+                <a href="/" class="navbar-brand">
+                                <span>Neko Box Node</span>
+                                </a>
+                <button type="button" class="navbar-toggler ms-auto me-0" data-bs-toggle="collapse"
+                    data-bs-target="#navbarCollapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <div class="navbar-nav ms-auto">
+                                                <a href="/" class="nav-item nav-link">首页</a>
+                                                <a href="/free-nodes/" class="nav-item nav-link">免费节点</a>
+                                                <a href="/paid-subscribe/" class="nav-item nav-link">推荐机场</a>
+                                                <a href="/client.htm" class="nav-item nav-link">客户端</a>
+                                                <a href="/news/" class="nav-item nav-link">新闻资讯</a>
+                                            </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <!-- Navbar End -->
+
+
+    <!-- Hero Start -->
+    <div class="container-fluid pt-5 bg-primary hero-header">
+        <div class="container pt-5">
+            <div class="row g-5 pt-5">
+                <div class="col-lg-6 align-self-center text-center text-lg-start mb-lg-5">
+                    <h1 class="text-white mb-4 animated slideInRight">Windows下如何优雅的管理多个python版本以及简易安装相关库（包括机器学习和PyQt）</h1>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb justify-content-center justify-content-lg-start mb-0">
+                            <li class="breadcrumb-item"><a class="text-white" href="/" title="首页">首页</a></li>
+                            <li class="breadcrumb-item"><a class="text-white" href="/news/" title="新闻资讯">新闻资讯</a></li>
+                            <li class="breadcrumb-item text-white active" aria-current="page">正文</li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="col-lg-6 align-self-end text-center text-lg-end">
+                    <img class="img-fluid" href="/assets/website/img/nekoboxnode/hero-img.png" alt="" style="max-height: 300px;">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Hero End -->
+
+
+    <!-- Full Screen Search Start -->
+    <div class="modal fade" id="searchModal" tabindex="-1">
+        <div class="modal-dialog modal-fullscreen">
+            <div class="modal-content" style="background: rgba(20, 24, 62, 0.7);">
+                <div class="modal-header border-0">
+                    <button type="button" class="btn btn-square bg-white btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body d-flex align-items-center justify-content-center">
+                    <div class="input-group" style="max-width: 600px;">
+                        <input type="text" class="form-control bg-transparent border-light p-3"
+                            placeholder="Type search keyword">
+                        <button class="btn btn-light px-4"><i class="bi bi-search"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Full Screen Search End -->
+
+
+    <!-- About Start -->
+    <div class="container-fluid py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                                    <input type="hidden" id="share-website-info" data-name="" data-url="">
+                  				  				  				<div id="content_views" class="htmledit_views"> <h2>你是不是曾经被python版本困扰？你是不是曾经被安装python的各种包吓怕？教你一个优雅的方式------anaconda</h2> <h2>1.什么是anaconda(百度百科)？</h2> <p>Anaconda指的是一个开源的<a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://baike.baidu.com/item/Python"  rel="nofollow">Python</a>发行版本，其包含了conda、Python等<strong>180多个</strong>科学包及其依赖项</p> <p>180多个，只有你想不到，没有它包含不到的哦！！！</p> <h2>2.怎么安装anaconda？</h2> <p>推荐这篇博客：</p> <p><a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://blog.csdn.net/qq_26898461/article/details/51488326"  rel="nofollow">https://blog.csdn.net/qq_26898461/article/details/51488326</a></p> <p>同时需要配置环境变量</p> <p><img decoding="async" alt="" class="has" height="73" src="http://img.555519.xyz/uploads3/20220904/d5100dc0f0dabcfc5fd5df385bde7aae.jpg"></p> <h2>3.anaconda强大在何处？</h2> <p>可以这么说，安装完anaconda以后，几乎你将来需要用到的所有东西都在里面了。因为我最近在学习PyQt5，又涉及到安装各种依赖，各种软件的时候，顿感头皮发麻，所幸想起来了之前安装的anaconda，于是在安装目录下翻了翻，翻到了宝贝：</p> <p><img fetchpriority="high" decoding="async" alt="" class="has" height="405" src="http://img.555519.xyz/uploads3/20220904/70e5f92a4d37966ec3e5fae89ca29448.jpg"></p> <p>在该目录下找到了designer，双击打开，发现这就是qt设计师呀，同时也可以测试PyQt5也已经装好了。</p> <p>不仅仅是qt设计师，还有比如jupyter，ipython均可以在cmd里面启动，前提是系统变量要配置好</p> <h2>4.如何优雅管理多版本呢？</h2> <p>其实很简单，以python2.7和python3.6为例，我分别安装了python2.7版本的anaconda和python3.6版本的anaconda</p> <p><img decoding="async" alt="" class="has" height="114" src="http://img.555519.xyz/uploads3/20220904/e76ef2e76381651d21afbd648da1dc22.jpg"></p> <p>当使用python3.6的时候，系统变量是这样的：</p> <p><img loading="lazy" decoding="async" alt="" class="has" height="157" src="http://img.555519.xyz/uploads3/20220904/2b333c85e8a6c7acb8f8f137fee13282.jpg"></p> <p>当使用python2.7的时候，只需要调整下系统变量的顺序，改成这样既可</p> <p><img loading="lazy" decoding="async" alt="" class="has" height="149" src="http://img.555519.xyz/uploads3/20220904/65e675d77ad00c355a30ef5613b84452.jpg"></p> <h2>5.为什么说这种方式优雅呢？</h2> <p>多版本管理当然有很多种方式，比如虚拟隔离的方法，但是根据我个人经验并不推荐，因为使用python最苦恼的就是安装包或者引用包时各种报错，而安装anaconda显然是一劳永逸式方法。Window下安装软件是非常简单的，一直点下一步就ok了，再配置一个环境变量，以后各种错误都无缘和你相见，所以说用anaconda是优雅的，调整系统变量来管理python版本也是优雅的！！</p> </div> 			                <div class="clearfix"></div>
+                <div class="col-md-12 mt-5">
+                                        <p>上一个：<a href="/news/article-66997.htm">上海宠物领养网免费领养（上海领养宠物狗的平台）</a></p>
+                                        <p>下一个：<a href="/news/article-67658.htm">动物美容师资格证怎么考试（宠物美容师证考试内容）</a></p>
+                                    </div>
+                                </div>
+                <div class="col-md-3">
+                    <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/free-nodes/2025-2-18-free-ssr-node.htm" title="「2月18日」最高速度20.3M/S，2025年NekoBox每天更新免费节点订阅链接">「2月18日」最高速度20.3M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-36522.htm" title="动物防疫疫苗种类有哪些类型（动物疫苗法最新消息2019）">动物防疫疫苗种类有哪些类型（动物疫苗法最新消息2019）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-2-26-free-subscribe-node.htm" title="「2月26日」最高速度23M/S，2025年NekoBox每天更新免费节点订阅链接">「2月26日」最高速度23M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-2-20-free-high-speed-nodes.htm" title="「2月20日」最高速度18.1M/S，2025年NekoBox每天更新免费节点订阅链接">「2月20日」最高速度18.1M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-1-17-free-v2ray-subscribe.htm" title="「1月17日」最高速度18.9M/S，2025年NekoBox每天更新免费节点订阅链接">「1月17日」最高速度18.9M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-2-23-free-v2ray.htm" title="「2月23日」最高速度18M/S，2025年NekoBox每天更新免费节点订阅链接">「2月23日」最高速度18M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-54672.htm" title="深圳宠物领养中心免费领养猫咪（深圳市猫咪领养）">深圳宠物领养中心免费领养猫咪（深圳市猫咪领养）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-1-19-free-ssr-node.htm" title="「1月19日」最高速度21.4M/S，2025年NekoBox每天更新免费节点订阅链接">「1月19日」最高速度21.4M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-1-9-clash-windows.htm" title="「1月9日」最高速度18.4M/S，2025年NekoBox每天更新免费节点订阅链接">「1月9日」最高速度18.4M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-2-7-node-share.htm" title="「2月7日」最高速度20.4M/S，2025年NekoBox每天更新免费节点订阅链接">「2月7日」最高速度20.4M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">21</span> <a href="/date/2025-03/" title="2025-03 归档">2025-03</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">84</span> <a href="/date/2025-02/" title="2025-02 归档">2025-02</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">84</span> <a href="/date/2025-01/" title="2025-01 归档">2025-01</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- About End -->
+
+
+
+        <!-- Footer Start -->
+    <div class="container-fluid bg-dark text-white-50 footer pt-5">
+        <div class="container wow fadeIn" data-wow-delay="0.1s">
+            <div class="copyright">
+                <div class="row">
+                    <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                            <p>
+                                <a href="/">首页</a> | 
+                                <a href="/free-node/">免费节点</a> | 
+                                <a href="/news/">新闻资讯</a> |
+                                <a href="/about-us.htm">关于我们</a> |
+                                <a href="/disclaimer.htm">免责申明</a> |
+                                <a href="/privacy.htm">隐私申明</a> |
+                                <a href="/sitemap.xml">网站地图</a>
+                            </p>
+                        NekoBoxNode官网节点站 版权所有
+                        <br />
+                        Powered by WordPress
+                    </div>
+                    <div class="col-md-6 text-center text-md-end">
+                        <div class="footer-menu">
+                            <a href="/">Home</a>
+                            <a href="#">Cookies</a>
+                            <a href="#">Help</a>
+                            <a href="#">FAQs</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer End -->
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top pt-2"><i class="bi bi-arrow-up"></i></a>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.0.0/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/wow/wow.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/easing/easing.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/waypoints/waypoints.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/counterup/counterup.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/owlcarousel/owl.carousel.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="/assets/website/js/frontend/nekoboxnode/main.js"></script>
+    <script src="https://www.freeclashnode.com/assets/js/frontend/invite-url.js"></script><script src="/assets/website/js/frontend/G.js"></script>
+</body>
+
+</html>
