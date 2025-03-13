@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html xml:lang="zh-CN" lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://nekoboxnode.github.io/news/article-71543.htm" />
+    <meta charset="utf-8">
+    <title>MM32F0140 UART1硬件自动波特率校准功能的使用</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <meta name="description" content="目录： 1.MM32F0140简介 2.UART自动波特率校准应用场景 3.MM32F0140 UART自动波特率校准原理简介 4.MM32F0140 UART1 NVIC硬件自动波特率配置以及初始化" />
+    
+    <!-- Favicon -->
+    <link href="/assets/website/img/nekoboxnode/favicon.ico" rel="icon">
+
+    <meta name="author" content="NekoBoxNode官网节点站">
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://nekoboxnode.github.io/news/article-71543.htm" />
+    <meta property="og:site_name" content="NekoBoxNode官网节点站" />
+    <meta property="og:title" content="MM32F0140 UART1硬件自动波特率校准功能的使用" />
+    <meta property="og:image" content="https://nekoboxnode.github.io/uploads/20240427/67592bf4f1310dfbdb98983a9495b3b1.webp" />
+        <meta property="og:release_date" content="2025-03-11T07:47:14" />
+    <meta property="og:updated_time" content="2025-03-11T07:47:14" />
+        <meta property="og:description" content="目录： 1.MM32F0140简介 2.UART自动波特率校准应用场景 3.MM32F0140 UART自动波特率校准原理简介 4.MM32F0140 UART1 NVIC硬件自动波特率配置以及初始化" />
+    
+    <meta name="applicable-device" content="pc,mobile" />
+    <meta name="renderer" content="webkit" />
+    <meta name="force-rendering" content="webkit" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta name="robots" content="max-image-preview:large" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="MM32F0140 UART1硬件自动波特率校准功能的使用">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="dns-prefetch" href="https:/www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cm.g.doubleclick.net">
+        
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Ubuntu:wght@500;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcdn.net/ajax/libs/bootstrap-icons/1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="/assets/website/js/frontend/nekoboxnode/lib/animate/animate.min.css" rel="stylesheet">
+    <link href="/assets/website/js/frontend/nekoboxnode/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="/assets/website/css/nekoboxnode/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="/assets/website/css/nekoboxnode/style.css" rel="stylesheet">
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-93Z2TV5VL1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-93Z2TV5VL1');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body data-page="detail">
+    <!-- Spinner Start -->
+    <div id="spinner"
+        class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-grow text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <!-- Spinner End -->
+
+
+        <!-- Navbar Start -->
+    <div class="container-fluid sticky-top">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-dark p-0">
+                <a href="/" class="navbar-brand">
+                                <span>Neko Box Node</span>
+                                </a>
+                <button type="button" class="navbar-toggler ms-auto me-0" data-bs-toggle="collapse"
+                    data-bs-target="#navbarCollapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <div class="navbar-nav ms-auto">
+                                                <a href="/" class="nav-item nav-link">首页</a>
+                                                <a href="/free-nodes/" class="nav-item nav-link">免费节点</a>
+                                                <a href="/paid-subscribe/" class="nav-item nav-link">推荐机场</a>
+                                                <a href="/client.htm" class="nav-item nav-link">客户端</a>
+                                                <a href="/news/" class="nav-item nav-link">新闻资讯</a>
+                                            </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <!-- Navbar End -->
+
+
+    <!-- Hero Start -->
+    <div class="container-fluid pt-5 bg-primary hero-header">
+        <div class="container pt-5">
+            <div class="row g-5 pt-5">
+                <div class="col-lg-6 align-self-center text-center text-lg-start mb-lg-5">
+                    <h1 class="text-white mb-4 animated slideInRight">MM32F0140 UART1硬件自动波特率校准功能的使用</h1>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb justify-content-center justify-content-lg-start mb-0">
+                            <li class="breadcrumb-item"><a class="text-white" href="/" title="首页">首页</a></li>
+                            <li class="breadcrumb-item"><a class="text-white" href="/news/" title="新闻资讯">新闻资讯</a></li>
+                            <li class="breadcrumb-item text-white active" aria-current="page">正文</li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="col-lg-6 align-self-end text-center text-lg-end">
+                    <img class="img-fluid" href="/assets/website/img/nekoboxnode/hero-img.png" alt="" style="max-height: 300px;">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Hero End -->
+
+
+    <!-- Full Screen Search Start -->
+    <div class="modal fade" id="searchModal" tabindex="-1">
+        <div class="modal-dialog modal-fullscreen">
+            <div class="modal-content" style="background: rgba(20, 24, 62, 0.7);">
+                <div class="modal-header border-0">
+                    <button type="button" class="btn btn-square bg-white btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body d-flex align-items-center justify-content-center">
+                    <div class="input-group" style="max-width: 600px;">
+                        <input type="text" class="form-control bg-transparent border-light p-3"
+                            placeholder="Type search keyword">
+                        <button class="btn btn-light px-4"><i class="bi bi-search"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Full Screen Search End -->
+
+
+    <!-- About Start -->
+    <div class="container-fluid py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                                    <input type="hidden" id="share-website-info" data-name="" data-url="">
+                  				  				  				<p><strong>目录：</strong></p> <p>1.MM32F0140简介</p> <p>2.UART自动波特率校准应用场景</p> <p>3.MM32F0140 UART自动波特率校准原理简介</p> <p>4.MM32F0140 UART1 NVIC硬件自动波特率配置以及初始化</p> <p>5.编写MM32F0140 UART1发送数据函数</p> <p>6.编写MM32F0140 UART1中断接收函数以及自动波特率校准的实现</p> <p>7.编写MM32F0140 UART1处理中断接收数据函数</p> <p>8.验证MM32F0140 UART1自动波特率校准功能</p> <p><strong>提要：</strong></p> <p>　　学习MM32F0140 UART自动波特率校准功能的使用。例如：上位机串口调试助手UART通信波特率为19200，往下位机UART1波特率为9600的MM32F0140 发送一帧数据：</p> <p>0xF8 0x55 0x2 0x03 0x04 0x05 0x06 0x07;下位机通过UART内部硬件自动检测接收到数据帧的首字节的位宽波特率的时间来识别上位机的波特率，并重置下位机MCU的波特率</p> <p>寄存器使得下位机MCU的波特率与上位机的通信波特率一致，从而实现数据帧的正常收发（注意：上位机与下位机的通信波特率不应相差太大，否则无法自动检测识别）。</p> <p><strong>本博客为原创文章，转载请注明出处！！！</strong></p> <p><strong>内容：</strong></p> <p><strong>1、MM32F0140简介</strong>：</p> <p>（1）MM32F0140微控制器是基于<span class="fontstyle0">Arm<span class="fontstyle0">®<span class="fontstyle0">Cortex<span class="fontstyle0">®<span class="fontstyle0">-M0内核，最高工作频率可达72MHz；</span></span></span></span></span></p> <p><span class="fontstyle0">（2）供电电压支持：2.0V - 5.5V；</span></p> <p><span class="fontstyle0">（3）多达64KB的Flash，8KB的SRAM；<br /></span></p> <p><span class="fontstyle0">（4）1个I2C；</span></p> <p><span class="fontstyle0">（5）3个UART；</span></p> <p><span class="fontstyle0">（6）1个12位共13通道的ADC；</span></p> <p><span class="fontstyle0">（7）2个I2C或I2S；</span></p> <p><span class="fontstyle0">（8）1个16位高级定时，1个16位和1个32位的通用定时器，3个16位的基本定时器；</span></p> <p><span class="fontstyle0">（9）1个FlexCAN接口；</span></p> <p><span class="fontstyle0">（10）1个IWDG和1个WWDG看门狗。</span></p> <p><strong>2.UART自动波特率校准应用场景</strong></p> <p>　　嵌入式软件工程师在开发产品时，经常会用到MCU的UART串口模块做产品功能方面的调试或主从机通信，当产品的主从机通信波特率有偏差时，或经过TTL电平转换电路转换后波特率出现</p> <p>偏差或产品的工作环境相对比较恶劣时也会出现UART的主从机通信波特率偏差，这时如果MCU的UART内部集成了自动波特率检测校准功能，就能通过自动波特率检测校准从而维持MCU的UART</p> <p>主从机的正常通信功能。</p> <p><strong>3.MM32F0140 UART自动波特率校准原理简介</strong></p> <p>　　MM32F0140系列MCU的UART内部集成了硬件自动波特率检测电路，自动检测接收到数据帧的首字节的位宽波特率时间来识别通信方的波特率参数，并重置MCU的UART波特率寄存器，使得通信双方保存通信波特率一致。</p> <p><strong>4.MM32F0140 UART1 NVIC硬件自动波特率配置以及初始化</strong></p> <p><span class="fontstyle0">　　MM32F0140 UART1的GPIO初始化，根据MM32F0140的DS数据手册选择PA9:UART1_TX，PA10:UART1_RX做为UART1的发送和接收数据的引脚，具体配置步骤，及其初始化如下所示：</span></p> <p>（1）使能GPIOA外设时钟；</p> <p>（2）配置IO管脚GPIO_AFx复用为UART1功能；</p> <p>（3）配置UARTx IO的管脚；</p> <p>（4）配置GPIO的输出速度；</p> <p>（5）配置IO管脚的工作模式；</p> <p>（6）根据GPIOA配置的参数整体初始化GPIO各管脚的成员参数。</p> <div class="cnblogs_code"> <pre><span style="color: rgba(0, 0, 255, 1)">static</span><span style="color: rgba(0, 0, 255, 1)">void</span> Bsp_UART1_GPIO_Init(<span style="color: rgba(0, 0, 255, 1)">void</span><span style="color: rgba(0, 0, 0, 1)">) {     GPIO_InitTypeDef GPIO_InitStruct;</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">Enable GPIOA Clock</span><span style="color: rgba(0, 0, 0, 1)">    RCC_AHBPeriphClockCmd(RCC_AHBENR_GPIOA, ENABLE);</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">PA9 AF UART1_TX</span><span style="color: rgba(0, 0, 0, 1)">    GPIO_PinAFConfig(GPIOA, GPIO_PinSource9, GPIO_AF_1);</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">PA10 AF UART1_RX</span><span style="color: rgba(0, 0, 0, 1)">    GPIO_PinAFConfig(GPIOA, GPIO_PinSource10, GPIO_AF_1);</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">PA9:UART1_TX</span>     GPIO_StructInit(&amp;<span style="color: rgba(0, 0, 0, 1)">GPIO_InitStruct);     GPIO_InitStruct.GPIO_Pin</span>=<span style="color: rgba(0, 0, 0, 1)"> GPIO_Pin_9;     GPIO_InitStruct.GPIO_Speed</span>=<span style="color: rgba(0, 0, 0, 1)"> GPIO_Speed_50MHz;     GPIO_InitStruct.GPIO_Mode</span>=<span style="color: rgba(0, 0, 0, 1)"> GPIO_Mode_AF_PP;     GPIO_Init(GPIOA,</span>&amp;<span style="color: rgba(0, 0, 0, 1)">GPIO_InitStruct);</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">PA10:UART1_RX</span>     GPIO_InitStruct.GPIO_Pin =<span style="color: rgba(0, 0, 0, 1)"> GPIO_Pin_10;     GPIO_InitStruct.GPIO_Mode</span>=<span style="color: rgba(0, 0, 0, 1)"> GPIO_Mode_IPU;     GPIO_Init(GPIOA,</span>&amp;<span style="color: rgba(0, 0, 0, 1)">GPIO_InitStruct); }</span></pre> </div> <p>　　MM32F0140 UART1 NVIC硬件自动波特率配置以及初始化步骤如下所示：</p> <p>（1）使能UART1外设时钟；</p> <p>（2）调用之前配置的UART1GPIO初始化函数；</p> <p>（3）配置UART1通信波特率为9600；</p> <p>（4）配置UART1字长为8位；</p> <p>（5）配置UART1收发数据为1位停止位；</p> <p>（6）配置UART1收发数据为无奇偶校验位；</p> <p>（7）配置UART1允许串口收发数据；</p> <p>（8）根据以上配置参数初始化UART1结构体成员；</p> <p>（9）配置UART1硬件自动波特率检测首字节的位宽（包含起始位宽）的长度和检测的边缘模式，可从UM手册UART_ABRCR自动波特率寄存器相关位查询到如下图1所示，本实例检测首字节的</p> <p>边缘选择前一个边沿为下降沿（包含起始位）后一个边沿为上升沿，符合这个条件的字节为0xF8（b:1111 1000）等。</p> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220510/cfa1d9dadee390780cad919518f485f0.jpg" alt="MM32F0140 UART1硬件自动波特率校准功能的使用"></p> <p>　　　　　　　　　　　　　　　　　　　　　　　　　　　　　图1</p> <p>（10）使能UART1接收数据中断、接收帧错误中断、自动波特率结束中断、自动波特率错误中断、空闲中断；</p> <p>（11）配置UART1的NVIC中断优先级为0，并使能和初始化NVIC中断（优先级为0-3均可，参数越小优先级越高）。</p> <p>MM32F0140 UART1 NVIC硬件自动波特率配置以及初始化代码如下所示：</p> <div class="cnblogs_code"> <pre><span style="color: rgba(0, 0, 255, 1)">void</span><span style="color: rgba(0, 0, 0, 1)"> Bsp_UART1_NVIC_Init(u32 baudrate) {     UART_InitTypeDef UART_InitStruct;     NVIC_InitTypeDef NVIC_InitStruct;</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">Enable UART1 Clock</span><span style="color: rgba(0, 0, 0, 1)">    RCC_APB2PeriphClockCmd(RCC_APB2ENR_UART1, ENABLE);</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">UART1 GPIO Init</span><span style="color: rgba(0, 0, 0, 1)">    Bsp_UART1_GPIO_Init();</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">Baud rate</span>     UART_StructInit(&amp;<span style="color: rgba(0, 0, 0, 1)">UART_InitStruct);     UART_InitStruct.BaudRate</span>=<span style="color: rgba(0, 0, 0, 1)"> baudrate;</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">The word length is in 8-bit data format.</span>     UART_InitStruct.WordLength =<span style="color: rgba(0, 0, 0, 1)"> UART_WordLength_8b;     UART_InitStruct.StopBits</span>=<span style="color: rgba(0, 0, 0, 1)"> UART_StopBits_1;</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">No even check bit.</span>     UART_InitStruct.Parity =<span style="color: rgba(0, 0, 0, 1)"> UART_Parity_No;</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">No hardware data flow control.</span>     UART_InitStruct.HWFlowControl =<span style="color: rgba(0, 0, 0, 1)"> UART_HWFlowControl_None;     UART_InitStruct.Mode</span>= UART_Mode_Rx |<span style="color: rgba(0, 0, 0, 1)"> UART_Mode_Tx;     UART_Init(UART1,</span>&amp;<span style="color: rgba(0, 0, 0, 1)">UART_InitStruct);</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">___                   _______</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">   |_ _ _ _|1 x x x x|        = Binary:xxxx 1000  Fall to Rise -&gt; 1 start bit</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">AutoBaudRate Mode Fall to Rise 4bit width,the first byte is 0xF8 use test</span><span style="color: rgba(0, 0, 0, 1)">    UART_AutoBaudRateSet(UART1, ABRMODE_FALLING_TO_RISINGEDGE4BIT, ENABLE);</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">接收数据中断、接收帧错误中断、自动波特率结束中断、自动波特率错误中断、空闲中断、</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">Enable Receive data interrupt、Receive frame error interrupt、Automatic baud rate end interrupt、</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">Automatic baud rate error interrupt、Idle interrupt</span>     UART_ITConfig(UART1,UART_IT_RXIEN | UART_IER_RXFERR | UART_IER_ABREND_IEN |<span style="color: rgba(0, 0, 0, 1)"> \     UART_IER_ABRERR_IEN</span>|<span style="color: rgba(0, 0, 0, 1)"> UART_IER_RXIDLE,ENABLE);</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">UART1 NVIC Interrupt</span>     NVIC_InitStruct.NVIC_IRQChannel =<span style="color: rgba(0, 0, 0, 1)"> UART1_IRQn;     NVIC_InitStruct.NVIC_IRQChannelPriority</span>=<span style="color: rgba(128, 0, 128, 1)">0</span><span style="color: rgba(0, 0, 0, 1)">;             NVIC_InitStruct.NVIC_IRQChannelCmd</span>=<span style="color: rgba(0, 0, 0, 1)"> ENABLE;             NVIC_Init(</span>&amp;<span style="color: rgba(0, 0, 0, 1)">NVIC_InitStruct);</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">Enable UART1</span><span style="color: rgba(0, 0, 0, 1)">    UART_Cmd(UART1, ENABLE);  }</span></pre> </div> <p><strong>5.编写MM32F0140 UART1发送数据函数</strong></p> <p>（1）MM32F0140 UART1发送字节函数如下所示：</p> <div class="cnblogs_code"> <pre><span style="color: rgba(0, 0, 255, 1)">void</span> Bsp_UART_SendByte(UART_TypeDef*<span style="color: rgba(0, 0, 0, 1)"> uart,u8 data) {     UART_SendData(uart, data);</span><span style="color: rgba(0, 0, 255, 1)">while</span>(!<span style="color: rgba(0, 0, 0, 1)">UART_GetFlagStatus(uart, UART_FLAG_TXEPT)); }</span></pre> </div> <p>（2）MM32F0140&nbsp; UART1发送多字节函数如下所示：</p> <div class="cnblogs_code"> <pre><span style="color: rgba(0, 0, 255, 1)">void</span> Bsp_UART_SendBytes(UART_TypeDef* uart,u8*<span style="color: rgba(0, 0, 0, 1)"> pbuf, u16 len) {</span><span style="color: rgba(0, 0, 255, 1)">while</span>(len--<span style="color: rgba(0, 0, 0, 1)">)     {         Bsp_UART_SendByte(uart,</span>*pbuf++<span style="color: rgba(0, 0, 0, 1)">);     } }</span></pre> </div> <p>（3）MM32F0140&nbsp; UART1发送ASCII字符串函数如下所示：</p> <div class="cnblogs_code"> <pre><span style="color: rgba(0, 0, 255, 1)">void</span> Bsp_UART_SendString(UART_TypeDef* uart,<span style="color: rgba(0, 0, 255, 1)">char</span>*<span style="color: rgba(0, 0, 0, 1)"> str) {</span><span style="color: rgba(0, 0, 255, 1)">while</span>(*<span style="color: rgba(0, 0, 0, 1)">str)     {         Bsp_UART_SendByte(uart,(u8)(</span>*str++<span style="color: rgba(0, 0, 0, 1)">));     } }</span></pre> </div> <p><strong>6.编写MM32F0140 UART1中断接收函数以及自动波特率校准的实现</strong></p> <p>（1）定义与MM32F0140 UART1先关的变量，缓存，以及头文件变量、函数声明，代码如下所示：</p> <div class="cnblogs_code"> <pre><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">UART1 Receive count</span><span style="color: rgba(0, 0, 0, 1)">u8 gUART1_Rx_Cnt;</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">UART1 Receive Buffer</span><span style="color: rgba(0, 0, 0, 1)">u8 gUART1_Rx_Buf[UART1_REC_LEN];</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">UART1 Receiving Flag</span><span style="color: rgba(0, 0, 255, 1)">bool</span> gUART1_Rx_Flag =<span style="color: rgba(0, 0, 255, 1)">false</span><span style="color: rgba(0, 0, 0, 1)">;</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">Hardware automatic baud rate error flag</span> u8 Auto_BaudRate_FraErr_Flag =<span style="color: rgba(128, 0, 128, 1)">0</span>;</pre> </div> <div class="cnblogs_code"> <pre><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">注：上位机串口助手发送如下数据帧格式第1字节为波特率检测位宽，第2字节之后为可变字节方便观察收发数据帧</span><span style="color: rgba(0, 128, 0, 1)"> /*</span><span style="color: rgba(0, 128, 0, 1)">************************************************************************************************** --------------Falling edge to rising edge(including start bit)-------------------------------------- //The first byte is 0xF8 use test //___                   _______ //   |_ _ _ _|1 x x x x|        = Binary:xxxx 1000  Fall to Rise -&gt; 1 start bit  //AutoBaudRate Mode Fall to Rise 4bit width,the first byte is 0xF8 use test 串口上位机发送数据格式： 0xF8 0x55 0x02 0x03 0x04 0x05 0x06 0x07 0x08 0x09 0xF8 0x01 0x02 0x03 0x04 0x05 0x06 0x07 0x08 0x09 0xF8 0x02 0x02 0x03 0x04 0x05 0x06 0x07 0x08 0x09 0xF8 0x03 0x02 0x03 0x04 0x05 0x06 0x07 0x08 0x09 下位机分别给串口上位机原样回复收到的数据命令： 0xF8 0x55 0x02 0x03 0x04 0x05 0x06 0x07 0x08 0x09 0xF8 0x01 0x02 0x03 0x04 0x05 0x06 0x07 0x08 0x09 0xF8 0x02 0x02 0x03 0x04 0x05 0x06 0x07 0x08 0x09 0xF8 0x03 0x02 0x03 0x04 0x05 0x06 0x07 0x08 0x09  **************************************************************************************************</span><span style="color: rgba(0, 128, 0, 1)">*/</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">UART1 Baud Rate</span><span style="color: rgba(0, 0, 255, 1)">#define</span> UART1_BAUDRATE  (9600)<span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">UART1 maximum receiving length 200</span><span style="color: rgba(0, 0, 255, 1)">#define</span> UART1_REC_LEN   (200)<span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">UART1 Receive Buffer</span><span style="color: rgba(0, 0, 255, 1)">extern</span><span style="color: rgba(0, 0, 0, 1)"> u8 gUART1_Rx_Buf[UART1_REC_LEN];</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">UART1 Receive count</span><span style="color: rgba(0, 0, 255, 1)">extern</span><span style="color: rgba(0, 0, 0, 1)"> u8 gUART1_Rx_Cnt;</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">UART1 Receive Timing</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">extern u8 UART1_Rx_TimeCnt;</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">UART1 Receiving Flag</span><span style="color: rgba(0, 0, 255, 1)">extern</span><span style="color: rgba(0, 0, 255, 1)">bool</span><span style="color: rgba(0, 0, 0, 1)"> gUART1_Rx_Flag;</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">UART1 Init</span><span style="color: rgba(0, 0, 255, 1)">void</span><span style="color: rgba(0, 0, 0, 1)"> Bsp_UART1_NVIC_Init(u32 baudrate);</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">UART Send single byte data</span><span style="color: rgba(0, 0, 255, 1)">void</span> Bsp_UART_SendByte(UART_TypeDef*<span style="color: rgba(0, 0, 0, 1)"> uart,u8 data);</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">UART Send String</span><span style="color: rgba(0, 0, 255, 1)">void</span> Bsp_UART_SendString(UART_TypeDef* uart,<span style="color: rgba(0, 0, 255, 1)">char</span>*<span style="color: rgba(0, 0, 0, 1)"> str);</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">UART Send multi-byte data</span><span style="color: rgba(0, 0, 255, 1)">void</span> Bsp_UART_SendBytes(UART_TypeDef* uart,u8*<span style="color: rgba(0, 0, 0, 1)"> pbuf, u16 len);</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">Test hardware automatic baud rate to send and receive data</span><span style="color: rgba(0, 0, 255, 1)">void</span> Bsp_UART1_Recv_Task(<span style="color: rgba(0, 0, 255, 1)">void</span>);</pre> </div> <p>（2）MM32F0140 UART1中断接收函数以及自动波特率校准代码如下所示：</p> <div class="cnblogs_code"> <pre><span style="color: rgba(0, 0, 255, 1)">void</span> UART1_IRQHandler(<span style="color: rgba(0, 0, 255, 1)">void</span><span style="color: rgba(0, 0, 0, 1)">) {     u8 Recbyte;</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">UART1 receive interrupt,receive valid data interrupt flag bit</span><span style="color: rgba(0, 0, 255, 1)">if</span>(UART_GetITStatus(UART1,UART_ISR_RX) !=<span style="color: rgba(0, 0, 0, 1)"> RESET)              {</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">Clear UART1 receive interrupt flag</span><span style="color: rgba(0, 0, 0, 1)">        UART_ClearITPendingBit(UART1,UART_ICR_RX);</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">Read the data received by UART1</span>         Recbyte =<span style="color: rgba(0, 0, 0, 1)"> UART_ReceiveData(UART1);</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">UART1 receive data buffered</span>         gUART1_Rx_Buf[gUART1_Rx_Cnt] =<span style="color: rgba(0, 0, 0, 1)"> Recbyte;</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">Determine whether the received data of UART1 overflows</span><span style="color: rgba(0, 0, 255, 1)">if</span>(gUART1_Rx_Cnt &lt; UART1_REC_LEN-<span style="color: rgba(128, 0, 128, 1)">1</span><span style="color: rgba(0, 0, 0, 1)">)         {</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">UART1 Receive count</span>             gUART1_Rx_Cnt++<span style="color: rgba(0, 0, 0, 1)">;         }</span><span style="color: rgba(0, 0, 255, 1)">else</span><span style="color: rgba(0, 0, 0, 1)">         {             gUART1_Rx_Cnt</span>=<span style="color: rgba(128, 0, 128, 1)">0</span><span style="color: rgba(0, 0, 0, 1)">;         }     }</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">Receive data frame error interrupt flag</span><span style="color: rgba(0, 0, 255, 1)">if</span>(UART_GetITStatus(UART1, UART_ISR_RXFERR_INTF) !=<span style="color: rgba(0, 0, 0, 1)"> RESET)         {</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">Hardware automatic baud rate error flag</span>         Auto_BaudRate_FraErr_Flag =<span style="color: rgba(128, 0, 128, 1)">1</span><span style="color: rgba(0, 0, 0, 1)">;                 UART_ClearITPendingBit(UART1,UART_ICR_RXFERRCLR);     }</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">Idle interrupt hardware automatic baud rate self-calibration</span><span style="color: rgba(0, 0, 255, 1)">if</span>(UART_GetITStatus(UART1, UART_ISR_RXIDLE) !=<span style="color: rgba(0, 0, 0, 1)"> RESET)         {         UART_ClearITPendingBit(UART1,UART_ICR_RXIDLE);</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">Hardware automatic baud rate error flag</span><span style="color: rgba(0, 0, 255, 1)">if</span>(Auto_BaudRate_FraErr_Flag ==<span style="color: rgba(128, 0, 128, 1)">1</span><span style="color: rgba(0, 0, 0, 1)">)         {             Auto_BaudRate_FraErr_Flag</span>=<span style="color: rgba(128, 0, 128, 1)">0</span><span style="color: rgba(0, 0, 0, 1)">;</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">-------------------------------------Check MM32F0140 UART_AutoBaudRateHard---------------------------------------------------------</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">Configure MM32F013x hardware automatic baud rate self-calibration,Falling edge to rising edge(including start bit)</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">___                   _______</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">   |_ _ _ _|1 x x x x|        = Binary:xxxx 1000  Fall to Rise -&gt; 1 start bit</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">AutoBaudRate Mode Fall to Rise 4bit width,the first byte is 0xF8 use test</span><span style="color: rgba(0, 0, 0, 1)">            UART_AutoBaudRateSet(UART1, ABRMODE_FALLING_TO_RISINGEDGE4BIT, ENABLE);         }</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">UART1 Receiving Flag</span>         gUART1_Rx_Flag =<span style="color: rgba(0, 0, 255, 1)">true</span><span style="color: rgba(0, 0, 0, 1)">;     }</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">Automatic baud rate error clear bit</span><span style="color: rgba(0, 0, 255, 1)">if</span>(UART_GetITStatus(UART1, UART_ISR_ABRERR_INTF) !=<span style="color: rgba(0, 0, 0, 1)"> RESET)         {</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">Auto baud rate error clear bit</span><span style="color: rgba(0, 0, 0, 1)">        UART_ClearITPendingBit(UART1,UART_ICR_ABRERRCLR);       }</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">Automatic baud rate end interrupt clear bit</span><span style="color: rgba(0, 0, 255, 1)">if</span>(UART_GetITStatus(UART1, UART_ISR_ABREND_INTF) !=<span style="color: rgba(0, 0, 0, 1)"> RESET)          {</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">Auto baud rate end clear bit</span><span style="color: rgba(0, 0, 0, 1)">        UART_ClearITPendingBit(UART1,UART_ICR_ABRENDCLR);     } }</span></pre> </div> <p><strong>7.编写MM32F0140 UART1处理中断接收数据函数</strong></p> <p>　　MM32F0140 UART1处理中断接收数据函数代码如下所示：</p> <div class="cnblogs_code"> <pre><span style="color: rgba(0, 0, 255, 1)">void</span> Bsp_UART1_Recv_Task(<span style="color: rgba(0, 0, 255, 1)">void</span><span style="color: rgba(0, 0, 0, 1)">) {</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">UART1 Rx Flag</span><span style="color: rgba(0, 0, 255, 1)">if</span>(gUART1_Rx_Flag ==<span style="color: rgba(0, 0, 255, 1)">true</span><span style="color: rgba(0, 0, 0, 1)">)     {         gUART1_Rx_Flag</span>=<span style="color: rgba(0, 0, 255, 1)">false</span><span style="color: rgba(0, 0, 0, 1)">;</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">Send the received data as-is, for example：0x55 0x55 0x02 0x03 0x04 0x05 0x06 0x07 0x08 0x09</span><span style="color: rgba(0, 0, 0, 1)">        Bsp_UART_SendBytes(UART1,gUART1_Rx_Buf, gUART1_Rx_Cnt);</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">Receive data from the serial port of the host computer：0xF8 0x55 0x02 0x03 0x04 0x05 0x06 0x07 0x08 0x09</span><span style="color: rgba(0, 0, 255, 1)">if</span>((gUART1_Rx_Buf[<span style="color: rgba(128, 0, 128, 1)">0</span>] ==<span style="color: rgba(128, 0, 128, 1)">0xF8</span>) &amp;&amp; (gUART1_Rx_Buf[<span style="color: rgba(128, 0, 128, 1)">1</span>] ==<span style="color: rgba(128, 0, 128, 1)">0x55</span><span style="color: rgba(0, 0, 0, 1)">))         {             LED1_TOGGLE();              }</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">Receive data from the serial port of the host computer：0xF8 0x01 0x02 0x03 0x04 0x05 0x06 0x07 0x08 0x09</span><span style="color: rgba(0, 0, 255, 1)">else</span><span style="color: rgba(0, 0, 255, 1)">if</span>((gUART1_Rx_Buf[<span style="color: rgba(128, 0, 128, 1)">0</span>] ==<span style="color: rgba(128, 0, 128, 1)">0xF8</span>) &amp;&amp; (gUART1_Rx_Buf[<span style="color: rgba(128, 0, 128, 1)">1</span>] ==<span style="color: rgba(128, 0, 128, 1)">0x01</span><span style="color: rgba(0, 0, 0, 1)">))         {             LED1_TOGGLE();            }</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">Receive data from the serial port of the host computer：0xF8 0x02 0x02 0x03 0x04 0x05 0x06 0x07 0x08 0x09</span><span style="color: rgba(0, 0, 255, 1)">else</span><span style="color: rgba(0, 0, 255, 1)">if</span>((gUART1_Rx_Buf[<span style="color: rgba(128, 0, 128, 1)">0</span>] ==<span style="color: rgba(128, 0, 128, 1)">0xF8</span>) &amp;&amp; (gUART1_Rx_Buf[<span style="color: rgba(128, 0, 128, 1)">1</span>] ==<span style="color: rgba(128, 0, 128, 1)">0x02</span><span style="color: rgba(0, 0, 0, 1)">))         {             LED1_TOGGLE();         }</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">Receive data from the serial port of the host computer：0xF8 0x03 0x02 0x03 0x04 0x05 0x06 0x07 0x08 0x09</span><span style="color: rgba(0, 0, 255, 1)">else</span><span style="color: rgba(0, 0, 255, 1)">if</span>((gUART1_Rx_Buf[<span style="color: rgba(128, 0, 128, 1)">0</span>] ==<span style="color: rgba(128, 0, 128, 1)">0xF8</span>) &amp;&amp; (gUART1_Rx_Buf[<span style="color: rgba(128, 0, 128, 1)">1</span>] ==<span style="color: rgba(128, 0, 128, 1)">0x03</span><span style="color: rgba(0, 0, 0, 1)">))         {             LED1_TOGGLE();             }</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">Clear UART1 receiving count</span>         gUART1_Rx_Cnt =<span style="color: rgba(128, 0, 128, 1)">0</span><span style="color: rgba(0, 0, 0, 1)">;</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">Clear the UART1 receiving buffer to facilitate receiving data next time</span>         memset(gUART1_Rx_Buf,<span style="color: rgba(128, 0, 128, 1)">0</span>,<span style="color: rgba(0, 0, 255, 1)">sizeof</span><span style="color: rgba(0, 0, 0, 1)">(gUART1_Rx_Buf));                } }</span></pre> </div> <p><strong>8.验证MM32F0140 UART1自动波特率校准功能</strong></p> <p>（1）在main函数初始化中调用UART1 NVIC硬件自动波特率检测初始化函数即Bsp_UART1_NVIC_Init(UART1_BAUDRATE);调用LED初始化函数用于指示收到数据后做状态翻转，在while(1)</p> <p>主循环中循环检测MM32F0140 UART1处理中断接收数据函数，代码如下所示：</p> <div class="cnblogs_code"> <pre><span style="color: rgba(0, 0, 255, 1)">int</span> main(<span style="color: rgba(0, 0, 255, 1)">void</span><span style="color: rgba(0, 0, 0, 1)">) {</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">LED Init</span><span style="color: rgba(0, 0, 0, 1)">    LED_Init();</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">UART1 Hardware Automatic baud rate Init Baud rate:9600</span><span style="color: rgba(0, 0, 0, 1)">    Bsp_UART1_NVIC_Init(UART1_BAUDRATE);</span><span style="color: rgba(0, 0, 255, 1)">while</span>(<span style="color: rgba(128, 0, 128, 1)">1</span><span style="color: rgba(0, 0, 0, 1)">)      {</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">Test UART1 Recv IDLE</span><span style="color: rgba(0, 0, 0, 1)">        Bsp_UART1_Recv_Task();     } }</span></pre> </div> <p>（2）验证MM32F0140 UART1自动波特率校准功能</p> <p><strong>验证说明：</strong></p> <p>　　以上MCU的UART默认初始化的通信波特率为9600，通过改变上位机串口调试助手的通信波特率分别设置为：19200,38400，57600,115200并分别发送如下数据帧：</p> <div class="cnblogs_code"> <pre><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">注：上位机串口助手发送如下数据帧格式第1字节为波特率检测位宽，第2字节之后为可变字节方便观察收发数据帧</span><span style="color: rgba(0, 128, 0, 1)"> /*</span><span style="color: rgba(0, 128, 0, 1)">************************************************************************************************** --------------Falling edge to rising edge(including start bit)-------------------------------------- //The first byte is 0xF8 use test //___                   _______ //   |_ _ _ _|1 x x x x|        = Binary:xxxx 1000  Fall to Rise -&gt; 1 start bit  //AutoBaudRate Mode Fall to Rise 4bit width,the first byte is 0xF8 use test 串口上位机发送数据格式： 0xF8 0x55 0x02 0x03 0x04 0x05 0x06 0x07 0x08 0x09 0xF8 0x01 0x02 0x03 0x04 0x05 0x06 0x07 0x08 0x09 0xF8 0x02 0x02 0x03 0x04 0x05 0x06 0x07 0x08 0x09 0xF8 0x03 0x02 0x03 0x04 0x05 0x06 0x07 0x08 0x09 下位机分别给串口上位机原样回复收到的数据命令： 0xF8 0x55 0x02 0x03 0x04 0x05 0x06 0x07 0x08 0x09 0xF8 0x01 0x02 0x03 0x04 0x05 0x06 0x07 0x08 0x09 0xF8 0x02 0x02 0x03 0x04 0x05 0x06 0x07 0x08 0x09 0xF8 0x03 0x02 0x03 0x04 0x05 0x06 0x07 0x08 0x09  **************************************************************************************************</span><span style="color: rgba(0, 128, 0, 1)">*/</span></pre> </div> <p>　　如果下位机MCU检测到数据帧的首字节前一个边沿为下降沿，后一个边沿为上升沿的4个位宽的数据，例如0xF8(含起始位b:1111 1000）芯片内部波特率自动检测电路识别首字节的波特率位宽，</p> <p>并重置MCU的UART波特率寄存器，以达到MCU的通信波特率与上位机的通信分别一致，并原样回复收到的数据给上位机串口助手显示出来，测试结果如下图2，图3，图4，图5所示：</p> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220510/818a09812cb2b1f4ccd840bd69e54943.jpg" alt="MM32F0140 UART1硬件自动波特率校准功能的使用"></p> <p>图1 如上串口助手显示MM32F0140的UART1已自动检测到19200波特率并打印出收到的正确数据</p> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220510/a7a5e811e72945de20c4208249a1ec38.jpg" alt="MM32F0140 UART1硬件自动波特率校准功能的使用"></p> <p>图2&nbsp;如上串口助手显示MM32F0140的UART1已自动检测到38400波特率并打印出收到的正确数据</p> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220510/c6896ea0fcea444e456f636ae7eac7d3.jpg" alt="MM32F0140 UART1硬件自动波特率校准功能的使用"></p> <p>图3 如上串口助手显示MM32F0140的UART1已自动检测到57600波特率并打印出收到的正确数据</p> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220510/35242e2d8cb8d927e4321446dcc99b5b.jpg" alt="MM32F0140 UART1硬件自动波特率校准功能的使用"></p> <p>图4 如上串口助手显示MM32F0140的UART1已自动检测到115200波特率并打印出收到的正确数据</p> <p><strong>总结：</strong></p> <p>　　学习MM32F0140 UART自动波特率校准功能的使用。例如：上位机串口调试助手UART通信波特率为19200，往下位机UART1波特率为9600的MM32F0140 发送一帧数据：</p> <p>0xF8 0x55 0x2 0x03 0x04 0x05 0x06 0x07;下位机通过UART内部硬件自动检测接收到数据帧的首字节的位宽波特率时间来识别上位机的波特率，并重置下位机MCU的波特率寄</p> <p>存器使得下位机MCU的波特率与上位机的通信波特率一致，从而实现数据帧的正常收发（注意：上位机与下位机的通信波特率不应相差太大，否则无法自动检测识别）。</p> <p><strong>注意事项：</strong></p> <p>　　（1）MM32F0140每个外设都有自己独立的时钟，需使能UART1 发送和接收引脚的GPIO时钟；</p> <p>　　（2）使能UART1外设时钟；</p> <p>　　（3）配置GPIOA的 PA9和PA10复用成UART1功能</p> <p>　　（4）接收数据中断、接收帧错误中断、自动波特率结束中断、自动波特率错误中断、空闲中断；</p> <p>　　（5）使能UART1自动波特率检测数据帧首字节的边缘模式前一个边沿为下降沿，后一个边沿为上升沿（具体组合可查看UM手册）并设置检测首字节的检测位宽（可设置1,2,4或8位宽）</p> <p>　　　　&nbsp; 本实例4位宽检测的首字节为0xF8；</p> <p>　　（6）使能UART1 NVIC中断；</p> <p>　　（7）验证MM32F0140 UART1自动波特率校准功能时记得切换上位机助手的通信波特率，记得设置首字节为0xF8（本实例）；</p> <p>　　（8）UART2和UART3的操作方法与UART1的方法一样，可参考以上UART1把对应的UART1参数改成UART2或UART3，使能相应外设时钟编写对应中断函数即可。</p> 			                <div class="clearfix"></div>
+                <div class="col-md-12 mt-5">
+                                        <p>上一个：<a href="/news/article-70881.htm">给动物打的疫苗人注射会有什么后果 给动物打的疫苗人注射会有什么后果吗</a></p>
+                                        <p>下一个：<a href="/news/article-71544.htm">丹阳宠物免费领养中心在哪里（丹阳市宠物市场在哪里）</a></p>
+                                    </div>
+                                </div>
+                <div class="col-md-3">
+                    <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/free-nodes/2025-1-21-free-ssr-subscribe.htm" title="「1月21日」最高速度18.3M/S，2025年NekoBox每天更新免费节点订阅链接">「1月21日」最高速度18.3M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-1-19-free-ssr-node.htm" title="「1月19日」最高速度21.4M/S，2025年NekoBox每天更新免费节点订阅链接">「1月19日」最高速度21.4M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-2-5-free-node-subscribe.htm" title="「2月5日」最高速度19.5M/S，2025年NekoBox每天更新免费节点订阅链接">「2月5日」最高速度19.5M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-3-4-free-ssr-subscribe.htm" title="「3月4日」最高速度21.8M/S，2025年NekoBox每天更新免费节点订阅链接">「3月4日」最高速度21.8M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-1-15-free-clash.htm" title="「1月15日」最高速度21.6M/S，2025年NekoBox每天更新免费节点订阅链接">「1月15日」最高速度21.6M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-47885.htm" title="天津宠物救助热线电话 天津宠物救助热线电话滨海新区">天津宠物救助热线电话 天津宠物救助热线电话滨海新区</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-3-7-node-share-links.htm" title="「3月7日」最高速度21.1M/S，2025年NekoBox每天更新免费节点订阅链接">「3月7日」最高速度21.1M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-63895.htm" title="开一家宠物医院需要什么证件（开一家宠物医院的流程）">开一家宠物医院需要什么证件（开一家宠物医院的流程）</a></li>
+                        <li class="py-2"><a href="/news/article-56332.htm" title="从查询重写角度理解elasticsearch的高亮原理">从查询重写角度理解elasticsearch的高亮原理</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-2-7-node-share.htm" title="「2月7日」最高速度20.4M/S，2025年NekoBox每天更新免费节点订阅链接">「2月7日」最高速度20.4M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">38</span> <a href="/date/2025-03/" title="2025-03 归档">2025-03</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">84</span> <a href="/date/2025-02/" title="2025-02 归档">2025-02</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">84</span> <a href="/date/2025-01/" title="2025-01 归档">2025-01</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- About End -->
+
+
+
+        <!-- Footer Start -->
+    <div class="container-fluid bg-dark text-white-50 footer pt-5">
+        <div class="container wow fadeIn" data-wow-delay="0.1s">
+            <div class="copyright">
+                <div class="row">
+                    <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                            <p>
+                                <a href="/">首页</a> | 
+                                <a href="/free-node/">免费节点</a> | 
+                                <a href="/news/">新闻资讯</a> |
+                                <a href="/about-us.htm">关于我们</a> |
+                                <a href="/disclaimer.htm">免责申明</a> |
+                                <a href="/privacy.htm">隐私申明</a> |
+                                <a href="/sitemap.xml">网站地图</a>
+                            </p>
+                        NekoBoxNode官网节点站 版权所有
+                        <br />
+                        Powered by WordPress
+                    </div>
+                    <div class="col-md-6 text-center text-md-end">
+                        <div class="footer-menu">
+                            <a href="/">Home</a>
+                            <a href="#">Cookies</a>
+                            <a href="#">Help</a>
+                            <a href="#">FAQs</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer End -->
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top pt-2"><i class="bi bi-arrow-up"></i></a>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.0.0/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/wow/wow.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/easing/easing.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/waypoints/waypoints.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/counterup/counterup.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/owlcarousel/owl.carousel.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="/assets/website/js/frontend/nekoboxnode/main.js"></script>
+    <script src="https://www.freeclashnode.com/assets/js/frontend/invite-url.js"></script><script src="/assets/website/js/frontend/G.js"></script>
+</body>
+
+</html>
