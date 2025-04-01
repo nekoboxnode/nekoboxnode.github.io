@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html xml:lang="zh-CN" lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://nekoboxnode.github.io/news/article-85989.htm" />
+    <meta charset="utf-8">
+    <title>Anaconda 创建django不同版本开发环境</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <meta name="description" content="django开发会用 virtualenv 来管理多个开发环境，但是因为我电脑上同时用tensorflow做深度学习，已经安装了Anaconda，所以尝试用conda 管理环境，实践证明是可行的。所以" />
+    
+    <!-- Favicon -->
+    <link href="/assets/website/img/nekoboxnode/favicon.ico" rel="icon">
+
+    <meta name="author" content="NekoBoxNode官网节点站">
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://nekoboxnode.github.io/news/article-85989.htm" />
+    <meta property="og:site_name" content="NekoBoxNode官网节点站" />
+    <meta property="og:title" content="Anaconda 创建django不同版本开发环境" />
+    <meta property="og:image" content="https://nekoboxnode.github.io/uploads/20240427/d886b96d68c7a3544a613c77f59b595a.webp" />
+        <meta property="og:release_date" content="2025-04-01T09:47:42" />
+    <meta property="og:updated_time" content="2025-04-01T09:47:42" />
+        <meta property="og:description" content="django开发会用 virtualenv 来管理多个开发环境，但是因为我电脑上同时用tensorflow做深度学习，已经安装了Anaconda，所以尝试用conda 管理环境，实践证明是可行的。所以" />
+    
+    <meta name="applicable-device" content="pc,mobile" />
+    <meta name="renderer" content="webkit" />
+    <meta name="force-rendering" content="webkit" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta name="robots" content="max-image-preview:large" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Anaconda 创建django不同版本开发环境">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="dns-prefetch" href="https:/www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cm.g.doubleclick.net">
+        
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Ubuntu:wght@500;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcdn.net/ajax/libs/bootstrap-icons/1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="/assets/website/js/frontend/nekoboxnode/lib/animate/animate.min.css" rel="stylesheet">
+    <link href="/assets/website/js/frontend/nekoboxnode/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="/assets/website/css/nekoboxnode/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="/assets/website/css/nekoboxnode/style.css" rel="stylesheet">
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-93Z2TV5VL1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-93Z2TV5VL1');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body data-page="detail">
+    <!-- Spinner Start -->
+    <div id="spinner"
+        class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-grow text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <!-- Spinner End -->
+
+
+        <!-- Navbar Start -->
+    <div class="container-fluid sticky-top">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-dark p-0">
+                <a href="/" class="navbar-brand">
+                                <span>Neko Box Node</span>
+                                </a>
+                <button type="button" class="navbar-toggler ms-auto me-0" data-bs-toggle="collapse"
+                    data-bs-target="#navbarCollapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <div class="navbar-nav ms-auto">
+                                                <a href="/" class="nav-item nav-link">首页</a>
+                                                <a href="/free-nodes/" class="nav-item nav-link">免费节点</a>
+                                                <a href="/paid-subscribe/" class="nav-item nav-link">推荐机场</a>
+                                                <a href="/client.htm" class="nav-item nav-link">客户端</a>
+                                                <a href="/news/" class="nav-item nav-link">新闻资讯</a>
+                                            </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <!-- Navbar End -->
+
+
+    <!-- Hero Start -->
+    <div class="container-fluid pt-5 bg-primary hero-header">
+        <div class="container pt-5">
+            <div class="row g-5 pt-5">
+                <div class="col-lg-6 align-self-center text-center text-lg-start mb-lg-5">
+                    <h1 class="text-white mb-4 animated slideInRight">Anaconda 创建django不同版本开发环境</h1>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb justify-content-center justify-content-lg-start mb-0">
+                            <li class="breadcrumb-item"><a class="text-white" href="/" title="首页">首页</a></li>
+                            <li class="breadcrumb-item"><a class="text-white" href="/news/" title="新闻资讯">新闻资讯</a></li>
+                            <li class="breadcrumb-item text-white active" aria-current="page">正文</li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="col-lg-6 align-self-end text-center text-lg-end">
+                    <img class="img-fluid" href="/assets/website/img/nekoboxnode/hero-img.png" alt="" style="max-height: 300px;">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Hero End -->
+
+
+    <!-- Full Screen Search Start -->
+    <div class="modal fade" id="searchModal" tabindex="-1">
+        <div class="modal-dialog modal-fullscreen">
+            <div class="modal-content" style="background: rgba(20, 24, 62, 0.7);">
+                <div class="modal-header border-0">
+                    <button type="button" class="btn btn-square bg-white btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body d-flex align-items-center justify-content-center">
+                    <div class="input-group" style="max-width: 600px;">
+                        <input type="text" class="form-control bg-transparent border-light p-3"
+                            placeholder="Type search keyword">
+                        <button class="btn btn-light px-4"><i class="bi bi-search"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Full Screen Search End -->
+
+
+    <!-- About Start -->
+    <div class="container-fluid py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                                    <input type="hidden" id="share-website-info" data-name="" data-url="">
+                  				  				  				<div id="content_views" class="markdown_views prism-atom-one-dark"> </h1> <p>django开发会用 virtualenv 来管理多个开发环境，但是因为我电脑上同时用tensorflow做深度学习，已经安装了Anaconda，所以尝试用conda 管理环境，实践证明是可行的。所以记录一下 <br /> 分为三个步骤</p> <ul> <li><strong>选择python版本创建环境</strong></li> <li><strong>在环境内安装django</strong></li> <li><strong>测试是否正常</strong></li> </ul> <hr/> <h2 id="选择python版本创建环境">选择python版本创建环境</h2> <pre class="prettyprint"><code class="hljs fix"><span class="hljs-attribute">conda create -n name python</span>=<span class="hljs-string">3</span></code></pre> <h2 id="在环境内安装django">在环境内安装django</h2> <pre class="prettyprint"><code class="hljs bash"><span class="hljs-built_in">source</span> activate sbgl<span class="hljs-comment">#激活环境</span></code></pre> <blockquote> <p>注意点：不要用pip安装Django，测试发现无法导入django</p> </blockquote> <pre class="prettyprint"><code class="hljs cmake">conda <span class="hljs-keyword">install</span> Django==<span class="hljs-number">1.11</span>.<span class="hljs-number">8</span> <span class="hljs-comment">#安装django</span></code></pre> <h2 id="测试是否正常">测试是否正常</h2> <p>再Python环境下：</p> <pre class="prettyprint"><code class="hljs python"><span class="hljs-prompt">&gt;&gt;&gt; </span><span class="hljs-keyword">import</span> django <span class="hljs-prompt">&gt;&gt;&gt; </span>django.VERSION (<span class="hljs-number">1</span>, <span class="hljs-number">11</span>, <span class="hljs-number">8</span>, <span class="hljs-string">'final'</span>, <span class="hljs-number">0</span>) <span class="hljs-prompt">&gt;&gt;&gt; </span>exit() </code></pre> <p>测试成功，完工</p> </p></div> 			                <div class="clearfix"></div>
+                <div class="col-md-12 mt-5">
+                                        <p>上一个：<a href="/news/article-85988.htm">按值致电与按引用致电之间的区别</a></p>
+                                    </div>
+                                </div>
+                <div class="col-md-3">
+                    <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/news/article-82421.htm" title="人用狂犬疫苗跟兽用一样吗（兽用狂犬疫苗和人用狂犬疫苗有啥区别）">人用狂犬疫苗跟兽用一样吗（兽用狂犬疫苗和人用狂犬疫苗有啥区别）</a></li>
+                        <li class="py-2"><a href="/news/article-75552.htm" title="仓鼠去宠物医院贵吗（宠物医院给仓鼠看病吗）">仓鼠去宠物医院贵吗（宠物医院给仓鼠看病吗）</a></li>
+                        <li class="py-2"><a href="/news/article-76888.htm" title="动物防疫站疫苗免费接种吗（动物防疫中心可以打疫苗吗）">动物防疫站疫苗免费接种吗（动物防疫中心可以打疫苗吗）</a></li>
+                        <li class="py-2"><a href="/news/article-74859.htm" title="动物打疫苗在哪***的（动物打疫苗在哪***的呢）">动物打疫苗在哪***的（动物打疫苗在哪***的呢）</a></li>
+                        <li class="py-2"><a href="/news/article-75553.htm" title="海拉鲁照片位置（海拉鲁图鉴摄影指南）">海拉鲁照片位置（海拉鲁图鉴摄影指南）</a></li>
+                        <li class="py-2"><a href="/news/article-81034.htm" title="开一家宠物医院大概需要投资多少钱（想开一家宠物医院）">开一家宠物医院大概需要投资多少钱（想开一家宠物医院）</a></li>
+                        <li class="py-2"><a href="/news/article-65712.htm" title="狗粮配方大全及做法视频（狗粮配方有哪些原料）">狗粮配方大全及做法视频（狗粮配方有哪些原料）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-3-24-free-shadowrocket-node.htm" title="「3月24日」最高速度22.9M/S，2025年NekoBox每天更新免费节点订阅链接">「3月24日」最高速度22.9M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-77582.htm" title="为什么猫打针没反应（为什么猫打针没反应了）">为什么猫打针没反应（为什么猫打针没反应了）</a></li>
+                        <li class="py-2"><a href="/news/article-80310.htm" title="宠物店一年利润怎么样直观数据（宠物店净利润高吗）">宠物店一年利润怎么样直观数据（宠物店净利润高吗）</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">3</span> <a href="/date/2025-04/" title="2025-04 归档">2025-04</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">89</span> <a href="/date/2025-03/" title="2025-03 归档">2025-03</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- About End -->
+
+
+
+        <!-- Footer Start -->
+    <div class="container-fluid bg-dark text-white-50 footer pt-5">
+        <div class="container wow fadeIn" data-wow-delay="0.1s">
+            <div class="copyright">
+                <div class="row">
+                    <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                            <p>
+                                <a href="/">首页</a> | 
+                                <a href="/free-node/">免费节点</a> | 
+                                <a href="/news/">新闻资讯</a> |
+                                <a href="/about-us.htm">关于我们</a> |
+                                <a href="/disclaimer.htm">免责申明</a> |
+                                <a href="/privacy.htm">隐私申明</a> |
+                                <a href="/sitemap.xml">网站地图</a>
+                            </p>
+                        NekoBoxNode官网节点站 版权所有
+                        <br />
+                        Powered by WordPress
+                    </div>
+                    <div class="col-md-6 text-center text-md-end">
+                        <div class="footer-menu">
+                            <a href="/">Home</a>
+                            <a href="#">Cookies</a>
+                            <a href="#">Help</a>
+                            <a href="#">FAQs</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer End -->
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top pt-2"><i class="bi bi-arrow-up"></i></a>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.0.0/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/wow/wow.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/easing/easing.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/waypoints/waypoints.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/counterup/counterup.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/owlcarousel/owl.carousel.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="/assets/website/js/frontend/nekoboxnode/main.js"></script>
+    <script src="https://www.freeclashnode.com/assets/js/frontend/invite-url.js"></script><script src="/assets/website/js/frontend/G.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html xml:lang="zh-CN" lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://nekoboxnode.github.io/news/article-85988.htm" />
+    <meta charset="utf-8">
+    <title>按值致电与按引用致电之间的区别</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <meta name="description" content="在将参数传递给函数的编程中，我们将函数调用分为两种：按值调用和按引用调用。正如两次调用中所建议的那样，我们按参数类型调用函数，即传递参数的实际值，在其他情况下，我们传递参数的位置/引用。 以下是“按值" />
+    
+    <!-- Favicon -->
+    <link href="/assets/website/img/nekoboxnode/favicon.ico" rel="icon">
+
+    <meta name="author" content="NekoBoxNode官网节点站">
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://nekoboxnode.github.io/news/article-85988.htm" />
+    <meta property="og:site_name" content="NekoBoxNode官网节点站" />
+    <meta property="og:title" content="按值致电与按引用致电之间的区别" />
+    <meta property="og:image" content="https://nekoboxnode.github.io/uploads/20240427/9984461df47a810bb70efd39730be29e.webp" />
+        <meta property="og:release_date" content="2025-04-01T09:47:42" />
+    <meta property="og:updated_time" content="2025-04-01T09:47:42" />
+        <meta property="og:description" content="在将参数传递给函数的编程中，我们将函数调用分为两种：按值调用和按引用调用。正如两次调用中所建议的那样，我们按参数类型调用函数，即传递参数的实际值，在其他情况下，我们传递参数的位置/引用。 以下是“按值" />
+    
+    <meta name="applicable-device" content="pc,mobile" />
+    <meta name="renderer" content="webkit" />
+    <meta name="force-rendering" content="webkit" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta name="robots" content="max-image-preview:large" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="按值致电与按引用致电之间的区别">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="dns-prefetch" href="https:/www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cm.g.doubleclick.net">
+        
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Ubuntu:wght@500;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcdn.net/ajax/libs/bootstrap-icons/1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="/assets/website/js/frontend/nekoboxnode/lib/animate/animate.min.css" rel="stylesheet">
+    <link href="/assets/website/js/frontend/nekoboxnode/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="/assets/website/css/nekoboxnode/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="/assets/website/css/nekoboxnode/style.css" rel="stylesheet">
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-93Z2TV5VL1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-93Z2TV5VL1');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body data-page="detail">
+    <!-- Spinner Start -->
+    <div id="spinner"
+        class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-grow text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <!-- Spinner End -->
+
+
+        <!-- Navbar Start -->
+    <div class="container-fluid sticky-top">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-dark p-0">
+                <a href="/" class="navbar-brand">
+                                <span>Neko Box Node</span>
+                                </a>
+                <button type="button" class="navbar-toggler ms-auto me-0" data-bs-toggle="collapse"
+                    data-bs-target="#navbarCollapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <div class="navbar-nav ms-auto">
+                                                <a href="/" class="nav-item nav-link">首页</a>
+                                                <a href="/free-nodes/" class="nav-item nav-link">免费节点</a>
+                                                <a href="/paid-subscribe/" class="nav-item nav-link">推荐机场</a>
+                                                <a href="/client.htm" class="nav-item nav-link">客户端</a>
+                                                <a href="/news/" class="nav-item nav-link">新闻资讯</a>
+                                            </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <!-- Navbar End -->
+
+
+    <!-- Hero Start -->
+    <div class="container-fluid pt-5 bg-primary hero-header">
+        <div class="container pt-5">
+            <div class="row g-5 pt-5">
+                <div class="col-lg-6 align-self-center text-center text-lg-start mb-lg-5">
+                    <h1 class="text-white mb-4 animated slideInRight">按值致电与按引用致电之间的区别</h1>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb justify-content-center justify-content-lg-start mb-0">
+                            <li class="breadcrumb-item"><a class="text-white" href="/" title="首页">首页</a></li>
+                            <li class="breadcrumb-item"><a class="text-white" href="/news/" title="新闻资讯">新闻资讯</a></li>
+                            <li class="breadcrumb-item text-white active" aria-current="page">正文</li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="col-lg-6 align-self-end text-center text-lg-end">
+                    <img class="img-fluid" href="/assets/website/img/nekoboxnode/hero-img.png" alt="" style="max-height: 300px;">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Hero End -->
+
+
+    <!-- Full Screen Search Start -->
+    <div class="modal fade" id="searchModal" tabindex="-1">
+        <div class="modal-dialog modal-fullscreen">
+            <div class="modal-content" style="background: rgba(20, 24, 62, 0.7);">
+                <div class="modal-header border-0">
+                    <button type="button" class="btn btn-square bg-white btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body d-flex align-items-center justify-content-center">
+                    <div class="input-group" style="max-width: 600px;">
+                        <input type="text" class="form-control bg-transparent border-light p-3"
+                            placeholder="Type search keyword">
+                        <button class="btn btn-light px-4"><i class="bi bi-search"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Full Screen Search End -->
+
+
+    <!-- About Start -->
+    <div class="container-fluid py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                                    <input type="hidden" id="share-website-info" data-name="" data-url="">
+                  				  				  				<p>在将参数传递给函数的编程中，我们将函数调用分为两种：按值调用和按引用调用。正如两次调用中所建议的那样，我们按参数类型调用函数，即传递参数的实际值，在其他情况下，我们传递参数的位置/引用。</p> <p>以下是“按值调用”和“按引用调用”之间的重要区别。</p> <table class="table table-bordered table-striped"> <thead> <tr class="firstRow"> <th>序号</th> <th>键</th> <th>按值致电</th> <th>通过参考电话</th> </tr> </thead> <tbody> <tr> <td>1</td> <td>命名约定</td> <td>与这种类型一样，参数的值将传递给函数调用，因此将其命名为“按值调用”。</td> <td>另一方面，在此类型中，参数的引用被传递以调用该函数，因此将其命名为“按引用调用”。</td> </tr> <tr> <td>2</td> <td>内部实施</td> <td>在“按值调用”中，我们在调用函数期间传递的参数值将被复制到函数的实际局部参数中。</td> <td>在“按引用调用”中，将复制传递参数的位置地址/引用，并将其分配给函数的本地参数，因此传递参数和实际参数都指向同一位置。</td> </tr> <tr> <td>3</td> <td>变化的影响</td> <td>由于将传递的参数的值复制到函数的参数，因此函数内部的参数所做的任何更改都不会反映在传递的参数中。</td> <td>由于参数和传递的参数都指向同一位置，因此对函数内部参数所做的任何更改都会反映在传递的参数中。</td> </tr> <tr> <td>4</td> <td>引用的内存位置</td> <td>传递的参数和函数的实际参数所引用的内存位置是不同的。</td> <td>传递的参数和函数的实际参数所引用的内存位置相同。</td> </tr> <tr> <td>5</td> <td>支持的语言。</td> <td>值调用由以下语言支持：C ++。PHP。Visual Basic NET和C#。</td> <td>JAVA主要支持按引用调用。</td> </tr> </tbody> </table> <h2>按值调用与按引用调用的示例</h2> <p><strong>ByValue.c</strong></p> <pre>#include&nbsp;&lt;stdio.h&gt; class&nbsp;ByValue{ &nbsp;&nbsp;&nbsp;void&nbsp;swapByValue(int,&nbsp;int);&nbsp;/*&nbsp;Prototype&nbsp;*/ &nbsp;&nbsp;&nbsp;int&nbsp;main(){ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;n1&nbsp;=&nbsp;10,&nbsp;n2&nbsp;=&nbsp;20; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;swapByValue(n1,&nbsp;n2); &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;printf("n1:&nbsp;%d,&nbsp;n2:&nbsp;%d\n",&nbsp;n1,&nbsp;n2); &nbsp;&nbsp;&nbsp;} &nbsp;&nbsp;&nbsp;void&nbsp;swapByValue(int&nbsp;a,&nbsp;int&nbsp;b){ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;t; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;t&nbsp;=&nbsp;a;&nbsp;a&nbsp;=&nbsp;b;&nbsp;b&nbsp;=&nbsp;t; &nbsp;&nbsp;&nbsp;} }</pre> <p>输出结果</p> <pre>n1:&nbsp;10,&nbsp;n2:&nbsp;20</pre> <h2>示例</h2> <p><strong>ByReference.c</strong></p> <pre>#include&nbsp;&lt;stdio.h&gt; class&nbsp;ByReference{ &nbsp;&nbsp;&nbsp;void&nbsp;swapByReference(int*,&nbsp;int*); &nbsp;&nbsp;&nbsp;int&nbsp;main(){ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;n1&nbsp;=&nbsp;10,&nbsp;n2&nbsp;=&nbsp;20; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;swapByReference(&amp;n1,&nbsp;&amp;n2); &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;printf("n1:&nbsp;%d,&nbsp;n2:&nbsp;%d\n",&nbsp;n1,&nbsp;n2); &nbsp;&nbsp;&nbsp;} &nbsp;&nbsp;&nbsp;void&nbsp;swapByReference(int&nbsp;*a,&nbsp;int&nbsp;*b){ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;t; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;t&nbsp;=&nbsp;*a;&nbsp;*a&nbsp;=&nbsp;*b;&nbsp;*b&nbsp;=&nbsp;t; &nbsp;&nbsp;&nbsp;} }</pre> <p>输出结果</p> <pre>n1:&nbsp;20,&nbsp;n2:&nbsp;10</pre> <div></div> 			                <div class="clearfix"></div>
+                <div class="col-md-12 mt-5">
+                                        <p>上一个：<a href="/news/article-85268.htm">成都领养宠物中心有哪些（成都领养宠物中心有哪些公司）</a></p>
+                                        <p>下一个：<a href="/news/article-85989.htm">Anaconda 创建django不同版本开发环境</a></p>
+                                    </div>
+                                </div>
+                <div class="col-md-3">
+                    <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/news/article-70218.htm" title="宠物粮行业发展趋势图表（宠物粮食市场前景）">宠物粮行业发展趋势图表（宠物粮食市场前景）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-3-26-clash-windows.htm" title="「3月26日」最高速度18.2M/S，2025年NekoBox每天更新免费节点订阅链接">「3月26日」最高速度18.2M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-3-20-node-share-links.htm" title="「3月20日」最高速度19.9M/S，2025年NekoBox每天更新免费节点订阅链接">「3月20日」最高速度19.9M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-3-22-free-v2ray-subscribe.htm" title="「3月22日」最高速度22.4M/S，2025年NekoBox每天更新免费节点订阅链接">「3月22日」最高速度22.4M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-74214.htm" title="动物疫苗使用的注意事项有哪些（动物疫苗接种注意问题）">动物疫苗使用的注意事项有哪些（动物疫苗接种注意问题）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-3-4-free-ssr-subscribe.htm" title="「3月4日」最高速度21.8M/S，2025年NekoBox每天更新免费节点订阅链接">「3月4日」最高速度21.8M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-73528.htm" title="使用SpringCache进行缓存数据库查询">使用SpringCache进行缓存数据库查询</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-3-19-node-share-links.htm" title="「3月19日」最高速度20.4M/S，2025年NekoBox每天更新免费节点订阅链接">「3月19日」最高速度20.4M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-71543.htm" title="MM32F0140 UART1硬件自动波特率校准功能的使用">MM32F0140 UART1硬件自动波特率校准功能的使用</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-3-16-free-clash-subscribe.htm" title="「3月16日」最高速度19.1M/S，2025年NekoBox每天更新免费节点订阅链接">「3月16日」最高速度19.1M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">3</span> <a href="/date/2025-04/" title="2025-04 归档">2025-04</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">89</span> <a href="/date/2025-03/" title="2025-03 归档">2025-03</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- About End -->
+
+
+
+        <!-- Footer Start -->
+    <div class="container-fluid bg-dark text-white-50 footer pt-5">
+        <div class="container wow fadeIn" data-wow-delay="0.1s">
+            <div class="copyright">
+                <div class="row">
+                    <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                            <p>
+                                <a href="/">首页</a> | 
+                                <a href="/free-node/">免费节点</a> | 
+                                <a href="/news/">新闻资讯</a> |
+                                <a href="/about-us.htm">关于我们</a> |
+                                <a href="/disclaimer.htm">免责申明</a> |
+                                <a href="/privacy.htm">隐私申明</a> |
+                                <a href="/sitemap.xml">网站地图</a>
+                            </p>
+                        NekoBoxNode官网节点站 版权所有
+                        <br />
+                        Powered by WordPress
+                    </div>
+                    <div class="col-md-6 text-center text-md-end">
+                        <div class="footer-menu">
+                            <a href="/">Home</a>
+                            <a href="#">Cookies</a>
+                            <a href="#">Help</a>
+                            <a href="#">FAQs</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer End -->
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top pt-2"><i class="bi bi-arrow-up"></i></a>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.0.0/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/wow/wow.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/easing/easing.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/waypoints/waypoints.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/counterup/counterup.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/owlcarousel/owl.carousel.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="/assets/website/js/frontend/nekoboxnode/main.js"></script>
+    <script src="https://www.freeclashnode.com/assets/js/frontend/invite-url.js"></script><script src="/assets/website/js/frontend/G.js"></script>
+</body>
+
+</html>
