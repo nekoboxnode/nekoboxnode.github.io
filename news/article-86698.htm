@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html xml:lang="zh-CN" lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://nekoboxnode.github.io/news/article-86698.htm" />
+    <meta charset="utf-8">
+    <title>vue如何将对象中所有的key赋为空值_vue.js</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <meta name="description" content="目录  将对象中所有的key赋为空值  先来看看Object.assign的基本用法  vue空值报错问题     将对象中所有的key赋为空值 Object.assign的使用，当然你也可以使用fo" />
+    
+    <!-- Favicon -->
+    <link href="/assets/website/img/nekoboxnode/favicon.ico" rel="icon">
+
+    <meta name="author" content="NekoBoxNode官网节点站">
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://nekoboxnode.github.io/news/article-86698.htm" />
+    <meta property="og:site_name" content="NekoBoxNode官网节点站" />
+    <meta property="og:title" content="vue如何将对象中所有的key赋为空值_vue.js" />
+    <meta property="og:image" content="https://nekoboxnode.github.io/uploads/20240427/6c0653cf8baa7dea13166a596543b110.webp" />
+        <meta property="og:release_date" content="2025-04-02T07:44:09" />
+    <meta property="og:updated_time" content="2025-04-02T07:44:09" />
+        <meta property="og:description" content="目录  将对象中所有的key赋为空值  先来看看Object.assign的基本用法  vue空值报错问题     将对象中所有的key赋为空值 Object.assign的使用，当然你也可以使用fo" />
+    
+    <meta name="applicable-device" content="pc,mobile" />
+    <meta name="renderer" content="webkit" />
+    <meta name="force-rendering" content="webkit" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta name="robots" content="max-image-preview:large" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="vue如何将对象中所有的key赋为空值_vue.js">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="dns-prefetch" href="https:/www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cm.g.doubleclick.net">
+        
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Ubuntu:wght@500;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcdn.net/ajax/libs/bootstrap-icons/1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="/assets/website/js/frontend/nekoboxnode/lib/animate/animate.min.css" rel="stylesheet">
+    <link href="/assets/website/js/frontend/nekoboxnode/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="/assets/website/css/nekoboxnode/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="/assets/website/css/nekoboxnode/style.css" rel="stylesheet">
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-93Z2TV5VL1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-93Z2TV5VL1');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body data-page="detail">
+    <!-- Spinner Start -->
+    <div id="spinner"
+        class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-grow text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <!-- Spinner End -->
+
+
+        <!-- Navbar Start -->
+    <div class="container-fluid sticky-top">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-dark p-0">
+                <a href="/" class="navbar-brand">
+                                <span>Neko Box Node</span>
+                                </a>
+                <button type="button" class="navbar-toggler ms-auto me-0" data-bs-toggle="collapse"
+                    data-bs-target="#navbarCollapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <div class="navbar-nav ms-auto">
+                                                <a href="/" class="nav-item nav-link">首页</a>
+                                                <a href="/free-nodes/" class="nav-item nav-link">免费节点</a>
+                                                <a href="/paid-subscribe/" class="nav-item nav-link">推荐机场</a>
+                                                <a href="/client.htm" class="nav-item nav-link">客户端</a>
+                                                <a href="/news/" class="nav-item nav-link">新闻资讯</a>
+                                            </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <!-- Navbar End -->
+
+
+    <!-- Hero Start -->
+    <div class="container-fluid pt-5 bg-primary hero-header">
+        <div class="container pt-5">
+            <div class="row g-5 pt-5">
+                <div class="col-lg-6 align-self-center text-center text-lg-start mb-lg-5">
+                    <h1 class="text-white mb-4 animated slideInRight">vue如何将对象中所有的key赋为空值_vue.js</h1>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb justify-content-center justify-content-lg-start mb-0">
+                            <li class="breadcrumb-item"><a class="text-white" href="/" title="首页">首页</a></li>
+                            <li class="breadcrumb-item"><a class="text-white" href="/news/" title="新闻资讯">新闻资讯</a></li>
+                            <li class="breadcrumb-item text-white active" aria-current="page">正文</li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="col-lg-6 align-self-end text-center text-lg-end">
+                    <img class="img-fluid" href="/assets/website/img/nekoboxnode/hero-img.png" alt="" style="max-height: 300px;">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Hero End -->
+
+
+    <!-- Full Screen Search Start -->
+    <div class="modal fade" id="searchModal" tabindex="-1">
+        <div class="modal-dialog modal-fullscreen">
+            <div class="modal-content" style="background: rgba(20, 24, 62, 0.7);">
+                <div class="modal-header border-0">
+                    <button type="button" class="btn btn-square bg-white btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body d-flex align-items-center justify-content-center">
+                    <div class="input-group" style="max-width: 600px;">
+                        <input type="text" class="form-control bg-transparent border-light p-3"
+                            placeholder="Type search keyword">
+                        <button class="btn btn-light px-4"><i class="bi bi-search"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Full Screen Search End -->
+
+
+    <!-- About Start -->
+    <div class="container-fluid py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                                    <input type="hidden" id="share-website-info" data-name="" data-url="">
+                  				  				  				<div id="navCategory"> <h5 class="catalogue">目录</h5> <ul class="first_class_ul"> <li><a href="#_label0" rel="nofollow">将对象中所有的key赋为空值</a></li> <ul class="second_class_ul"> <li><a href="#_lab2_0_0" rel="nofollow">先来看看Object.assign的基本用法</a></li> </ul> <li><a href="#_label1" rel="nofollow">vue空值报错问题</a></li> <ul class="second_class_ul"></ul> </ul> </div> <p class="maodian"><a name="_label0" rel="nofollow"></a></p> <h2>将对象中所有的key赋为空值</h2> <p>Object.assign的使用，当然你也可以使用for去遍历 然后再一一去赋值为空字符串，推荐使用（Object.assign）</p> <p class="maodian"><a name="_lab2_0_0" rel="nofollow"></a></p> <h3>先来看看Object.assign的基本用法</h3> <p>Object.assign方法用于对象的合并，第一个参数（目标对象），可以有第二个，第三个参数，都是源对象，将源对象（source）的所有可枚举属性，复制到目标对象（target）。</p> <div class="ay1code"> <pre class="brush:js;">const target = {a:1};  const source1 = { b: 2 };  const source2 = { c: 3 };  Object.assign(target, source1, source2);  console.log(target) // {a:1, b:2, c:3}</pre> </div> <p>注意：Object.assign方法的第一个参数是目标对象，后面的参数都是源对象</p> <p>言归正传，有时候会碰到的需求是，有多个input框，每个input框都v-modei绑定了对应的value值，当点击重置按钮时，要清空所有input中的值，这时候可以用到Object.assign方法，具体怎么实现看代码</p> <p><strong>html代码</strong></p> <div class="ay1code"> <pre class="brush:xhtml;"> &lt;input type='text' v-model='valueData.value1'&gt;&lt;/input&gt;   &lt;input type='text' v-model='valueData.value2'&gt;&lt;/input&gt;   &lt;input type='text' v-model='valueData.value3'&gt;&lt;/input&gt;   &lt;button @click=‘toReset'&gt;重置（清空输入框）&lt;button&gt;</pre> </div> <p><strong>js 代码</strong></p> <div class="ay1code"> <pre class="brush:js;">const values = {    value1:'',    value2:'',    value3:'',  }  data(){   return {     valueData:Object.assign({},values)   }  },  methods：{    //这时候如果你随意在输入框输入值，点击重置按钮 ，只需要重新给valueData复制 就能清空input中的值了   toReset(){   this.valueData = Object.assign({},values)   }  }</pre> </div> <p class="maodian"><a name="_label1" rel="nofollow"></a></p> <h2>vue空值报错问题</h2> <p style="text-align:center"><img decoding="async" alt="在这里插入图片描述" src="http://img.555519.xyz/uploads3/20220423/be8db6ab1c36859940bdad7974402f54.jpg"></p> <p>如上图所示，提示percent为空，web效果图如下</p> <p style="text-align:center"><img decoding="async" alt="在这里插入图片描述" src="http://img.555519.xyz/uploads3/20220423/5da137d0d628a103a813ca135235ce7a.jpg"></p> <p>如果是自测阶段不想麻烦就直接在数据库添加数据就行或者或者初始化方法赋初始值，最简便的还是在vue template里进行判断</p> <p style="text-align:center"><img decoding="async" alt="在这里插入图片描述" src="http://img.555519.xyz/uploads3/20220423/2e5705d981e0e588e576d1aafa864f5d.jpg"></p> <p style="text-align:center"><img decoding="async" alt="在这里插入图片描述" src="http://img.555519.xyz/uploads3/20220423/7def4dad9cafa80f6fc217efb9f0dd4e.jpg"></p> <p>代码如下：</p> <p style="text-align:center"><img decoding="async" alt="在这里插入图片描述" src="http://img.555519.xyz/uploads3/20220423/ebb2b53935a133ba0735c10a20c354fa.jpg"></p> 			                <div class="clearfix"></div>
+                <div class="col-md-12 mt-5">
+                                        <p>上一个：<a href="/news/article-85989.htm">Anaconda 创建django不同版本开发环境</a></p>
+                                        <p>下一个：<a href="/news/article-86699.htm">动物医院有哪些职位 动物医院有哪些职位名称</a></p>
+                                    </div>
+                                </div>
+                <div class="col-md-3">
+                    <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/news/article-84547.htm" title="宠物粮食品牌上市公司有哪些名字 宠物粮食品牌上市公司有哪些名字呢">宠物粮食品牌上市公司有哪些名字 宠物粮食品牌上市公司有哪些名字呢</a></li>
+                        <li class="py-2"><a href="/news/article-71544.htm" title="丹阳宠物免费领养中心在哪里（丹阳市宠物市场在哪里）">丹阳宠物免费领养中心在哪里（丹阳市宠物市场在哪里）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-3-28-clash-v2ray-ss-ssr.htm" title="「3月28日」最高速度21.3M/S，2025年NekoBox每天更新免费节点订阅链接">「3月28日」最高速度21.3M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-3-2-free-ssr-subscribe.htm" title="「3月2日」最高速度18.8M/S，2025年NekoBox每天更新免费节点订阅链接">「3月2日」最高速度18.8M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-3-8-free-shadowrocket-node.htm" title="「3月8日」最高速度19.3M/S，2025年NekoBox每天更新免费节点订阅链接">「3月8日」最高速度19.3M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-4-3-free-subscribe-node.htm" title="「4月3日」最高速度21.2M/S，2025年NekoBox每天更新免费节点订阅链接">「4月3日」最高速度21.2M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-69585.htm" title="动物疫苗生产厂家排名前十名（动物疫苗生产企业排行）">动物疫苗生产厂家排名前十名（动物疫苗生产企业排行）</a></li>
+                        <li class="py-2"><a href="/news/article-78966.htm" title="java 正则表达式\\b">java 正则表达式\\b</a></li>
+                        <li class="py-2"><a href="/news/article-75553.htm" title="海拉鲁照片位置（海拉鲁图鉴摄影指南）">海拉鲁照片位置（海拉鲁图鉴摄影指南）</a></li>
+                        <li class="py-2"><a href="/news/article-76888.htm" title="动物防疫站疫苗免费接种吗（动物防疫中心可以打疫苗吗）">动物防疫站疫苗免费接种吗（动物防疫中心可以打疫苗吗）</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">12</span> <a href="/date/2025-04/" title="2025-04 归档">2025-04</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">89</span> <a href="/date/2025-03/" title="2025-03 归档">2025-03</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- About End -->
+
+
+
+        <!-- Footer Start -->
+    <div class="container-fluid bg-dark text-white-50 footer pt-5">
+        <div class="container wow fadeIn" data-wow-delay="0.1s">
+            <div class="copyright">
+                <div class="row">
+                    <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                                            <p>
+                                                <a href="/">首页</a> |
+                                                <a href="/free-nodes/">免费节点</a> |
+                                                <a href="/paid-subscribe/">推荐机场</a> |
+                                                <a href="/client.htm">客户端</a> |
+                                                <a href="/news/">新闻资讯</a> |
+                                                <a href="/about-us.htm">关于我们</a> |
+                        <a href="/disclaimer.htm">免责申明</a> |
+                        <a href="/privacy.htm">隐私申明</a> |
+                        <a href="/sitemap.xml">网站地图</a>
+                    </p>
+                        NekoBoxNode官网节点站 版权所有
+                        <br />
+                        Powered by WordPress
+                    </div>
+                    <div class="col-md-6 text-center text-md-end">
+                        <div class="footer-menu">
+                            <a href="/">Home</a>
+                            <a href="#">Cookies</a>
+                            <a href="#">Help</a>
+                            <a href="#">FAQs</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer End -->
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top pt-2"><i class="bi bi-arrow-up"></i></a>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.0.0/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/wow/wow.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/easing/easing.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/waypoints/waypoints.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/counterup/counterup.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/owlcarousel/owl.carousel.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="/assets/website/js/frontend/nekoboxnode/main.js"></script>
+    <script src="https://www.freeclashnode.com/assets/js/frontend/invite-url.js"></script><script src="/assets/website/js/frontend/G.js"></script>
+</body>
+
+</html>

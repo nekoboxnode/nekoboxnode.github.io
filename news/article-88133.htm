@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html xml:lang="zh-CN" lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://nekoboxnode.github.io/news/article-88133.htm" />
+    <meta charset="utf-8">
+    <title>Java开发日志EasyExcel自定义类型转换、Excel表头字段问题</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <meta name="description" content="1. EasyExcel自定义数据转换  EasyExcel 是阿里的一个用来读取和写入excel的库, 因为项目需要, 所以我需要从前端上传excel文件, 然后导入到数据库中  1.1 自定义转换" />
+    
+    <!-- Favicon -->
+    <link href="/assets/website/img/nekoboxnode/favicon.ico" rel="icon">
+
+    <meta name="author" content="NekoBoxNode官网节点站">
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://nekoboxnode.github.io/news/article-88133.htm" />
+    <meta property="og:site_name" content="NekoBoxNode官网节点站" />
+    <meta property="og:title" content="Java开发日志EasyExcel自定义类型转换、Excel表头字段问题" />
+    <meta property="og:image" content="https://nekoboxnode.github.io/uploads/20240427/18cd0208cfdbcf5176bd14c5a50bdac9.webp" />
+        <meta property="og:release_date" content="2025-04-04T09:07:12" />
+    <meta property="og:updated_time" content="2025-04-04T09:07:12" />
+        <meta property="og:description" content="1. EasyExcel自定义数据转换  EasyExcel 是阿里的一个用来读取和写入excel的库, 因为项目需要, 所以我需要从前端上传excel文件, 然后导入到数据库中  1.1 自定义转换" />
+    
+    <meta name="applicable-device" content="pc,mobile" />
+    <meta name="renderer" content="webkit" />
+    <meta name="force-rendering" content="webkit" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta name="robots" content="max-image-preview:large" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Java开发日志EasyExcel自定义类型转换、Excel表头字段问题">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="dns-prefetch" href="https:/www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cm.g.doubleclick.net">
+        
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Ubuntu:wght@500;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcdn.net/ajax/libs/bootstrap-icons/1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="/assets/website/js/frontend/nekoboxnode/lib/animate/animate.min.css" rel="stylesheet">
+    <link href="/assets/website/js/frontend/nekoboxnode/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="/assets/website/css/nekoboxnode/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="/assets/website/css/nekoboxnode/style.css" rel="stylesheet">
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-93Z2TV5VL1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-93Z2TV5VL1');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body data-page="detail">
+    <!-- Spinner Start -->
+    <div id="spinner"
+        class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-grow text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <!-- Spinner End -->
+
+
+        <!-- Navbar Start -->
+    <div class="container-fluid sticky-top">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-dark p-0">
+                <a href="/" class="navbar-brand">
+                                <span>Neko Box Node</span>
+                                </a>
+                <button type="button" class="navbar-toggler ms-auto me-0" data-bs-toggle="collapse"
+                    data-bs-target="#navbarCollapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <div class="navbar-nav ms-auto">
+                                                <a href="/" class="nav-item nav-link">首页</a>
+                                                <a href="/free-nodes/" class="nav-item nav-link">免费节点</a>
+                                                <a href="/paid-subscribe/" class="nav-item nav-link">推荐机场</a>
+                                                <a href="/client.htm" class="nav-item nav-link">客户端</a>
+                                                <a href="/news/" class="nav-item nav-link">新闻资讯</a>
+                                            </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <!-- Navbar End -->
+
+
+    <!-- Hero Start -->
+    <div class="container-fluid pt-5 bg-primary hero-header">
+        <div class="container pt-5">
+            <div class="row g-5 pt-5">
+                <div class="col-lg-6 align-self-center text-center text-lg-start mb-lg-5">
+                    <h1 class="text-white mb-4 animated slideInRight">Java开发日志EasyExcel自定义类型转换、Excel表头字段问题</h1>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb justify-content-center justify-content-lg-start mb-0">
+                            <li class="breadcrumb-item"><a class="text-white" href="/" title="首页">首页</a></li>
+                            <li class="breadcrumb-item"><a class="text-white" href="/news/" title="新闻资讯">新闻资讯</a></li>
+                            <li class="breadcrumb-item text-white active" aria-current="page">正文</li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="col-lg-6 align-self-end text-center text-lg-end">
+                    <img class="img-fluid" href="/assets/website/img/nekoboxnode/hero-img.png" alt="" style="max-height: 300px;">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Hero End -->
+
+
+    <!-- Full Screen Search Start -->
+    <div class="modal fade" id="searchModal" tabindex="-1">
+        <div class="modal-dialog modal-fullscreen">
+            <div class="modal-content" style="background: rgba(20, 24, 62, 0.7);">
+                <div class="modal-header border-0">
+                    <button type="button" class="btn btn-square bg-white btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body d-flex align-items-center justify-content-center">
+                    <div class="input-group" style="max-width: 600px;">
+                        <input type="text" class="form-control bg-transparent border-light p-3"
+                            placeholder="Type search keyword">
+                        <button class="btn btn-light px-4"><i class="bi bi-search"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Full Screen Search End -->
+
+
+    <!-- About Start -->
+    <div class="container-fluid py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                                    <input type="hidden" id="share-website-info" data-name="" data-url="">
+                  				  				  				<div id="content_views" class="markdown_views prism-atom-one-light"> <h2><a id="1_EasyExcel_0" rel="nofollow"></a>1. EasyExcel自定义数据转换</h2> <ul> <li>EasyExcel 是阿里的一个用来读取和写入excel的库, 因为项目需要, 所以我需要从前端上传excel文件, 然后导入到数据库中</li> </ul> <h3><a id="11__8" rel="nofollow"></a>1.1 自定义转换类</h3> <ul> <li>因为我前端读取的是日期字符串, 但是实体类上的是日期类, 所以需要手动编写转换类进行转换</li> </ul> <pre><code class="prism language-java"><span class="token keyword">package</span><span class="token namespace">hbut<span class="token punctuation">.</span>community<span class="token punctuation">.</span>excel<span class="token punctuation">.</span>converter</span><span class="token punctuation">;</span><span class="token keyword">import</span><span class="token namespace">com<span class="token punctuation">.</span>alibaba<span class="token punctuation">.</span>excel<span class="token punctuation">.</span>converters<span class="token punctuation">.</span></span><span class="token class-name">Converter</span><span class="token punctuation">;</span><span class="token keyword">import</span><span class="token namespace">com<span class="token punctuation">.</span>alibaba<span class="token punctuation">.</span>excel<span class="token punctuation">.</span>converters<span class="token punctuation">.</span></span><span class="token class-name">ReadConverterContext</span><span class="token punctuation">;</span><span class="token keyword">import</span><span class="token namespace">com<span class="token punctuation">.</span>alibaba<span class="token punctuation">.</span>excel<span class="token punctuation">.</span>converters<span class="token punctuation">.</span></span><span class="token class-name">WriteConverterContext</span><span class="token punctuation">;</span><span class="token keyword">import</span><span class="token namespace">com<span class="token punctuation">.</span>alibaba<span class="token punctuation">.</span>excel<span class="token punctuation">.</span>enums<span class="token punctuation">.</span></span><span class="token class-name">CellDataTypeEnum</span><span class="token punctuation">;</span><span class="token keyword">import</span><span class="token namespace">com<span class="token punctuation">.</span>alibaba<span class="token punctuation">.</span>excel<span class="token punctuation">.</span>metadata<span class="token punctuation">.</span>data<span class="token punctuation">.</span></span><span class="token class-name">WriteCellData</span><span class="token punctuation">;</span><span class="token keyword">import</span><span class="token namespace">lombok<span class="token punctuation">.</span>extern<span class="token punctuation">.</span>slf4j<span class="token punctuation">.</span></span><span class="token class-name">Slf4j</span><span class="token punctuation">;</span><span class="token keyword">import</span><span class="token namespace">java<span class="token punctuation">.</span>text<span class="token punctuation">.</span></span><span class="token class-name">SimpleDateFormat</span><span class="token punctuation">;</span><span class="token keyword">import</span><span class="token namespace">java<span class="token punctuation">.</span>util<span class="token punctuation">.</span></span><span class="token class-name">Date</span><span class="token punctuation">;</span><span class="token annotation punctuation">@Slf4j</span><span class="token keyword">public</span><span class="token keyword">class</span><span class="token class-name">CustomStringToDateConverter</span><span class="token keyword">implements</span><span class="token class-name">Converter</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Date</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">{<!-- --></span><span class="token keyword">private</span><span class="token class-name">SimpleDateFormat</span> format<span class="token operator">=</span><span class="token keyword">new</span><span class="token class-name">SimpleDateFormat</span><span class="token punctuation">(</span><span class="token string">"yyyy-MM-dd"</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token annotation punctuation">@Override</span><span class="token keyword">public</span><span class="token class-name">Class</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">&gt;</span></span><span class="token function">supportJavaTypeKey</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{<!-- --></span><span class="token keyword">return</span><span class="token class-name">Converter</span><span class="token punctuation">.</span><span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">supportJavaTypeKey</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token punctuation">}</span><span class="token annotation punctuation">@Override</span><span class="token keyword">public</span><span class="token class-name">CellDataTypeEnum</span><span class="token function">supportExcelTypeKey</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{<!-- --></span><span class="token keyword">return</span><span class="token class-name">Converter</span><span class="token punctuation">.</span><span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">supportExcelTypeKey</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token punctuation">}</span><span class="token comment">/**      * 从excel文件中读取的时候会调用, 返回的是 Date 类型的, 类型在 implements Converter&lt;Date&gt; 指定      * @param context      * @return      * @throws Exception      */</span><span class="token annotation punctuation">@Override</span><span class="token keyword">public</span><span class="token class-name">Date</span><span class="token function">convertToJavaData</span><span class="token punctuation">(</span><span class="token class-name">ReadConverterContext</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">&gt;</span></span> context<span class="token punctuation">)</span><span class="token keyword">throws</span><span class="token class-name">Exception</span><span class="token punctuation">{<!-- --></span><span class="token class-name">String</span> stringValue<span class="token operator">=</span> context<span class="token punctuation">.</span><span class="token function">getReadCellData</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getStringValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>         log<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span>stringValue<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token keyword">return</span> format<span class="token punctuation">.</span><span class="token function">parse</span><span class="token punctuation">(</span>stringValue<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token punctuation">}</span><span class="token punctuation">}</span></code></pre> <ul> <li><code>convertToJavaData</code> 这个方法的作用就是将字符串转换为日期类对象</li> </ul> <h3><a id="12__61" rel="nofollow"></a>1.2 实体类</h3> <ul> <li>使用时直接在字段上面指定即可</li> </ul> <pre><code class="prism language-java"><span class="token annotation punctuation">@Data</span><span class="token keyword">public</span><span class="token keyword">class</span><span class="token class-name">Bgqk</span><span class="token keyword">extends</span><span class="token class-name">AbstractExcel</span><span class="token punctuation">{<!-- --></span><span class="token comment">/**      * 内部序号      */</span><span class="token annotation punctuation">@ExcelProperty</span><span class="token punctuation">(</span>value<span class="token operator">=</span><span class="token string">"nbxh"</span><span class="token punctuation">)</span><span class="token keyword">private</span><span class="token class-name">String</span> nbxh<span class="token punctuation">;</span><span class="token comment">/**      * 变更事项      */</span><span class="token annotation punctuation">@ExcelProperty</span><span class="token punctuation">(</span><span class="token string">"bgsx"</span><span class="token punctuation">)</span><span class="token keyword">private</span><span class="token class-name">String</span> bgsx<span class="token punctuation">;</span><span class="token comment">/**      * 变更日期      */</span><span class="token annotation punctuation">@ExcelProperty</span><span class="token punctuation">(</span>value<span class="token operator">=</span><span class="token string">"cqrq"</span><span class="token punctuation">,</span> converter<span class="token operator">=</span><span class="token class-name">CustomStringToDateConverter</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token keyword">private</span><span class="token class-name">Date</span> cqrq<span class="token punctuation">;</span><span class="token comment">/**      * 当前数据日期      */</span><span class="token annotation punctuation">@ExcelIgnore</span><span class="token keyword">private</span><span class="token class-name">Date</span> currentDate<span class="token punctuation">;</span><span class="token punctuation">}</span></code></pre> <h2><a id="2_Excel_100" rel="nofollow"></a>2. Excel表字段问题</h2> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220723/1b3e954d3c918e82a2ec714a38c3b38e.jpg" alt="Java开发日志EasyExcel自定义类型转换、Excel表头字段问题"></p> <ul> <li> <p>上图可以看到一个很明显的<code>nbxh(C|50)</code> 后面的<code>(C|50)</code> 并不是表头, 在读取的时候应该是</p> <pre><code class="prism language-java"><span class="token comment">/**      * 内部序号      */</span><span class="token annotation punctuation">@ExcelProperty</span><span class="token punctuation">(</span>value<span class="token operator">=</span><span class="token string">"nbxh"</span><span class="token punctuation">)</span><span class="token keyword">private</span><span class="token class-name">String</span> nbxh<span class="token punctuation">;</span></code></pre> </li> <li> <p>字段映射应该是<code>nbxh</code> 而并非是<code>nbxh(C|50)</code></p> </li> </ul> </div> 			                <div class="clearfix"></div>
+                <div class="col-md-12 mt-5">
+                                        <p>上一个：<a href="/news/article-88132.htm">promise 和 async/await的区别</a></p>
+                                    </div>
+                                </div>
+                <div class="col-md-3">
+                    <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/free-nodes/2025-3-21-free-v2ray.htm" title="「3月21日」最高速度19.7M/S，2025年NekoBox每天更新免费节点订阅链接">「3月21日」最高速度19.7M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-3-31-free-clash-subscribe.htm" title="「3月31日」最高速度18M/S，2025年NekoBox每天更新免费节点订阅链接">「3月31日」最高速度18M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-66997.htm" title="上海宠物领养网免费领养（上海领养宠物狗的平台）">上海宠物领养网免费领养（上海领养宠物狗的平台）</a></li>
+                        <li class="py-2"><a href="/news/article-80309.htm" title="海拉鲁图鉴宝物（海拉鲁图鉴 材料）">海拉鲁图鉴宝物（海拉鲁图鉴 材料）</a></li>
+                        <li class="py-2"><a href="/news/article-72857.htm" title="Android Studio计算器 app">Android Studio计算器 app</a></li>
+                        <li class="py-2"><a href="/news/article-75553.htm" title="海拉鲁照片位置（海拉鲁图鉴摄影指南）">海拉鲁照片位置（海拉鲁图鉴摄影指南）</a></li>
+                        <li class="py-2"><a href="/news/article-72207.htm" title="免费宠物领养平台有哪些呢知乎文章（宠物领养网免费领养宠物的网站宠物领养中心）">免费宠物领养平台有哪些呢知乎文章（宠物领养网免费领养宠物的网站宠物领养中心）</a></li>
+                        <li class="py-2"><a href="/news/article-66995.htm" title="宠物食品加工需要什么证件和手续（宠物食品加工需要什么证件和手续和证件）">宠物食品加工需要什么证件和手续（宠物食品加工需要什么证件和手续和证件）</a></li>
+                        <li class="py-2"><a href="/news/article-75552.htm" title="仓鼠去宠物医院贵吗（宠物医院给仓鼠看病吗）">仓鼠去宠物医院贵吗（宠物医院给仓鼠看病吗）</a></li>
+                        <li class="py-2"><a href="/news/article-72208.htm" title="瑞鹏宠物医院好不好（瑞鹏宠物医院大众点评）">瑞鹏宠物医院好不好（瑞鹏宠物医院大众点评）</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">12</span> <a href="/date/2025-04/" title="2025-04 归档">2025-04</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">89</span> <a href="/date/2025-03/" title="2025-03 归档">2025-03</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- About End -->
+
+
+
+        <!-- Footer Start -->
+    <div class="container-fluid bg-dark text-white-50 footer pt-5">
+        <div class="container wow fadeIn" data-wow-delay="0.1s">
+            <div class="copyright">
+                <div class="row">
+                    <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                                            <p>
+                                                <a href="/">首页</a> |
+                                                <a href="/free-nodes/">免费节点</a> |
+                                                <a href="/paid-subscribe/">推荐机场</a> |
+                                                <a href="/client.htm">客户端</a> |
+                                                <a href="/news/">新闻资讯</a> |
+                                                <a href="/about-us.htm">关于我们</a> |
+                        <a href="/disclaimer.htm">免责申明</a> |
+                        <a href="/privacy.htm">隐私申明</a> |
+                        <a href="/sitemap.xml">网站地图</a>
+                    </p>
+                        NekoBoxNode官网节点站 版权所有
+                        <br />
+                        Powered by WordPress
+                    </div>
+                    <div class="col-md-6 text-center text-md-end">
+                        <div class="footer-menu">
+                            <a href="/">Home</a>
+                            <a href="#">Cookies</a>
+                            <a href="#">Help</a>
+                            <a href="#">FAQs</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer End -->
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top pt-2"><i class="bi bi-arrow-up"></i></a>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.0.0/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/wow/wow.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/easing/easing.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/waypoints/waypoints.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/counterup/counterup.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/owlcarousel/owl.carousel.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="/assets/website/js/frontend/nekoboxnode/main.js"></script>
+    <script src="https://www.freeclashnode.com/assets/js/frontend/invite-url.js"></script><script src="/assets/website/js/frontend/G.js"></script>
+</body>
+
+</html>
