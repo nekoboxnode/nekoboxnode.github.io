@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html xml:lang="zh-CN" lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://nekoboxnode.github.io/news/article-88857.htm" />
+    <meta charset="utf-8">
+    <title>spring 循环依赖,Bean使用@Async注解 导致项目启动失败</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <meta name="description" content="&nbsp; 一天下午，重新部署测试环境的时候，发现服务启动失败，报如下错误： ERROR o.s.web.context.ContextLoader - Context initialization" />
+    
+    <!-- Favicon -->
+    <link href="/assets/website/img/nekoboxnode/favicon.ico" rel="icon">
+
+    <meta name="author" content="NekoBoxNode官网节点站">
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://nekoboxnode.github.io/news/article-88857.htm" />
+    <meta property="og:site_name" content="NekoBoxNode官网节点站" />
+    <meta property="og:title" content="spring 循环依赖,Bean使用@Async注解 导致项目启动失败" />
+    <meta property="og:image" content="https://nekoboxnode.github.io/uploads/20240427/5e99685b35f741788647f60766ee90e3.webp" />
+        <meta property="og:release_date" content="2025-04-05T08:17:48" />
+    <meta property="og:updated_time" content="2025-04-05T08:17:48" />
+        <meta property="og:description" content="&nbsp; 一天下午，重新部署测试环境的时候，发现服务启动失败，报如下错误： ERROR o.s.web.context.ContextLoader - Context initialization" />
+    
+    <meta name="applicable-device" content="pc,mobile" />
+    <meta name="renderer" content="webkit" />
+    <meta name="force-rendering" content="webkit" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta name="robots" content="max-image-preview:large" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="spring 循环依赖,Bean使用@Async注解 导致项目启动失败">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="dns-prefetch" href="https:/www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cm.g.doubleclick.net">
+        
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Ubuntu:wght@500;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcdn.net/ajax/libs/bootstrap-icons/1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="/assets/website/js/frontend/nekoboxnode/lib/animate/animate.min.css" rel="stylesheet">
+    <link href="/assets/website/js/frontend/nekoboxnode/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="/assets/website/css/nekoboxnode/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="/assets/website/css/nekoboxnode/style.css" rel="stylesheet">
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-93Z2TV5VL1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-93Z2TV5VL1');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body data-page="detail">
+    <!-- Spinner Start -->
+    <div id="spinner"
+        class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-grow text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <!-- Spinner End -->
+
+
+        <!-- Navbar Start -->
+    <div class="container-fluid sticky-top">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-dark p-0">
+                <a href="/" class="navbar-brand">
+                                <span>Neko Box Node</span>
+                                </a>
+                <button type="button" class="navbar-toggler ms-auto me-0" data-bs-toggle="collapse"
+                    data-bs-target="#navbarCollapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <div class="navbar-nav ms-auto">
+                                                <a href="/" class="nav-item nav-link">首页</a>
+                                                <a href="/free-nodes/" class="nav-item nav-link">免费节点</a>
+                                                <a href="/paid-subscribe/" class="nav-item nav-link">推荐机场</a>
+                                                <a href="/client.htm" class="nav-item nav-link">客户端</a>
+                                                <a href="/news/" class="nav-item nav-link">新闻资讯</a>
+                                            </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <!-- Navbar End -->
+
+
+    <!-- Hero Start -->
+    <div class="container-fluid pt-5 bg-primary hero-header">
+        <div class="container pt-5">
+            <div class="row g-5 pt-5">
+                <div class="col-lg-6 align-self-center text-center text-lg-start mb-lg-5">
+                    <h1 class="text-white mb-4 animated slideInRight">spring 循环依赖,Bean使用@Async注解 导致项目启动失败</h1>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb justify-content-center justify-content-lg-start mb-0">
+                            <li class="breadcrumb-item"><a class="text-white" href="/" title="首页">首页</a></li>
+                            <li class="breadcrumb-item"><a class="text-white" href="/news/" title="新闻资讯">新闻资讯</a></li>
+                            <li class="breadcrumb-item text-white active" aria-current="page">正文</li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="col-lg-6 align-self-end text-center text-lg-end">
+                    <img class="img-fluid" href="/assets/website/img/nekoboxnode/hero-img.png" alt="" style="max-height: 300px;">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Hero End -->
+
+
+    <!-- Full Screen Search Start -->
+    <div class="modal fade" id="searchModal" tabindex="-1">
+        <div class="modal-dialog modal-fullscreen">
+            <div class="modal-content" style="background: rgba(20, 24, 62, 0.7);">
+                <div class="modal-header border-0">
+                    <button type="button" class="btn btn-square bg-white btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body d-flex align-items-center justify-content-center">
+                    <div class="input-group" style="max-width: 600px;">
+                        <input type="text" class="form-control bg-transparent border-light p-3"
+                            placeholder="Type search keyword">
+                        <button class="btn btn-light px-4"><i class="bi bi-search"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Full Screen Search End -->
+
+
+    <!-- About Start -->
+    <div class="container-fluid py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                                    <input type="hidden" id="share-website-info" data-name="" data-url="">
+                  				  				  				<div id="content_views" class="htmledit_views"> <p>&nbsp; 一天下午，重新部署测试环境的时候，发现服务启动失败，报如下错误：</p> <pre class="has"><code class="language-java">ERROR o.s.web.context.ContextLoader - Context initialization failed   org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'matchAutoJiaoJuan': Injection of autowired dependencies failed; nested exception is org.springframework.beans.factory.BeanCreationException: Could not autowire field: private com.online.tk.test.service.MatchService com.online.tk.test.task.matchAutoJiaoJuan.matchService; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'matchService': Injection of autowired dependencies failed; nested exception is org.springframework.beans.factory.BeanCreationException: Could not autowire field: private com.online.tk.test.service.testAnswerCardService com.online.tk.test.service.MatchService.testAnswerCardService; nested exception is org.springframework.beans.factory.BeanCurrentlyInCreationException: Error creating bean with name 'testAnswerCardService': Bean with name 'testAnswerCardService' has been injected into other beans [practiceCardDubboService] in its raw version as part of a circular reference, but has eventually been wrapped. This means that said other beans do not use the final version of the bean. This is often the result of over-eager type matching - consider using 'getBeanNamesOfType' with the 'allowEagerInit' flag turned off, for example</code></pre> <p>大致的意思是&nbsp; :启动失败，创建bean失败，名为“testanswercardService”的bean已作为循环引用的一部分，以其原始版本注入到其他bean[practicecardDuboService]中，但最终被包装。这意味着其他bean不使用bean的最终版本。这通常是过度渴望类型匹配的结果-例如，考虑在禁用“allowagerinit”标志的情况下使用“getBeannameSoftype”（Injection 注射&nbsp; Autowired自动装配;注解; nested 嵌套的）</p> <p>简单来说，项目中存在了循环引用。matchService 中注入了testAnswerCardService ，同时在testAnswerCardService 中也引用了</p> <p>matchService ,导致循环引用。因为是老项目中，确实存在着循环引用的问题，关于循环引用如何解决，稍后总结。</p> <p>循环引用这个问题不是最近开发的功能，是一直存在的，为什么今天突然有问题了？</p> <p>一，首先怀疑测试环境代码的有问题,对比了下没有发现什么区别。然后部署了别的分支（match和dev）分支的代码，发现报同样的问题，初步判定不是代码的问题（后来结果证明这个判断是错的，忽略了小小的一个字段）</p> <p>二，然后猜测是不是spring什么相关版本自动升级了，看了看pom文件的结构，都是定义的特别的某个的版本，目前老项目使用的是4.2.5，检查了一遍，也没发现其他异常，排除版本突然升级的问题</p> <p>三，是不是测试环境在搞什么测试动作，重新启动了下其他的两个项目，发现是没问题的，??尴尬了。</p> <p>四，是不是还是代码的问题呢</p> <p>&nbsp;&nbsp;&nbsp;&nbsp; 节前刚上线，那个时候代码还是没有问题的。重新拉了一个分支，然后将代码会滚到节前,竟然发现代码是否运行的。所以应该还是代码的问题??，接着试着将代码还原到昨天，发现代码仍然没有问题。逐步缩小范围，然后git compare,发现了如下代码:</p> <p><img fetchpriority="high" decoding="async" alt="" class="has" height="231" src="http://img.555519.xyz/uploads3/20220707/22456bfa5fdbd766d4d774e17e34775f.jpg"></p> <p>哈哈，在testAnswerCardService 类里面，有一个异步方法。</p> <p>四，虽然找到了原因，但是不理解原理，找了找相关资料</p> <p>&nbsp;原因解释如下：在程序启动的时候，Spring 已经对testAnswerCardService 里面的matchService记载完成，当准备创建matchService的时候发现使用了@Async注解，即Spring又需要江Bean代理一次，然后Spring发现该Bean已经被其他对象注入，所以会造成这个问题。</p> <p>关于@Async生成代理这块，其实还是有些模糊，参考一下文章：</p> <p><a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://blog.csdn.net/lianhuazy167/article/details/66967673"  rel="nofollow">https://blog.csdn.net/lianhuazy167/article/details/66967673</a></p> <p>小结</p> <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 回想这个排查思路，其实挺简单的，但是不够仔细，导致绕了远路。又对spring这一块了解了下，并且对于项目中的整个pom文件结构做了了解,也算学习和提升下，不断进步吧。</p> </div> 			                <div class="clearfix"></div>
+                <div class="col-md-12 mt-5">
+                                        <p>上一个：<a href="/news/article-88856.htm">远程访问服务器Jupyter Notebook (浏览器访问和pycharm访问)</a></p>
+                                        <p>下一个：<a href="/news/article-89605.htm">feign post 参数对象不加@RequestBody的用法</a></p>
+                                    </div>
+                                </div>
+                <div class="col-md-3">
+                    <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/free-nodes/2025-4-6-clash-windows.htm" title="「4月6日」最高速度22.4M/S，2025年NekoBox每天更新免费节点订阅链接">「4月6日」最高速度22.4M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-76889.htm" title="被猫抓了一下红色划痕鼓起来了很痒（被猫抓了一下红色划痕鼓起来了很痒）">被猫抓了一下红色划痕鼓起来了很痒（被猫抓了一下红色划痕鼓起来了很痒）</a></li>
+                        <li class="py-2"><a href="/news/article-69585.htm" title="动物疫苗生产厂家排名前十名（动物疫苗生产企业排行）">动物疫苗生产厂家排名前十名（动物疫苗生产企业排行）</a></li>
+                        <li class="py-2"><a href="/news/article-76225.htm" title="办宠物食品加工厂需要投资多少钱呢 办宠物食品加工厂需要投资多少钱呢视频">办宠物食品加工厂需要投资多少钱呢 办宠物食品加工厂需要投资多少钱呢视频</a></li>
+                        <li class="py-2"><a href="/news/article-79637.htm" title="element中el-cascader的使用">element中el-cascader的使用</a></li>
+                        <li class="py-2"><a href="/news/article-81684.htm" title="兽药排名前十强 兽药排名前十强正规厂家">兽药排名前十强 兽药排名前十强正规厂家</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-3-22-free-v2ray-subscribe.htm" title="「3月22日」最高速度22.4M/S，2025年NekoBox每天更新免费节点订阅链接">「3月22日」最高速度22.4M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-68934.htm" title="北京看宠物最好的医院是哪家（北京看宠物最好的医院是哪家好）">北京看宠物最好的医院是哪家（北京看宠物最好的医院是哪家好）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-4-3-free-subscribe-node.htm" title="「4月3日」最高速度21.2M/S，2025年NekoBox每天更新免费节点订阅链接">「4月3日」最高速度21.2M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-78967.htm" title="2020年动物疫苗采购中标结果公布（2021年动物疫苗采购）">2020年动物疫苗采购中标结果公布（2021年动物疫苗采购）</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">24</span> <a href="/date/2025-04/" title="2025-04 归档">2025-04</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">89</span> <a href="/date/2025-03/" title="2025-03 归档">2025-03</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- About End -->
+
+
+
+        <!-- Footer Start -->
+    <div class="container-fluid bg-dark text-white-50 footer pt-5">
+        <div class="container wow fadeIn" data-wow-delay="0.1s">
+            <div class="copyright">
+                <div class="row">
+                    <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                                            <p>
+                                                <a href="/">首页</a> |
+                                                <a href="/free-nodes/">免费节点</a> |
+                                                <a href="/paid-subscribe/">推荐机场</a> |
+                                                <a href="/client.htm">客户端</a> |
+                                                <a href="/news/">新闻资讯</a> |
+                                                <a href="/about-us.htm">关于我们</a> |
+                        <a href="/disclaimer.htm">免责申明</a> |
+                        <a href="/privacy.htm">隐私申明</a> |
+                        <a href="/sitemap.xml">网站地图</a>
+                    </p>
+                        NekoBoxNode官网节点站 版权所有
+                        <br />
+                        Powered by WordPress
+                    </div>
+                    <div class="col-md-6 text-center text-md-end">
+                        <div class="footer-menu">
+                            <a href="/">Home</a>
+                            <a href="#">Cookies</a>
+                            <a href="#">Help</a>
+                            <a href="#">FAQs</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer End -->
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top pt-2"><i class="bi bi-arrow-up"></i></a>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.0.0/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/wow/wow.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/easing/easing.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/waypoints/waypoints.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/counterup/counterup.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/owlcarousel/owl.carousel.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="/assets/website/js/frontend/nekoboxnode/main.js"></script>
+    <script src="https://www.freeclashnode.com/assets/js/frontend/invite-url.js"></script><script src="/assets/website/js/frontend/G.js"></script>
+</body>
+
+</html>

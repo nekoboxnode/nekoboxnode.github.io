@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html xml:lang="zh-CN" lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://nekoboxnode.github.io/news/article-88856.htm" />
+    <meta charset="utf-8">
+    <title>远程访问服务器Jupyter Notebook (浏览器访问和pycharm访问)</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <meta name="description" content="1.在remote server上运行 jupyter notebook --no-browser --port=8888  复制远程终端显示的 token 序列  2.在本地终端上运行 ssh -L" />
+    
+    <!-- Favicon -->
+    <link href="/assets/website/img/nekoboxnode/favicon.ico" rel="icon">
+
+    <meta name="author" content="NekoBoxNode官网节点站">
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://nekoboxnode.github.io/news/article-88856.htm" />
+    <meta property="og:site_name" content="NekoBoxNode官网节点站" />
+    <meta property="og:title" content="远程访问服务器Jupyter Notebook (浏览器访问和pycharm访问)" />
+    <meta property="og:image" content="https://nekoboxnode.github.io/uploads/20240427/92ecdb45eb65251b46feab59f3326d1d.webp" />
+        <meta property="og:release_date" content="2025-04-05T08:17:47" />
+    <meta property="og:updated_time" content="2025-04-05T08:17:47" />
+        <meta property="og:description" content="1.在remote server上运行 jupyter notebook --no-browser --port=8888  复制远程终端显示的 token 序列  2.在本地终端上运行 ssh -L" />
+    
+    <meta name="applicable-device" content="pc,mobile" />
+    <meta name="renderer" content="webkit" />
+    <meta name="force-rendering" content="webkit" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta name="robots" content="max-image-preview:large" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="远程访问服务器Jupyter Notebook (浏览器访问和pycharm访问)">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="dns-prefetch" href="https:/www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cm.g.doubleclick.net">
+        
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Ubuntu:wght@500;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcdn.net/ajax/libs/bootstrap-icons/1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="/assets/website/js/frontend/nekoboxnode/lib/animate/animate.min.css" rel="stylesheet">
+    <link href="/assets/website/js/frontend/nekoboxnode/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="/assets/website/css/nekoboxnode/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="/assets/website/css/nekoboxnode/style.css" rel="stylesheet">
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-93Z2TV5VL1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-93Z2TV5VL1');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body data-page="detail">
+    <!-- Spinner Start -->
+    <div id="spinner"
+        class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-grow text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <!-- Spinner End -->
+
+
+        <!-- Navbar Start -->
+    <div class="container-fluid sticky-top">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-dark p-0">
+                <a href="/" class="navbar-brand">
+                                <span>Neko Box Node</span>
+                                </a>
+                <button type="button" class="navbar-toggler ms-auto me-0" data-bs-toggle="collapse"
+                    data-bs-target="#navbarCollapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <div class="navbar-nav ms-auto">
+                                                <a href="/" class="nav-item nav-link">首页</a>
+                                                <a href="/free-nodes/" class="nav-item nav-link">免费节点</a>
+                                                <a href="/paid-subscribe/" class="nav-item nav-link">推荐机场</a>
+                                                <a href="/client.htm" class="nav-item nav-link">客户端</a>
+                                                <a href="/news/" class="nav-item nav-link">新闻资讯</a>
+                                            </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <!-- Navbar End -->
+
+
+    <!-- Hero Start -->
+    <div class="container-fluid pt-5 bg-primary hero-header">
+        <div class="container pt-5">
+            <div class="row g-5 pt-5">
+                <div class="col-lg-6 align-self-center text-center text-lg-start mb-lg-5">
+                    <h1 class="text-white mb-4 animated slideInRight">远程访问服务器Jupyter Notebook (浏览器访问和pycharm访问)</h1>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb justify-content-center justify-content-lg-start mb-0">
+                            <li class="breadcrumb-item"><a class="text-white" href="/" title="首页">首页</a></li>
+                            <li class="breadcrumb-item"><a class="text-white" href="/news/" title="新闻资讯">新闻资讯</a></li>
+                            <li class="breadcrumb-item text-white active" aria-current="page">正文</li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="col-lg-6 align-self-end text-center text-lg-end">
+                    <img class="img-fluid" href="/assets/website/img/nekoboxnode/hero-img.png" alt="" style="max-height: 300px;">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Hero End -->
+
+
+    <!-- Full Screen Search Start -->
+    <div class="modal fade" id="searchModal" tabindex="-1">
+        <div class="modal-dialog modal-fullscreen">
+            <div class="modal-content" style="background: rgba(20, 24, 62, 0.7);">
+                <div class="modal-header border-0">
+                    <button type="button" class="btn btn-square bg-white btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body d-flex align-items-center justify-content-center">
+                    <div class="input-group" style="max-width: 600px;">
+                        <input type="text" class="form-control bg-transparent border-light p-3"
+                            placeholder="Type search keyword">
+                        <button class="btn btn-light px-4"><i class="bi bi-search"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Full Screen Search End -->
+
+
+    <!-- About Start -->
+    <div class="container-fluid py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                                    <input type="hidden" id="share-website-info" data-name="" data-url="">
+                  				  				  				<div id="content_views" class="markdown_views prism-atom-one-dark"> <h2> <a id="1remote_server_3" rel="nofollow"></a>1.在remote server上运行</h2> <pre><code class="prism language-bash">jupyter notebook --no-browser --port<span class="token operator">=</span><span class="token number">8888</span> </code></pre> <p>复制远程终端显示的 <code>token</code> 序列</p> <h2> <a id="2_11" rel="nofollow"></a>2.在本地终端上运行</h2> <pre><code class="prism language-bash"><span class="token function">ssh</span> -L <span class="token number">8888</span>:localhost:8888 <span class="token operator">&lt;</span>REMOTE_USER<span class="token operator">&gt;</span>@<span class="token operator">&lt;</span>REMOTE_HOST<span class="token operator">&gt;</span> </code></pre> <p>e.g.</p> <pre><code class="prism language-bash"><span class="token function">ssh</span> -L <span class="token number">8888</span>:localhost:8888 zhangsan@xx.xx.xx.xx -p <span class="token number">10001</span> </code></pre> <p><code>-p</code>用来指定远程服务器用户的端口。</p> <h2> <a id="3jupyter_24" rel="nofollow"></a>3.本地访问jupyter</h2> <p>(1) 在本地浏览器访问jupyter notebook</p> <pre><code class="prism language-bash">http://localhost:8888/?token<span class="token operator">=</span>xxxxxxx </code></pre> <p><code>?token=</code>后面替换成你之前复制的token序列。</p> <p>(2) 在pycharm中配置jupyter server</p> <p>点击<code>Configure Jupyter Server...</code><br /><img decoding="async" src="http://img.555519.xyz/uploads/20221229/03578acfd84bf48928558ac346fe4c06.jpg" alt="远程访问服务器Jupyter Notebook (浏览器访问和pycharm访问)"><br /> 在<code>Configured Server</code>处填入<code>http://localhost:8888/?token=xxxx</code></p> <p><img decoding="async" src="http://img.555519.xyz/uploads/20221229/a923a1207beacd6bc471a90cfaf9025f.jpg" alt="远程访问服务器Jupyter Notebook (浏览器访问和pycharm访问)"></p> <p>同样的，在<code>?token=</code>后面添加之前复制的<code>token</code>序列。配置完成以后就可以使用pycharm远程访问jupyter notebook了。</p> <p><strong>参考</strong>：<br /> [1]: https://stackoverflow.com/questions/69244218/how-to-run-a-jupyter-notebook-through-a-remote-server-on-local-machine</p> </p></div> 			                <div class="clearfix"></div>
+                <div class="col-md-12 mt-5">
+                                        <p>上一个：<a href="/news/article-88133.htm">Java开发日志EasyExcel自定义类型转换、Excel表头字段问题</a></p>
+                                        <p>下一个：<a href="/news/article-88857.htm">spring 循环依赖,Bean使用@Async注解 导致项目启动失败</a></p>
+                                    </div>
+                                </div>
+                <div class="col-md-3">
+                    <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/news/article-83823.htm" title="如何在MySQL中使用复合INTERVAL单元？">如何在MySQL中使用复合INTERVAL单元？</a></li>
+                        <li class="py-2"><a href="/news/article-82421.htm" title="人用狂犬疫苗跟兽用一样吗（兽用狂犬疫苗和人用狂犬疫苗有啥区别）">人用狂犬疫苗跟兽用一样吗（兽用狂犬疫苗和人用狂犬疫苗有啥区别）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-4-6-clash-windows.htm" title="「4月6日」最高速度22.4M/S，2025年NekoBox每天更新免费节点订阅链接">「4月6日」最高速度22.4M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-3-14-clash-node.htm" title="「3月14日」最高速度20.3M/S，2025年NekoBox每天更新免费节点订阅链接">「3月14日」最高速度20.3M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-88132.htm" title="promise 和 async/await的区别">promise 和 async/await的区别</a></li>
+                        <li class="py-2"><a href="/news/article-75552.htm" title="仓鼠去宠物医院贵吗（宠物医院给仓鼠看病吗）">仓鼠去宠物医院贵吗（宠物医院给仓鼠看病吗）</a></li>
+                        <li class="py-2"><a href="/news/article-74859.htm" title="动物打疫苗在哪***的（动物打疫苗在哪***的呢）">动物打疫苗在哪***的（动物打疫苗在哪***的呢）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-3-2-free-ssr-subscribe.htm" title="「3月2日」最高速度18.8M/S，2025年NekoBox每天更新免费节点订阅链接">「3月2日」最高速度18.8M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-78268.htm" title="取消动物防疫收费合理吗知乎（动物防疫免税吗）">取消动物防疫收费合理吗知乎（动物防疫免税吗）</a></li>
+                        <li class="py-2"><a href="/news/article-83126.htm" title="动物疫苗证是什么样的图片大全（动物疫苗注射证明怎么开）">动物疫苗证是什么样的图片大全（动物疫苗注射证明怎么开）</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">21</span> <a href="/date/2025-04/" title="2025-04 归档">2025-04</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">89</span> <a href="/date/2025-03/" title="2025-03 归档">2025-03</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- About End -->
+
+
+
+        <!-- Footer Start -->
+    <div class="container-fluid bg-dark text-white-50 footer pt-5">
+        <div class="container wow fadeIn" data-wow-delay="0.1s">
+            <div class="copyright">
+                <div class="row">
+                    <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                                            <p>
+                                                <a href="/">首页</a> |
+                                                <a href="/free-nodes/">免费节点</a> |
+                                                <a href="/paid-subscribe/">推荐机场</a> |
+                                                <a href="/client.htm">客户端</a> |
+                                                <a href="/news/">新闻资讯</a> |
+                                                <a href="/about-us.htm">关于我们</a> |
+                        <a href="/disclaimer.htm">免责申明</a> |
+                        <a href="/privacy.htm">隐私申明</a> |
+                        <a href="/sitemap.xml">网站地图</a>
+                    </p>
+                        NekoBoxNode官网节点站 版权所有
+                        <br />
+                        Powered by WordPress
+                    </div>
+                    <div class="col-md-6 text-center text-md-end">
+                        <div class="footer-menu">
+                            <a href="/">Home</a>
+                            <a href="#">Cookies</a>
+                            <a href="#">Help</a>
+                            <a href="#">FAQs</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer End -->
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top pt-2"><i class="bi bi-arrow-up"></i></a>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.0.0/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/wow/wow.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/easing/easing.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/waypoints/waypoints.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/counterup/counterup.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/owlcarousel/owl.carousel.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="/assets/website/js/frontend/nekoboxnode/main.js"></script>
+    <script src="https://www.freeclashnode.com/assets/js/frontend/invite-url.js"></script><script src="/assets/website/js/frontend/G.js"></script>
+</body>
+
+</html>
