@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html xml:lang="zh-CN" lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://nekoboxnode.github.io/news/article-98483.htm" />
+    <meta charset="utf-8">
+    <title>一文讲透大数据列存标准格式：Parquet</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <meta name="description" content="导读： 今天介绍一种大数据时代有名的列式存储文件格式：Parquet，被广泛用于 Spark、Hadoop 数据存储。Parquet 中文直译是镶木地板，意思是结构紧凑，空间占用率高。 1、概念 大规" />
+    
+    <!-- Favicon -->
+    <link href="/assets/website/img/nekoboxnode/favicon.ico" rel="icon">
+
+    <meta name="author" content="NekoBoxNode官网节点站">
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://nekoboxnode.github.io/news/article-98483.htm" />
+    <meta property="og:site_name" content="NekoBoxNode官网节点站" />
+    <meta property="og:title" content="一文讲透大数据列存标准格式：Parquet" />
+    <meta property="og:image" content="https://nekoboxnode.github.io/uploads/20240427/92ecdb45eb65251b46feab59f3326d1d.webp" />
+        <meta property="og:release_date" content="2025-04-18T09:38:36" />
+    <meta property="og:updated_time" content="2025-04-18T09:38:36" />
+        <meta property="og:description" content="导读： 今天介绍一种大数据时代有名的列式存储文件格式：Parquet，被广泛用于 Spark、Hadoop 数据存储。Parquet 中文直译是镶木地板，意思是结构紧凑，空间占用率高。 1、概念 大规" />
+    
+    <meta name="applicable-device" content="pc,mobile" />
+    <meta name="renderer" content="webkit" />
+    <meta name="force-rendering" content="webkit" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta name="robots" content="max-image-preview:large" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="一文讲透大数据列存标准格式：Parquet">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="dns-prefetch" href="https:/www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cm.g.doubleclick.net">
+        
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Ubuntu:wght@500;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcdn.net/ajax/libs/bootstrap-icons/1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="/assets/website/js/frontend/nekoboxnode/lib/animate/animate.min.css" rel="stylesheet">
+    <link href="/assets/website/js/frontend/nekoboxnode/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="/assets/website/css/nekoboxnode/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="/assets/website/css/nekoboxnode/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/website/css/G.css" />
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-93Z2TV5VL1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-93Z2TV5VL1');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body data-page="detail">
+    <!-- Spinner Start -->
+    <div id="spinner"
+        class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-grow text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <!-- Spinner End -->
+
+
+        <!-- Navbar Start -->
+    <div class="container-fluid sticky-top">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-dark p-0">
+                <a href="/" class="navbar-brand">
+                                <span>Neko Box Node</span>
+                                </a>
+                <button type="button" class="navbar-toggler ms-auto me-0" data-bs-toggle="collapse"
+                    data-bs-target="#navbarCollapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <div class="navbar-nav ms-auto">
+                                                <a href="/" class="nav-item nav-link">首页</a>
+                                                <a href="/free-nodes/" class="nav-item nav-link">免费节点</a>
+                                                <a href="/paid-subscribe/" class="nav-item nav-link">推荐机场</a>
+                                                <a href="/client.htm" class="nav-item nav-link">客户端</a>
+                                                <a href="/news/" class="nav-item nav-link">新闻资讯</a>
+                                            </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <!-- Navbar End -->
+
+
+    <!-- Hero Start -->
+    <div class="container-fluid pt-5 bg-primary hero-header">
+        <div class="container pt-5">
+            <div class="row g-5 pt-5">
+                <div class="col-lg-6 align-self-center text-center text-lg-start mb-lg-5">
+                    <h1 class="text-white mb-4 animated slideInRight">一文讲透大数据列存标准格式：Parquet</h1>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb justify-content-center justify-content-lg-start mb-0">
+                            <li class="breadcrumb-item"><a class="text-white" href="/" title="首页">首页</a></li>
+                            <li class="breadcrumb-item"><a class="text-white" href="/news/" title="新闻资讯">新闻资讯</a></li>
+                            <li class="breadcrumb-item text-white active" aria-current="page">正文</li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="col-lg-6 align-self-end text-center text-lg-end">
+                    <img class="img-fluid" href="/assets/website/img/nekoboxnode/hero-img.png" alt="" style="max-height: 300px;">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Hero End -->
+
+
+    <!-- Full Screen Search Start -->
+    <div class="modal fade" id="searchModal" tabindex="-1">
+        <div class="modal-dialog modal-fullscreen">
+            <div class="modal-content" style="background: rgba(20, 24, 62, 0.7);">
+                <div class="modal-header border-0">
+                    <button type="button" class="btn btn-square bg-white btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body d-flex align-items-center justify-content-center">
+                    <div class="input-group" style="max-width: 600px;">
+                        <input type="text" class="form-control bg-transparent border-light p-3"
+                            placeholder="Type search keyword">
+                        <button class="btn btn-light px-4"><i class="bi bi-search"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Full Screen Search End -->
+
+
+    <!-- About Start -->
+    <div class="container-fluid py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                                    <input type="hidden" id="share-website-info" data-name="" data-url="">
+                <div class="xcblog-blog-detail">
+                      				  				  				<div id="content_views" class="htmledit_views"> <p><strong>导读：</strong></p> <p>今天介绍一种<a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://so.csdn.net/so/search?q=%E5%A4%A7%E6%95%B0%E6%8D%AE&amp;spm=1001.2101.3001.7020"  title="大数据" rel="nofollow">大数据</a>时代有名的列式存储文件格式：Parquet，被广泛用于 Spark、Hadoop 数据存储。Parquet 中文直译是镶木地板，意思是结构紧凑，空间占用率高。</p> <p><strong>1、概念</strong></p> <p>大规模分析型数据处理在互联网乃至其他行业中应用都已越来越广泛，尤其是当前已经可以用廉价的存储来收集、保存海量的业务数据情况下。如何让分析师和工程师便捷的利用这些数据也变得越来越重要。列式存储（Column-oriented Storage）是大数据场景面向分析型数据的主流存储方式。与行式存储相比，列存由于可以只提取部分数据列、同列同质数据拥有更好的编码及压缩方式，因此在 OLAP 场景下能提供更好的 IO 性能。</p> <p>Apache Parquet 是由 Twitter 和 Cloudera 最先发起并合作开发的列存项目，也是 2010 年 Google 发表的 Dremel 论文中描述的内部列存格式的开源实现。和一些传统的列式存储（C-Store、MonetDB 等）系统相比，Dremel/Parquet 最大的贡献是支持嵌套格式数据（Nested Data）的列式存储。嵌套格式可以很自然的描述互联网和科学计算等领域的数据，Dremel/Parquet “原生”的支持嵌套格式数据减少了规则化、重新组合这些大规模数据的代价。</p> <p>Parquet 的设计与计算框架、数据模型以及编程语言无关，可以与任意项目集成，因此应用广泛。目前已经是<a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://so.csdn.net/so/search?q=Hadoop&amp;spm=1001.2101.3001.7020"  title="Hadoop" rel="nofollow">Hadoop</a>&nbsp;大数据生态圈列式存储的事实标准。</p> <p><strong>2、</strong><strong>原理</strong></p> <p><strong>2.1 行存 VS 列存</strong></p> <p>例如，下图是拥有 A/B/C 3 个字段的简单示意表：</p> <p class="img-center"><img decoding="async" alt="" src="http://img.555519.xyz/uploads3/20220821/a3cfa349141ebdd544a52f0bcf732c88.jpg"></p> <p>在面向行的存储中，每列的数据依次排成一行，如下所示：</p> <p><img decoding="async" alt="" src="http://img.555519.xyz/uploads3/20220821/1b323cdb6820eec1255e4e49cba2abbf.jpg"></p> <p>而在面向列的存储中，相同列的数据存储在一起：</p> <p><img decoding="async" alt="" src="http://img.555519.xyz/uploads3/20220821/fda1a830e24160abc8e72b62b8029e0f.jpg"></p> <p>显而易见，行存适用于数据整行读取场景，而列存适用于只读取部分列数据（如统计分析等）场景。</p> <p><strong>2.2 数据模型</strong></p> <p><strong>（1）schema 协议</strong></p> <p>想要深入的了解 Parquet 存储格式首先需要理解它的数据模型。Parquet 采用了一个类似 Google Protobuf 的协议来描述存储数据的 schema。下面是 Parquet 数据 schema 的一个简单示例：</p> <pre><code>message&nbsp;AddressBook&nbsp;{<!-- --></code><code>&nbsp;&nbsp;required&nbsp;string&nbsp;owner;</code><code>&nbsp;&nbsp;repeated&nbsp;string&nbsp;ownerPhoneNumbers;</code><code>&nbsp;&nbsp;repeated&nbsp;group&nbsp;contacts&nbsp;{<!-- --></code><code>&nbsp;&nbsp;&nbsp;&nbsp;required&nbsp;string&nbsp;name;</code><code>&nbsp;&nbsp;&nbsp;&nbsp;optional&nbsp;string&nbsp;phoneNumber;</code><code>&nbsp;&nbsp;}</code><code>}</code></pre> <p>schema 的最上层是 message，里面可以包含一系列字段。每个字段都拥有3个属性：重复性（repetition）、类型（type）以及名称（name）。字段类型可以是一个 group 或者原子类型（如 int/boolean/string 等），group 可以用来表示数据的嵌套结构。字段的重复性有三种情况：</p> <ul> <li> <p>required：有且只有一次</p> </li> <li> <p>optional：0或1次</p> </li> <li> <p>repeated：0或多次</p> </li> </ul> <p>这个模型非常的简洁。一些复杂的数据类型如：Map/List/Set 也可以用重复的字段（repeated fields） + groups 来表达，因此也就不用再单独定义这些类型。</p> <p>采用 repeated field 表达 List 或者 Set 的示例：</p> <p><img decoding="async" alt="" src="http://img.555519.xyz/uploads3/20220821/1a0443e7bc15a022972ca1411e8bb05b.jpg"></p> <p>采用 repeated group（包含 key 和 value，其中 key 是 required） 来表达 Map 的示例：</p> <p><img decoding="async" alt="" src="http://img.555519.xyz/uploads3/20220821/ef2b37510b3790a45b83cc0490af3ae6.jpg"></p> <p><strong>（2）列式存储格式</strong></p> <p>试想一下，为了使数据能够按列存储，对于一条记录（Record），首先要将其按列（Column）进行拆分。对于扁平（Flat）结构数据，拆分比较直观，一个字段即对应一列，而嵌套格式数据会复杂些。Dremel/Parquet 中，提出以树状层级的形式组织 schema 中的字段（Field），树的叶子结点对应一个原子类型字段，这样这个模型能同时覆盖扁平结构和嵌套结构数据（扁平结构只是嵌套结构的一种特例）。嵌套字段的完整路径使用简单的点分符号表示，如 contacts. name。</p> <p>AddressBook 例子以树状结构展示的样式：</p> <p><img decoding="async" alt="" src="http://img.555519.xyz/uploads3/20220821/57f45129f58d4ccff438edc13879ff2c.jpg"></p> <p>列存连续的存储一个字段的值，以便进行高效的编码压缩及快速的读取。Dremel 中行存 vs 列存的图示：</p> <p><img decoding="async" alt="" src="http://img.555519.xyz/uploads3/20220821/5ae299b9a8ce1d0e56227f54b4d6aa9a.jpg"></p> <p><strong>（3）Repetition and Deﬁnition Levels</strong></p> <p>对于嵌套格式列存，除了按列拆分进行连续的存储，还需要能够“无损”的保留嵌套格式的结构化信息，以便正确的重建记录。</p> <p>只有字段值不能表达清楚记录的结构。给定一个重复字段的两个值，我们不知道此值是在什么“级别”被重复的（比如，这些值是来自两个不同的记录，还是相同的记录中两个重复的值）。同样的，给出一个缺失的可选字段，我们不知道整个路径有多少字段被显示定义了。</p> <p>Dremel 提出了 Repetition Level（重复级别）和 Definition Level（定义级别）两个概念，用以解决这个问题。并实现了记录中任意一个字段的恢复都不需要依赖其它字段，且可以对任意字段子集按原始嵌套格式进行重建。</p> <p><img decoding="async" alt="" src="http://img.555519.xyz/uploads3/20220821/4c2a4110e90663276406719dc1604412.jpg"></p> <p><strong>Repetition levels：用以表示在该字段路径上哪个节点进行了重复</strong><strong>（at what repeated ﬁeld in the ﬁeld’s path the value has repeated）。</strong></p> <p>一个重复字段存储的列值，有可能来自不同记录，也可能由同一记录的不同层级节点重复导致。如上图中的 Code 字段，他在 r1 记录中出现了 3 次，分别是字段 Name 和 Language 重复导致的，其中 Language 先重复了 2 次，Name 字段再重复了 1 次。</p> <p>Repetition Levels 采用数字代表重复节点的层级。根据树形层次结构，根结点为 0、下一层级为 1… 依次类推。根结点的重复暗含了记录的重复，也即 r=0 代表新记录的开始。required 和 optional 字段不需要 repetition level，只有可重复的字段需要。因此，上述 Code 字段的 repetition levels 范围为 0-2。当我们从上往下扫描 r1 记录，首先遇到 Code 的值是“en-us”，由于它之前没有该字段路径相关的字段出现，因此 r=0；其次遇到“en”，是 Language 层级重复导致的，r=2；最后遇到“en-gb”，是 Name 层级重复导致的，因此 r=1。所以，Code 字段的 repetition levels 在 r1 记录中是“0,2,1”。</p> <p>需要注意的是，r1 记录中的第二个重复 Name，由于其不包含 Code 字段，为了区分“en-gb”值是来自记录中的第三个 Name 而不是第二个，我们需要在“en”和“en-gb”之间插入一个值“null”。由于它是 Name 级重复的，因此它的 r=1。另外还需要注意一些隐含信息，比如 Code 是 required 字段类型，因此一旦 Code 出现未定义，则隐含表明其上级 Language 也肯定未定义。</p> <p><strong>Definition Levels：用以表示该字段路径上有多少可选的字段实际进行了定义（how many ﬁelds in p that could be undeﬁned (because they are optional or repeated) are actually present）。</strong></p> <p>光有 Repetition Levels 尚无法完全保留嵌套结构信息，考虑上述图中 r1 记录的 Backward 字段。由于 r1 中未定义 Backward 字段，因此我们插入一个“null”并设置 r=0。但 Backward 的上级 Links 字段在 r1 中显式的进行了定义，null 和 r=0 无法再表达出这一层信息。因此需要额外再添加 Definition Levels 定义记录可选字段出现的个数，Backward 的路径上出现 1 个可选字段 Links，因此它的 d=1。</p> <p>有了 Definition Levels 我们就可以清楚的知道该值出现在字段路径的第几层，对未定义字段的 null 和字段实际的值为 null 也能进行区分。只有 optional 和 repeated 字段需要 Definition Levels 定义，因为 required 字段已经隐含了字段肯定被定义（这可以减少 Definition Levels 需要描述的数字，并在一定程度上节省后续的存储空间）。另外一些其他的隐含信息：如果 Definition Levels 小于路径中 optional + repeated 字段的数量，则该字段的值肯定为 null；Definition Levels 的值为 0 隐含了 Repeated Levels 也为 0（路径中没有 optional/repeated 字段或整个路径未定义）。</p> <p><strong>（4）striping and assembly 算法</strong></p> <p>现在把 Repetition Levels 和 Definition Levels 两个概念一起考虑。还是沿用上述 AddressBook 例子。下表显示了 AddressBook 中每个字段的最大重复和定义级别，并解释了为什么它们小于列的深度：</p> <p>假设这是两条真实的 AddressBook 数据：</p> <pre><code>AddressBook&nbsp;{<!-- --></code><code>&nbsp;&nbsp;owner:&nbsp;"Julien&nbsp;Le&nbsp;Dem",</code><code>&nbsp;&nbsp;ownerPhoneNumbers:&nbsp;"555&nbsp;123&nbsp;4567",</code><code>&nbsp;&nbsp;ownerPhoneNumbers:&nbsp;"555&nbsp;666&nbsp;1337",</code><code>&nbsp;&nbsp;contacts:&nbsp;{<!-- --></code><code>&nbsp;&nbsp;&nbsp;&nbsp;name:&nbsp;"Dmitriy&nbsp;Ryaboy",</code><code>&nbsp;&nbsp;&nbsp;&nbsp;phoneNumber:&nbsp;"555&nbsp;987&nbsp;6543",</code><code>&nbsp;&nbsp;},</code><code>&nbsp;&nbsp;contacts:&nbsp;{<!-- --></code><code>&nbsp;&nbsp;&nbsp;&nbsp;name:&nbsp;"Chris&nbsp;Aniszczyk"</code><code>&nbsp;&nbsp;}</code><code>}</code><code>AddressBook&nbsp;{<!-- --></code><code>&nbsp;&nbsp;owner:&nbsp;"A.&nbsp;Nonymous"</code><code>}</code></pre> <p>我们采用 contacts.phoneNumber 字段来演示一下拆解和重组记录的 striping and assembly 算法。</p> <p>仅针对 contacts.phoneNumber 字段投影后，数据具有如下结构：</p> <pre><code>AddressBook&nbsp;{<!-- --></code><code>&nbsp;&nbsp;contacts:&nbsp;{<!-- --></code><code>&nbsp;&nbsp;&nbsp;&nbsp;phoneNumber:&nbsp;"555&nbsp;987&nbsp;6543"</code><code>&nbsp;&nbsp;}</code><code>&nbsp;&nbsp;contacts:&nbsp;{<!-- --></code><code>&nbsp;&nbsp;}</code><code>}</code><code>AddressBook&nbsp;{<!-- --></code><code>}</code></pre> <p>计算可得该该字段对应的数据如下（R =重复级别，D =定义级别）：</p> <p><img decoding="async" alt="" src="http://img.555519.xyz/uploads3/20220821/5e90d233b9f5ef43f0d5068beefb15d4.jpg"></p> <p>因此我们最终存储的记录数据如下：</p> <pre><code>contacts.phoneNumber:&nbsp;“555&nbsp;987&nbsp;6543”</code><code>new&nbsp;record:&nbsp;R&nbsp;=&nbsp;0</code><code>value&nbsp;is&nbsp;defined:&nbsp;D&nbsp;=&nbsp;maximum&nbsp;(2)</code><code>contacts.phoneNumber:&nbsp;null</code><code>repeated&nbsp;contacts:&nbsp;R&nbsp;=&nbsp;1</code><code>only&nbsp;defined&nbsp;up&nbsp;to&nbsp;contacts:&nbsp;D&nbsp;=&nbsp;1</code><code>contacts:&nbsp;null</code><code>new&nbsp;record:&nbsp;R&nbsp;=&nbsp;0</code><code>only defined up to AddressBook: D = 0</code></pre> <p>使用图表展示（注意其中的 null 值并不会实际存储，原因如上所说只要 Definition Levels 小于其 max 值即隐含该字段值为 null）：</p> <p><img decoding="async" alt="" src="http://img.555519.xyz/uploads3/20220821/dd8e3490c8d67bf7cf2a666b98bc9897.jpg"></p> <p>在重组该记录时，我们重复读取该字段的值：</p> <pre><code>R=0,&nbsp;D=2,&nbsp;Value&nbsp;=&nbsp;“555&nbsp;987&nbsp;6543”:</code><code>R&nbsp;=&nbsp;0&nbsp;means&nbsp;a&nbsp;new&nbsp;record.&nbsp;We&nbsp;recreate&nbsp;the&nbsp;nested&nbsp;records&nbsp;from&nbsp;the&nbsp;root&nbsp;until&nbsp;the&nbsp;definition&nbsp;level&nbsp;(here&nbsp;2)</code><code>D&nbsp;=&nbsp;2&nbsp;which&nbsp;is&nbsp;the&nbsp;maximum.&nbsp;The&nbsp;value&nbsp;is&nbsp;defined&nbsp;and&nbsp;is&nbsp;inserted.</code><code>R=1,&nbsp;D=1:</code><code>R&nbsp;=&nbsp;1&nbsp;means&nbsp;a&nbsp;new&nbsp;entry&nbsp;in&nbsp;the&nbsp;contacts&nbsp;list&nbsp;at&nbsp;level&nbsp;1.</code><code>D&nbsp;=&nbsp;1&nbsp;means&nbsp;contacts&nbsp;is&nbsp;defined&nbsp;but&nbsp;not&nbsp;phoneNumber,&nbsp;so&nbsp;we&nbsp;just&nbsp;create&nbsp;an&nbsp;empty&nbsp;contacts.</code><code>R=0,&nbsp;D=0:</code><code>R&nbsp;=&nbsp;0&nbsp;means&nbsp;a&nbsp;new&nbsp;record.&nbsp;we&nbsp;create&nbsp;the&nbsp;nested&nbsp;records&nbsp;from&nbsp;the&nbsp;root&nbsp;until&nbsp;the&nbsp;definition&nbsp;level</code><code>D = 0 =&gt; contacts is actually null, so we only have an empty AddressBook</code></pre> <p><strong>3、实现</strong></p> <p>Parquet 工程具体的实现。</p> <p><strong>3.1 Parquet 文件存储格式中的术语</strong></p> <ul> <li> <p>Block (hdfs block)：即指 HDFS Block，Parquet 的设计与 HDFS 完全兼容。Block 是 HDFS 文件存储的基本单位，HDFS 会维护一个 Block 的多个副本。在 Hadoop 1.x 版本中 Block 默认大小 64M，Hadoop 2.x 版本中默认大小为 128M。</p> </li> <li> <p>File：HDFS 文件，保存了该文件的元数据信息，但可以不包含实际数据（由 Block 保存）。</p> </li> <li> <p>Row group：按照行将数据划分为多个逻辑水平分区。一个 Row group（行组）由每个列的一个列块（Column Chunk）组成。</p> </li> <li> <p>Column chunk：一个列的列块，分布在行组当中，并在文件中保证是连续的。</p> </li> <li> <p>Page：一个列块切分成多个 Pages（页面），概念上讲，页面是 Parquet 中最小的基础单元（就压缩和编码方面而言）。一个列块中可以有多个类型的页面。</p> </li> </ul> <p><strong>3.2 并行化执行的基本单元</strong></p> <ul> <li> <p>MapReduce - File/Row Group（一个任务对应一个文件或一个行组）</p> </li> <li> <p>IO - Column chunk（任务中的 IO 以列块为单位进行读取）</p> </li> <li> <p>Encoding/Compression - Page（编码格式和压缩一次以一个页面为单位进行）</p> </li> </ul> <p><strong>3.3 Parquet 文件格式</strong></p> <p>Parquet 文件格式是自解析的，采用 thrift 格式定义的文件 schema 以及其他元数据信息一起存储在文件的末尾。</p> <p>文件存储格式示例：</p> <pre><code>4-byte&nbsp;magic&nbsp;number&nbsp;"PAR1"</code><code>&lt;Column&nbsp;1&nbsp;Chunk&nbsp;1&nbsp;+&nbsp;Column&nbsp;Metadata&gt;</code><code>&lt;Column&nbsp;2&nbsp;Chunk&nbsp;1&nbsp;+&nbsp;Column&nbsp;Metadata&gt;</code><code>...</code><code>&lt;Column&nbsp;N&nbsp;Chunk&nbsp;1&nbsp;+&nbsp;Column&nbsp;Metadata&gt;</code><code>&lt;Column&nbsp;1&nbsp;Chunk&nbsp;2&nbsp;+&nbsp;Column&nbsp;Metadata&gt;</code><code>&lt;Column&nbsp;2&nbsp;Chunk&nbsp;2&nbsp;+&nbsp;Column&nbsp;Metadata&gt;</code><code>...</code><code>&lt;Column&nbsp;N&nbsp;Chunk&nbsp;2&nbsp;+&nbsp;Column&nbsp;Metadata&gt;</code><code>...</code><code>&lt;Column&nbsp;1&nbsp;Chunk&nbsp;M&nbsp;+&nbsp;Column&nbsp;Metadata&gt;</code><code>&lt;Column&nbsp;2&nbsp;Chunk&nbsp;M&nbsp;+&nbsp;Column&nbsp;Metadata&gt;</code><code>...</code><code>&lt;Column&nbsp;N&nbsp;Chunk&nbsp;M&nbsp;+&nbsp;Column&nbsp;Metadata&gt;</code><code>File&nbsp;Metadata</code><code>4-byte&nbsp;length&nbsp;in&nbsp;bytes&nbsp;of&nbsp;file&nbsp;metadata</code><code>4-byte magic number "PAR1"</code></pre> <p>整个文件（表）有 N 个列，划分成了 M 个行组，每个行组都有所有列的一个 Chunk 和其元数据信息。文件的元数据信息存储在数据之后，包含了所有列块元数据信息的起始位置。读取的时候首先从文件末尾读取文件元数据信息，再在其中找到感兴趣的 Column Chunk 信息，并依次读取。文件元数据信息放在文件最后是为了方便数据依序一次性写入。</p> <p>具体的存储格式展示图：</p> <p><img decoding="async" alt="" src="http://img.555519.xyz/uploads3/20220821/52c84127c32d36e8c37e24cbaeef7c10.jpg"></p> <p><strong>3.4 元数据信息</strong></p> <p>Parquet 总共有 3 种类型的元数据：文件元数据、列（块）元数据和 page header 元数据。所有元数据都采用 thrift 协议存储。具体信息如下所示：</p> <p><img decoding="async" alt="" src="http://img.555519.xyz/uploads3/20220821/d10d42ac144ef3dc0209fc6525b752f4.jpg"></p> <p><strong>3.5 Parquet 数据类型</strong></p> <p>在实现层级上，Parquet 只保留了最精简的部分数据类型，以方便存储和读写。在其上有逻辑类型（Logical Types）以供扩展，比如：逻辑类型 strings 就映射为带有 UTF8 标识的二进制 byte arrays 进行存储。</p> <p>Types：</p> <pre><code>BOOLEAN:&nbsp;1&nbsp;bit&nbsp;boolean</code><code>INT32:&nbsp;32&nbsp;bit&nbsp;signed&nbsp;ints</code><code>INT64:&nbsp;64&nbsp;bit&nbsp;signed&nbsp;ints</code><code>INT96:&nbsp;96&nbsp;bit&nbsp;signed&nbsp;ints</code><code>FLOAT:&nbsp;IEEE&nbsp;32-bit&nbsp;floating&nbsp;point&nbsp;values</code><code>DOUBLE:&nbsp;IEEE&nbsp;64-bit&nbsp;floating&nbsp;point&nbsp;values</code><code>BYTE_ARRAY: arbitrarily long byte arrays.</code></pre> <p>逻辑类型的更多说明请参考：</p> <p>https://github.com/apache/parquet-format/blob/master/LogicalTypes.md</p> <p><strong>3.6 Encoding</strong></p> <p>数据编码的实现大部分和原理部分所阐述的一致，这里不再重复说明，更多细节可参考：https://github.com/apache/parquet-format/blob/master/Encodings.md</p> <p><strong>3.7 Column chunks 存储</strong></p> <p>Column chunks 由一个个 Pages 组成，Reader 在读取的时候可以根据 page header 信息跳过不感兴趣的页面。page header 中还存储着页面数据编码和压缩的信息。</p> <p><strong>3.8 错误情况处理</strong></p> <p>如果文件元数据损坏，则整个文件将丢失。如果列元数据损坏，则该列块将丢失（但其他行组中该列的列块还可以使用）。如果 page header 损坏，则该列块中的剩余页面都将丢失。如果页面中的数据损坏，则该页面将丢失。较小的文件行组配置，可以更有效地抵抗损坏。</p> <p><strong>3.9 推荐配置</strong></p> <p><strong>行组大小（Row group size）：</strong>更大的行组允许更大的列块，这使得可以执行更大的顺序 IO。不过更大的行组需要更大的写缓存。Parquet 建议使用较大的行组（512MB-1GB）。此外由于可能需要读取整个行组，因此最好一个行组能完全适配一个 HDFS Block。因此，HDFS 块大小也需要相应的设置更大。一个较优的读取配置为：行组大小 1GB，HDFS 块大小 1GB，每个 HDFS 文件对应 1 个 HDFS 块。</p> <p><strong>数据页大小（Data page size）：</strong>数据页应视为不可分割的，因此较小的数据页可实现更细粒度的读取（例如单行查找）。但较大的页面可以减少空间的开销（减少 page header 数量）和潜在的较少的解析开销（处理 headers）。Parquet 建议的页面大小为 8KB。</p> <p>参考资料:</p> <p>[1]. Dremel: Interactive Analysis of WebScale Datasets</p> <p>[2]. Dremel made simple with Parquet</p> <p>[3]. 经典论文翻译导读之《Dremel: Interactive Analysis of WebScale Datasets》</p> <p>[4]. 处理海量数据：列式存储综述（存储篇）</p> <p>[5]. https://parquet.apache.org/documentation/latest/</p> <p>作者简介</p> <p>大鲸，网易数帆有数实时数仓开发工程师，曾从事搜索系统、实时计算平台等相关工作。</p> </div> 			                </div>
+                <div class="clearfix"></div>
+                <div class="col-md-12 mt-5">
+                                        <p>上一个：<a href="/news/article-98480.htm">字符串或数字中应该包含多少位数字，以便MySQL可以将其指定为日期值？</a></p>
+                                        <p>下一个：<a href="/news/article-99229.htm">python实现自动整理文件_python_</a></p>
+                                    </div>
+                                </div>
+                <div class="col-md-3">
+                    <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/news/article-86699.htm" title="动物医院有哪些职位 动物医院有哪些职位名称">动物医院有哪些职位 动物医院有哪些职位名称</a></li>
+                        <li class="py-2"><a href="/news/article-84547.htm" title="宠物粮食品牌上市公司有哪些名字 宠物粮食品牌上市公司有哪些名字呢">宠物粮食品牌上市公司有哪些名字 宠物粮食品牌上市公司有哪些名字呢</a></li>
+                        <li class="py-2"><a href="/news/article-92557.htm" title="思念餐厅官方网站（思念食品售后服务电话）">思念餐厅官方网站（思念食品售后服务电话）</a></li>
+                        <li class="py-2"><a href="/news/article-83823.htm" title="如何在MySQL中使用复合INTERVAL单元？">如何在MySQL中使用复合INTERVAL单元？</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-3-17-shadowrocket-node.htm" title="「3月17日」最高速度18.3M/S，2025年NekoBox每天更新免费节点订阅链接">「3月17日」最高速度18.3M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-68269.htm" title="猫三联疫苗需要多少钱（猫三联疫苗要打几针 多少钱一次）">猫三联疫苗需要多少钱（猫三联疫苗要打几针 多少钱一次）</a></li>
+                        <li class="py-2"><a href="/news/article-85988.htm" title="按值致电与按引用致电之间的区别">按值致电与按引用致电之间的区别</a></li>
+                        <li class="py-2"><a href="/news/article-87423.htm" title="佳雯宠物电话（佳雯宠物诊所）">佳雯宠物电话（佳雯宠物诊所）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-4-16-free-shadowrocket-node.htm" title="「4月16日」最高速度19.6M/S，2025年NekoBox每天更新免费节点订阅链接">「4月16日」最高速度19.6M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-88132.htm" title="promise 和 async/await的区别">promise 和 async/await的区别</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">61</span> <a href="/date/2025-04/" title="2025-04 归档">2025-04</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">89</span> <a href="/date/2025-03/" title="2025-03 归档">2025-03</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- About End -->
+
+
+
+        <!-- Footer Start -->
+    <div class="container-fluid bg-dark text-white-50 footer pt-5">
+        <div class="container wow fadeIn" data-wow-delay="0.1s">
+            <div class="copyright">
+                <div class="row">
+                    <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                                            <p>
+                                                <a href="/">首页</a> |
+                                                <a href="/free-nodes/">免费节点</a> |
+                                                <a href="/paid-subscribe/">推荐机场</a> |
+                                                <a href="/client.htm">客户端</a> |
+                                                <a href="/news/">新闻资讯</a> |
+                                                <a href="/about-us.htm">关于我们</a> |
+                        <a href="/disclaimer.htm">免责申明</a> |
+                        <a href="/privacy.htm">隐私申明</a> |
+                        <a href="/sitemap.xml">网站地图</a>
+                    </p>
+                        NekoBoxNode官网节点站 版权所有
+                        <br />
+                        Powered by WordPress
+                    </div>
+                    <div class="col-md-6 text-center text-md-end">
+                        <div class="footer-menu">
+                            <a href="/">Home</a>
+                            <a href="#">Cookies</a>
+                            <a href="#">Help</a>
+                            <a href="#">FAQs</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer End -->
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top pt-2"><i class="bi bi-arrow-up"></i></a>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.0.0/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/wow/wow.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/easing/easing.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/waypoints/waypoints.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/counterup/counterup.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/owlcarousel/owl.carousel.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="/assets/website/js/frontend/nekoboxnode/main.js"></script>
+    <script src="https://www.freeclashnode.com/assets/js/frontend/invite-url.js"></script><script src="/assets/website/js/frontend/G.js"></script>
+</body>
+
+</html>

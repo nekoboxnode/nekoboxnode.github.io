@@ -1,4 +1,4 @@
-# 「4月17日」最高速度20M/S，2025年NekoBox每天更新免费节点订阅链接  更新时间 2025-04-17 09:14:49
+# 「4月21日」最高速度20.8M/S，2025年NekoBox每天更新免费节点订阅链接  更新时间 2025-04-21 07:09:35
 所有免费clash节点都爬取自网络，请勿用于非法用途 。节点地址：<a href="https://nekoboxnode.github.io" target="_blank">点击跳转</a>
 
 ## clash使用教程：
@@ -9,23 +9,23 @@
 
 ### Clash订阅链接
 
-- https://nekoboxnode.github.io/uploads/2025/04/0-20250417.yaml
-- https://nekoboxnode.github.io/uploads/2025/04/1-20250417.yaml
-- https://nekoboxnode.github.io/uploads/2025/04/2-20250417.yaml
-- https://nekoboxnode.github.io/uploads/2025/04/3-20250417.yaml
-- https://nekoboxnode.github.io/uploads/2025/04/4-20250417.yaml
+- https://nekoboxnode.github.io/uploads/2025/04/0-20250421.yaml
+- https://nekoboxnode.github.io/uploads/2025/04/1-20250421.yaml
+- https://nekoboxnode.github.io/uploads/2025/04/2-20250421.yaml
+- https://nekoboxnode.github.io/uploads/2025/04/3-20250421.yaml
+- https://nekoboxnode.github.io/uploads/2025/04/4-20250421.yaml
 
 ### V2ray订阅链接
 
-- https://nekoboxnode.github.io/uploads/2025/04/0-20250417.txt
-- https://nekoboxnode.github.io/uploads/2025/04/1-20250417.txt
-- https://nekoboxnode.github.io/uploads/2025/04/2-20250417.txt
-- https://nekoboxnode.github.io/uploads/2025/04/3-20250417.txt
-- https://nekoboxnode.github.io/uploads/2025/04/4-20250417.txt
+- https://nekoboxnode.github.io/uploads/2025/04/0-20250421.txt
+- https://nekoboxnode.github.io/uploads/2025/04/1-20250421.txt
+- https://nekoboxnode.github.io/uploads/2025/04/2-20250421.txt
+- https://nekoboxnode.github.io/uploads/2025/04/3-20250421.txt
+- https://nekoboxnode.github.io/uploads/2025/04/4-20250421.txt
 
 ### Sing-box订阅链接
 
-- https://nekoboxnode.github.io/uploads/2025/04/20250417.json
+- https://nekoboxnode.github.io/uploads/2025/04/20250421.json
 
 ## 更多clash节点订阅 ：
 

@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html xml:lang="zh-CN" lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://nekoboxnode.github.io/news/article-100756.htm" />
+    <meta charset="utf-8">
+    <title>手把手教你调用微信扫一扫！三分钟包会</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <meta name="description" content="这是我第一次公众号开发，本以为看着微信官方文档直接复制粘贴就好了，没想到是我天真了，爬过一个坑又入一个坑！就这么一个简单的事，竟然搞了一下午，所以写了这篇文章，希望可以帮到大家！    第一步：引入 " />
+    
+    <!-- Favicon -->
+    <link href="/assets/website/img/nekoboxnode/favicon.ico" rel="icon">
+
+    <meta name="author" content="NekoBoxNode官网节点站">
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://nekoboxnode.github.io/news/article-100756.htm" />
+    <meta property="og:site_name" content="NekoBoxNode官网节点站" />
+    <meta property="og:title" content="手把手教你调用微信扫一扫！三分钟包会" />
+    <meta property="og:image" content="https://nekoboxnode.github.io/uploads/20240427/06dfe01c5c4739f65482d45bb15d872e.webp" />
+        <meta property="og:release_date" content="2025-04-21T06:51:13" />
+    <meta property="og:updated_time" content="2025-04-21T06:51:13" />
+        <meta property="og:description" content="这是我第一次公众号开发，本以为看着微信官方文档直接复制粘贴就好了，没想到是我天真了，爬过一个坑又入一个坑！就这么一个简单的事，竟然搞了一下午，所以写了这篇文章，希望可以帮到大家！    第一步：引入 " />
+    
+    <meta name="applicable-device" content="pc,mobile" />
+    <meta name="renderer" content="webkit" />
+    <meta name="force-rendering" content="webkit" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta name="robots" content="max-image-preview:large" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="手把手教你调用微信扫一扫！三分钟包会">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="dns-prefetch" href="https:/www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cm.g.doubleclick.net">
+        
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Ubuntu:wght@500;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcdn.net/ajax/libs/bootstrap-icons/1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="/assets/website/js/frontend/nekoboxnode/lib/animate/animate.min.css" rel="stylesheet">
+    <link href="/assets/website/js/frontend/nekoboxnode/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="/assets/website/css/nekoboxnode/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="/assets/website/css/nekoboxnode/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/website/css/G.css" />
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-93Z2TV5VL1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-93Z2TV5VL1');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body data-page="detail">
+    <!-- Spinner Start -->
+    <div id="spinner"
+        class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-grow text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <!-- Spinner End -->
+
+
+        <!-- Navbar Start -->
+    <div class="container-fluid sticky-top">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-dark p-0">
+                <a href="/" class="navbar-brand">
+                                <span>Neko Box Node</span>
+                                </a>
+                <button type="button" class="navbar-toggler ms-auto me-0" data-bs-toggle="collapse"
+                    data-bs-target="#navbarCollapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <div class="navbar-nav ms-auto">
+                                                <a href="/" class="nav-item nav-link">首页</a>
+                                                <a href="/free-nodes/" class="nav-item nav-link">免费节点</a>
+                                                <a href="/paid-subscribe/" class="nav-item nav-link">推荐机场</a>
+                                                <a href="/client.htm" class="nav-item nav-link">客户端</a>
+                                                <a href="/news/" class="nav-item nav-link">新闻资讯</a>
+                                            </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <!-- Navbar End -->
+
+
+    <!-- Hero Start -->
+    <div class="container-fluid pt-5 bg-primary hero-header">
+        <div class="container pt-5">
+            <div class="row g-5 pt-5">
+                <div class="col-lg-6 align-self-center text-center text-lg-start mb-lg-5">
+                    <h1 class="text-white mb-4 animated slideInRight">手把手教你调用微信扫一扫！三分钟包会</h1>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb justify-content-center justify-content-lg-start mb-0">
+                            <li class="breadcrumb-item"><a class="text-white" href="/" title="首页">首页</a></li>
+                            <li class="breadcrumb-item"><a class="text-white" href="/news/" title="新闻资讯">新闻资讯</a></li>
+                            <li class="breadcrumb-item text-white active" aria-current="page">正文</li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="col-lg-6 align-self-end text-center text-lg-end">
+                    <img class="img-fluid" href="/assets/website/img/nekoboxnode/hero-img.png" alt="" style="max-height: 300px;">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Hero End -->
+
+
+    <!-- Full Screen Search Start -->
+    <div class="modal fade" id="searchModal" tabindex="-1">
+        <div class="modal-dialog modal-fullscreen">
+            <div class="modal-content" style="background: rgba(20, 24, 62, 0.7);">
+                <div class="modal-header border-0">
+                    <button type="button" class="btn btn-square bg-white btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body d-flex align-items-center justify-content-center">
+                    <div class="input-group" style="max-width: 600px;">
+                        <input type="text" class="form-control bg-transparent border-light p-3"
+                            placeholder="Type search keyword">
+                        <button class="btn btn-light px-4"><i class="bi bi-search"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Full Screen Search End -->
+
+
+    <!-- About Start -->
+    <div class="container-fluid py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                                    <input type="hidden" id="share-website-info" data-name="" data-url="">
+                <div class="xcblog-blog-detail">
+                      				  				  				<p data-track="1">这是我第一次公众号开发，本以为看着微信官方文档直接复制粘贴就好了，没想到是我天真了，爬过一个坑又入一个坑！就这么一个简单的事，竟然搞了一下午，所以写了这篇文章，希望可以帮到大家！</p> <div class="pgc-img"><img fetchpriority="high" decoding="async" src="https://p9.toutiaoimg.com/origin/tos-cn-i-qvj2lq49k0/c43b1dbebad44085aa6eead4fdd32fdb?from=pc" alt="手把手教你调用微信扫一扫！三分钟包会" width="783" height="1392" class="syl-page-img"/></p> <p class="pgc-img-caption"> </div> <h2 data-track="30">第一步：引入 weixin-js-sdk</h2> <ul> <li data-track="31">方式1：静态 html 引入</li> </ul> <p data-track="10">直接在 html 文件内，使用 script 引入：</p> <div class="cnblogs_code"> <pre>&lt;script src="https://res2.wx.qq.com/open/js/jweixin-1.6.0.js"&gt;&lt;/script&gt;</pre> </div> <ul> <li data-track="12">方式二：vue 单页面</li> </ul> <div class="cnblogs_code"> <pre><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)"> 可以在主入口文件 index.html 内引入</span> &lt;script src="https://res2.wx.qq.com/open/js/jweixin-1.6.0.js"&gt;&lt;/script&gt;<span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)"> 使用页面通过 window.wx 方式访问 wx 模块</span></pre> </div> <p data-track="35">或者</p> <div class="cnblogs_code"> <pre><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)"> 安装</span> npm install weixin-js-<span style="color: rgba(0, 0, 0, 1)">sdk</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">引入</span> import wx from 'weixin-js-sdk'</pre> </div> <h2 data-track="2">第二步：权限验证配置</h2> <div class="cnblogs_code"> <pre><span style="color: rgba(0, 0, 0, 1)">wx.config({   debug:</span><span style="color: rgba(0, 0, 255, 1)">true</span>,<span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)"> 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。</span>   appId: 'xxxx',<span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)"> 必填，公众号的唯一标识</span>   timestamp: 'xx',<span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)"> 必填，生成签名的时间戳</span>   nonceStr: 'xx',<span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)"> 必填，生成签名的随机串</span>   signature: 'xx',<span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)"> 必填，签名</span>   jsApiList: ['scanQRCode']<span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)"> 必填，需要使用的JS接口列表</span> });</pre> </div> <p data-track="37">timestamp,nonceStr,signature 重要信息请根据自己的公众号信息去获取。需要注意的是 debug 调试的时候，设置为 true ，会自动弹出配置成功或失败信息，调试时可以借助它。</p> <h2 data-track="38">第三步：调用扫一扫接口</h2> <p data-track="39">我们在需要的按钮处，点击事件处开始调用扫码接口，如：</p> <div class="cnblogs_code"> <pre><span style="color: rgba(0, 0, 0, 1)">scaneMethod() {</span><span style="color: rgba(0, 0, 255, 1)">var</span> ua =<span style="color: rgba(0, 0, 0, 1)"> navigator.userAgent.toLowerCase()</span><span style="color: rgba(0, 0, 255, 1)">var</span> isWeixin = ua.indexOf('micromessenger') !== -1<span style="color: rgba(0, 0, 255, 1)">if</span> (!<span style="color: rgba(0, 0, 0, 1)">isWeixin) {   alert(</span>'请用微信打开连接，才可使用扫一扫'<span style="color: rgba(0, 0, 0, 1)">)  }  window.wx.scanQRCode({  needResult:</span>1,<span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)"> 默认为0，扫描结果由微信处理，1则直接返回扫描结果，</span>  scanType: ['qrCode', 'barCode'],<span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)"> 可以指定扫二维码还是一维码，默认二者都有</span>  success:<span style="color: rgba(0, 0, 255, 1)">function</span><span style="color: rgba(0, 0, 0, 1)"> (res) {</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)"> 扫码成功，跳转到二维码指定页面（res.resultStr为扫码返回的结果）</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">  location.href = res.resultStr;</span><span style="color: rgba(0, 0, 255, 1)">var</span> scan =<span style="color: rgba(0, 0, 0, 1)"> res.resultStr   alert(scan)   }  },  error:</span><span style="color: rgba(0, 0, 255, 1)">function</span><span style="color: rgba(0, 0, 0, 1)"> (res) {</span><span style="color: rgba(0, 0, 255, 1)">if</span> (res.errMsg.indexOf('function_not_exist') &gt; 0<span style="color: rgba(0, 0, 0, 1)">) {    alert(</span>'当前版本过低，请进行升级'<span style="color: rgba(0, 0, 0, 1)">)    }   },  }) }</span></pre> </div> <p data-track="5">做了一个判断处理，检查只有微信浏览器，其他浏览器不可以调用：</p> <div class="cnblogs_code"> <pre><span style="color: rgba(0, 0, 255, 1)">var</span> isWeixin = ua.indexOf('micromessenger') !== -1<span style="color: rgba(0, 0, 255, 1)">if</span> (!<span style="color: rgba(0, 0, 0, 1)">isWeixin) {   alert(</span>'请用微信打开连接，才可使用扫一扫'<span style="color: rgba(0, 0, 0, 1)">)  }</span></pre> </div> <h2 data-track="7">第四步：真机测试</h2> <p data-track="42">先声明一下，我的项目是 vue 单页面。</p> <p data-track="43">真机测试的时候，一直在提示：</p> <p class="syl-line-pure-english" data-track="45">errMsg:config:invalid signature</p> <p data-track="50">中文叫做签名无效。</p> <p data-track="44">查找原因是因为我的签名获取来和官方 微信 js 接口签名校验工具获取来的数据不一样，很明显获取的签名有问题，是因为我的 url 配置和前端调起接口的 url 不一致造成的。</p> <div class="pgc-img"><img decoding="async" src="https://p9.toutiaoimg.com/origin/tos-cn-i-qvj2lq49k0/dbfbe32897ac4af8a042d83423fc7dec?from=pc" alt="手把手教你调用微信扫一扫！三分钟包会" class="syl-page-img"/></p> <p class="pgc-img-caption"> </div> <h2 data-track="48">第五步：苹果手机测试</h2> <p data-track="47">苹果手机真机测试，提示错误信息为：</p> <p class="syl-line-pure-english" data-track="49">the permission value is offline verifying</p> <p data-track="8">翻译为中文：权限值正在脱机验证</p> <p data-track="51">这个错误原因是 config 没有正确执行。</p> <p data-track="9">又继续去检查签名的问题，最后发现是后台接口字段写错了，欲哭无泪，总之还是签名信息错误。</p> <h2 data-track="52">第六步：安卓正常，苹果点击无反应</h2> <p data-track="53">用安卓测试的时候，竟然好了，完美展示扫码结果，以为要好了。使用 ios 测试的时候，竟然发现点击的时候没有任何反应。</p> <p data-track="18">找了半天原因，是因为 window.location.href 不同造成的。</p> <pre class="syl-page-code hljs css"><code><span class="hljs-selector-tag">alert(<span class="hljs-selector-tag">window<span class="hljs-selector-class">.location<span class="hljs-selector-class">.href)</span></span></span></span></code></pre> <p data-track="58">测试结果：</p> <p data-track="60">安卓：https://hp.******.net/</p> <p class="syl-line-pure-english" data-track="59">IOS：https://hp.******.net//</p> <p data-track="57">IOS 手机就是因为 url 与签名配置处的 url 不同，所以导致 config 执行失败。究其原因是因为我的 vue-router 是 hash 模式。</p> <p data-track="61">解决方案：把我的 hash 模式换成 history 模式。记得后台也需要配置 nginx 。</p> <h2 data-track="62">第七步：IOS 扫码无反应</h2> <p data-track="54">当 IOS 能调起接口的那一刻，我以为要成功了，哪知道它就是要与 安卓 与众不同，扫码之后没有任何反应，但是如果你快速地连续多扫几次就会出现结果。</p> <p data-track="55">你就说要命不？网上查找了半天，看见有的人说有延时，最后想干脆加个延时算了。</p> <div class="cnblogs_code"> <pre>let isAndriod = ua.indexOf('andriod') !== -1<span style="color: rgba(0, 0, 0, 1)"> window.wx.scanQRCode({  needResult:</span>1,<span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)"> 默认为0，扫描结果由微信处理，1则直接返回扫描结果，</span>  scanType: ['qrCode', 'barCode'],<span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)"> 可以指定扫二维码还是一维码，默认二者都有</span>  success:<span style="color: rgba(0, 0, 255, 1)">function</span><span style="color: rgba(0, 0, 0, 1)"> (res) {</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)"> 扫码成功，跳转到二维码指定页面（res.resultStr为扫码返回的结果）</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">  location.href = res.resultStr;</span><span style="color: rgba(0, 0, 255, 1)">var</span> scan =<span style="color: rgba(0, 0, 0, 1)"> res.resultStr</span><span style="color: rgba(0, 0, 255, 1)">if</span><span style="color: rgba(0, 0, 0, 1)"> (isAndriod) {    _this.$router.push({ path:</span>'/exam_car'<span style="color: rgba(0, 0, 0, 1)">, query: { id: scan } })   }</span><span style="color: rgba(0, 0, 255, 1)">else</span><span style="color: rgba(0, 0, 0, 1)"> {    setTimeout(()</span>=&gt;<span style="color: rgba(0, 0, 0, 1)"> {     _this.$router.push({ path:</span>'/exam_car'<span style="color: rgba(0, 0, 0, 1)">, query: { id: scan } })     },</span>500<span style="color: rgba(0, 0, 0, 1)">)    }   },   error:</span><span style="color: rgba(0, 0, 255, 1)">function</span><span style="color: rgba(0, 0, 0, 1)"> (res) {</span><span style="color: rgba(0, 0, 255, 1)">if</span> (res.errMsg.indexOf('function_not_exist') &gt; 0<span style="color: rgba(0, 0, 0, 1)">) {     alert(</span>'当前版本过低，请进行升级'<span style="color: rgba(0, 0, 0, 1)">)    }   }, })</span></pre> </div> <p data-track="23">果然加了延时之后就好了。</p> <h2 data-track="24">第八步：扫码结果处理</h2> <p data-track="74">可能存在问题：</p> <p data-track="75">1、iOS设备扫码正常，Android设备扫码后没反应<br class="sysbr"/>2、Android设备扫码正常，iOS设备扫码后没反应</p> <p data-track="76">原因：微信开发文档并没有说清楚，其实在微信后台可能是维护了2个接口， 或者是对设备类型进行了区别，总之在回调函数中返回的结果封装对象并不是同一个， 所以这要求我们也进行相应的处理， 不然就会出现上面这种默认奇妙的问题。</p> <p data-track="79">IOS 返回结果：</p> <div class="cnblogs_code"> <pre><span style="color: rgba(0, 0, 0, 1)">{  err_Info:</span>'success'<span style="color: rgba(0, 0, 0, 1)">，  resaultStr:</span>'XX'<span style="color: rgba(0, 0, 0, 1)">,  errMsg:</span>'scanQRCode:ok'<span style="color: rgba(0, 0, 0, 1)">   }</span></pre> </div> <p data-track="77">Android 结果：</p> <div class="cnblogs_code"> <pre><span style="color: rgba(0, 0, 0, 1)">{  resaultStr:</span>'XX'<span style="color: rgba(0, 0, 0, 1)">,  errMsg:</span>'scanQRCode:ok'<span style="color: rgba(0, 0, 0, 1)">   }</span></pre> </div> <h2 data-track="29">第九步：修改路由</h2> <p data-track="81">本以为 苹果安卓手机都能够正常扫码，没问题了。但是领导换需求了，之前是扫码放到外边，可以匿名扫。现在要修改成登录之后才可以扫码。</p> <p data-track="90">我就把路由修改了一下，先在登录页登录成功之后，再进入扫码页，后台也同步修改了 url 地址，修改完测试发现：</p> <p data-track="91">安卓的一切正常。</p> <p data-track="92">苹果手机坏了！</p> <p data-track="93">奔溃了，看看错误提示：noPermissionJsApi:[],errMsg:"config:ok"。</p> <p data-track="94">确定之后有一个错误提示。</p> <p class="syl-line-pure-english" data-track="84">errMsg:scanQRCode:the perssion value is offline verifying</p> <div class="pgc-img"><img decoding="async" src="https://p9.toutiaoimg.com/origin/tos-cn-i-qvj2lq49k0/f94332ce347e4f0b8a42cf48b161d621?from=pc" alt="手把手教你调用微信扫一扫！三分钟包会" class="syl-page-img"/></p> <p class="pgc-img-caption"> </div> <p data-track="95">一顿百度猛如虎，半天原地打转转！</p> <p data-track="96">有前边一次经验教训，我就又去找地址的原因。最后发现是竟然 $router.push 的跳转影响了我的 url ，在 IOS 上的 push 跳转不能写入浏览器的地址栏，但是安卓可以，导致安卓和 ios 跳转之后的地址不同，所以 ios 失败了。</p> <p data-track="97">解决办法：</p> <div class="cnblogs_code"> <pre>$router.push('/i'<span style="color: rgba(0, 0, 0, 1)">)</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">修改成了</span> window.location = window.location.protocol + '//' + window.location.host + '/i'</pre> </div> <p data-track="85">此时就正常运行了。这下满足项目要求了，不会再出什么幺蛾子了！</p> <hr/> <p data-track="80">微信官方开发文档：<br />https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/JS-SDK.html#4</p> 			                </div>
+                <div class="clearfix"></div>
+                <div class="col-md-12 mt-5">
+                                        <p>上一个：<a href="/news/article-100059.htm">动物疫苗多少钱打一次针 动物疫苗多少钱打一次针啊</a></p>
+                                        <p>下一个：<a href="/news/article-100757.htm">二手小型狗粮加工设备（出售二手小型狗粮机）</a></p>
+                                    </div>
+                                </div>
+                <div class="col-md-3">
+                    <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/free-nodes/2025-3-5-free-v2ray.htm" title="「3月5日」最高速度20.4M/S，2025年NekoBox每天更新免费节点订阅链接">「3月5日」最高速度20.4M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-98480.htm" title="字符串或数字中应该包含多少位数字，以便MySQL可以将其指定为日期值？">字符串或数字中应该包含多少位数字，以便MySQL可以将其指定为日期值？</a></li>
+                        <li class="py-2"><a href="/news/article-93315.htm" title="动物疫苗类型分类标准（动物疫苗包括哪些）">动物疫苗类型分类标准（动物疫苗包括哪些）</a></li>
+                        <li class="py-2"><a href="/news/article-90318.htm" title="专门卖宠物的app网名大全（卖宠物网有哪些）">专门卖宠物的app网名大全（卖宠物网有哪些）</a></li>
+                        <li class="py-2"><a href="/news/article-66371.htm" title="C语言[关于零表示假，非零表示真]">C语言[关于零表示假，非零表示真]</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-4-8-free-v2ray-subscribe.htm" title="「4月8日」最高速度18.7M/S，2025年NekoBox每天更新免费节点订阅链接">「4月8日」最高速度18.7M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-3-20-node-share-links.htm" title="「3月20日」最高速度19.9M/S，2025年NekoBox每天更新免费节点订阅链接">「3月20日」最高速度19.9M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-3-8-free-shadowrocket-node.htm" title="「3月8日」最高速度19.3M/S，2025年NekoBox每天更新免费节点订阅链接">「3月8日」最高速度19.3M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-100756.htm" title="手把手教你调用微信扫一扫！三分钟包会">手把手教你调用微信扫一扫！三分钟包会</a></li>
+                        <li class="py-2"><a href="/news/article-85267.htm" title="一文详解微服务架构">一文详解微服务架构</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">61</span> <a href="/date/2025-04/" title="2025-04 归档">2025-04</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">89</span> <a href="/date/2025-03/" title="2025-03 归档">2025-03</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- About End -->
+
+
+
+        <!-- Footer Start -->
+    <div class="container-fluid bg-dark text-white-50 footer pt-5">
+        <div class="container wow fadeIn" data-wow-delay="0.1s">
+            <div class="copyright">
+                <div class="row">
+                    <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                                            <p>
+                                                <a href="/">首页</a> |
+                                                <a href="/free-nodes/">免费节点</a> |
+                                                <a href="/paid-subscribe/">推荐机场</a> |
+                                                <a href="/client.htm">客户端</a> |
+                                                <a href="/news/">新闻资讯</a> |
+                                                <a href="/about-us.htm">关于我们</a> |
+                        <a href="/disclaimer.htm">免责申明</a> |
+                        <a href="/privacy.htm">隐私申明</a> |
+                        <a href="/sitemap.xml">网站地图</a>
+                    </p>
+                        NekoBoxNode官网节点站 版权所有
+                        <br />
+                        Powered by WordPress
+                    </div>
+                    <div class="col-md-6 text-center text-md-end">
+                        <div class="footer-menu">
+                            <a href="/">Home</a>
+                            <a href="#">Cookies</a>
+                            <a href="#">Help</a>
+                            <a href="#">FAQs</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer End -->
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top pt-2"><i class="bi bi-arrow-up"></i></a>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.0.0/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/wow/wow.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/easing/easing.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/waypoints/waypoints.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/counterup/counterup.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/owlcarousel/owl.carousel.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="/assets/website/js/frontend/nekoboxnode/main.js"></script>
+    <script src="https://www.freeclashnode.com/assets/js/frontend/invite-url.js"></script><script src="/assets/website/js/frontend/G.js"></script>
+</body>
+
+</html>

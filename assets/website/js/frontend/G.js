@@ -97,9 +97,8 @@
 	            var url = $(this).data('url');
 	            var code = $(this).data('code');
 	            var type = $(this).data('type');
-	            url = G.Fun.check_invite_url(url, type);
-	            url += code;
-	            var new_url = url;
+	            var new_url = G.Fun.check_invite_url(url, type);
+	            new_url += code;
 
 	            var domain = 'https://www.freeclashnode.com';
 	            $.post(

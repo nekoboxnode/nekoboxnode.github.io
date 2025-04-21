@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html xml:lang="zh-CN" lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://nekoboxnode.github.io/news/article-99229.htm" />
+    <meta charset="utf-8">
+    <title>python实现自动整理文件_python_</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <meta name="description" content="前言： 平时工作没有养成分类的习惯，整个桌面杂乱无章都是文档和资料，几乎快占满整个屏幕了。所以必须要整理一下了，今天我们来看下用python如何批量将不同后缀的文件移动到同一文件夹。 演示效果：  使" />
+    
+    <!-- Favicon -->
+    <link href="/assets/website/img/nekoboxnode/favicon.ico" rel="icon">
+
+    <meta name="author" content="NekoBoxNode官网节点站">
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://nekoboxnode.github.io/news/article-99229.htm" />
+    <meta property="og:site_name" content="NekoBoxNode官网节点站" />
+    <meta property="og:title" content="python实现自动整理文件_python_" />
+    <meta property="og:image" content="https://nekoboxnode.github.io/uploads/20240427/adec8e14ef0b5262aae1ecbfed1f4b39.webp" />
+        <meta property="og:release_date" content="2025-04-19T08:57:22" />
+    <meta property="og:updated_time" content="2025-04-19T08:57:22" />
+        <meta property="og:description" content="前言： 平时工作没有养成分类的习惯，整个桌面杂乱无章都是文档和资料，几乎快占满整个屏幕了。所以必须要整理一下了，今天我们来看下用python如何批量将不同后缀的文件移动到同一文件夹。 演示效果：  使" />
+    
+    <meta name="applicable-device" content="pc,mobile" />
+    <meta name="renderer" content="webkit" />
+    <meta name="force-rendering" content="webkit" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta name="robots" content="max-image-preview:large" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="python实现自动整理文件_python_">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="dns-prefetch" href="https:/www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cm.g.doubleclick.net">
+        
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Ubuntu:wght@500;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcdn.net/ajax/libs/bootstrap-icons/1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="/assets/website/js/frontend/nekoboxnode/lib/animate/animate.min.css" rel="stylesheet">
+    <link href="/assets/website/js/frontend/nekoboxnode/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="/assets/website/css/nekoboxnode/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="/assets/website/css/nekoboxnode/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/website/css/G.css" />
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-93Z2TV5VL1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-93Z2TV5VL1');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body data-page="detail">
+    <!-- Spinner Start -->
+    <div id="spinner"
+        class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-grow text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <!-- Spinner End -->
+
+
+        <!-- Navbar Start -->
+    <div class="container-fluid sticky-top">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-dark p-0">
+                <a href="/" class="navbar-brand">
+                                <span>Neko Box Node</span>
+                                </a>
+                <button type="button" class="navbar-toggler ms-auto me-0" data-bs-toggle="collapse"
+                    data-bs-target="#navbarCollapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <div class="navbar-nav ms-auto">
+                                                <a href="/" class="nav-item nav-link">首页</a>
+                                                <a href="/free-nodes/" class="nav-item nav-link">免费节点</a>
+                                                <a href="/paid-subscribe/" class="nav-item nav-link">推荐机场</a>
+                                                <a href="/client.htm" class="nav-item nav-link">客户端</a>
+                                                <a href="/news/" class="nav-item nav-link">新闻资讯</a>
+                                            </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <!-- Navbar End -->
+
+
+    <!-- Hero Start -->
+    <div class="container-fluid pt-5 bg-primary hero-header">
+        <div class="container pt-5">
+            <div class="row g-5 pt-5">
+                <div class="col-lg-6 align-self-center text-center text-lg-start mb-lg-5">
+                    <h1 class="text-white mb-4 animated slideInRight">python实现自动整理文件_python_</h1>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb justify-content-center justify-content-lg-start mb-0">
+                            <li class="breadcrumb-item"><a class="text-white" href="/" title="首页">首页</a></li>
+                            <li class="breadcrumb-item"><a class="text-white" href="/news/" title="新闻资讯">新闻资讯</a></li>
+                            <li class="breadcrumb-item text-white active" aria-current="page">正文</li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="col-lg-6 align-self-end text-center text-lg-end">
+                    <img class="img-fluid" href="/assets/website/img/nekoboxnode/hero-img.png" alt="" style="max-height: 300px;">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Hero End -->
+
+
+    <!-- Full Screen Search Start -->
+    <div class="modal fade" id="searchModal" tabindex="-1">
+        <div class="modal-dialog modal-fullscreen">
+            <div class="modal-content" style="background: rgba(20, 24, 62, 0.7);">
+                <div class="modal-header border-0">
+                    <button type="button" class="btn btn-square bg-white btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body d-flex align-items-center justify-content-center">
+                    <div class="input-group" style="max-width: 600px;">
+                        <input type="text" class="form-control bg-transparent border-light p-3"
+                            placeholder="Type search keyword">
+                        <button class="btn btn-light px-4"><i class="bi bi-search"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Full Screen Search End -->
+
+
+    <!-- About Start -->
+    <div class="container-fluid py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                                    <input type="hidden" id="share-website-info" data-name="" data-url="">
+                <div class="xcblog-blog-detail">
+                      				  				  				<p><strong>前言：</strong></p> <p>平时工作没有养成分类的习惯，整个桌面杂乱无章都是文档和资料，几乎快占满整个屏幕了。所以必须要整理一下了，今天我们来看下用python如何批量将不同后缀的文件移动到同一文件夹。</p> <p><strong>演示效果：</strong></p> <ul> <li>使用前</li> </ul> <p><img decoding="async" alt="" src="http://img.555519.xyz/uploads3/20220414/f2bb9ad27a95005925bfb287dc5ac4d5.jpg"></p> <ul> <li>使用后</li> </ul> <p style="text-align:center"><img decoding="async" alt="" src="http://img.555519.xyz/uploads3/20220414/e88f37e68df23bacec0d51aefda9a0be.jpg"></p> <p><strong>代码：</strong></p> <div class="ay1code"> <pre class="brush:py;"># # -*- coding:utf-8 -*-  import os  import glob  import shutil  import tkinter  import tkinter.filedialog  from datetime import datetime    def start():      root = tkinter.Tk()      root.withdraw()      dirname = tkinter.filedialog.askdirectory(parent=root,initialdir="/",title='请选择文件夹')      return dirname      # 定义一个文件字典，不同的文件类型，属于不同的文件夹  file_dict = {      "图片": ["jpeg", "jpg", "tiff", "gif", "bmp", "png", "bpg", "svg", "heif", "psd"],      "视频": ["avi", "flv", "wmv", "mov", "mp4", "webm", "vob", "mng", "qt", "mpg", "mpeg", "3gp", "mkv"],      "音频": ["aac", "aa", "aac", "dvf", "m4a", "m4b", "m4p", "mp3", "msv", "ogg", "oga", "raw", "vox", "wav", "wma"],      "文档": ["oxps", "epub", "pages", "docx", "doc", "fdf", "ods", "odt", "pwi", "xsn", "xps", "dotx", "docm", "dox",  "rvg", "rtf", "rtfd", "wpd", "xls", "xlsx","xlsm","ppt", "pptx", "csv", "pdf", "md","xmind"],      "压缩文件": ["a", "ar", "cpio", "iso", "tar", "gz", "rz", "7z", "dmg", "rar", "xar", "zip"],      "文本": ["txt", "in", "out","json","xml","log"],      "程序脚本": ["py", "html5", "html", "htm", "xhtml", "cpp", "java", "css","sql"],       '可执行程序': ['exe', 'bat', 'lnk', 'sys', 'com','apk'],      '字体文件': ['eot', 'otf', 'fon', 'font', 'ttf', 'ttc', 'woff', 'woff2','shx'],      '工程图文件':['bak','dwg','dxf','dwl','dwl2','stp','SLDPRT','ipj','ipt','idw']  }    # 定义一个函数，传入每个文件对应的后缀。判断文件是否存在于字典file_dict中；  # 如果存在，返回对应的文件夹名；如果不存在，将该文件夹命名为"未知分类"；  def JudgeFile(suffix):      for name, type_list in file_dict.items():          if suffix.lower() in type_list:              return name      return "未知分类"    if __name__ == '__main__':      try:          while True:              path = start()              print("----&gt;路径是: ",path)              if path == "":                  print("没有选择路径！")                  break              # 递归获取 "待处理文件路径" 下的所有文件和文件夹。              startTime = datetime.now().second              for file in glob.glob(f"{path}/**/*", recursive=True):                  # 由于我们是对文件分类，这里需要挑选出文件来。                  if os.path.isfile(file):                      # 由于isfile()函数，获取的是每个文件的全路径。这里再调用basename()函数，直接获取文件名；                      file_name = os.path.basename(file)                      suffix = file_name.split(".")[-1]                      # 判断 "文件名" 是否在字典中。                      name = JudgeFile(suffix)                      # 根据每个文件分类，创建各自对应的文件夹。                      if not os.path.exists(f"{path}\\{name}"):                          os.mkdir(f"{path}\\{name}")                          print('path--&gt;',name)                      # 将文件复制到各自对应的文件夹中。                      # shutil.copy(file, f"{path}\\{name}")                      # 将文件移动到各自对应的文件夹中。                      shutil.move(file, f"{path}\\{name}")              endTime = datetime.now().second              countTime= endTime-startTime              print("----&gt;已经整理完成。共花费 {} s".format(countTime))              a = input('----&gt;请按回车键退出:')              if a == '':                  break      except BaseException:          print('存在重复的文件！')</pre> </div> <p>执行起来很简单，只要写完程序，点击程运行，等待弹出窗口，选择需要整理的文件夹即可。</p> <p>如果觉得以上代码觉得复杂，可以尝试以下更为简单的程序。</p> <p><strong>如何实现文件自动分类？</strong></p> <p>同一目录下存在很多不同类型的资源条件</p> <ul> <li>1 .分类</li> <li>2.创建分类目录</li> <li>3.移动文件资源</li> </ul> <div class="ay1code"> <pre class="brush:py;">import os  import shutil  import tkinter  import tkinter.filedialog  from datetime import datetime    def start():      root = tkinter.Tk()      root.withdraw()      dirname = tkinter.filedialog.askdirectory(parent=root,initialdir="/",title='请选择文件夹')      return dirname    # 源文件存在路径  src_dir=start()  # 分类资源存在路径  dest_dir=src_dir  # 判断目录是否存在  if not os.path.exists(dest_dir):      os.mkdir(dest_dir)  # 源目录分析  files=os.listdir(src_dir)  for item in files:      src_path=os.path.join(src_dir,item)      # 判断状态      if os.path.isfile(src_path):          #如果是文件，进入代码块          # 判断文件资源的类型          ndir = item.split('.')[-1]          desc_path=os.path.join(dest_dir,ndir)          # 创建分类目录          if not os.path.exists(desc_path):              # 如果分类子目录不存在，创建              os.mkdir(desc_path)          shutil.move(src_path,desc_path)</pre> </div> 			                </div>
+                <div class="clearfix"></div>
+                <div class="col-md-12 mt-5">
+                                        <p>上一个：<a href="/news/article-98483.htm">一文讲透大数据列存标准格式：Parquet</a></p>
+                                        <p>下一个：<a href="/news/article-99232.htm">220v小型饲料颗粒机多少钱一台（小型颗粒饲料机多少钱一台最便宜）</a></p>
+                                    </div>
+                                </div>
+                <div class="col-md-3">
+                    <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/free-nodes/2025-4-5-clash-node.htm" title="「4月5日」最高速度19.6M/S，2025年NekoBox每天更新免费节点订阅链接">「4月5日」最高速度19.6M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-72857.htm" title="Android Studio计算器 app">Android Studio计算器 app</a></li>
+                        <li class="py-2"><a href="/news/article-100757.htm" title="二手小型狗粮加工设备（出售二手小型狗粮机）">二手小型狗粮加工设备（出售二手小型狗粮机）</a></li>
+                        <li class="py-2"><a href="/news/article-88133.htm" title="Java开发日志EasyExcel自定义类型转换、Excel表头字段问题">Java开发日志EasyExcel自定义类型转换、Excel表头字段问题</a></li>
+                        <li class="py-2"><a href="/news/article-71543.htm" title="MM32F0140 UART1硬件自动波特率校准功能的使用">MM32F0140 UART1硬件自动波特率校准功能的使用</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-3-20-node-share-links.htm" title="「3月20日」最高速度19.9M/S，2025年NekoBox每天更新免费节点订阅链接">「3月20日」最高速度19.9M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-85989.htm" title="Anaconda 创建django不同版本开发环境">Anaconda 创建django不同版本开发环境</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-3-11-clash-v2ray-ss-ssr.htm" title="「3月11日」最高速度22M/S，2025年NekoBox每天更新免费节点订阅链接">「3月11日」最高速度22M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-71544.htm" title="丹阳宠物免费领养中心在哪里（丹阳市宠物市场在哪里）">丹阳宠物免费领养中心在哪里（丹阳市宠物市场在哪里）</a></li>
+                        <li class="py-2"><a href="/news/article-65712.htm" title="狗粮配方大全及做法视频（狗粮配方有哪些原料）">狗粮配方大全及做法视频（狗粮配方有哪些原料）</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">61</span> <a href="/date/2025-04/" title="2025-04 归档">2025-04</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">89</span> <a href="/date/2025-03/" title="2025-03 归档">2025-03</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- About End -->
+
+
+
+        <!-- Footer Start -->
+    <div class="container-fluid bg-dark text-white-50 footer pt-5">
+        <div class="container wow fadeIn" data-wow-delay="0.1s">
+            <div class="copyright">
+                <div class="row">
+                    <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                                            <p>
+                                                <a href="/">首页</a> |
+                                                <a href="/free-nodes/">免费节点</a> |
+                                                <a href="/paid-subscribe/">推荐机场</a> |
+                                                <a href="/client.htm">客户端</a> |
+                                                <a href="/news/">新闻资讯</a> |
+                                                <a href="/about-us.htm">关于我们</a> |
+                        <a href="/disclaimer.htm">免责申明</a> |
+                        <a href="/privacy.htm">隐私申明</a> |
+                        <a href="/sitemap.xml">网站地图</a>
+                    </p>
+                        NekoBoxNode官网节点站 版权所有
+                        <br />
+                        Powered by WordPress
+                    </div>
+                    <div class="col-md-6 text-center text-md-end">
+                        <div class="footer-menu">
+                            <a href="/">Home</a>
+                            <a href="#">Cookies</a>
+                            <a href="#">Help</a>
+                            <a href="#">FAQs</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer End -->
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top pt-2"><i class="bi bi-arrow-up"></i></a>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.0.0/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/wow/wow.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/easing/easing.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/waypoints/waypoints.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/counterup/counterup.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/owlcarousel/owl.carousel.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="/assets/website/js/frontend/nekoboxnode/main.js"></script>
+    <script src="https://www.freeclashnode.com/assets/js/frontend/invite-url.js"></script><script src="/assets/website/js/frontend/G.js"></script>
+</body>
+
+</html>
