@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html xml:lang="zh-CN" lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://nekoboxnode.github.io/news/article-109603.htm" />
+    <meta charset="utf-8">
+    <title>你不知道的Python容器</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <meta name="description" content="你不知道的Python容器  散列表  ChainMap MappingProxyType   线性表 堆 参考资料    昨天阅读了《Python Tricks: The Book》的第五章“Com" />
+    
+    <!-- Favicon -->
+    <link href="/assets/website/img/nekoboxnode/favicon.ico" rel="icon">
+
+    <meta name="author" content="NekoBoxNode官网节点站">
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://nekoboxnode.github.io/news/article-109603.htm" />
+    <meta property="og:site_name" content="NekoBoxNode官网节点站" />
+    <meta property="og:title" content="你不知道的Python容器" />
+    <meta property="og:image" content="https://nekoboxnode.github.io/uploads/20240427/a0768b05ca1b0857abdbaf4d0ab4a0b1.webp" />
+        <meta property="og:release_date" content="2025-05-02T09:22:50" />
+    <meta property="og:updated_time" content="2025-05-02T09:22:50" />
+        <meta property="og:description" content="你不知道的Python容器  散列表  ChainMap MappingProxyType   线性表 堆 参考资料    昨天阅读了《Python Tricks: The Book》的第五章“Com" />
+    
+    <meta name="applicable-device" content="pc,mobile" />
+    <meta name="renderer" content="webkit" />
+    <meta name="force-rendering" content="webkit" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta name="robots" content="max-image-preview:large" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="你不知道的Python容器">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="dns-prefetch" href="https:/www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cm.g.doubleclick.net">
+        
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Ubuntu:wght@500;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcdn.net/ajax/libs/bootstrap-icons/1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="/assets/website/js/frontend/nekoboxnode/lib/animate/animate.min.css" rel="stylesheet">
+    <link href="/assets/website/js/frontend/nekoboxnode/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="/assets/website/css/nekoboxnode/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="/assets/website/css/nekoboxnode/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/website/css/G.css" />
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-93Z2TV5VL1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-93Z2TV5VL1');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body data-page="detail">
+    <!-- Spinner Start -->
+    <div id="spinner"
+        class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-grow text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <!-- Spinner End -->
+
+
+        <!-- Navbar Start -->
+    <div class="container-fluid sticky-top">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-dark p-0">
+                <a href="/" class="navbar-brand">
+                                <span>Neko Box Node</span>
+                                </a>
+                <button type="button" class="navbar-toggler ms-auto me-0" data-bs-toggle="collapse"
+                    data-bs-target="#navbarCollapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <div class="navbar-nav ms-auto">
+                                                <a href="/" class="nav-item nav-link">首页</a>
+                                                <a href="/free-nodes/" class="nav-item nav-link">免费节点</a>
+                                                <a href="/paid-subscribe/" class="nav-item nav-link">推荐机场</a>
+                                                <a href="/client.htm" class="nav-item nav-link">客户端</a>
+                                                <a href="/news/" class="nav-item nav-link">新闻资讯</a>
+                                            </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <!-- Navbar End -->
+
+
+    <!-- Hero Start -->
+    <div class="container-fluid pt-5 bg-primary hero-header">
+        <div class="container pt-5">
+            <div class="row g-5 pt-5">
+                <div class="col-lg-6 align-self-center text-center text-lg-start mb-lg-5">
+                    <h1 class="text-white mb-4 animated slideInRight">你不知道的Python容器</h1>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb justify-content-center justify-content-lg-start mb-0">
+                            <li class="breadcrumb-item"><a class="text-white" href="/" title="首页">首页</a></li>
+                            <li class="breadcrumb-item"><a class="text-white" href="/news/" title="新闻资讯">新闻资讯</a></li>
+                            <li class="breadcrumb-item text-white active" aria-current="page">正文</li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="col-lg-6 align-self-end text-center text-lg-end">
+                    <img class="img-fluid" href="/assets/website/img/nekoboxnode/hero-img.png" alt="" style="max-height: 300px;">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Hero End -->
+
+
+    <!-- Full Screen Search Start -->
+    <div class="modal fade" id="searchModal" tabindex="-1">
+        <div class="modal-dialog modal-fullscreen">
+            <div class="modal-content" style="background: rgba(20, 24, 62, 0.7);">
+                <div class="modal-header border-0">
+                    <button type="button" class="btn btn-square bg-white btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body d-flex align-items-center justify-content-center">
+                    <div class="input-group" style="max-width: 600px;">
+                        <input type="text" class="form-control bg-transparent border-light p-3"
+                            placeholder="Type search keyword">
+                        <button class="btn btn-light px-4"><i class="bi bi-search"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Full Screen Search End -->
+
+
+    <!-- About Start -->
+    <div class="container-fluid py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                                    <input type="hidden" id="share-website-info" data-name="" data-url="">
+                <div class="xcblog-blog-detail xcblog-blog-detail-defined">
+                      				  				  				</h1> <ul> <li>你不知道的Python容器 <ul> <li>散列表 <ul> <li>ChainMap</li> <li>MappingProxyType</li> </ul> </li> <li>线性表</li> <li>堆</li> <li>参考资料</li> </ul> </li> </ul> <p>昨天阅读了《Python Tricks: The Book》的第五章“Common Data Structures in Python”，该章节介绍了字典、数组、集合、栈、队列以及堆等数据结构的用法和注意事项，其中ChainMap、MappingProxyType等不常使用的容器类引起了我的注意。本文主要对几种不常使用的容器类进行介绍，通过示例说明这些容器的特点。</p> <h2 id="散列表">散列表</h2> <h3 id="chainmap">ChainMap</h3> <p>“collections.ChainMap”能有效整合多个字典的信息，提供一个可进行查询和更新的视图。它使用列表管理字典的引用，而非创建一个新的字典，因此时空开销比较小。当查询字典内容时，ChainMap按序遍历字典列表，直至找到给定的键；当更新（包括新增、删除）字典内容时，ChainMap只在字典列表的首项上进行操作。</p> <p>由于ChainMap是从前到后依次查找字典列表，如果有多个字典包含了相同的键，那么靠近列表起始位置的字典就会被优先匹配，而靠近列表末端的字典会被忽略。ChainMap能够为键查找操作设置优先级的特性使得它能够用于管理应用程序的配置项。具体来说，当应用程序具有多种来源（命令行、配置文件、环境变量等）的配置时，可以把优先级高的配置当作ChainMap的第一个位置参数：</p> <pre><code class="language-Python">from collections import ChainMap  cli_config = {  # 命令行参数     'batch_size': 128,  # 批次大小为128     'learning_rate': 1e-3,     'dropout': 0.2, } default_config = {  # 默认配置     'batch_size': 64,  # 这里也配置了批次大小     'num_layers': 2, }  lookup = ChainMap(cli_config, default_config) lookup['batch_size']  # 128，命令行参数优于匹配 lookup['num_layers']  # 2，默认配置也能查询  lookup.maps  # ChainMap({'batch_size': 128, 'learning_rate': 0.001, 'dropout': 0.2}, {'batch_size': 64, 'num_layers': 2})  lookup['beam_size'] = 4  # 新增键值对 del lookup['batch_size']  # 删除键值对 cli_config  # {'learning_rate': 0.001, 'dropout': 0.2, 'beam_size': 4}，cli_config是字典列表的首项，更新操作会作用到它身上</code></pre> <h3 id="mappingproxytype">MappingProxyType</h3> <p>“types.MappingProxyType”通过代理模式控制了对字典内容的访问，它接收一个字典作为参数，返回该字典的只读（Read Only）视图，任何尝试更新该视图的操作都会触发“TypeError”异常。</p> <pre><code class="language-Python">from types import MappingProxyType  meetings = {     'ACL': 'Annual Meeting of the Association for Computational Linguistics',     'CVPR': 'IEEE Conference on Computer Vision and Pattern Recognition', } mapping = MappingProxyType(meetings) mapping['ACL']  # 'Annual Meeting of...' del mapping['ACL']  # TypeError: 'mappingproxy' object does not support item deletion mapping['ACL'] = ''  # TypeError: 'mappingproxy' object does not support item assignment</code></pre> <h2 id="线性表">线性表</h2> <p>Python的内置类型“list”支持按位置插入、删除列表元素，基于它可以实现栈和队列等操作受限的线性表，但考虑到“list”本身是基于动态数组的，频繁增删列表元素会使得“list”需要时常调整占用的存储空间（扩容、缩容），最终导致程序性能的下降。</p> <p>“collections.deque”是实现栈和队列的更好选择，它基于双向链表，支持快速地从序列两端添加或删除元素。</p> <ol> <li> <p>使用deque模拟栈“后进先出”的特性</p> <pre><code class="language-Python">from collections import deque  stack = deque() stack.append('F') stack.append('E')  stack.pop()  # 'E'，首先弹出'E' stack.pop()  # 'F'，出栈顺序与入栈顺序相反 stack.pop()  # IndexError: pop from an empty deque</code></pre> </li> <li> <p>使用deque模拟队列“先进先出”的特性</p> <pre><code class="language-Python">from collections import deque  queue = deque() queue.append('F') queue.append('E')  queue.popleft()  # 'F'，'F'首先出队 queue.popleft()  # 'E'，出队顺序与入队顺序相同 queue.popleft()  # IndexError: pop from an empty deque</code></pre> </li> </ol> <h2 id="堆">堆</h2> <p>二叉堆是一棵完全二叉树，有最小堆和最大堆两种类型，其中最小堆的每个节点都小于等于它的子节点。Python的“heapq”模块提供了关于构造最小堆、插入删除元素并保持最小堆特性的接口。</p> <pre><code class="language-Python">import random import heapq  digits = [random.randrange(100) for i in range(5)]  # [75, 28, 93, 79, 57] heapq.nsmallest(2, digits)  # [28, 57]，获取列表中最小的2个元素  heapq.heapify(digits)  # 堆化，[28, 57, 93, 79, 75] heapq.heappush(digits, 10)  # 插入一个元素，[10, 57, 28, 79, 75, 93] heapq.heappop(digits)  # 10，弹出最小的元素</code></pre> <p>“queue.Priority”给出了优先队列的一种实现，它基于最小堆：</p> <pre><code class="language-Python">from queue import PriorityQueue  q.put((3, 'Sing')) q.put((1, 'Jump')) q.put((2, 'Rap'))  while not q.empty():     next_item = q.get()     print(next_item)  # (1, 'Jump'), (2, 'Rap'), (3, 'Sing')</code></pre> <h2 id="参考资料">参考资料</h2> <ol> <li>Python Tricks: The Book</li> <li>Python's ChainMap: Manage Multiple Contexts Effectively</li> <li>《流畅的Python》，2.9.4节“双向队列和其他形式的队列”</li> </ol> 			                </div>
+                <div class="clearfix"></div>
+                <div class="col-md-12 mt-5">
+                                        <p>上一个：<a href="/news/article-108784.htm">RecyclerView单层RecyclerView实现点击展开、折叠效果</a></p>
+                                        <p>下一个：<a href="/news/article-109607.htm">宠物用品一件代发进货渠道有哪些（宠物用品拿货）</a></p>
+                                    </div>
+                                </div>
+                <div class="col-md-3">
+                    <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/news/article-100756.htm" title="手把手教你调用微信扫一扫！三分钟包会">手把手教你调用微信扫一扫！三分钟包会</a></li>
+                        <li class="py-2"><a href="/news/article-97801.htm" title="动物疫苗佐剂类型（动物疫苗佐剂类型包括）">动物疫苗佐剂类型（动物疫苗佐剂类型包括）</a></li>
+                        <li class="py-2"><a href="/news/article-96334.htm" title="免费领养狗狗的app（免费领养狗狗的文案）">免费领养狗狗的app（免费领养狗狗的文案）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-4-27-free-clash.htm" title="「4月27日」最高速度21.6M/S，2025年NekoBox每天更新免费节点订阅链接">「4月27日」最高速度21.6M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-111320.htm" title="动物医院资质查询系统（动物医院有限公司）">动物医院资质查询系统（动物医院有限公司）</a></li>
+                        <li class="py-2"><a href="/news/article-106195.htm" title="豆渣芝麻酱烧饼的做法窍门">豆渣芝麻酱烧饼的做法窍门</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-4-14-free-clash-subscribe.htm" title="「4月14日」最高速度18.6M/S，2025年NekoBox每天更新免费节点订阅链接">「4月14日」最高速度18.6M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-4-17-free-clash-subscribe.htm" title="「4月17日」最高速度18.4M/S，2025年NekoBox每天更新免费节点订阅链接">「4月17日」最高速度18.4M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-88856.htm" title="远程访问服务器Jupyter Notebook (浏览器访问和pycharm访问)">远程访问服务器Jupyter Notebook (浏览器访问和pycharm访问)</a></li>
+                        <li class="py-2"><a href="/news/article-98483.htm" title="一文讲透大数据列存标准格式：Parquet">一文讲透大数据列存标准格式：Parquet</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">12</span> <a href="/date/2025-05/" title="2025-05 归档">2025-05</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">87</span> <a href="/date/2025-04/" title="2025-04 归档">2025-04</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- About End -->
+
+
+
+        <!-- Footer Start -->
+    <div class="container-fluid bg-dark text-white-50 footer pt-5">
+        <div class="container wow fadeIn" data-wow-delay="0.1s">
+            <div class="copyright">
+                <div class="row">
+                    <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                                            <p>
+                                                <a href="/">首页</a> |
+                                                <a href="/free-nodes/">免费节点</a> |
+                                                <a href="/paid-subscribe/">推荐机场</a> |
+                                                <a href="/client.htm">客户端</a> |
+                                                <a href="/news/">新闻资讯</a> |
+                                                <a href="/about-us.htm">关于我们</a> |
+                        <a href="/disclaimer.htm">免责申明</a> |
+                        <a href="/privacy.htm">隐私申明</a> |
+                        <a href="/sitemap.xml">网站地图</a>
+                    </p>
+                        NekoBoxNode官网节点站 版权所有
+                        <br />
+                        Powered by WordPress
+                    </div>
+                    <div class="col-md-6 text-center text-md-end">
+                        <div class="footer-menu">
+                            <a href="/">Home</a>
+                            <a href="#">Cookies</a>
+                            <a href="#">Help</a>
+                            <a href="#">FAQs</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer End -->
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top pt-2"><i class="bi bi-arrow-up"></i></a>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.0.0/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/wow/wow.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/easing/easing.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/waypoints/waypoints.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/counterup/counterup.min.js"></script>
+    <script src="/assets/website/js/frontend/nekoboxnode/lib/owlcarousel/owl.carousel.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="/assets/website/js/frontend/nekoboxnode/main.js"></script>
+    <script src="https://www.freeclashnode.com/assets/js/frontend/invite-url.js"></script><script src="/assets/website/js/frontend/G.js"></script>
+</body>
+
+</html>
