@@ -303,14 +303,39 @@ UDP 适合实时通讯与视频流，TCP 则对丢包敏感度更低。根据具
         Nekobox 支持通过订阅 URL 导入节点。用户在应用中选择“添加订阅”，输入链接后系统会自动更新节点数据，并支持定期刷新，确保始终使用最新线路。<hr />    </div>
 </div>
 <div class="panel panel-default">
-    <div class="panel-heading"><h5>QuantumultX 如何实现按协议类型分流？</h5></div>
+    <div class="panel-heading"><h5>PassWall2 如何结合策略组实现自动节点切换？</h5></div>
     <div class="panel-body">
-        QuantumultX 可根据 TCP、UDP 或特定应用协议分流流量，结合策略组选择节点。这样可以为游戏、视频或广告屏蔽等应用提供最佳网络体验，提高访问速度和稳定性。<hr />    </div>
+        PassWall2 会定期测试节点延迟和丢包率，结合策略组自动切换到最优节点。无需手动干预即可保证网页、视频和游戏流量高速稳定访问，优化整体网络体验。<hr />    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading"><h5>Trojan 节点无法连接时应如何排查？</h5></div>
+    <div class="panel-body">
+        遇到 Trojan 无法连接时，需检查服务器证书是否有效、端口是否开放、密码配置是否匹配。还应确认防火墙未阻断相关端口，并尝试切换 TLS 版本或使用 IP 地址连接。<hr />    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading"><h5>Mellow TUN 模式与 SOCKS5 代理有什么区别？</h5></div>
+    <div class="panel-body">
+        TUN 模式拦截系统 IP 层流量，实现全局代理；SOCKS5 代理通常只影响指定应用。TUN 更适合全局加速，如游戏、视频和浏览器流量，提高网络稳定性和覆盖范围。<hr />    </div>
 </div>
 <div class="panel panel-default">
     <div class="panel-heading"><h5>Matsuri 节点延迟排序如何优化网络体验？</h5></div>
     <div class="panel-body">
         Matsuri 会定期测速节点延迟，并结合策略组自动选择低延迟节点。无需手动切换，确保网页、视频和游戏流量通过最优节点，提高访问速度和网络稳定性。<hr />    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading"><h5>Nekobox 如何分流多协议流量？</h5></div>
+    <div class="panel-body">
+        Nekobox 可以同时管理 Shadowsocks、VMess、Trojan 等多协议节点，通过策略组将不同流量分配到指定节点，实现精准分流，提高网络效率和管理便利性。<hr />    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading"><h5>Mihomo 节点分组如何保证低延迟？</h5></div>
+    <div class="panel-body">
+        将节点按延迟、地区或用途分组，并启用策略组，系统会根据节点延迟和健康状态自动选择最佳节点。保证网页浏览、视频播放和游戏流量的低延迟和稳定连接。<hr />    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading"><h5>QuantumultX 如何实现按协议类型分流？</h5></div>
+    <div class="panel-body">
+        QuantumultX 可根据 TCP、UDP 或特定应用协议分流流量，结合策略组选择节点。这样可以为游戏、视频或广告屏蔽等应用提供最佳网络体验，提高访问速度和稳定性。<hr />    </div>
 </div>
 <div class="panel panel-default">
     <div class="panel-heading"><h5>VMess AEAD 加密能防止哪些风险？</h5></div>
@@ -320,32 +345,7 @@ UDP 适合实时通讯与视频流，TCP 则对丢包敏感度更低。根据具
 <div class="panel panel-default">
     <div class="panel-heading"><h5>Clash 如何实现延迟自动切换？</h5></div>
     <div class="panel-body">
-        Clash 可以结合策略组和延迟检测功能，自动选择延迟最低的节点。保证网页、视频和游戏流量通过最优节点，提高访问速度和稳定性，减少掉线和卡顿。<hr />    </div>
-</div>
-<div class="panel panel-default">
-    <div class="panel-heading"><h5>Mihomo 节点分组如何保证低延迟？</h5></div>
-    <div class="panel-body">
-        将节点按延迟、地区或用途分组，并启用策略组，系统会根据节点延迟和健康状态自动选择最佳节点。保证网页浏览、视频播放和游戏流量的低延迟和稳定连接。<hr />    </div>
-</div>
-<div class="panel panel-default">
-    <div class="panel-heading"><h5>Trojan 节点无法连接时应如何排查？</h5></div>
-    <div class="panel-body">
-        遇到 Trojan 无法连接时，需检查服务器证书是否有效、端口是否开放、密码配置是否匹配。还应确认防火墙未阻断相关端口，并尝试切换 TLS 版本或使用 IP 地址连接。<hr />    </div>
-</div>
-<div class="panel panel-default">
-    <div class="panel-heading"><h5>PassWall2 如何结合策略组实现自动节点切换？</h5></div>
-    <div class="panel-body">
-        PassWall2 会定期测试节点延迟和丢包率，结合策略组自动切换到最优节点。无需手动干预即可保证网页、视频和游戏流量高速稳定访问，优化整体网络体验。<hr />    </div>
-</div>
-<div class="panel panel-default">
-    <div class="panel-heading"><h5>Nekobox 如何分流多协议流量？</h5></div>
-    <div class="panel-body">
-        Nekobox 可以同时管理 Shadowsocks、VMess、Trojan 等多协议节点，通过策略组将不同流量分配到指定节点，实现精准分流，提高网络效率和管理便利性。<hr />    </div>
-</div>
-<div class="panel panel-default">
-    <div class="panel-heading"><h5>Mellow TUN 模式与 SOCKS5 代理有什么区别？</h5></div>
-    <div class="panel-body">
-        TUN 模式拦截系统 IP 层流量，实现全局代理；SOCKS5 代理通常只影响指定应用。TUN 更适合全局加速，如游戏、视频和浏览器流量，提高网络稳定性和覆盖范围。    </div>
+        Clash 可以结合策略组和延迟检测功能，自动选择延迟最低的节点。保证网页、视频和游戏流量通过最优节点，提高访问速度和稳定性，减少掉线和卡顿。    </div>
 </div>
 <div class="panel panel-default mt-5">
     <div class="panel-heading">
@@ -374,16 +374,16 @@ UDP 适合实时通讯与视频流，TCP 则对丢包敏感度更低。根据具
     </div>
     <div class="panel-body">
         <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
-                        <li class="py-2"><a href="/free-nodes/2025-10-11-free-v2ray.htm" title="「10月11日」最高速度22M/S，2025年NekoBox每天更新免费节点订阅链接">「10月11日」最高速度22M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2025-10-19-free-ssr-node.htm" title="「10月19日」最高速度22.3M/S，2025年NekoBox每天更新免费节点订阅链接">「10月19日」最高速度22.3M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2025-10-27-free-clash-subscribe.htm" title="「10月27日」最高速度18.8M/S，2025年NekoBox每天更新免费节点订阅链接">「10月27日」最高速度18.8M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2025-10-12-clash-windows.htm" title="「10月12日」最高速度19M/S，2025年NekoBox每天更新免费节点订阅链接">「10月12日」最高速度19M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2025-11-14-free-clash-subscribe.htm" title="「11月14日」最高速度22.6M/S，2025年NekoBox每天更新免费节点订阅链接">「11月14日」最高速度22.6M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2025-10-22-free-node-subscribe-links.htm" title="「10月22日」最高速度21.6M/S，2025年NekoBox每天更新免费节点订阅链接">「10月22日」最高速度21.6M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2025-11-9-free-ssr-node.htm" title="「11月9日」最高速度22.5M/S，2025年NekoBox每天更新免费节点订阅链接">「11月9日」最高速度22.5M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-11-8-free-ssr-node.htm" title="「11月8日」最高速度22M/S，2025年NekoBox每天更新免费节点订阅链接">「11月8日」最高速度22M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-11-17-free-shadowrocket-node.htm" title="「11月17日」最高速度21.9M/S，2025年NekoBox每天更新免费节点订阅链接">「11月17日」最高速度21.9M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-11-7-clash-windows.htm" title="「11月7日」最高速度21M/S，2025年NekoBox每天更新免费节点订阅链接">「11月7日」最高速度21M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-11-29-free-node-subscribe-links.htm" title="「11月29日」最高速度21.3M/S，2025年NekoBox每天更新免费节点订阅链接">「11月29日」最高速度21.3M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-11-5-free-node-subscribe.htm" title="「11月5日」最高速度18.4M/S，2025年NekoBox每天更新免费节点订阅链接">「11月5日」最高速度18.4M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
                         <li class="py-2"><a href="/free-nodes/2025-11-10-free-node-subscribe-links.htm" title="「11月10日」最高速度22.3M/S，2025年NekoBox每天更新免费节点订阅链接">「11月10日」最高速度22.3M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2025-10-20-free-v2ray-subscribe.htm" title="「10月20日」最高速度23M/S，2025年NekoBox每天更新免费节点订阅链接">「10月20日」最高速度23M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2025-11-15-free-high-speed-nodes.htm" title="「11月15日」最高速度19.4M/S，2025年NekoBox每天更新免费节点订阅链接">「11月15日」最高速度19.4M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-11-18-free-v2ray-subscribe.htm" title="「11月18日」最高速度20.1M/S，2025年NekoBox每天更新免费节点订阅链接">「11月18日」最高速度20.1M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-11-23-free-clash.htm" title="「11月23日」最高速度22.4M/S，2025年NekoBox每天更新免费节点订阅链接">「11月23日」最高速度22.4M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-11-21-free-shadowrocket-node.htm" title="「11月21日」最高速度18.7M/S，2025年NekoBox每天更新免费节点订阅链接">「11月21日」最高速度18.7M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-11-27-clash-node-daily-updates.htm" title="「11月27日」最高速度18.4M/S，2025年NekoBox每天更新免费节点订阅链接">「11月27日」最高速度18.4M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
                     </ul>
     </div>
 </div>
@@ -395,10 +395,10 @@ UDP 适合实时通讯与视频流，TCP 则对丢包敏感度更低。根据具
     <div class="panel-body">
         <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
                         <li class="py-2">
-                <h4><span class="badge" style="float: right;">17</span> <a href="/date/2025-11/" title="2025-11 归档">2025-11</a></h4>
+                <h4><span class="badge" style="float: right;">4</span> <a href="/date/2025-12/" title="2025-12 归档">2025-12</a></h4>
             </li>
                         <li class="py-2">
-                <h4><span class="badge" style="float: right;">26</span> <a href="/date/2025-10/" title="2025-10 归档">2025-10</a></h4>
+                <h4><span class="badge" style="float: right;">23</span> <a href="/date/2025-11/" title="2025-11 归档">2025-11</a></h4>
             </li>
                     </ul>
     </div>

@@ -187,6 +187,16 @@ IPLC、IEPL中转，点对点专线连接。高速冲浪，科学上网不二选
     </div>
 <h4>FAQ</h4>
 <div class="panel panel-default">
+    <div class="panel-heading"><h5>Potatso Lite 可以管理多少个节点？</h5></div>
+    <div class="panel-body">
+        Potatso Lite 可以管理数十个节点，适合轻量用户使用。虽然不支持批量自动更新，但可以手动添加和删除节点，结合策略组实现基本分流和管理功能。<hr />    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading"><h5>Hiddify Next 如何导入订阅？</h5></div>
+    <div class="panel-body">
+        打开 Hiddify Next，进入主页点击“添加订阅”，输入机场提供的链接后确认。应用会自动同步节点并分类显示，支持一键测速与规则模式切换。<hr />    </div>
+</div>
+<div class="panel panel-default">
     <div class="panel-heading"><h5>SSR 的混淆参数如何选择才能兼顾速度与隐蔽性？</h5></div>
     <div class="panel-body">
         混淆参数建议根据网络环境选择，一般 http_simple 兼容性最好，tls1.2_ticket_auth 隐蔽性更强。若节点在国内访问，选择简单混淆可提升速度，若跨境访问频繁则推荐 TLS 混淆提高安全性。<hr />    </div>
@@ -195,11 +205,6 @@ IPLC、IEPL中转，点对点专线连接。高速冲浪，科学上网不二选
     <div class="panel-heading"><h5>PassWall2 如何根据延迟自动切换节点？</h5></div>
     <div class="panel-body">
         PassWall2 会定期测试节点延迟，并结合策略组自动切换到延迟最低的节点。无需用户手动操作，即可保证网页、视频和游戏流量的高速稳定访问，提高整体网络体验。<hr />    </div>
-</div>
-<div class="panel panel-default">
-    <div class="panel-heading"><h5>Nekoray 节点订阅失败如何解决？</h5></div>
-    <div class="panel-body">
-        确认订阅 URL 是否有效并检查网络通畅。可手动刷新或重新添加订阅链接，保证节点列表最新。结合策略组使用，可确保稳定科学上网体验。<hr />    </div>
 </div>
 <div class="panel panel-default">
     <div class="panel-heading"><h5>VMess AEAD 加密在封锁网络中有什么优势？</h5></div>
@@ -217,14 +222,9 @@ IPLC、IEPL中转，点对点专线连接。高速冲浪，科学上网不二选
         Clash 支持设置订阅规则的更新频率，例如每小时或每天。定期更新可保证节点和规则最新，减少手动维护，提高访问速度和分流效率，同时保持网络稳定性。<hr />    </div>
 </div>
 <div class="panel panel-default">
-    <div class="panel-heading"><h5>VLESS + XTLS 模式相比普通 VLESS 有哪些优势？</h5></div>
+    <div class="panel-heading"><h5>Nekoray 节点订阅失败如何解决？</h5></div>
     <div class="panel-body">
-        XTLS 模式减少冗余加密开销，提高传输效率，并在多连接高负载环境下表现更佳。同时仍保持 TLS 安全性，结合策略组可实现高性能和高隐蔽性的双重优势。<hr />    </div>
-</div>
-<div class="panel panel-default">
-    <div class="panel-heading"><h5>Potatso Lite 可以管理多少个节点？</h5></div>
-    <div class="panel-body">
-        Potatso Lite 可以管理数十个节点，适合轻量用户使用。虽然不支持批量自动更新，但可以手动添加和删除节点，结合策略组实现基本分流和管理功能。<hr />    </div>
+        确认订阅 URL 是否有效并检查网络通畅。可手动刷新或重新添加订阅链接，保证节点列表最新。结合策略组使用，可确保稳定科学上网体验。<hr />    </div>
 </div>
 <div class="panel panel-default">
     <div class="panel-heading"><h5>VMess AEAD 加密如何保证数据安全？</h5></div>
@@ -232,9 +232,9 @@ IPLC、IEPL中转，点对点专线连接。高速冲浪，科学上网不二选
         AEAD 加密防止数据篡改、重放攻击和流量特征泄露。在高封锁环境下使用，可保证节点长期可用，提升数据安全和连接稳定性，同时降低被检测风险。<hr />    </div>
 </div>
 <div class="panel panel-default">
-    <div class="panel-heading"><h5>Hiddify Next 如何导入订阅？</h5></div>
+    <div class="panel-heading"><h5>VLESS + XTLS 模式相比普通 VLESS 有哪些优势？</h5></div>
     <div class="panel-body">
-        打开 Hiddify Next，进入主页点击“添加订阅”，输入机场提供的链接后确认。应用会自动同步节点并分类显示，支持一键测速与规则模式切换。    </div>
+        XTLS 模式减少冗余加密开销，提高传输效率，并在多连接高负载环境下表现更佳。同时仍保持 TLS 安全性，结合策略组可实现高性能和高隐蔽性的双重优势。    </div>
 </div>
 <div class="panel panel-default mt-5">
     <div class="panel-heading">
@@ -263,16 +263,16 @@ IPLC、IEPL中转，点对点专线连接。高速冲浪，科学上网不二选
     </div>
     <div class="panel-body">
         <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
-                        <li class="py-2"><a href="/free-nodes/2025-10-8-free-ssr-subscribe.htm" title="「10月8日」最高速度22.7M/S，2025年NekoBox每天更新免费节点订阅链接">「10月8日」最高速度22.7M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2025-11-21-free-shadowrocket-node.htm" title="「11月21日」最高速度18.7M/S，2025年NekoBox每天更新免费节点订阅链接">「11月21日」最高速度18.7M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2025-10-6-clash-windows.htm" title="「10月6日」最高速度20.9M/S，2025年NekoBox每天更新免费节点订阅链接">「10月6日」最高速度20.9M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2025-10-20-free-v2ray-subscribe.htm" title="「10月20日」最高速度23M/S，2025年NekoBox每天更新免费节点订阅链接">「10月20日」最高速度23M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2025-10-16-clash-node-daily-updates.htm" title="「10月16日」最高速度18.6M/S，2025年NekoBox每天更新免费节点订阅链接">「10月16日」最高速度18.6M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2025-10-10-free-shadowrocket-node.htm" title="「10月10日」最高速度21.5M/S，2025年NekoBox每天更新免费节点订阅链接">「10月10日」最高速度21.5M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2025-11-5-free-node-subscribe.htm" title="「11月5日」最高速度18.4M/S，2025年NekoBox每天更新免费节点订阅链接">「11月5日」最高速度18.4M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2025-10-5-free-clash.htm" title="「10月5日」最高速度20.1M/S，2025年NekoBox每天更新免费节点订阅链接">「10月5日」最高速度20.1M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2025-11-20-node-share-links.htm" title="「11月20日」最高速度20M/S，2025年NekoBox每天更新免费节点订阅链接">「11月20日」最高速度20M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2025-10-12-clash-windows.htm" title="「10月12日」最高速度19M/S，2025年NekoBox每天更新免费节点订阅链接">「10月12日」最高速度19M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-12-4-node-share-links.htm" title="「12月4日」最高速度23M/S，2025年NekoBox每天更新免费节点订阅链接">「12月4日」最高速度23M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-11-30-free-ssr-node.htm" title="「11月30日」最高速度19.1M/S，2025年NekoBox每天更新免费节点订阅链接">「11月30日」最高速度19.1M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-11-15-free-high-speed-nodes.htm" title="「11月15日」最高速度19.4M/S，2025年NekoBox每天更新免费节点订阅链接">「11月15日」最高速度19.4M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-11-17-free-shadowrocket-node.htm" title="「11月17日」最高速度21.9M/S，2025年NekoBox每天更新免费节点订阅链接">「11月17日」最高速度21.9M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-11-23-free-clash.htm" title="「11月23日」最高速度22.4M/S，2025年NekoBox每天更新免费节点订阅链接">「11月23日」最高速度22.4M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-11-9-free-ssr-node.htm" title="「11月9日」最高速度22.5M/S，2025年NekoBox每天更新免费节点订阅链接">「11月9日」最高速度22.5M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-11-22-free-v2ray-subscribe.htm" title="「11月22日」最高速度22.2M/S，2025年NekoBox每天更新免费节点订阅链接">「11月22日」最高速度22.2M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-11-19-node-share-links.htm" title="「11月19日」最高速度20.3M/S，2025年NekoBox每天更新免费节点订阅链接">「11月19日」最高速度20.3M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-11-18-free-v2ray-subscribe.htm" title="「11月18日」最高速度20.1M/S，2025年NekoBox每天更新免费节点订阅链接">「11月18日」最高速度20.1M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-11-12-shadowrocket-node.htm" title="「11月12日」最高速度19.6M/S，2025年NekoBox每天更新免费节点订阅链接">「11月12日」最高速度19.6M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
                     </ul>
     </div>
 </div>
@@ -284,10 +284,10 @@ IPLC、IEPL中转，点对点专线连接。高速冲浪，科学上网不二选
     <div class="panel-body">
         <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
                         <li class="py-2">
-                <h4><span class="badge" style="float: right;">24</span> <a href="/date/2025-11/" title="2025-11 归档">2025-11</a></h4>
+                <h4><span class="badge" style="float: right;">4</span> <a href="/date/2025-12/" title="2025-12 归档">2025-12</a></h4>
             </li>
                         <li class="py-2">
-                <h4><span class="badge" style="float: right;">26</span> <a href="/date/2025-10/" title="2025-10 归档">2025-10</a></h4>
+                <h4><span class="badge" style="float: right;">23</span> <a href="/date/2025-11/" title="2025-11 归档">2025-11</a></h4>
             </li>
                     </ul>
     </div>
