@@ -279,39 +279,9 @@ Telegram群组、微博和相关论坛常有用户分享和推荐节点信息，
     </div>
 <h4>FAQ</h4>
 <div class="panel panel-default">
-    <div class="panel-heading"><h5>Matsuri 的节点测速结果能影响策略组吗？</h5></div>
+    <div class="panel-heading"><h5>PassWall2 如何实现智能分流？</h5></div>
     <div class="panel-body">
-        可以。Matsuri 会将延迟最低的节点自动标记为优先节点，结合策略组，程序会优先选择最佳节点处理流量，保证访问速度和连接稳定性。<hr />    </div>
-</div>
-<div class="panel panel-default">
-    <div class="panel-heading"><h5>Shadowrocket 的分流规则如何优化视频播放？</h5></div>
-    <div class="panel-body">
-        通过分流规则，将流媒体域名匹配到高速节点，而其他流量走备用节点。保证视频播放流畅，同时节约带宽资源，提升整体网络速度和体验。<hr />    </div>
-</div>
-<div class="panel panel-default">
-    <div class="panel-heading"><h5>Trojan 的伪装域名如何选择更安全？</h5></div>
-    <div class="panel-body">
-        伪装域名应选择真实可访问的网站，且证书有效。这样 Trojan 流量能伪装成正常 HTTPS 请求，减少被封锁或检测的风险，提高节点安全性和稳定性。<hr />    </div>
-</div>
-<div class="panel panel-default">
-    <div class="panel-heading"><h5>VMess MUX 功能如何改善短连接延迟？</h5></div>
-    <div class="panel-body">
-        VMess MUX 多路复用可以将多个短连接共享同一 TCP 或 QUIC 隧道，减少重复握手和连接延迟，特别适合游戏、即时通讯或频繁请求的场景，有效提升响应速度。<hr />    </div>
-</div>
-<div class="panel panel-default">
-    <div class="panel-heading"><h5>V2Ray 的 Routing 设置可以实现什么？</h5></div>
-    <div class="panel-body">
-        V2Ray 的 Routing 系统支持基于域名、IP、端口或协议的智能分流。用户可以指定特定网站直连、部分服务走代理，还能创建黑白名单，实现灵活的网络访问控制。<hr />    </div>
-</div>
-<div class="panel panel-default">
-    <div class="panel-heading"><h5>Clash 的规则订阅更新有哪些注意事项？</h5></div>
-    <div class="panel-body">
-        Clash 订阅更新需保证网络畅通，规则文件格式正确，并与客户端版本兼容。建议定期更新规则以获得最新节点和分流规则，同时注意避免频繁刷新造成性能问题。<hr />    </div>
-</div>
-<div class="panel panel-default">
-    <div class="panel-heading"><h5>Shadowrocket 的节点测速如何优化策略组选择？</h5></div>
-    <div class="panel-body">
-        Shadowrocket 会测量节点延迟和丢包率，将低延迟节点优先使用。结合策略组和规则文件，可保证网页、视频和游戏流量走最佳节点，提高访问速度和连接稳定性。<hr />    </div>
+        PassWall2 通过自定义规则文件控制流量走向。可根据目标域名、国家或 IP 范围自动判断走代理或直连。用户还能加载社区规则，实现类似 Clash 的高效路由分流。<hr />    </div>
 </div>
 <div class="panel panel-default">
     <div class="panel-heading"><h5>Shadowrocket 节点延迟排序如何提升访问体验？</h5></div>
@@ -324,9 +294,39 @@ Telegram群组、微博和相关论坛常有用户分享和推荐节点信息，
         TUN 模式会拦截系统 IP 层的所有流量，实现全局代理。相比 SOCKS5 只影响部分应用，TUN 可以覆盖游戏、视频和浏览器等所有流量，提高科学上网体验的全面性。<hr />    </div>
 </div>
 <div class="panel panel-default">
-    <div class="panel-heading"><h5>PassWall2 如何实现智能分流？</h5></div>
+    <div class="panel-heading"><h5>Matsuri 的节点测速结果能影响策略组吗？</h5></div>
     <div class="panel-body">
-        PassWall2 通过自定义规则文件控制流量走向。可根据目标域名、国家或 IP 范围自动判断走代理或直连。用户还能加载社区规则，实现类似 Clash 的高效路由分流。    </div>
+        可以。Matsuri 会将延迟最低的节点自动标记为优先节点，结合策略组，程序会优先选择最佳节点处理流量，保证访问速度和连接稳定性。<hr />    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading"><h5>Shadowrocket 的分流规则如何优化视频播放？</h5></div>
+    <div class="panel-body">
+        通过分流规则，将流媒体域名匹配到高速节点，而其他流量走备用节点。保证视频播放流畅，同时节约带宽资源，提升整体网络速度和体验。<hr />    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading"><h5>Clash 的规则订阅更新有哪些注意事项？</h5></div>
+    <div class="panel-body">
+        Clash 订阅更新需保证网络畅通，规则文件格式正确，并与客户端版本兼容。建议定期更新规则以获得最新节点和分流规则，同时注意避免频繁刷新造成性能问题。<hr />    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading"><h5>V2Ray 的 Routing 设置可以实现什么？</h5></div>
+    <div class="panel-body">
+        V2Ray 的 Routing 系统支持基于域名、IP、端口或协议的智能分流。用户可以指定特定网站直连、部分服务走代理，还能创建黑白名单，实现灵活的网络访问控制。<hr />    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading"><h5>VMess MUX 功能如何改善短连接延迟？</h5></div>
+    <div class="panel-body">
+        VMess MUX 多路复用可以将多个短连接共享同一 TCP 或 QUIC 隧道，减少重复握手和连接延迟，特别适合游戏、即时通讯或频繁请求的场景，有效提升响应速度。<hr />    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading"><h5>Shadowrocket 的节点测速如何优化策略组选择？</h5></div>
+    <div class="panel-body">
+        Shadowrocket 会测量节点延迟和丢包率，将低延迟节点优先使用。结合策略组和规则文件，可保证网页、视频和游戏流量走最佳节点，提高访问速度和连接稳定性。<hr />    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading"><h5>Trojan 的伪装域名如何选择更安全？</h5></div>
+    <div class="panel-body">
+        伪装域名应选择真实可访问的网站，且证书有效。这样 Trojan 流量能伪装成正常 HTTPS 请求，减少被封锁或检测的风险，提高节点安全性和稳定性。    </div>
 </div>
 <div class="panel panel-default mt-5">
     <div class="panel-heading">
@@ -355,16 +355,16 @@ Telegram群组、微博和相关论坛常有用户分享和推荐节点信息，
     </div>
     <div class="panel-body">
         <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
-                        <li class="py-2"><a href="/free-nodes/2026-1-14-free-subscribe-node.htm" title="「1月14日」最高速度20.9M/S，2025年NekoBox每天更新免费节点订阅链接">「1月14日」最高速度20.9M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2025-12-17-clash-windows.htm" title="「12月17日」最高速度22.6M/S，2025年NekoBox每天更新免费节点订阅链接">「12月17日」最高速度22.6M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2026-1-29-node-share.htm" title="「1月29日」最高速度20.3M/S，2025年NekoBox每天更新免费节点订阅链接">「1月29日」最高速度20.3M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2026-1-15-free-node-subscribe-links.htm" title="「1月15日」最高速度18.2M/S，2025年NekoBox每天更新免费节点订阅链接">「1月15日」最高速度18.2M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2025-12-21-clash-windows.htm" title="「12月21日」最高速度19.2M/S，2025年NekoBox每天更新免费节点订阅链接">「12月21日」最高速度19.2M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2026-1-30-free-node-subscribe.htm" title="「1月30日」最高速度19.2M/S，2025年NekoBox每天更新免费节点订阅链接">「1月30日」最高速度19.2M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2026-1-25-free-v2ray-subscribe.htm" title="「1月25日」最高速度22.5M/S，2025年NekoBox每天更新免费节点订阅链接">「1月25日」最高速度22.5M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2026-1-5-free-clash-subscribe.htm" title="「1月5日」最高速度19.8M/S，2025年NekoBox每天更新免费节点订阅链接">「1月5日」最高速度19.8M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
                         <li class="py-2"><a href="/free-nodes/2026-1-8-free-high-speed-nodes.htm" title="「1月8日」最高速度22M/S，2025年NekoBox每天更新免费节点订阅链接">「1月8日」最高速度22M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2026-1-19-free-ssr-subscribe.htm" title="「1月19日」最高速度19.4M/S，2025年NekoBox每天更新免费节点订阅链接">「1月19日」最高速度19.4M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2026-2-5-free-subscribe-node.htm" title="「2月5日」最高速度20.5M/S，2025年NekoBox每天更新免费节点订阅链接">「2月5日」最高速度20.5M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2026-1-23-node-share.htm" title="「1月23日」最高速度19.2M/S，2025年NekoBox每天更新免费节点订阅链接">「1月23日」最高速度19.2M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
                         <li class="py-2"><a href="/free-nodes/2026-1-26-free-high-speed-nodes.htm" title="「1月26日」最高速度18.5M/S，2025年NekoBox每天更新免费节点订阅链接">「1月26日」最高速度18.5M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2026-1-22-free-clash.htm" title="「1月22日」最高速度18.3M/S，2025年NekoBox每天更新免费节点订阅链接">「1月22日」最高速度18.3M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2026-2-1-free-ssr-subscribe.htm" title="「2月1日」最高速度20.2M/S，2025年NekoBox每天更新免费节点订阅链接">「2月1日」最高速度20.2M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2026-2-2-node-share.htm" title="「2月2日」最高速度19.8M/S，2025年NekoBox每天更新免费节点订阅链接">「2月2日」最高速度19.8M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2026-1-20-free-v2ray.htm" title="「1月20日」最高速度18.9M/S，2025年NekoBox每天更新免费节点订阅链接">「1月20日」最高速度18.9M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2026-1-7-free-node-subscribe.htm" title="「1月7日」最高速度22.9M/S，2025年NekoBox每天更新免费节点订阅链接">「1月7日」最高速度22.9M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
                     </ul>
     </div>
 </div>
@@ -376,10 +376,10 @@ Telegram群组、微博和相关论坛常有用户分享和推荐节点信息，
     <div class="panel-body">
         <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
                         <li class="py-2">
-                <h4><span class="badge" style="float: right;">29</span> <a href="/date/2026-01/" title="2026-01 归档">2026-01</a></h4>
+                <h4><span class="badge" style="float: right;">6</span> <a href="/date/2026-02/" title="2026-02 归档">2026-02</a></h4>
             </li>
                         <li class="py-2">
-                <h4><span class="badge" style="float: right;">19</span> <a href="/date/2025-12/" title="2025-12 归档">2025-12</a></h4>
+                <h4><span class="badge" style="float: right;">26</span> <a href="/date/2026-01/" title="2026-01 归档">2026-01</a></h4>
             </li>
                     </ul>
     </div>
