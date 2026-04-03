@@ -402,24 +402,14 @@ logread | grep v2ray
         Proxy Group 可以定义多种策略，如按延迟选择、随机、轮询或手动选择节点。结合分流规则，可实现针对不同网站或应用的智能代理，提高网络体验。<hr />    </div>
 </div>
 <div class="panel panel-default">
-    <div class="panel-heading"><h5>Mihomo 是什么？</h5></div>
-    <div class="panel-body">
-        Mihomo 是 Clash Premium 的开源替代项目，兼容原版 Clash 配置文件并扩展了部分新功能。它性能优异、内存占用低，适用于希望自定义构建代理环境的高级用户。<hr />    </div>
-</div>
-<div class="panel panel-default">
     <div class="panel-heading"><h5>V2Ray QUIC 模式适合哪些网络环境？</h5></div>
     <div class="panel-body">
         QUIC 基于 UDP 协议，支持多路复用和零握手，适合高丢包和不稳定网络环境。可提升视频、游戏和即时通讯流量的稳定性和访问速度，提高网络体验。<hr />    </div>
 </div>
 <div class="panel panel-default">
-    <div class="panel-heading"><h5>Sing-box 如何按域名分流优化浏览器流量？</h5></div>
+    <div class="panel-heading"><h5>Mihomo 是什么？</h5></div>
     <div class="panel-body">
-        Sing-box 可通过规则匹配域名，将浏览器流量分配到最优节点。结合策略组，可保证网页访问速度和稳定性，同时优化视频和游戏等其他流量，提高整体网络体验。<hr />    </div>
-</div>
-<div class="panel panel-default">
-    <div class="panel-heading"><h5>VLESS + Reality 模式与 TLS 模式有何不同？</h5></div>
-    <div class="panel-body">
-        Reality 模式通过伪造握手和真实网站特征提升隐蔽性，TLS 模式侧重加密和传输效率。Reality 更难被 DPI 检测，适合高封锁环境，TLS 模式在稳定性和速度上更优。<hr />    </div>
+        Mihomo 是 Clash Premium 的开源替代项目，兼容原版 Clash 配置文件并扩展了部分新功能。它性能优异、内存占用低，适用于希望自定义构建代理环境的高级用户。<hr />    </div>
 </div>
 <div class="panel panel-default">
     <div class="panel-heading"><h5>PassWall2 如何定时自动更新节点？</h5></div>
@@ -427,14 +417,9 @@ logread | grep v2ray
         可在计划任务中添加命令 `passwall update` 并设定时间间隔，例如每日凌晨自动更新。这样可确保节点信息实时同步，避免旧节点失效影响连接体验。<hr />    </div>
 </div>
 <div class="panel panel-default">
-    <div class="panel-heading"><h5>WinXray 的节点延迟过高怎么办？</h5></div>
+    <div class="panel-heading"><h5>Trojan 节点无法连接时应如何排查？</h5></div>
     <div class="panel-body">
-        可通过策略组切换低延迟节点，或调整传输协议和端口。检查服务器网络和防火墙设置，确保网络通畅。必要时可启用 MUX 功能减少短连接延迟，提高整体网络体验。<hr />    </div>
-</div>
-<div class="panel panel-default">
-    <div class="panel-heading"><h5>Surfboard 如何结合策略组实现智能分流？</h5></div>
-    <div class="panel-body">
-        Surfboard 可根据策略组和规则文件自动选择最优节点处理流量。不同应用或网站可分配不同节点，保证低延迟和高速访问，同时减少手动切换节点的操作。<hr />    </div>
+        遇到 Trojan 无法连接时，需检查服务器证书是否有效、端口是否开放、密码配置是否匹配。还应确认防火墙未阻断相关端口，并尝试切换 TLS 版本或使用 IP 地址连接。<hr />    </div>
 </div>
 <div class="panel panel-default">
     <div class="panel-heading"><h5>Trojan 的伪装域名配置有哪些注意事项？</h5></div>
@@ -442,9 +427,24 @@ logread | grep v2ray
         伪装域名必须真实可访问且证书有效，否则无法建立连接。正确配置可隐藏真实流量特征，降低被封锁和检测风险，提高节点安全性和长期可用性。<hr />    </div>
 </div>
 <div class="panel panel-default">
-    <div class="panel-heading"><h5>Trojan 节点无法连接时应如何排查？</h5></div>
+    <div class="panel-heading"><h5>Sing-box 如何按域名分流优化浏览器流量？</h5></div>
     <div class="panel-body">
-        遇到 Trojan 无法连接时，需检查服务器证书是否有效、端口是否开放、密码配置是否匹配。还应确认防火墙未阻断相关端口，并尝试切换 TLS 版本或使用 IP 地址连接。    </div>
+        Sing-box 可通过规则匹配域名，将浏览器流量分配到最优节点。结合策略组，可保证网页访问速度和稳定性，同时优化视频和游戏等其他流量，提高整体网络体验。<hr />    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading"><h5>Surfboard 如何结合策略组实现智能分流？</h5></div>
+    <div class="panel-body">
+        Surfboard 可根据策略组和规则文件自动选择最优节点处理流量。不同应用或网站可分配不同节点，保证低延迟和高速访问，同时减少手动切换节点的操作。<hr />    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading"><h5>WinXray 的节点延迟过高怎么办？</h5></div>
+    <div class="panel-body">
+        可通过策略组切换低延迟节点，或调整传输协议和端口。检查服务器网络和防火墙设置，确保网络通畅。必要时可启用 MUX 功能减少短连接延迟，提高整体网络体验。<hr />    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading"><h5>VLESS + Reality 模式与 TLS 模式有何不同？</h5></div>
+    <div class="panel-body">
+        Reality 模式通过伪造握手和真实网站特征提升隐蔽性，TLS 模式侧重加密和传输效率。Reality 更难被 DPI 检测，适合高封锁环境，TLS 模式在稳定性和速度上更优。    </div>
 </div>
 <div class="panel panel-default mt-5">
     <div class="panel-heading">
@@ -473,16 +473,16 @@ logread | grep v2ray
     </div>
     <div class="panel-body">
         <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
-                        <li class="py-2"><a href="/free-nodes/2026-2-16-node-share-links.htm" title="「2月16日」最高速度21.2M/S，2025年NekoBox每天更新免费节点订阅链接">「2月16日」最高速度21.2M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2026-3-14-free-clash.htm" title="「3月14日」最高速度18.4M/S，2025年NekoBox每天更新免费节点订阅链接">「3月14日」最高速度18.4M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2026-3-11-free-clash-subscribe.htm" title="「3月11日」最高速度18.7M/S，2025年NekoBox每天更新免费节点订阅链接">「3月11日」最高速度18.7M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2026-1-27-free-ssr-node.htm" title="「1月27日」最高速度20.1M/S，2025年NekoBox每天更新免费节点订阅链接">「1月27日」最高速度20.1M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2026-1-26-free-high-speed-nodes.htm" title="「1月26日」最高速度18.5M/S，2025年NekoBox每天更新免费节点订阅链接">「1月26日」最高速度18.5M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2026-1-23-node-share.htm" title="「1月23日」最高速度19.2M/S，2025年NekoBox每天更新免费节点订阅链接">「1月23日」最高速度19.2M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2026-1-28-free-ssr-node.htm" title="「1月28日」最高速度21M/S，2025年NekoBox每天更新免费节点订阅链接">「1月28日」最高速度21M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2026-1-19-free-ssr-subscribe.htm" title="「1月19日」最高速度19.4M/S，2025年NekoBox每天更新免费节点订阅链接">「1月19日」最高速度19.4M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2026-2-12-free-clash.htm" title="「2月12日」最高速度20.4M/S，2025年NekoBox每天更新免费节点订阅链接">「2月12日」最高速度20.4M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2026-2-28-free-node-subscribe.htm" title="「2月28日」最高速度21.2M/S，2025年NekoBox每天更新免费节点订阅链接">「2月28日」最高速度21.2M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2026-3-30-clash-node.htm" title="「3月30日」最高速度20.8M/S，2025年NekoBox每天更新免费节点订阅链接">「3月30日」最高速度20.8M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2026-3-10-free-shadowrocket-node.htm" title="「3月10日」最高速度21.4M/S，2025年NekoBox每天更新免费节点订阅链接">「3月10日」最高速度21.4M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2026-3-5-free-ssr-node.htm" title="「3月5日」最高速度18.3M/S，2025年NekoBox每天更新免费节点订阅链接">「3月5日」最高速度18.3M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2026-3-8-free-v2ray.htm" title="「3月8日」最高速度19.6M/S，2025年NekoBox每天更新免费节点订阅链接">「3月8日」最高速度19.6M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2026-3-27-clash-node-daily-updates.htm" title="「3月27日」最高速度19.3M/S，2025年NekoBox每天更新免费节点订阅链接">「3月27日」最高速度19.3M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2026-3-15-free-shadowrocket-node.htm" title="「3月15日」最高速度20.8M/S，2025年NekoBox每天更新免费节点订阅链接">「3月15日」最高速度20.8M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2026-3-7-free-node-subscribe-links.htm" title="「3月7日」最高速度21.9M/S，2025年NekoBox每天更新免费节点订阅链接">「3月7日」最高速度21.9M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2026-3-22-clash-node-daily-updates.htm" title="「3月22日」最高速度22M/S，2025年NekoBox每天更新免费节点订阅链接">「3月22日」最高速度22M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2026-3-29-free-shadowrocket-node.htm" title="「3月29日」最高速度22.6M/S，2025年NekoBox每天更新免费节点订阅链接">「3月29日」最高速度22.6M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2026-3-9-clash-node-daily-updates.htm" title="「3月9日」最高速度20.4M/S，2025年NekoBox每天更新免费节点订阅链接">「3月9日」最高速度20.4M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
                     </ul>
     </div>
 </div>
@@ -494,13 +494,10 @@ logread | grep v2ray
     <div class="panel-body">
         <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
                         <li class="py-2">
+                <h4><span class="badge" style="float: right;">1</span> <a href="/date/2026-04/" title="2026-04 归档">2026-04</a></h4>
+            </li>
+                        <li class="py-2">
                 <h4><span class="badge" style="float: right;">26</span> <a href="/date/2026-03/" title="2026-03 归档">2026-03</a></h4>
-            </li>
-                        <li class="py-2">
-                <h4><span class="badge" style="float: right;">27</span> <a href="/date/2026-02/" title="2026-02 归档">2026-02</a></h4>
-            </li>
-                        <li class="py-2">
-                <h4><span class="badge" style="float: right;">18</span> <a href="/date/2026-01/" title="2026-01 归档">2026-01</a></h4>
             </li>
                     </ul>
     </div>
