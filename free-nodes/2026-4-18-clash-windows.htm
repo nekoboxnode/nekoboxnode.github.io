@@ -275,19 +275,24 @@ sudo apt upgrade </span><span><span class="hljs-comment"># 升级系统软件</s
         Reality 模式通过伪装握手和真实网站特征，使流量难以被 DPI 检测。结合策略组使用，可有效隐藏节点通信特征，同时保持安全和高速传输，适合高封锁环境。<hr />    </div>
 </div>
 <div class="panel panel-default">
-    <div class="panel-heading"><h5>WinXray 是否支持订阅自动更新？</h5></div>
+    <div class="panel-heading"><h5>Netch 的 Socks 模式有什么作用？</h5></div>
     <div class="panel-body">
-        是的，WinXray 支持定时订阅更新。用户可在设置中开启自动更新周期（如每天或每小时），程序会自动下载新节点并替换旧配置，确保使用最新的线路资源。<hr />    </div>
+        Netch 的 Socks 模式允许用户将代理仅应用于指定进程，而非全局网络。此模式非常适合单个游戏或程序代理，避免影响其他应用的连接方式与速度。<hr />    </div>
 </div>
 <div class="panel panel-default">
-    <div class="panel-heading"><h5>Surfboard 的节点策略组如何提升使用体验？</h5></div>
+    <div class="panel-heading"><h5>Nekobox 可以定时更新订阅节点吗？</h5></div>
     <div class="panel-body">
-        策略组可将节点按延迟、用途或地理位置分类，通过规则自动选择最优节点。用户无需手动切换节点即可获得最佳速度和稳定性，提高浏览和观看流媒体的体验。<hr />    </div>
+        支持。用户可设置定时更新频率，例如每天或每小时，程序会自动下载订阅节点并替换旧节点，确保节点始终可用并保持最新线路信息。<hr />    </div>
 </div>
 <div class="panel panel-default">
     <div class="panel-heading"><h5>QuantumultX 如何使用分流策略实现广告屏蔽？</h5></div>
     <div class="panel-body">
         QuantumultX 可通过规则匹配广告域名或路径，将请求重定向或直接阻断。结合策略组，可实现自动屏蔽网页和应用广告，提高用户浏览体验。<hr />    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading"><h5>VLESS + XTLS 在高延迟网络中如何优化连接？</h5></div>
+    <div class="panel-body">
+        XTLS 模式通过减少握手和加密开销降低延迟。结合策略组和多节点切换，可在高延迟或不稳定网络环境下保证网页浏览、视频播放和游戏连接稳定，提高用户体验。<hr />    </div>
 </div>
 <div class="panel panel-default">
     <div class="panel-heading"><h5>如何给 Clash 或 Sing-box 添加本地广告屏蔽规则？</h5></div>
@@ -300,24 +305,19 @@ sudo apt upgrade </span><span><span class="hljs-comment"># 升级系统软件</s
         XTLS 模式减少握手次数和加密开销，适合高延迟或不稳定移动网络。结合策略组和节点切换，可提升网页浏览、视频播放和游戏连接的稳定性和流畅度。<hr />    </div>
 </div>
 <div class="panel panel-default">
+    <div class="panel-heading"><h5>Surfboard 的节点策略组如何提升使用体验？</h5></div>
+    <div class="panel-body">
+        策略组可将节点按延迟、用途或地理位置分类，通过规则自动选择最优节点。用户无需手动切换节点即可获得最佳速度和稳定性，提高浏览和观看流媒体的体验。<hr />    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading"><h5>WinXray 是否支持订阅自动更新？</h5></div>
+    <div class="panel-body">
+        是的，WinXray 支持定时订阅更新。用户可在设置中开启自动更新周期（如每天或每小时），程序会自动下载新节点并替换旧配置，确保使用最新的线路资源。<hr />    </div>
+</div>
+<div class="panel panel-default">
     <div class="panel-heading"><h5>QuantumultX 如何通过策略组优化多应用分流？</h5></div>
     <div class="panel-body">
-        QuantumultX 可以根据应用类型、端口和协议设置策略组，自动选择最优节点处理不同流量。这样可保证网页浏览、视频播放和游戏访问顺畅，提高整体网络效率。<hr />    </div>
-</div>
-<div class="panel panel-default">
-    <div class="panel-heading"><h5>Netch 的 Socks 模式有什么作用？</h5></div>
-    <div class="panel-body">
-        Netch 的 Socks 模式允许用户将代理仅应用于指定进程，而非全局网络。此模式非常适合单个游戏或程序代理，避免影响其他应用的连接方式与速度。<hr />    </div>
-</div>
-<div class="panel panel-default">
-    <div class="panel-heading"><h5>VLESS + XTLS 在高延迟网络中如何优化连接？</h5></div>
-    <div class="panel-body">
-        XTLS 模式通过减少握手和加密开销降低延迟。结合策略组和多节点切换，可在高延迟或不稳定网络环境下保证网页浏览、视频播放和游戏连接稳定，提高用户体验。<hr />    </div>
-</div>
-<div class="panel panel-default">
-    <div class="panel-heading"><h5>Nekobox 可以定时更新订阅节点吗？</h5></div>
-    <div class="panel-body">
-        支持。用户可设置定时更新频率，例如每天或每小时，程序会自动下载订阅节点并替换旧节点，确保节点始终可用并保持最新线路信息。    </div>
+        QuantumultX 可以根据应用类型、端口和协议设置策略组，自动选择最优节点处理不同流量。这样可保证网页浏览、视频播放和游戏访问顺畅，提高整体网络效率。    </div>
 </div>
 <div class="panel panel-default mt-5">
     <div class="panel-heading">
@@ -346,16 +346,16 @@ sudo apt upgrade </span><span><span class="hljs-comment"># 升级系统软件</s
     </div>
     <div class="panel-body">
         <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
-                        <li class="py-2"><a href="/free-nodes/2026-3-18-free-v2ray.htm" title="「3月18日」最高速度22.6M/S，2025年NekoBox每天更新免费节点订阅链接">「3月18日」最高速度22.6M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2026-3-19-clash-node-daily-updates.htm" title="「3月19日」最高速度20.6M/S，2025年NekoBox每天更新免费节点订阅链接">「3月19日」最高速度20.6M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2026-3-16-free-clash-subscribe.htm" title="「3月16日」最高速度22.1M/S，2025年NekoBox每天更新免费节点订阅链接">「3月16日」最高速度22.1M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2026-4-10-free-ssr-subscribe.htm" title="「4月10日」最高速度22.2M/S，2025年NekoBox每天更新免费节点订阅链接">「4月10日」最高速度22.2M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2026-4-12-free-node-subscribe-links.htm" title="「4月12日」最高速度20.3M/S，2025年NekoBox每天更新免费节点订阅链接">「4月12日」最高速度20.3M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2026-3-22-clash-node-daily-updates.htm" title="「3月22日」最高速度22M/S，2025年NekoBox每天更新免费节点订阅链接">「3月22日」最高速度22M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2026-3-9-clash-node-daily-updates.htm" title="「3月9日」最高速度20.4M/S，2025年NekoBox每天更新免费节点订阅链接">「3月9日」最高速度20.4M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2026-4-13-clash-windows.htm" title="「4月13日」最高速度18.4M/S，2025年NekoBox每天更新免费节点订阅链接">「4月13日」最高速度18.4M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2026-3-20-clash-node-daily-updates.htm" title="「3月20日」最高速度20.7M/S，2025年NekoBox每天更新免费节点订阅链接">「3月20日」最高速度20.7M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2026-4-2-clash-v2ray-ss-ssr.htm" title="「4月2日」最高速度18.9M/S，2025年NekoBox每天更新免费节点订阅链接">「4月2日」最高速度18.9M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2026-4-30-free-ssr-subscribe.htm" title="「4月30日」最高速度18.3M/S，2025年NekoBox每天更新免费节点订阅链接">「4月30日」最高速度18.3M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2026-4-17-free-node-subscribe-links.htm" title="「4月17日」最高速度20.5M/S，2025年NekoBox每天更新免费节点订阅链接">「4月17日」最高速度20.5M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2026-4-26-free-node-subscribe-links.htm" title="「4月26日」最高速度21.4M/S，2025年NekoBox每天更新免费节点订阅链接">「4月26日」最高速度21.4M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2026-4-20-shadowrocket-node.htm" title="「4月20日」最高速度21.7M/S，2025年NekoBox每天更新免费节点订阅链接">「4月20日」最高速度21.7M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2026-4-27-node-share-links.htm" title="「4月27日」最高速度21.2M/S，2025年NekoBox每天更新免费节点订阅链接">「4月27日」最高速度21.2M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2026-4-11-free-ssr-subscribe.htm" title="「4月11日」最高速度20.7M/S，2025年NekoBox每天更新免费节点订阅链接">「4月11日」最高速度20.7M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2026-4-16-free-clash-subscribe.htm" title="「4月16日」最高速度19.3M/S，2025年NekoBox每天更新免费节点订阅链接">「4月16日」最高速度19.3M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2026-4-21-node-share.htm" title="「4月21日」最高速度20.6M/S，2025年NekoBox每天更新免费节点订阅链接">「4月21日」最高速度20.6M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2026-4-29-clash-windows.htm" title="「4月29日」最高速度21.4M/S，2025年NekoBox每天更新免费节点订阅链接">「4月29日」最高速度21.4M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2026-5-2-free-shadowrocket-node.htm" title="「5月2日」最高速度20.5M/S，2025年NekoBox每天更新免费节点订阅链接">「5月2日」最高速度20.5M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
                     </ul>
     </div>
 </div>
@@ -367,10 +367,10 @@ sudo apt upgrade </span><span><span class="hljs-comment"># 升级系统软件</s
     <div class="panel-body">
         <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
                         <li class="py-2">
-                <h4><span class="badge" style="float: right;">14</span> <a href="/date/2026-04/" title="2026-04 归档">2026-04</a></h4>
+                <h4><span class="badge" style="float: right;">2</span> <a href="/date/2026-05/" title="2026-05 归档">2026-05</a></h4>
             </li>
                         <li class="py-2">
-                <h4><span class="badge" style="float: right;">26</span> <a href="/date/2026-03/" title="2026-03 归档">2026-03</a></h4>
+                <h4><span class="badge" style="float: right;">22</span> <a href="/date/2026-04/" title="2026-04 归档">2026-04</a></h4>
             </li>
                     </ul>
     </div>

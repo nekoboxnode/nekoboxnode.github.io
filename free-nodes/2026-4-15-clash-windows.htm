@@ -367,9 +367,9 @@ A4：取决于节点IP是否被Netflix识别并封锁。部分付费节点专门
     </div>
 <h4>FAQ</h4>
 <div class="panel panel-default">
-    <div class="panel-heading"><h5>VMess AEAD 加密如何确保数据传输安全？</h5></div>
+    <div class="panel-heading"><h5>Trojan 服务器如何防止被扫描到真实 IP？</h5></div>
     <div class="panel-body">
-        AEAD 加密可防止数据篡改、重放攻击和流量特征泄露。在高封锁环境中保证节点可用，提升数据安全和连接稳定性，降低被检测风险，确保长期安全访问体验。<hr />    </div>
+        可以把 Trojan 部署在反向代理或 CDN 后端，使用 CDN 的中转与域名伪装；同时避免在服务器上暴露其他与域名不匹配的服务，关闭 FTP/SSH 直连并设置防火墙白名单。<hr />    </div>
 </div>
 <div class="panel panel-default">
     <div class="panel-heading"><h5>Sing-box 如何精确匹配端口流量？</h5></div>
@@ -377,24 +377,14 @@ A4：取决于节点IP是否被Netflix识别并封锁。部分付费节点专门
         Sing-box 支持按端口设置流量分流规则，将不同类型流量分配到不同节点。结合策略组使用，可提高访问速度和稳定性，实现精准流量管理和优化网络体验。<hr />    </div>
 </div>
 <div class="panel panel-default">
+    <div class="panel-heading"><h5>VMess AEAD 加密如何确保数据传输安全？</h5></div>
+    <div class="panel-body">
+        AEAD 加密可防止数据篡改、重放攻击和流量特征泄露。在高封锁环境中保证节点可用，提升数据安全和连接稳定性，降低被检测风险，确保长期安全访问体验。<hr />    </div>
+</div>
+<div class="panel panel-default">
     <div class="panel-heading"><h5>Mellow 支持哪些平台？</h5></div>
     <div class="panel-body">
         Mellow 是基于 Electron 的跨平台代理工具，支持 Windows、macOS 和 Linux。它通过 TUN 模式接管全局流量，并支持 Clash 规则和订阅格式，非常灵活。<hr />    </div>
-</div>
-<div class="panel panel-default">
-    <div class="panel-heading"><h5>Trojan 服务器如何防止被扫描到真实 IP？</h5></div>
-    <div class="panel-body">
-        可以把 Trojan 部署在反向代理或 CDN 后端，使用 CDN 的中转与域名伪装；同时避免在服务器上暴露其他与域名不匹配的服务，关闭 FTP/SSH 直连并设置防火墙白名单。<hr />    </div>
-</div>
-<div class="panel panel-default">
-    <div class="panel-heading"><h5>如何更新 Clash 的订阅节点？</h5></div>
-    <div class="panel-body">
-        在 Clash 中更新订阅节点，只需在配置页面中点击“Update”或“Refresh”按钮即可。系统会重新下载订阅链接中的内容，自动替换旧节点。这样能确保用户随时获取最新可用节点，避免连接失败或延迟过高。<hr />    </div>
-</div>
-<div class="panel panel-default">
-    <div class="panel-heading"><h5>Mihomo 节点分组如何提升访问效率？</h5></div>
-    <div class="panel-body">
-        节点可按延迟、地区或用途分组，结合策略组实现自动分流。快速选择最优节点，可提高网页、视频和游戏访问速度，同时优化节点管理和维护效率，提升整体网络体验。<hr />    </div>
 </div>
 <div class="panel panel-default">
     <div class="panel-heading"><h5>V2Ray 的 outbound freedom 模式有什么作用？</h5></div>
@@ -402,9 +392,19 @@ A4：取决于节点IP是否被Netflix识别并封锁。部分付费节点专门
         freedom 是直连模块，可用于分流策略中实现部分流量直连。用户可在 routing 中设置匹配规则，将国内域名或局域网 IP 指向 freedom 出口，从而减少代理开销和延迟。<hr />    </div>
 </div>
 <div class="panel panel-default">
+    <div class="panel-heading"><h5>Mihomo 节点分组如何提升访问效率？</h5></div>
+    <div class="panel-body">
+        节点可按延迟、地区或用途分组，结合策略组实现自动分流。快速选择最优节点，可提高网页、视频和游戏访问速度，同时优化节点管理和维护效率，提升整体网络体验。<hr />    </div>
+</div>
+<div class="panel panel-default">
     <div class="panel-heading"><h5>WinXray 的节点延迟过高怎么办？</h5></div>
     <div class="panel-body">
         可通过策略组切换低延迟节点，或调整传输协议和端口。检查服务器网络和防火墙设置，确保网络通畅。必要时可启用 MUX 功能减少短连接延迟，提高整体网络体验。<hr />    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading"><h5>如何更新 Clash 的订阅节点？</h5></div>
+    <div class="panel-body">
+        在 Clash 中更新订阅节点，只需在配置页面中点击“Update”或“Refresh”按钮即可。系统会重新下载订阅链接中的内容，自动替换旧节点。这样能确保用户随时获取最新可用节点，避免连接失败或延迟过高。<hr />    </div>
 </div>
 <div class="panel panel-default">
     <div class="panel-heading"><h5>Hiddify Next 的用户管理面板有哪些功能？</h5></div>
@@ -443,16 +443,16 @@ A4：取决于节点IP是否被Netflix识别并封锁。部分付费节点专门
     </div>
     <div class="panel-body">
         <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
-                        <li class="py-2"><a href="/free-nodes/2026-3-7-free-node-subscribe-links.htm" title="「3月7日」最高速度21.9M/S，2025年NekoBox每天更新免费节点订阅链接">「3月7日」最高速度21.9M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2026-3-14-free-clash.htm" title="「3月14日」最高速度18.4M/S，2025年NekoBox每天更新免费节点订阅链接">「3月14日」最高速度18.4M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2026-4-11-free-ssr-subscribe.htm" title="「4月11日」最高速度20.7M/S，2025年NekoBox每天更新免费节点订阅链接">「4月11日」最高速度20.7M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2026-3-13-clash-node.htm" title="「3月13日」最高速度22.2M/S，2025年NekoBox每天更新免费节点订阅链接">「3月13日」最高速度22.2M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2026-3-22-clash-node-daily-updates.htm" title="「3月22日」最高速度22M/S，2025年NekoBox每天更新免费节点订阅链接">「3月22日」最高速度22M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2026-3-23-free-shadowrocket-node.htm" title="「3月23日」最高速度21.7M/S，2025年NekoBox每天更新免费节点订阅链接">「3月23日」最高速度21.7M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2026-3-21-node-share.htm" title="「3月21日」最高速度22.8M/S，2025年NekoBox每天更新免费节点订阅链接">「3月21日」最高速度22.8M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2026-4-10-free-ssr-subscribe.htm" title="「4月10日」最高速度22.2M/S，2025年NekoBox每天更新免费节点订阅链接">「4月10日」最高速度22.2M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2026-3-18-free-v2ray.htm" title="「3月18日」最高速度22.6M/S，2025年NekoBox每天更新免费节点订阅链接">「3月18日」最高速度22.6M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2026-4-19-clash-windows.htm" title="「4月19日」最高速度20.4M/S，2025年NekoBox每天更新免费节点订阅链接">「4月19日」最高速度20.4M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2026-4-18-clash-windows.htm" title="「4月18日」最高速度18.8M/S，2025年NekoBox每天更新免费节点订阅链接">「4月18日」最高速度18.8M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2026-4-23-free-subscribe-node.htm" title="「4月23日」最高速度20M/S，2025年NekoBox每天更新免费节点订阅链接">「4月23日」最高速度20M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2026-4-24-free-v2ray.htm" title="「4月24日」最高速度19.4M/S，2025年NekoBox每天更新免费节点订阅链接">「4月24日」最高速度19.4M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2026-4-9-clash-node.htm" title="「4月9日」最高速度19.1M/S，2025年NekoBox每天更新免费节点订阅链接">「4月9日」最高速度19.1M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2026-4-28-clash-node-daily-updates.htm" title="「4月28日」最高速度19.1M/S，2025年NekoBox每天更新免费节点订阅链接">「4月28日」最高速度19.1M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2026-4-26-free-node-subscribe-links.htm" title="「4月26日」最高速度21.4M/S，2025年NekoBox每天更新免费节点订阅链接">「4月26日」最高速度21.4M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2026-4-12-free-node-subscribe-links.htm" title="「4月12日」最高速度20.3M/S，2025年NekoBox每天更新免费节点订阅链接">「4月12日」最高速度20.3M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2026-4-29-clash-windows.htm" title="「4月29日」最高速度21.4M/S，2025年NekoBox每天更新免费节点订阅链接">「4月29日」最高速度21.4M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2026-4-30-free-ssr-subscribe.htm" title="「4月30日」最高速度18.3M/S，2025年NekoBox每天更新免费节点订阅链接">「4月30日」最高速度18.3M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2026-4-14-free-v2ray.htm" title="「4月14日」最高速度19.8M/S，2025年NekoBox每天更新免费节点订阅链接">「4月14日」最高速度19.8M/S，2025年NekoBox每天更新免费节点订阅链接</a></li>
                     </ul>
     </div>
 </div>
@@ -464,10 +464,10 @@ A4：取决于节点IP是否被Netflix识别并封锁。部分付费节点专门
     <div class="panel-body">
         <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
                         <li class="py-2">
-                <h4><span class="badge" style="float: right;">14</span> <a href="/date/2026-04/" title="2026-04 归档">2026-04</a></h4>
+                <h4><span class="badge" style="float: right;">2</span> <a href="/date/2026-05/" title="2026-05 归档">2026-05</a></h4>
             </li>
                         <li class="py-2">
-                <h4><span class="badge" style="float: right;">26</span> <a href="/date/2026-03/" title="2026-03 归档">2026-03</a></h4>
+                <h4><span class="badge" style="float: right;">22</span> <a href="/date/2026-04/" title="2026-04 归档">2026-04</a></h4>
             </li>
                     </ul>
     </div>
