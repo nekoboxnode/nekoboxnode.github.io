@@ -269,14 +269,14 @@ IPLC、IEPL中转，点对点专线连接。高速冲浪，科学上网不二选
     </div>
 <h4>FAQ</h4>
 <div class="panel panel-default">
-    <div class="panel-heading"><h5>VMess AEAD 加密如何保证数据安全？</h5></div>
+    <div class="panel-heading"><h5>V2Ray QUIC 传输适合什么网络环境？</h5></div>
     <div class="panel-body">
-        AEAD 加密防止数据篡改、重放攻击和流量特征泄露。在高封锁环境下使用，可保证节点长期可用，提升数据安全和连接稳定性，同时降低被检测风险。<hr />    </div>
+        QUIC 基于 UDP 支持多路复用和零握手，降低延迟，提高吞吐量。适合高丢包、不稳定网络环境，可保证视频、游戏和即时通讯流量的稳定性和流畅体验。<hr />    </div>
 </div>
 <div class="panel panel-default">
-    <div class="panel-heading"><h5>Hysteria2 的 QUIC 模式相比 TCP 有哪些优势？</h5></div>
+    <div class="panel-heading"><h5>Sing-box 是否兼容 Clash 配置文件？</h5></div>
     <div class="panel-body">
-        QUIC 协议基于 UDP，可减少握手延迟并在高丢包环境下保持较好体验。Hysteria2 对 QUIC 进行了优化，支持自适应拥塞控制与加密，能在移动网络中比 TCP 拥有更快的响应速度。<hr />    </div>
+        部分兼容。Sing-box 支持从 Clash 订阅转换工具导入节点，但配置语法略有不同。建议使用第三方订阅转换器，如 sub-converter，将 Clash 格式转换为 Sing-box JSON 格式使用。<hr />    </div>
 </div>
 <div class="panel panel-default">
     <div class="panel-heading"><h5>Clash 策略组如何实现节点优先级切换？</h5></div>
@@ -289,9 +289,19 @@ IPLC、IEPL中转，点对点专线连接。高速冲浪，科学上网不二选
         Hiddify Next 自带 Web 管理面板，管理员可通过浏览器管理用户、监控流量、生成订阅链接并部署节点。无需命令行操作，极大提高管理效率。<hr />    </div>
 </div>
 <div class="panel panel-default">
+    <div class="panel-heading"><h5>VMess AEAD 加密如何保证数据安全？</h5></div>
+    <div class="panel-body">
+        AEAD 加密防止数据篡改、重放攻击和流量特征泄露。在高封锁环境下使用，可保证节点长期可用，提升数据安全和连接稳定性，同时降低被检测风险。<hr />    </div>
+</div>
+<div class="panel panel-default">
     <div class="panel-heading"><h5>Potatso Lite 在新版 iOS 上无法连接怎么办？</h5></div>
     <div class="panel-body">
         苹果系统更新后，Potatso Lite 可能需要重新授权 VPN 权限。请删除旧的 VPN 配置，重新安装并导入节点。若仍无法使用，可尝试更换网络模式或等待开发者更新兼容版本。<hr />    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading"><h5>Hysteria2 的 QUIC 模式相比 TCP 有哪些优势？</h5></div>
+    <div class="panel-body">
+        QUIC 协议基于 UDP，可减少握手延迟并在高丢包环境下保持较好体验。Hysteria2 对 QUIC 进行了优化，支持自适应拥塞控制与加密，能在移动网络中比 TCP 拥有更快的响应速度。<hr />    </div>
 </div>
 <div class="panel panel-default">
     <div class="panel-heading"><h5>Nekobox 是否可以与 Shadowsocks 客户端共存？</h5></div>
@@ -299,19 +309,9 @@ IPLC、IEPL中转，点对点专线连接。高速冲浪，科学上网不二选
         可以。Nekobox 配置独立，不影响其他客户端运行。用户可以同时使用 Shadowsocks、Clash 等客户端，通过策略组或分流规则选择合适节点，互不干扰。<hr />    </div>
 </div>
 <div class="panel panel-default">
-    <div class="panel-heading"><h5>Sing-box 是否兼容 Clash 配置文件？</h5></div>
-    <div class="panel-body">
-        部分兼容。Sing-box 支持从 Clash 订阅转换工具导入节点，但配置语法略有不同。建议使用第三方订阅转换器，如 sub-converter，将 Clash 格式转换为 Sing-box JSON 格式使用。<hr />    </div>
-</div>
-<div class="panel panel-default">
     <div class="panel-heading"><h5>Potatso Lite 支持订阅链接导入吗？</h5></div>
     <div class="panel-body">
         Potatso Lite 不支持自动订阅功能，用户需手动添加节点。如果想批量导入订阅，可使用其他客户端生成节点二维码，再手动扫描添加。适合轻量使用者。<hr />    </div>
-</div>
-<div class="panel panel-default">
-    <div class="panel-heading"><h5>V2Ray QUIC 传输适合什么网络环境？</h5></div>
-    <div class="panel-body">
-        QUIC 基于 UDP 支持多路复用和零握手，降低延迟，提高吞吐量。适合高丢包、不稳定网络环境，可保证视频、游戏和即时通讯流量的稳定性和流畅体验。<hr />    </div>
 </div>
 <div class="panel panel-default">
     <div class="panel-heading"><h5>如何在 Android 手机上使用 Clash for Android？</h5></div>
@@ -364,16 +364,16 @@ IPLC、IEPL中转，点对点专线连接。高速冲浪，科学上网不二选
     </div>
     <div class="panel-body">
         <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
-                        <li class="py-2"><a href="/free-nodes/node-share-links-2026-7-29.htm" title="「7月29日」最高速度21.4M/S，2025年NekoBox每天更新免费节点订阅链接">「7月29日」最高速度21.4M/S，2025年NekoBox每天更新免费节点订阅链接</a><hr /></li>
-                        <li class="py-2"><a href="/free-nodes/2026-8-6-free-ssr-subscribe.htm" title="「8月6日」最高速度21.2M/S，2025年NekoBox每天更新免费节点订阅链接">「8月6日」最高速度21.2M/S，2025年NekoBox每天更新免费节点订阅链接</a><hr /></li>
-                        <li class="py-2"><a href="/free-nodes/2026-8-4-free-ssr-subscribe.htm" title="「8月4日」最高速度20.3M/S，2025年NekoBox每天更新免费节点订阅链接">「8月4日」最高速度20.3M/S，2025年NekoBox每天更新免费节点订阅链接</a><hr /></li>
-                        <li class="py-2"><a href="/free-nodes/2026-7-27-free-ssr-node.htm" title="「7月27日」最高速度22.2M/S，2025年NekoBox每天更新免费节点订阅链接">「7月27日」最高速度22.2M/S，2025年NekoBox每天更新免费节点订阅链接</a><hr /></li>
-                        <li class="py-2"><a href="/free-nodes/2026-7-14-free-ssr-subscribe.htm" title="「7月14日」最高速度18.3M/S，2025年NekoBox每天更新免费节点订阅链接">「7月14日」最高速度18.3M/S，2025年NekoBox每天更新免费节点订阅链接</a><hr /></li>
-                        <li class="py-2"><a href="/free-nodes/2026-7-19-free-node-subscribe-links.htm" title="「7月19日」最高速度20.2M/S，2025年NekoBox每天更新免费节点订阅链接">「7月19日」最高速度20.2M/S，2025年NekoBox每天更新免费节点订阅链接</a><hr /></li>
-                        <li class="py-2"><a href="/free-nodes/2026-7-20-clash-node.htm" title="「7月20日」最高速度19.5M/S，2025年NekoBox每天更新免费节点订阅链接">「7月20日」最高速度19.5M/S，2025年NekoBox每天更新免费节点订阅链接</a><hr /></li>
-                        <li class="py-2"><a href="/free-nodes/free-v2ray-subscribe-2026-8-5.htm" title="「8月5日」最高速度19.9M/S，2025年NekoBox每天更新免费节点订阅链接">「8月5日」最高速度19.9M/S，2025年NekoBox每天更新免费节点订阅链接</a><hr /></li>
+                        <li class="py-2"><a href="/free-nodes/2026-8-20-free-ssr-subscribe.htm" title="「8月20日」最高速度21.7M/S，2025年NekoBox每天更新免费节点订阅链接">「8月20日」最高速度21.7M/S，2025年NekoBox每天更新免费节点订阅链接</a><hr /></li>
+                        <li class="py-2"><a href="/free-nodes/free-ssr-node-2026-8-23.htm" title="「8月23日」最高速度22.1M/S，2025年NekoBox每天更新免费节点订阅链接">「8月23日」最高速度22.1M/S，2025年NekoBox每天更新免费节点订阅链接</a><hr /></li>
+                        <li class="py-2"><a href="/free-nodes/2026-8-30-free-v2ray.htm" title="「8月30日」最高速度18.6M/S，2025年NekoBox每天更新免费节点订阅链接">「8月30日」最高速度18.6M/S，2025年NekoBox每天更新免费节点订阅链接</a><hr /></li>
                         <li class="py-2"><a href="/free-nodes/2026-8-8-free-clash.htm" title="「8月8日」最高速度18.9M/S，2025年NekoBox每天更新免费节点订阅链接">「8月8日」最高速度18.9M/S，2025年NekoBox每天更新免费节点订阅链接</a><hr /></li>
-                        <li class="py-2"><a href="/free-nodes/clash-windows-2026-8-1.htm" title="「8月1日」最高速度21.5M/S，2025年NekoBox每天更新免费节点订阅链接">「8月1日」最高速度21.5M/S，2025年NekoBox每天更新免费节点订阅链接</a><hr /></li>
+                        <li class="py-2"><a href="/free-nodes/free-high-speed-nodes-2026-8-21.htm" title="「8月21日」最高速度18.7M/S，2025年NekoBox每天更新免费节点订阅链接">「8月21日」最高速度18.7M/S，2025年NekoBox每天更新免费节点订阅链接</a><hr /></li>
+                        <li class="py-2"><a href="/free-nodes/2026-8-12-free-node-subscribe.htm" title="「8月12日」最高速度19.8M/S，2025年NekoBox每天更新免费节点订阅链接">「8月12日」最高速度19.8M/S，2025年NekoBox每天更新免费节点订阅链接</a><hr /></li>
+                        <li class="py-2"><a href="/free-nodes/free-node-subscribe-links-2026-8-7.htm" title="「8月7日」最高速度22.3M/S，2025年NekoBox每天更新免费节点订阅链接">「8月7日」最高速度22.3M/S，2025年NekoBox每天更新免费节点订阅链接</a><hr /></li>
+                        <li class="py-2"><a href="/free-nodes/free-subscribe-node-2026-8-31.htm" title="「8月31日」最高速度21.1M/S，2025年NekoBox每天更新免费节点订阅链接">「8月31日」最高速度21.1M/S，2025年NekoBox每天更新免费节点订阅链接</a><hr /></li>
+                        <li class="py-2"><a href="/free-nodes/shadowrocket-node-2026-9-1.htm" title="「9月1日」最高速度19.3M/S，2025年NekoBox每天更新免费节点订阅链接">「9月1日」最高速度19.3M/S，2025年NekoBox每天更新免费节点订阅链接</a><hr /></li>
+                        <li class="py-2"><a href="/free-nodes/2026-8-26-free-shadowrocket-node.htm" title="「8月26日」最高速度18.7M/S，2025年NekoBox每天更新免费节点订阅链接">「8月26日」最高速度18.7M/S，2025年NekoBox每天更新免费节点订阅链接</a><hr /></li>
                     </ul>
     </div>
 </div>
@@ -385,10 +385,10 @@ IPLC、IEPL中转，点对点专线连接。高速冲浪，科学上网不二选
     <div class="panel-body">
         <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
                         <li class="py-2">
-                <h4><span class="badge" style="float: right;">13</span> <a href="/date/2026-08/" title="2026-08 归档">2026-08</a></h4>
+                <h4><span class="badge" style="float: right;">4</span> <a href="/date/2026-09/" title="2026-09 归档">2026-09</a></h4>
             </li>
                         <li class="py-2">
-                <h4><span class="badge" style="float: right;">19</span> <a href="/date/2026-07/" title="2026-07 归档">2026-07</a></h4>
+                <h4><span class="badge" style="float: right;">26</span> <a href="/date/2026-08/" title="2026-08 归档">2026-08</a></h4>
             </li>
                     </ul>
     </div>

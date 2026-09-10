@@ -412,24 +412,9 @@ bash &lt;(curl -Ls https://raw.githubusercontent.com/wulabing/V2Ray_ws-tls_bash_
     </div>
 <h4>FAQ</h4>
 <div class="panel panel-default">
-    <div class="panel-heading"><h5>Quantumult X 可以用脚本自动切换节点吗？</h5></div>
+    <div class="panel-heading"><h5>V2Ray 中的 alterId 是什么，现在还有必要配置吗？</h5></div>
     <div class="panel-body">
-        可以。Quantumult X 支持通过脚本逻辑判断网络延迟或连接失败情况，并自动切换节点。用户可以编写自定义 JS 规则，从而实现智能代理与按需分流，适合高级用户使用。<hr />    </div>
-</div>
-<div class="panel panel-default">
-    <div class="panel-heading"><h5>Hysteria2 使用哪种加密算法？</h5></div>
-    <div class="panel-body">
-        Hysteria2 默认使用 AEAD 加密算法（如 ChaCha20-Poly1305），并可结合 TLS 层加密保障安全性。其设计兼顾速度与抗干扰能力，适合高延迟跨境网络环境。<hr />    </div>
-</div>
-<div class="panel panel-default">
-    <div class="panel-heading"><h5>WinXray 是否支持订阅自动更新？</h5></div>
-    <div class="panel-body">
-        是的，WinXray 支持定时订阅更新。用户可在设置中开启自动更新周期（如每天或每小时），程序会自动下载新节点并替换旧配置，确保使用最新的线路资源。<hr />    </div>
-</div>
-<div class="panel panel-default">
-    <div class="panel-heading"><h5>SSR 的协议插件如何增强安全性？</h5></div>
-    <div class="panel-body">
-        协议插件可隐藏真实流量特征并模拟正常协议，防止被封锁或 DPI 检测。结合加密方式和混淆方法，可以提升节点的稳定性和长期可用性，保证数据传输安全。<hr />    </div>
+        alterId 曾用于 VMess 的用户混淆机制以防止重放攻击，但在 V2Ray 新版本与 VLess 出现后，alterId 已不再推荐使用。现代配置多使用 UUID 或直接迁移至 VLess/XTLS 以获得更好性能与安全性。<hr />    </div>
 </div>
 <div class="panel panel-default">
     <div class="panel-heading"><h5>Surfboard 能否同步 iCloud 配置？</h5></div>
@@ -437,9 +422,9 @@ bash &lt;(curl -Ls https://raw.githubusercontent.com/wulabing/V2Ray_ws-tls_bash_
         可以。Surfboard 支持 iCloud 同步功能，用户可在不同苹果设备上共享同一配置文件。这样即使更换手机或重装系统，也能自动恢复节点与分流设置。<hr />    </div>
 </div>
 <div class="panel panel-default">
-    <div class="panel-heading"><h5>V2Ray 的路由规则如何实现按应用分流？</h5></div>
+    <div class="panel-heading"><h5>Surfboard 如何结合规则屏蔽广告？</h5></div>
     <div class="panel-body">
-        V2Ray 支持按用户标签或端口匹配应用流量，结合策略组可实现指定应用走特定节点。这样可以保证游戏、视频和浏览器流量各自走最优线路，提高访问效率。<hr />    </div>
+        Surfboard 可通过规则文件匹配广告域名或 URL，并将其重定向或阻断。结合策略组自动更新规则，可实现广告屏蔽，提高浏览体验和节省带宽。<hr />    </div>
 </div>
 <div class="panel panel-default">
     <div class="panel-heading"><h5>Matsuri 节点延迟排序如何结合策略组使用？</h5></div>
@@ -447,19 +432,34 @@ bash &lt;(curl -Ls https://raw.githubusercontent.com/wulabing/V2Ray_ws-tls_bash_
         Matsuri 会定期测速节点延迟，通过策略组自动选择低延迟、高稳定性的节点处理不同流量。无需手动切换，确保网页浏览、视频播放和游戏访问顺畅。<hr />    </div>
 </div>
 <div class="panel panel-default">
+    <div class="panel-heading"><h5>SSR 的协议插件如何增强安全性？</h5></div>
+    <div class="panel-body">
+        协议插件可隐藏真实流量特征并模拟正常协议，防止被封锁或 DPI 检测。结合加密方式和混淆方法，可以提升节点的稳定性和长期可用性，保证数据传输安全。<hr />    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading"><h5>WinXray 是否支持订阅自动更新？</h5></div>
+    <div class="panel-body">
+        是的，WinXray 支持定时订阅更新。用户可在设置中开启自动更新周期（如每天或每小时），程序会自动下载新节点并替换旧配置，确保使用最新的线路资源。<hr />    </div>
+</div>
+<div class="panel panel-default">
     <div class="panel-heading"><h5>VLESS 的 Reality 模式需要额外配置吗？</h5></div>
     <div class="panel-body">
         Reality 模式需要配置伪装域名、公钥和服务器指纹等参数。正确配置后，可有效隐藏流量特征，提高在高封锁环境下的可用性和安全性。<hr />    </div>
 </div>
 <div class="panel panel-default">
-    <div class="panel-heading"><h5>Surfboard 如何结合规则屏蔽广告？</h5></div>
+    <div class="panel-heading"><h5>V2Ray 的路由规则如何实现按应用分流？</h5></div>
     <div class="panel-body">
-        Surfboard 可通过规则文件匹配广告域名或 URL，并将其重定向或阻断。结合策略组自动更新规则，可实现广告屏蔽，提高浏览体验和节省带宽。<hr />    </div>
+        V2Ray 支持按用户标签或端口匹配应用流量，结合策略组可实现指定应用走特定节点。这样可以保证游戏、视频和浏览器流量各自走最优线路，提高访问效率。<hr />    </div>
 </div>
 <div class="panel panel-default">
-    <div class="panel-heading"><h5>V2Ray 中的 alterId 是什么，现在还有必要配置吗？</h5></div>
+    <div class="panel-heading"><h5>Hysteria2 使用哪种加密算法？</h5></div>
     <div class="panel-body">
-        alterId 曾用于 VMess 的用户混淆机制以防止重放攻击，但在 V2Ray 新版本与 VLess 出现后，alterId 已不再推荐使用。现代配置多使用 UUID 或直接迁移至 VLess/XTLS 以获得更好性能与安全性。    </div>
+        Hysteria2 默认使用 AEAD 加密算法（如 ChaCha20-Poly1305），并可结合 TLS 层加密保障安全性。其设计兼顾速度与抗干扰能力，适合高延迟跨境网络环境。<hr />    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading"><h5>Quantumult X 可以用脚本自动切换节点吗？</h5></div>
+    <div class="panel-body">
+        可以。Quantumult X 支持通过脚本逻辑判断网络延迟或连接失败情况，并自动切换节点。用户可以编写自定义 JS 规则，从而实现智能代理与按需分流，适合高级用户使用。    </div>
 </div>
 <div class="panel panel-default mt-5">
     <div class="panel-heading">
@@ -507,16 +507,16 @@ bash &lt;(curl -Ls https://raw.githubusercontent.com/wulabing/V2Ray_ws-tls_bash_
     </div>
     <div class="panel-body">
         <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
-                        <li class="py-2"><a href="/free-nodes/2026-7-23-free-clash-subscribe.htm" title="「7月23日」最高速度18.5M/S，2025年NekoBox每天更新免费节点订阅链接">「7月23日」最高速度18.5M/S，2025年NekoBox每天更新免费节点订阅链接</a><hr /></li>
-                        <li class="py-2"><a href="/free-nodes/free-v2ray-subscribe-2026-8-13.htm" title="「8月13日」最高速度21.5M/S，2025年NekoBox每天更新免费节点订阅链接">「8月13日」最高速度21.5M/S，2025年NekoBox每天更新免费节点订阅链接</a><hr /></li>
-                        <li class="py-2"><a href="/free-nodes/node-share-links-2026-7-29.htm" title="「7月29日」最高速度21.4M/S，2025年NekoBox每天更新免费节点订阅链接">「7月29日」最高速度21.4M/S，2025年NekoBox每天更新免费节点订阅链接</a><hr /></li>
-                        <li class="py-2"><a href="/free-nodes/2026-8-2-node-share.htm" title="「8月2日」最高速度19.3M/S，2025年NekoBox每天更新免费节点订阅链接">「8月2日」最高速度19.3M/S，2025年NekoBox每天更新免费节点订阅链接</a><hr /></li>
-                        <li class="py-2"><a href="/free-nodes/2026-7-21-free-clash-subscribe.htm" title="「7月21日」最高速度19.6M/S，2025年NekoBox每天更新免费节点订阅链接">「7月21日」最高速度19.6M/S，2025年NekoBox每天更新免费节点订阅链接</a><hr /></li>
-                        <li class="py-2"><a href="/free-nodes/free-clash-subscribe-2026-7-31.htm" title="「7月31日」最高速度20.1M/S，2025年NekoBox每天更新免费节点订阅链接">「7月31日」最高速度20.1M/S，2025年NekoBox每天更新免费节点订阅链接</a><hr /></li>
-                        <li class="py-2"><a href="/free-nodes/free-v2ray-subscribe-2026-8-5.htm" title="「8月5日」最高速度19.9M/S，2025年NekoBox每天更新免费节点订阅链接">「8月5日」最高速度19.9M/S，2025年NekoBox每天更新免费节点订阅链接</a><hr /></li>
+                        <li class="py-2"><a href="/free-nodes/shadowrocket-node-2026-8-19.htm" title="「8月19日」最高速度21M/S，2025年NekoBox每天更新免费节点订阅链接">「8月19日」最高速度21M/S，2025年NekoBox每天更新免费节点订阅链接</a><hr /></li>
+                        <li class="py-2"><a href="/free-nodes/2026-8-12-free-node-subscribe.htm" title="「8月12日」最高速度19.8M/S，2025年NekoBox每天更新免费节点订阅链接">「8月12日」最高速度19.8M/S，2025年NekoBox每天更新免费节点订阅链接</a><hr /></li>
                         <li class="py-2"><a href="/free-nodes/2026-8-6-free-ssr-subscribe.htm" title="「8月6日」最高速度21.2M/S，2025年NekoBox每天更新免费节点订阅链接">「8月6日」最高速度21.2M/S，2025年NekoBox每天更新免费节点订阅链接</a><hr /></li>
-                        <li class="py-2"><a href="/free-nodes/2026-8-16-free-v2ray.htm" title="「8月16日」最高速度18.4M/S，2025年NekoBox每天更新免费节点订阅链接">「8月16日」最高速度18.4M/S，2025年NekoBox每天更新免费节点订阅链接</a><hr /></li>
-                        <li class="py-2"><a href="/free-nodes/2026-8-4-free-ssr-subscribe.htm" title="「8月4日」最高速度20.3M/S，2025年NekoBox每天更新免费节点订阅链接">「8月4日」最高速度20.3M/S，2025年NekoBox每天更新免费节点订阅链接</a><hr /></li>
+                        <li class="py-2"><a href="/free-nodes/free-subscribe-node-2026-8-31.htm" title="「8月31日」最高速度21.1M/S，2025年NekoBox每天更新免费节点订阅链接">「8月31日」最高速度21.1M/S，2025年NekoBox每天更新免费节点订阅链接</a><hr /></li>
+                        <li class="py-2"><a href="/free-nodes/free-high-speed-nodes-2026-9-3.htm" title="「9月3日」最高速度19.9M/S，2025年NekoBox每天更新免费节点订阅链接">「9月3日」最高速度19.9M/S，2025年NekoBox每天更新免费节点订阅链接</a><hr /></li>
+                        <li class="py-2"><a href="/free-nodes/2026-8-18-node-share.htm" title="「8月18日」最高速度23M/S，2025年NekoBox每天更新免费节点订阅链接">「8月18日」最高速度23M/S，2025年NekoBox每天更新免费节点订阅链接</a><hr /></li>
+                        <li class="py-2"><a href="/free-nodes/2026-8-14-free-ssr-subscribe.htm" title="「8月14日」最高速度22.2M/S，2025年NekoBox每天更新免费节点订阅链接">「8月14日」最高速度22.2M/S，2025年NekoBox每天更新免费节点订阅链接</a><hr /></li>
+                        <li class="py-2"><a href="/free-nodes/2026-8-22-clash-node-daily-updates.htm" title="「8月22日」最高速度19.7M/S，2025年NekoBox每天更新免费节点订阅链接">「8月22日」最高速度19.7M/S，2025年NekoBox每天更新免费节点订阅链接</a><hr /></li>
+                        <li class="py-2"><a href="/free-nodes/2026-8-26-free-shadowrocket-node.htm" title="「8月26日」最高速度18.7M/S，2025年NekoBox每天更新免费节点订阅链接">「8月26日」最高速度18.7M/S，2025年NekoBox每天更新免费节点订阅链接</a><hr /></li>
+                        <li class="py-2"><a href="/free-nodes/free-node-subscribe-links-2026-8-7.htm" title="「8月7日」最高速度22.3M/S，2025年NekoBox每天更新免费节点订阅链接">「8月7日」最高速度22.3M/S，2025年NekoBox每天更新免费节点订阅链接</a><hr /></li>
                     </ul>
     </div>
 </div>
@@ -528,10 +528,10 @@ bash &lt;(curl -Ls https://raw.githubusercontent.com/wulabing/V2Ray_ws-tls_bash_
     <div class="panel-body">
         <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
                         <li class="py-2">
-                <h4><span class="badge" style="float: right;">20</span> <a href="/date/2026-08/" title="2026-08 归档">2026-08</a></h4>
+                <h4><span class="badge" style="float: right;">4</span> <a href="/date/2026-09/" title="2026-09 归档">2026-09</a></h4>
             </li>
                         <li class="py-2">
-                <h4><span class="badge" style="float: right;">13</span> <a href="/date/2026-07/" title="2026-07 归档">2026-07</a></h4>
+                <h4><span class="badge" style="float: right;">26</span> <a href="/date/2026-08/" title="2026-08 归档">2026-08</a></h4>
             </li>
                     </ul>
     </div>
