@@ -305,24 +305,19 @@ V3.0版本是一个面向所有用户的版本，尤其适合新手用户。它�
     </div>
 <h4>FAQ</h4>
 <div class="panel panel-default">
+    <div class="panel-heading"><h5>Matsuri 如何提升节点连接效率？</h5></div>
+    <div class="panel-body">
+        Matsuri 是一个支持多协议的代理工具，强调快速连接与自动切换功能。它可以根据延迟自动选择最优节点，减少手动切换的繁琐过程，保证网络体验的流畅性。<hr />    </div>
+</div>
+<div class="panel panel-default">
     <div class="panel-heading"><h5>WinXray 的 PAC 模式适合哪些使用场景？</h5></div>
     <div class="panel-body">
         PAC 模式可根据规则文件动态判断流量是否走代理。适合访问国内外混合网站环境，无需手动切换节点，程序自动分流，提高网络访问效率和稳定性。<hr />    </div>
 </div>
 <div class="panel panel-default">
-    <div class="panel-heading"><h5>VLESS + XTLS 在移动网络的优势？</h5></div>
+    <div class="panel-heading"><h5>VMess MUX 功能如何改善短连接延迟？</h5></div>
     <div class="panel-body">
-        XTLS 模式减少握手次数和加密开销，适合高延迟或不稳定的移动网络。结合策略组和多节点切换，可提升网页浏览、视频播放和游戏的连接稳定性和流畅度。<hr />    </div>
-</div>
-<div class="panel panel-default">
-    <div class="panel-heading"><h5>VLESS + XTLS 模式在移动网络下表现如何？</h5></div>
-    <div class="panel-body">
-        XTLS 降低加密开销，减少握手次数，适合高延迟或不稳定的移动网络。结合策略组和多出口节点，可提升访问速度和连接稳定性，确保用户体验流畅。<hr />    </div>
-</div>
-<div class="panel panel-default">
-    <div class="panel-heading"><h5>QuantumultX 可以按协议类型分流吗？</h5></div>
-    <div class="panel-body">
-        支持。用户可按 TCP、UDP 或特定应用协议分流流量，结合策略组，实现游戏加速、视频优化或广告屏蔽等定制化网络策略，提高访问速度和稳定性。<hr />    </div>
+        VMess MUX 多路复用可以将多个短连接共享同一 TCP 或 QUIC 隧道，减少重复握手和连接延迟，特别适合游戏、即时通讯或频繁请求的场景，有效提升响应速度。<hr />    </div>
 </div>
 <div class="panel panel-default">
     <div class="panel-heading"><h5>VMess 的 TLS+伪装模式适合什么情况？</h5></div>
@@ -330,19 +325,14 @@ V3.0版本是一个面向所有用户的版本，尤其适合新手用户。它�
         TLS+伪装模式能隐藏真实流量特征，适用于封锁严格的环境。结合域名伪装和证书配置，可以使流量看似普通 HTTPS 请求，提高安全性和抗封锁能力。<hr />    </div>
 </div>
 <div class="panel panel-default">
-    <div class="panel-heading"><h5>如何在 macOS 上运行 ClashX？</h5></div>
+    <div class="panel-heading"><h5>VLESS + XTLS 模式在移动网络下表现如何？</h5></div>
     <div class="panel-body">
-        ClashX 是 macOS 平台专用客户端，用户可在 GitHub 下载 DMG 安装包。安装后导入订阅即可使用，支持系统代理集成、自动更新和延迟测试。界面简洁直观，深受苹果用户欢迎。<hr />    </div>
+        XTLS 降低加密开销，减少握手次数，适合高延迟或不稳定的移动网络。结合策略组和多出口节点，可提升访问速度和连接稳定性，确保用户体验流畅。<hr />    </div>
 </div>
 <div class="panel panel-default">
-    <div class="panel-heading"><h5>Matsuri 如何提升节点连接效率？</h5></div>
+    <div class="panel-heading"><h5>VLESS + XTLS 在移动网络的优势？</h5></div>
     <div class="panel-body">
-        Matsuri 是一个支持多协议的代理工具，强调快速连接与自动切换功能。它可以根据延迟自动选择最优节点，减少手动切换的繁琐过程，保证网络体验的流畅性。<hr />    </div>
-</div>
-<div class="panel panel-default">
-    <div class="panel-heading"><h5>Mellow TUN 模式与 SOCKS5 代理有什么区别？</h5></div>
-    <div class="panel-body">
-        TUN 模式拦截系统 IP 层流量，实现全局代理；SOCKS5 代理通常只影响指定应用。TUN 更适合全局加速，如游戏、视频和浏览器流量，提高网络稳定性和覆盖范围。<hr />    </div>
+        XTLS 模式减少握手次数和加密开销，适合高延迟或不稳定的移动网络。结合策略组和多节点切换，可提升网页浏览、视频播放和游戏的连接稳定性和流畅度。<hr />    </div>
 </div>
 <div class="panel panel-default">
     <div class="panel-heading"><h5>Surfboard 与 Shadowrocket 有什么区别？</h5></div>
@@ -350,9 +340,19 @@ V3.0版本是一个面向所有用户的版本，尤其适合新手用户。它�
         两者都是 iOS 上的代理工具。Shadowrocket 功能更全面、更新更频繁，而 Surfboard 以轻量和快速见长。若只需简单分流与节点切换，Surfboard 足以满足日常使用。<hr />    </div>
 </div>
 <div class="panel panel-default">
-    <div class="panel-heading"><h5>VMess MUX 功能如何改善短连接延迟？</h5></div>
+    <div class="panel-heading"><h5>Mellow TUN 模式与 SOCKS5 代理有什么区别？</h5></div>
     <div class="panel-body">
-        VMess MUX 多路复用可以将多个短连接共享同一 TCP 或 QUIC 隧道，减少重复握手和连接延迟，特别适合游戏、即时通讯或频繁请求的场景，有效提升响应速度。    </div>
+        TUN 模式拦截系统 IP 层流量，实现全局代理；SOCKS5 代理通常只影响指定应用。TUN 更适合全局加速，如游戏、视频和浏览器流量，提高网络稳定性和覆盖范围。<hr />    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading"><h5>QuantumultX 可以按协议类型分流吗？</h5></div>
+    <div class="panel-body">
+        支持。用户可按 TCP、UDP 或特定应用协议分流流量，结合策略组，实现游戏加速、视频优化或广告屏蔽等定制化网络策略，提高访问速度和稳定性。<hr />    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading"><h5>如何在 macOS 上运行 ClashX？</h5></div>
+    <div class="panel-body">
+        ClashX 是 macOS 平台专用客户端，用户可在 GitHub 下载 DMG 安装包。安装后导入订阅即可使用，支持系统代理集成、自动更新和延迟测试。界面简洁直观，深受苹果用户欢迎。    </div>
 </div>
 <div class="panel panel-default mt-5">
     <div class="panel-heading">
@@ -400,16 +400,16 @@ V3.0版本是一个面向所有用户的版本，尤其适合新手用户。它�
     </div>
     <div class="panel-body">
         <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
-                        <li class="py-2"><a href="/free-nodes/2026-9-14-free-node-subscribe.htm" title="「9月14日」最高速度19.4M/S，2025年NekoBox每天更新免费节点订阅链接">「9月14日」最高速度19.4M/S，2025年NekoBox每天更新免费节点订阅链接</a><hr /></li>
-                        <li class="py-2"><a href="/free-nodes/free-v2ray-subscribe-2026-9-11.htm" title="「9月11日」最高速度18.7M/S，2025年NekoBox每天更新免费节点订阅链接">「9月11日」最高速度18.7M/S，2025年NekoBox每天更新免费节点订阅链接</a><hr /></li>
-                        <li class="py-2"><a href="/free-nodes/2026-9-24-clash-node-daily-updates.htm" title="「9月24日」最高速度19.8M/S，2025年NekoBox每天更新免费节点订阅链接">「9月24日」最高速度19.8M/S，2025年NekoBox每天更新免费节点订阅链接</a><hr /></li>
-                        <li class="py-2"><a href="/free-nodes/2026-9-6-free-v2ray.htm" title="「9月6日」最高速度21.9M/S，2025年NekoBox每天更新免费节点订阅链接">「9月6日」最高速度21.9M/S，2025年NekoBox每天更新免费节点订阅链接</a><hr /></li>
+                        <li class="py-2"><a href="/free-nodes/2026-9-26-free-shadowrocket-node.htm" title="「9月26日」最高速度18.8M/S，2025年NekoBox每天更新免费节点订阅链接">「9月26日」最高速度18.8M/S，2025年NekoBox每天更新免费节点订阅链接</a><hr /></li>
+                        <li class="py-2"><a href="/free-nodes/2026-9-18-free-clash.htm" title="「9月18日」最高速度18.8M/S，2025年NekoBox每天更新免费节点订阅链接">「9月18日」最高速度18.8M/S，2025年NekoBox每天更新免费节点订阅链接</a><hr /></li>
+                        <li class="py-2"><a href="/free-nodes/2026-9-30-free-clash.htm" title="「9月30日」最高速度21.7M/S，2025年NekoBox每天更新免费节点订阅链接">「9月30日」最高速度21.7M/S，2025年NekoBox每天更新免费节点订阅链接</a><hr /></li>
                         <li class="py-2"><a href="/free-nodes/free-v2ray-subscribe-2026-9-19.htm" title="「9月19日」最高速度22.3M/S，2025年NekoBox每天更新免费节点订阅链接">「9月19日」最高速度22.3M/S，2025年NekoBox每天更新免费节点订阅链接</a><hr /></li>
-                        <li class="py-2"><a href="/free-nodes/shadowrocket-node-2026-8-19.htm" title="「8月19日」最高速度21M/S，2025年NekoBox每天更新免费节点订阅链接">「8月19日」最高速度21M/S，2025年NekoBox每天更新免费节点订阅链接</a><hr /></li>
-                        <li class="py-2"><a href="/free-nodes/2026-9-16-free-node-subscribe.htm" title="「9月16日」最高速度20.6M/S，2025年NekoBox每天更新免费节点订阅链接">「9月16日」最高速度20.6M/S，2025年NekoBox每天更新免费节点订阅链接</a><hr /></li>
-                        <li class="py-2"><a href="/free-nodes/2026-8-24-clash-node.htm" title="「8月24日」最高速度18.8M/S，2025年NekoBox每天更新免费节点订阅链接">「8月24日」最高速度18.8M/S，2025年NekoBox每天更新免费节点订阅链接</a><hr /></li>
-                        <li class="py-2"><a href="/free-nodes/free-ssr-node-2026-8-11.htm" title="「8月11日」最高速度18.3M/S，2025年NekoBox每天更新免费节点订阅链接">「8月11日」最高速度18.3M/S，2025年NekoBox每天更新免费节点订阅链接</a><hr /></li>
-                        <li class="py-2"><a href="/free-nodes/2026-9-10-clash-node-daily-updates.htm" title="「9月10日」最高速度20.1M/S，2025年NekoBox每天更新免费节点订阅链接">「9月10日」最高速度20.1M/S，2025年NekoBox每天更新免费节点订阅链接</a><hr /></li>
+                        <li class="py-2"><a href="/free-nodes/2026-8-6-free-ssr-subscribe.htm" title="「8月6日」最高速度21.2M/S，2025年NekoBox每天更新免费节点订阅链接">「8月6日」最高速度21.2M/S，2025年NekoBox每天更新免费节点订阅链接</a><hr /></li>
+                        <li class="py-2"><a href="/free-nodes/shadowrocket-node-2026-9-1.htm" title="「9月1日」最高速度19.3M/S，2025年NekoBox每天更新免费节点订阅链接">「9月1日」最高速度19.3M/S，2025年NekoBox每天更新免费节点订阅链接</a><hr /></li>
+                        <li class="py-2"><a href="/free-nodes/2026-8-8-free-clash.htm" title="「8月8日」最高速度18.9M/S，2025年NekoBox每天更新免费节点订阅链接">「8月8日」最高速度18.9M/S，2025年NekoBox每天更新免费节点订阅链接</a><hr /></li>
+                        <li class="py-2"><a href="/free-nodes/2026-9-22-free-clash.htm" title="「9月22日」最高速度18.3M/S，2025年NekoBox每天更新免费节点订阅链接">「9月22日」最高速度18.3M/S，2025年NekoBox每天更新免费节点订阅链接</a><hr /></li>
+                        <li class="py-2"><a href="/free-nodes/2026-9-20-clash-node-daily-updates.htm" title="「9月20日」最高速度19M/S，2025年NekoBox每天更新免费节点订阅链接">「9月20日」最高速度19M/S，2025年NekoBox每天更新免费节点订阅链接</a><hr /></li>
+                        <li class="py-2"><a href="/free-nodes/free-subscribe-node-2026-8-31.htm" title="「8月31日」最高速度21.1M/S，2025年NekoBox每天更新免费节点订阅链接">「8月31日」最高速度21.1M/S，2025年NekoBox每天更新免费节点订阅链接</a><hr /></li>
                     </ul>
     </div>
 </div>
@@ -421,7 +421,10 @@ V3.0版本是一个面向所有用户的版本，尤其适合新手用户。它�
     <div class="panel-body">
         <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
                         <li class="py-2">
-                <h4><span class="badge" style="float: right;">24</span> <a href="/date/2026-09/" title="2026-09 归档">2026-09</a></h4>
+                <h4><span class="badge" style="float: right;">1</span> <a href="/date/2026-10/" title="2026-10 归档">2026-10</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">30</span> <a href="/date/2026-09/" title="2026-09 归档">2026-09</a></h4>
             </li>
                         <li class="py-2">
                 <h4><span class="badge" style="float: right;">26</span> <a href="/date/2026-08/" title="2026-08 归档">2026-08</a></h4>
